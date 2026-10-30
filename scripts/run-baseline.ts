@@ -9,6 +9,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { generateText } from 'ai';
 import { createOpenRouter } from '@openrouter/ai-sdk-provider';
+import { runPool } from '../src/lib/pool.js';
 
 // Pin exact model IDs so runs are reproducible. Check them on openrouter.ai/models.
 const MODELS = ['qwen/qwen3.8-27b', 'mistralai/mistral-small-2603'];
@@ -128,22 +129,6 @@ async function askOne(modelId: string, q: Question): Promise<RunResult> {
       costUsd: null,
     };
   }
-}
-
-// Runs tasks with at most `limit` in flight at once.
-async function runPool<T>(tasks: (() => Promise<T>)[], limit: number): Promise<T[]> {
-  const results: T[] = new Array(tasks.length);
-  let next = 0;
-  async function worker() {
-    while (next < tasks.length) {
-      const i = next++;
-      const task = tasks[i];
-      if (!task) break;
-      results[i] = await task();
-    }
-  }
-  await Promise.all(Array.from({ length: Math.min(limit, tasks.length) }, worker));
-  return results;
 }
 
 function summarize(results: RunResult[]) {
