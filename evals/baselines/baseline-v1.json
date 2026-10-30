@@ -1,0 +1,758 @@
+{
+  "models": [
+    "qwen/qwen3.8-27b",
+    "mistralai/mistral-small-2603"
+  ],
+  "instructions": "You are an expert on the Vercel AI SDK (the \"ai\" npm package), latest version.\nAnswer the developer's question concisely, with a short TypeScript example when useful.\nIf you are not sure or don't have the information, say so instead of guessing.",
+  "settings": {
+    "REASONING_MAX_TOKENS": 4000,
+    "MAX_OUTPUT_TOKENS": 12000,
+    "temperature": 0
+  },
+  "results": [
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q01",
+      "answerable": true,
+      "status": "fail",
+      "answer": "Pass the `system` option directly on the `generateText` call:\n\n```ts\nimport { generateText } from 'ai';\nimport { openai } from '@ai-sdk/openai';\n\nconst { text } = await generateText({\n  model: openai('gpt-4o'),\n  system: 'You are a helpful assistant that answers in French.',\n  prompt: 'What is the capital of France?',\n});\n```\n\n`system` is a top-level string parameter alongside `model`, `prompt`/`messages`, and other options. It maps to the system message in the underlying provider's API.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "instructions"
+      ],
+      "staleHits": [
+        "system:"
+      ],
+      "latencyMs": 3606,
+      "inputTokens": 117,
+      "outputTokens": 359,
+      "reasoningTokens": 225,
+      "costUsd": 0.0009209
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q02",
+      "answerable": true,
+      "status": "fail",
+      "answer": "\n\n## Why\n\nThe `messages` parameter in `generateText` / `streamText` only accepts `CoreMessage[]`, which is:\n\n```ts\ntype CoreMessage =\n  | { role: 'user'; content: string }\n  | { role: 'assistant'; content: string }\n```\n\nThere is **no** `role: 'system'` variant. System prompts are a separate top-level option.\n\n## Fix\n\nPull the system message out of your stored array and pass it via the `system` parameter:\n\n```ts\nimport { generateText } from 'ai';\n\n// messages loaded from your DB (includes a system message)\nconst storedMessages = [\n  { role: 'system', content: 'You are a helpful assistant.' },\n  { role: 'user', content: 'Hi' },\n  { role: 'assistant', content: 'Hello!' },\n  { role: 'user', content: 'How are you?' },\n];\n\n// Split them\nconst system = storedMessages\n  .filter((m) => m.role === 'system')\n  .map((m) => m.content)\n  .join('\\n');\n\nconst messages = storedMessages.filter((m) => m.role !== 'system');\n\nconst { text } = await generateText({\n  model: 'gpt-4o',\n  system,          // ← system prompt goes here\n  messages,        // ← only user / assistant messages\n});\n```\n\n## If you store messages in a DB\n\nA clean pattern is to keep the system prompt in a separate column (or config) rather than mixing it into the messages table:\n\n```ts\n// DB row\n{\n  systemPrompt: 'You are a helpful assistant.',\n  messages: [\n    { role: 'user', content: 'Hi' },\n    { role: 'assistant', content: 'Hello!' },\n  ],\n}\n```\n\nThen the call is straightforward:\n\n```ts\nconst { text } = await generateText({\n  model: 'gpt-4o',\n  system: row.systemPrompt,\n  messages: row.messages,\n});\n```\n\nThis avoids the filtering step entirely and keeps your schema aligned with what the SDK expects.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "instructions",
+        "allowSystemInMessages"
+      ],
+      "staleHits": [],
+      "latencyMs": 14375,
+      "inputTokens": 136,
+      "outputTokens": 689,
+      "reasoningTokens": 207,
+      "costUsd": 0.00139482
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q03",
+      "answerable": true,
+      "status": "fail",
+      "answer": "## Node.js Version\n\nThe `ai` package (v4+) requires **Node.js 18 or later**.\n\n## `require()` — No\n\nThe `ai` package is **ESM-only** (its `package.json` has `\"type\": \"module\"` and ships no CJS build). You cannot use `require()` on it.\n\n### What to do instead\n\n**If your project is ESM** (`.mjs`, or `\"type\": \"module\"` in `package.json`):\n\n```ts\nimport { generateText } from 'ai';\n```\n\n**If you're stuck in a CJS file** (`.cjs` or a project without `\"type\": \"module\"`), use a dynamic `import()`:\n\n```js\n// server.cjs\nasync function main() {\n  const { generateText } = await import('ai');\n  const { text } = await generateText({\n    model: openai('gpt-4o'),\n    prompt: 'Hello',\n  });\n  console.log(text);\n}\n\nmain();\n```\n\n> **Tip:** The cleanest long-term fix is to migrate your project to ESM (`\"type\": \"module\"` in `package.json`). Most modern tooling (Next.js, Vite, ts-node with `--esm`, etc.) handles this transparently.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "22"
+      ],
+      "staleHits": [],
+      "latencyMs": 7983,
+      "inputTokens": 119,
+      "outputTokens": 642,
+      "reasoningTokens": 356,
+      "costUsd": 0.0016288
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q04",
+      "answerable": true,
+      "status": "fail",
+      "answer": "\n\nUse the `maxSteps` option on `generateText` or `streamText`. It caps the number of tool-calling iterations before the loop stops.\n\n```ts\nimport { generateText } from \"ai\";\nimport { openai } from \"@ai-sdk/openai\";\n\nconst result = await generateText({\n  model: openai(\"gpt-4o\"),\n  prompt: \"What's the weather in Paris and Tokyo?\",\n  tools: {\n    getWeather: {\n      description: \"Get current weather for a city\",\n      parameters: z.object({ city: z.string() }),\n      execute: async ({ city }) => ({ temp: 22, condition: \"sunny\" }),\n    },\n  },\n  maxSteps: 5, // stops after 5 tool-calling iterations\n});\n\nconsole.log(result.text);\nconsole.log(result.steps.length); // ≤ 5\n```\n\n**Key points:**\n\n| `maxSteps` | Behavior |\n|---|---|\n| `1` (default) | Single inference, no tool loop |\n| `5` | Model can call tools up to 5 times |\n| `Infinity` | Loop until the model stops calling tools |\n\nEach \"step\" is one model inference + any tool executions that follow. Once the limit is hit, the SDK returns whatever the model produced on the last step (it won't error out).",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "stopWhen",
+        "isStepCount"
+      ],
+      "staleHits": [
+        "maxSteps"
+      ],
+      "latencyMs": 10419,
+      "inputTokens": 116,
+      "outputTokens": 446,
+      "reasoningTokens": 142,
+      "costUsd": 0.00090918
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q05",
+      "answerable": true,
+      "status": "fail",
+      "answer": "\n\n## `Agent` class\n\nYou use the **`Agent`** class from the `ai` package (AI SDK 4.x+).\n\n```ts\nimport { Agent } from 'ai';\n\nconst agent = new Agent({\n  model: 'gpt-4o',\n  tools: {\n    getWeather: {\n      description: 'Get the weather for a location',\n      parameters: z.object({ location: z.string() }),\n      execute: async ({ location }) => `Sunny in ${location}`,\n    },\n  },\n  maxSteps: 5, // ← controls how many LLM calls the agent makes\n});\n\nconst result = await agent.generate('What is the weather in Paris?');\n```\n\n### Default `maxSteps`\n\nThe default is **1**. That means the agent makes a single LLM call and stops — even if the model returns tool calls, it won't automatically execute them and loop back.\n\nSet `maxSteps` higher (e.g. `5` or `10`) to let the agent iterate: call a tool → receive the result → call the model again → and so on, up to the limit.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "ToolLoopAgent",
+        "20"
+      ],
+      "staleHits": [],
+      "latencyMs": 17256,
+      "inputTokens": 122,
+      "outputTokens": 660,
+      "reasoningTokens": 410,
+      "costUsd": 0.00129188
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q06",
+      "answerable": true,
+      "status": "fail",
+      "answer": "Use `generateObject` from the `ai` package. The returned `object` is automatically typed to match your Zod schema.\n\n```typescript\nimport { generateObject } from 'ai';\nimport { z } from 'zod';\n\nconst { object } = await generateObject({\n  model: 'gpt-4o',\n  schema: z.object({\n    name: z.string(),\n    age: z.number(),\n    languages: z.array(z.string()),\n  }),\n  prompt: 'Tell me about a fictional person named Alice.',\n});\n\n// object is typed as { name: string; age: number; languages: string[] }\nconsole.log(object.name); // \"Alice\"\n```\n\n**Key points:**\n\n- The `schema` parameter accepts any Zod schema (`z.object`, `z.enum`, etc.).\n- The SDK handles the JSON mode / structured output protocol under the hood.\n- The result is validated against the schema before being returned.\n\n**Streaming variant** (if you need incremental updates):\n\n```typescript\nimport { streamObject } from 'ai';\n\nconst { object } = await streamObject({\n  model: 'gpt-4o',\n  schema: z.object({ name: z.string() }),\n  prompt: '...',\n});\n\n// object is a Promise that resolves to the final typed object\n// You can also use `onStepFinish` / `onFinish` callbacks for partial results\n```\n\nIf you're using a specific provider (e.g., OpenAI, Anthropic), you can pass the provider-specific model instance instead of a string:\n\n```typescript\nimport { openai } from '@ai-sdk/openai';\n\nconst { object } = await generateObject({\n  model: openai('gpt-4o'),\n  schema: z.object({ name: z.string() }),\n  prompt: '...',\n});\n```",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "Output.object"
+      ],
+      "staleHits": [
+        "generateObject("
+      ],
+      "latencyMs": 5827,
+      "inputTokens": 116,
+      "outputTokens": 690,
+      "reasoningTokens": 288,
+      "costUsd": 0.0017482
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q07",
+      "answerable": true,
+      "status": "fail",
+      "answer": "\n\n## `streamObject` + `useObject`\n\nThe dedicated API for this is **`streamObject`** (server) paired with **`useObject`** (client).\n\n### Server (API route)\n\n```ts\n// app/api/stream-object/route.ts\nimport { streamObject } from 'ai';\nimport { openai } from '@ai-sdk/openai';\nimport { z } from 'zod';\n\nexport async function POST(req: Request) {\n  const { experimental_toDataStream } = streamObject({\n    model: openai('gpt-4o'),\n    schema: z.object({\n      title: z.string(),\n      items: z.array(\n        z.object({\n          name: z.string(),\n          description: z.string(),\n        })\n      ),\n    }),\n    prompt: 'Generate a list of 5 programming languages',\n  });\n\n  return new Response(experimental_toDataStream());\n}\n```\n\n### Client (React)\n\n```tsx\n'use client';\nimport { useObject } from 'ai/react';\n\nexport default function MyComponent() {\n  const { object, text, isStreaming } = useObject({\n    api: '/api/stream-object',\n  });\n\n  return (\n    <div>\n      {isStreaming && <p>Generating…</p>}\n\n      {/* Raw JSON as it's being built — useful for a \"live\" view */}\n      {text && <pre>{text}</pre>}\n\n      {/* Final parsed object (available when streaming completes) */}\n      {object && (\n        <div>\n          <h1>{object.title}</h1>\n          <ul>\n            {object.items.map((item) => (\n              <li key={item.name}>\n                <strong>{item.name}</strong> — {item.description}\n              </li>\n            ))}\n          </ul>\n        </div>\n      )}\n    </div>\n  );\n}\n```\n\n### What you get at each stage\n\n| Field | Type | When available |\n|-------|------|---------------|\n| `text` | `string` | Updates progressively with raw JSON chunks |\n| `object` | `T \\| null` | Resolves to the fully parsed object when done |\n| `isStreaming` | `boolean` | `true` while the stream is active |\n\n### Progressive rendering of partial data\n\n`object` only resolves when the full JSON is valid. If you need to render *individual fields* as they complete (e.g., show each `items[i]` the moment it's parsed), you have two options:\n\n1. **Parse the `text` stream yourself** with a lenient/partial JSON parser (e.g., `partial-json` or a custom incremental parser).\n\n2. **Restructure the schema** so the model emits a flat array of objects, then use `streamText` with a tool that emits one item at a time:\n\n```ts\nimport { streamText, tool } from 'ai';\nimport { openai } from '@ai-sdk/openai';\nimport { z } from 'zod';\n\nconst result = streamText({\n  model: openai('gpt-4o'),\n  tools: {\n    addItem: tool({\n      description: 'Add an item to the list',\n      parameters: z.object({\n        name: z.string(),\n        description: z.string(),\n      }),\n    }),\n  },\n  experimental_onToolCall: ({ toolCall }) => {\n    // Forward each tool call to the client as it happens\n    // (use a custom data stream or WebSocket)\n  },\n  prompt: 'List 5 programming languages, one tool call each',\n});\n```\n\nThen on the client you consume the tool calls as they arrive and render each item immediately.\n\n---\n\n**TL;DR** — For most cases, `streamObject` + `useObject` is all you need. Use the `text` field for a live \"raw\" view, and `object` for the final structured render.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "partialOutputStream"
+      ],
+      "staleHits": [
+        "streamObject("
+      ],
+      "latencyMs": 36262,
+      "inputTokens": 119,
+      "outputTokens": 2157,
+      "reasoningTokens": 1273,
+      "costUsd": 0.004297635
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q08",
+      "answerable": true,
+      "status": "fail",
+      "answer": "`result.usage` reflects only the **last** LLM call in the tool loop (i.e., the final step). It does not aggregate across all steps.\n\nTo get per-step usage, use the `onStepFinish` callback:\n\n```ts\nimport { generateText } from 'ai';\n\nconst totalUsage = { promptTokens: 0, completionTokens: 0, totalTokens: 0 };\n\nconst result = await generateText({\n  model: openai('gpt-4o'),\n  prompt: '...',\n  tools: { myTool },\n  maxSteps: 5,\n  onStepFinish: ({ usage }) => {\n    totalUsage.promptTokens += usage.promptTokens;\n    totalUsage.completionTokens += usage.completionTokens;\n    totalUsage.totalTokens += usage.totalTokens;\n  },\n});\n\nconsole.log(totalUsage); // aggregated across all steps\nconsole.log(result.usage); // last step only\n```\n\nEach `onStepFinish` invocation gives you the `usage` for that individual step, so you can accumulate them yourself.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "finalStep"
+      ],
+      "staleHits": [
+        "totalUsage"
+      ],
+      "latencyMs": 7565,
+      "inputTokens": 128,
+      "outputTokens": 1119,
+      "reasoningTokens": 889,
+      "costUsd": 0.0028231
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q09",
+      "answerable": true,
+      "status": "fail",
+      "answer": "Use the `messages` property on the result. It resolves to the full `ModelMessage[]` array including all intermediate assistant (tool-call) and tool (tool-result) messages.\n\n```ts\nimport { generateText } from 'ai';\nimport { openai } from '@ai-sdk/openai';\n\nconst result = await generateText({\n  model: openai('gpt-4o'),\n  tools: { getWeather, getForecast },\n  messages: [\n    { role: 'user', content: \"What's the weather in Paris and what's the forecast?\" },\n  ],\n});\n\n// result.messages is ModelMessage[] — includes:\n//   1. assistant message with tool-call parts\n//   2. tool message with tool-result parts\n//   3. (if multi-step) another assistant + tool pair\n//   4. final assistant message with text\nconsole.log(result.messages);\n// [\n//   { role: 'assistant', content: [{ type: 'tool-call', toolName: 'getWeather', ... }] },\n//   { role: 'tool',      content: [{ type: 'tool-result', toolName: 'getWeather', ... }] },\n//   { role: 'assistant', content: [{ type: 'tool-call', toolName: 'getForecast', ... }] },\n//   { role: 'tool',      content: [{ type: 'tool-result', toolName: 'getForecast', ... }] },\n//   { role: 'assistant', content: [{ type: 'text', text: 'It\\'s 18°C...' }] },\n// ]\n\n// Save to your DB\nawait db.conversations.update({\n  where: { id: conversationId },\n  data: { messages: [...existingMessages, ...result.messages] },\n});\n```\n\n**With `streamText`**, `messages` is a `Promise` — await it after the stream finishes:\n\n```ts\nconst result = streamText({ model, tools, messages });\n\n// consume the stream (e.g. pipe to a UI)\nfor await (const chunk of result.textStream) { /* ... */ }\n\n// now grab the full message history\nconst fullMessages = await result.messages;\nawait saveToDb(fullMessages);\n```\n\n**Key point:** `result.messages` is *not* the same as the `messages` you passed in. It's the model's output side of the conversation (assistant + tool turns only). You typically append it to your stored history.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "responseMessages"
+      ],
+      "staleHits": [],
+      "latencyMs": 6751,
+      "inputTokens": 125,
+      "outputTokens": 1001,
+      "reasoningTokens": 463,
+      "costUsd": 0.0025275
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q10",
+      "answerable": true,
+      "status": "fail",
+      "answer": "\n\nUse the `fullStream` property on the result of `streamText`. It's an `AsyncIterable<StreamPart>` that yields every event in order.\n\n```ts\nimport { streamText, tool } from \"ai\";\nimport { z } from \"zod\";\n\nconst result = streamText({\n  model: \"gpt-4o\",\n  tools: {\n    getWeather: tool({\n      description: \"Get the weather\",\n      parameters: z.object({ city: z.string() }),\n      execute: async ({ city }) => `Sunny in ${city}`,\n    }),\n  },\n  prompt: \"What's the weather in Paris?\",\n});\n\nfor await (const part of result.fullStream) {\n  switch (part.type) {\n    case \"text-delta\":\n      console.log(\"text:\", part.text);\n      break;\n    case \"tool-call\":\n      console.log(\"tool call:\", part.toolName, part.args);\n      break;\n    case \"tool-result\":\n      console.log(\"tool result:\", part.toolName, part.result);\n      break;\n    case \"finish\":\n      console.log(\"done, total tokens:\", part.totalUsage);\n      break;\n    case \"error\":\n      console.error(\"error:\", part.error);\n      break;\n    // other parts: \"start\", \"start-step\", \"finish-step\", \"reasoning\", etc.\n  }\n}\n```\n\n**Key points:**\n\n| Part type | When it fires |\n|-----------|---------------|\n| `text-delta` | Each chunk of streamed text |\n| `tool-call` | Model decides to call a tool |\n| `tool-result` | Tool `execute` resolves |\n| `finish-step` | A step (model call) completes |\n| `finish` | Entire stream is done |\n| `error` | Something went wrong |\n\nIf you only need text deltas (no tool events), use `result.textStream` instead — it's a simpler `AsyncIterable<string>`. But `fullStream` is the one that gives you *everything*.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "result.stream"
+      ],
+      "staleHits": [
+        "fullStream"
+      ],
+      "latencyMs": 9128,
+      "inputTokens": 118,
+      "outputTokens": 667,
+      "reasoningTokens": 211,
+      "costUsd": 0.00100463
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q11",
+      "answerable": true,
+      "status": "fail",
+      "answer": "\n\n## Streaming a Data Stream for `useChat`\n\nUse `streamText` and return its `.toDataStreamResponse()` from your API route:\n\n```ts\n// app/api/chat/route.ts\nimport { streamText } from 'ai';\nimport { openai } from '@ai-sdk/openai';\n\nexport async function POST(req: Request) {\n  const { messages } = await req.json();\n\n  const result = streamText({\n    model: openai('gpt-4o'),\n    messages,\n  });\n\n  return result.toDataStreamResponse();\n}\n```\n\n```tsx\n// client component\nimport { useChat } from '@ai-sdk/react';\n\nexport default function Chat() {\n  const { messages, input, handleSubmit } = useChat({\n    api: '/api/chat',\n  });\n\n  return (\n    <div>\n      {messages.map((m) => (\n        <div key={m.id}>\n          <strong>{m.role}: </strong>\n          {m.content}\n        </div>\n      ))}\n      <form onSubmit={handleSubmit}>\n        <input value={input} onChange={(e) => setInput(e.target.value)} />\n      </form>\n    </div>\n  );\n}\n```\n\n## Key points\n\n| Concern | Detail |\n|---|---|\n| **Format** | `toDataStreamResponse()` emits the AI SDK data-stream protocol (JSON chunks with `0:`, `9:`, `a:` prefixes, etc.) that `useChat` parses out of the box. |\n| **Headers** | The method sets `Content-Type: text/event-stream` and `Transfer-Encoding: chunked` for you. |\n| **`useChat` default** | If you omit the `api` option, `useChat` posts to `/api/chat` by default. |\n| **Custom headers** | Pass them via the `headers` option on `useChat` if you need auth, etc. |\n\n## If you need to stream UI components (RSC)\n\nIf you're using `streamUI` (for React Server Components), `useChat` won't consume that directly—you'd use `useChat` with a `streamText`-based endpoint for the text, and handle RSC streaming separately (e.g. via `next`'s `streaming` or a custom protocol). For most chat UIs, `streamText` + `toDataStreamResponse()` is all you need.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "toUIMessageStream",
+        "createUIMessageStreamResponse"
+      ],
+      "staleHits": [
+        "toDataStreamResponse"
+      ],
+      "latencyMs": 20279,
+      "inputTokens": 119,
+      "outputTokens": 1011,
+      "reasoningTokens": 478,
+      "costUsd": 0.001519545
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q12",
+      "answerable": true,
+      "status": "fail",
+      "answer": "The AI SDK doesn't have a built-in \"approval\" flag on tools. The standard pattern is to **intercept the tool call on the client side** and gate execution behind a user confirmation.\n\n## Pattern: Client-side tool with approval\n\n```ts\n// app/chat.tsx\n\"use client\";\n\nimport { useChat } from \"@ai-sdk/react\";\nimport { useState } from \"react\";\n\nexport function Chat() {\n  const { messages, input, handleInputChange, sendMessage } = useChat({\n    // Define the tool on the client so YOU control execution\n    experimental_tools: {\n      deleteFile: {\n        description: \"Delete a file by path\",\n        parameters: z.object({ path: z.string() }),\n        // This is what actually runs — but only after approval\n        execute: async ({ path }) => {\n          await fetch(\"/api/delete\", {\n            method: \"POST\",\n            body: JSON.stringify({ path }),\n          });\n          return { success: true, path };\n        },\n      },\n    },\n  });\n\n  const [pendingToolCall, setPendingToolCall] = useState<any>(null);\n\n  // Detect when the model wants to call deleteFile\n  const lastMessage = messages[messages.length - 1];\n  const toolCallPart = lastMessage?.parts?.find(\n    (p) => p.type === \"tool-call\" && p.toolName === \"deleteFile\"\n  );\n\n  // If there's a pending call and no result yet, show approval UI\n  if (toolCallPart && !pendingToolCall) {\n    setPendingToolCall(toolCallPart);\n  }\n\n  const approve = async () => {\n    // The tool's execute() will run automatically once the SDK\n    // sees the tool-call part. To gate it, you'd instead:\n    // 1. NOT define execute on the client\n    // 2. Manually call your API and send the result back\n    const res = await fetch(\"/api/delete\", {\n      method: \"POST\",\n      body: JSON.stringify({ path: pendingToolCall.args.path }),\n    });\n    const result = await res.json();\n\n    // Send the tool result back to the model\n    // (use the appropriate method for your SDK version)\n    // e.g. addToolResult({ toolCallId: pendingToolCall.toolCallId, result })\n  };\n\n  const deny = () => {\n    // Send an error result so the model knows it was rejected\n  };\n\n  return (\n    <div>\n      {pendingToolCall && (\n        <div className=\"approval-dialog\">\n          <p>Delete \"{pendingToolCall.args.path}\"?</p>\n          <button onClick={approve}>Approve</button>\n          <button onClick={deny}>Deny</button>\n        </div>\n      )}\n      {/* ...render messages, input, etc. */}\n    </div>\n  );\n}\n```\n\n## Key idea\n\nThe trick is to **not auto-execute** the tool. Two approaches:\n\n| Approach | How |\n|----------|-----|\n| **Client-side tool** | Define the tool in `useChat`'s `experimental_tools`. Intercept the `tool-call` part in your UI before the SDK calls `execute`. |\n| **Two-step server tool** | First call returns a `confirmationId`. Second call with that ID actually performs the delete. The model is prompted to ask the user for confirmation between steps. |\n\n## Two-step server tool (alternative)\n\n```ts\nconst tools = {\n  requestDelete: {\n    description: \"Request to delete a file. Returns a confirmation token.\",\n    parameters: z.object({ path: z.string() }),\n    execute: async ({ path }) => {\n      const token = crypto.randomUUID();\n      pendingDeletions.set(token, path);\n      return { token, message: `User must confirm deletion of \"${path}\"` };\n    },\n  },\n  confirmDelete: {\n    description: \"Confirm a pending file deletion using the token.\",\n    parameters: z.object({ token: z.string() }),\n    execute: async ({ token }) => {\n      const path = pendingDeletions.get(token);\n      if (!path) return { error: \"Invalid or expired token\" };\n      pendingDeletions.delete(token);\n      await fs.unlink(path);\n      return { success: true };\n    },\n  },\n};\n```\n\nThen in your system prompt: *\"After calling `requestDelete`, ask the user to confirm before calling `confirmDelete`.\"*\n\n---\n\n**Caveat:** The exact method for sending a tool result back to the model (e.g., `addToolResult`, `sendToolResult`, or re-sending a message with a `tool-result` part) varies between SDK versions. Check the `useChat` docs for your installed version to get the correct method name.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "toolApproval",
+        "user-approval"
+      ],
+      "staleHits": [],
+      "latencyMs": 17288,
+      "inputTokens": 115,
+      "outputTokens": 2551,
+      "reasoningTokens": 1480,
+      "costUsd": 0.0064005
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q13",
+      "answerable": true,
+      "status": "fail",
+      "answer": "Use a **factory function** (closure) so the key is captured at the time you build the tool, not baked into the definition:\n\n```ts\nimport { tool } from \"ai\";\nimport { z } from \"zod\";\n\nfunction createSearchTool(apiKey: string) {\n  return tool({\n    description: \"Search the web\",\n    parameters: z.object({\n      query: z.string(),\n    }),\n    execute: async ({ query }) => {\n      // apiKey is captured from the closure\n      const res = await fetch(\"https://api.example.com/search\", {\n        headers: { Authorization: `Bearer ${apiKey}` },\n        body: JSON.stringify({ query }),\n      });\n      return res.json();\n    },\n  });\n}\n\n// At call time, pass the key in:\nconst tools = {\n  search: createSearchTool(process.env.SEARCH_API_KEY!),\n};\n\nconst result = await generateText({\n  model: \"gpt-4o\",\n  tools,\n  prompt: \"What's the weather in Tokyo?\",\n});\n```\n\n**Why not put the key in `parameters`?**\nIf you add `apiKey` to the Zod schema, the LLM sees it as a field it must fill in — it will hallucinate or omit it. The closure keeps it out of the model's view entirely.\n\n**If the key changes per-request** (e.g., multi-tenant), just call the factory inside your route handler:\n\n```ts\napp.post(\"/chat\", async (req) => {\n  const { userApiKey } = req.headers;\n  const tools = { search: createSearchTool(userApiKey) };\n  // ...\n});\n```\n\nThere's no built-in \"inject extra context into `execute`\" mechanism in the SDK — the closure is the intended pattern.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "contextSchema",
+        "toolsContext"
+      ],
+      "staleHits": [],
+      "latencyMs": 4003,
+      "inputTokens": 122,
+      "outputTokens": 901,
+      "reasoningTokens": 504,
+      "costUsd": 0.0022769
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q14",
+      "answerable": true,
+      "status": "fail",
+      "answer": "## Enabling OpenTelemetry Tracing\n\nThe AI SDK emits OpenTelemetry spans when you pass the `telemetry` option. There's no single \"enable globally\" flag — you configure it per-call or per-provider.\n\n### 1. Set up the OpenTelemetry SDK\n\n```bash\nnpm install @opentelemetry/sdk-node @opentelemetry/exporter-trace-otlp-http\n```\n\n```typescript\n// otel.ts\nimport { NodeSDK } from '@opentelemetry/sdk-node';\nimport { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';\n\nconst sdk = new NodeSDK({\n  traceExporter: new OTLPTraceExporter({\n    url: 'http://localhost:4318/v1/traces',\n  }),\n});\nsdk.start();\n```\n\nImport this at the top of your entry point.\n\n### 2. Enable telemetry on your AI SDK calls\n\n```typescript\nimport { generateText } from 'ai';\nimport { openai } from '@ai-sdk/openai';\n\nconst { text } = await generateText({\n  model: openai('gpt-4o'),\n  prompt: 'Hello',\n  telemetry: {\n    isEnabled: true,\n    functionName: 'myFeature',\n    metadata: { userId: 'abc-123' },\n  },\n});\n```\n\n### 3. Provider-level default (less common)\n\nSome provider wrappers let you set a default so you don't repeat it on every call:\n\n```typescript\nimport { openai } from '@ai-sdk/openai';\n\nconst provider = openai({\n  telemetry: {\n    isEnabled: true,\n  },\n});\n\n// Now every model from this provider carries the telemetry config\nconst { text } = await generateText({\n  model: provider('gpt-4o'),\n  prompt: 'Hello',\n});\n```\n\n> ⚠️ I'm less certain this provider-level `telemetry` option is stable across all provider packages in the current release. The per-call `telemetry` option is the well-documented path.\n\n### What you get in the trace\n\nWhen enabled, the SDK creates spans with attributes like:\n\n| Attribute | Example |\n|---|---|\n| `ai.sdk.function.call` | `generateText` |\n| `ai.model.id` | `gpt-4o` |\n| `ai.provider.name` | `openai` |\n| `ai.prompt` | *(your prompt)* |\n| `ai.usage.prompt-tokens` | `42` |\n| `ai.usage.completion-tokens` | `128` |\n\n### Caveat\n\nI'm not aware of a single `ai.enableTelemetry()` global switch. If you have many call sites, a small wrapper around `generateText`/`streamText` that injects the `telemetry` object is the pragmatic approach.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "@ai-sdk/otel",
+        "registerTelemetry"
+      ],
+      "staleHits": [
+        "isEnabled: true"
+      ],
+      "latencyMs": 7633,
+      "inputTokens": 114,
+      "outputTokens": 1561,
+      "reasoningTokens": 931,
+      "costUsd": 0.0039253
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q15",
+      "answerable": true,
+      "status": "fail",
+      "answer": "\n\n## Reading Cached Input Tokens\n\nThe `usage` object returned from `generateText` / `streamText` includes a `cachedInputTokens` field (Anthropic-specific) that tells you how many prompt tokens were served from the cache.\n\n```typescript\nimport { generateText } from \"ai\";\nimport { anthropic } from \"@ai-sdk/anthropic\";\n\nconst result = await generateText({\n  model: anthropic(\"claude-sonnet-4-20250514\"),\n  messages: [\n    { role: \"system\", content: longSystemPrompt },\n    { role: \"user\", content: \"Hello\" },\n  ],\n});\n\nconsole.log(result.usage);\n// {\n//   promptTokens: 10000,\n//   completionTokens: 250,\n//   totalTokens: 10250,\n//   cachedInputTokens: 9500,  // ← tokens served from prompt cache\n// }\n```\n\n### Key fields\n\n| Field | Meaning |\n|-------|---------|\n| `promptTokens` | Total input tokens (cached + uncached) |\n| `cachedInputTokens` | Subset of `promptTokens` that came from the cache |\n| `completionTokens` | Output tokens |\n\n### Notes\n\n- `cachedInputTokens` is only populated when using a model/provider that supports prompt caching (currently Anthropic).\n- It's `undefined` for providers that don't report it.\n- You can compute the uncached portion as `promptTokens - cachedInputTokens`.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "inputTokenDetails",
+        "cacheReadTokens"
+      ],
+      "staleHits": [
+        "cachedInputTokens"
+      ],
+      "latencyMs": 15691,
+      "inputTokens": 115,
+      "outputTokens": 755,
+      "reasoningTokens": 413,
+      "costUsd": 0.001135405
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q16",
+      "answerable": true,
+      "status": "fail",
+      "answer": "\n\n```typescript\nimport { embedding } from 'ai';\nimport { openai } from '@ai-sdk/openai';\n\nconst result = await embedding(openai.embedding('text-embedding-3-small'), {\n  value: 'hello world',\n});\n\nconsole.log(result.embedding); // number[]\n```",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "embed("
+      ],
+      "staleHits": [],
+      "latencyMs": 3505,
+      "inputTokens": 127,
+      "outputTokens": 537,
+      "reasoningTokens": 471,
+      "costUsd": 0.00177555
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q17",
+      "answerable": false,
+      "status": "unanswerable",
+      "answer": "I don't have information about an AI SDK 8 release or its planned timeline. As of my last update, the latest major version is **AI SDK 5**. For the most up-to-date roadmap and release plans, I'd recommend checking the [Vercel AI SDK GitHub](https://github.com/vercel/ai) or their official blog.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 1260,
+      "inputTokens": 109,
+      "outputTokens": 174,
+      "reasoningTokens": 100,
+      "costUsd": 0.0004568
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q18",
+      "answerable": false,
+      "status": "unanswerable",
+      "answer": "\n\nI don't have any information about `generateObject` being scheduled for removal on a specific date. As of the latest AI SDK versions I'm aware of, `generateObject` is still a supported, first-class function.\n\nIf you've seen a deprecation notice or announcement about this, could you share where you saw it? I'd rather point you to the right source than guess a date.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 6624,
+      "inputTokens": 110,
+      "outputTokens": 349,
+      "reasoningTokens": 265,
+      "costUsd": 0.00071577
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q19",
+      "answerable": false,
+      "status": "unanswerable",
+      "answer": "\n\nThe Vercel AI SDK (`ai` package) does **not** have built-in rate limits per API key. It's a client-side abstraction layer for calling LLM providers — it doesn't enforce or track rate limits on its own.\n\nRate limiting is handled at other layers:\n\n| Layer | Who enforces it |\n|-------|----------------|\n| **Provider** (OpenAI, Anthropic, etc.) | Their own per-key/per-tier limits |\n| **Your app** | You implement it (middleware, Redis, etc.) |\n| **Vercel AI Gateway** (if used) | Vercel's gateway-level limits |\n\nIf you need to add rate limiting in your app, you'd do it yourself, e.g.:\n\n```ts\nimport { rateLimit } from \"@vercel/kv\"; // or any rate-limit lib\n\nconst limiter = rateLimit({\n  windowMs: 60_000,\n  max: 10,\n});\n\nexport async function POST(req: Request) {\n  const { success } = await limiter(req.headers.get(\"x-api-key\") ?? \"anon\");\n  if (!success) {\n    return new Response(\"Rate limited\", { status: 429 });\n  }\n  // ... call the AI SDK\n}\n```\n\nIf you're asking about a specific provider's limits (e.g., OpenAI's per-key RPM/TPM), those are set by the provider and depend on your usage tier — not by the AI SDK.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 7529,
+      "inputTokens": 115,
+      "outputTokens": 575,
+      "reasoningTokens": 250,
+      "costUsd": 0.000865405
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q20",
+      "answerable": false,
+      "status": "unanswerable",
+      "answer": "I don't have access to real-time npm download statistics, so I can't give you an accurate current number.\n\nYou can check it yourself at:\n\n- **npmjs.com/package/ai** — shows weekly downloads on the package page\n- **npmtrends.com** — for historical trends\n- **npm api**: `curl https://api.npmjs.org/downloads/point/last-week/ai`\n\nAs of my last knowledge, the `ai` package was in the range of several million weekly downloads, but that number changes frequently as the SDK's adoption grows.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 1367,
+      "inputTokens": 111,
+      "outputTokens": 186,
+      "reasoningTokens": 66,
+      "costUsd": 0.0004872
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q01",
+      "answerable": true,
+      "status": "fail",
+      "answer": "In the latest Vercel AI SDK (v3.x+), pass the system prompt as a message with `role: \"system\"` in the `prompt` array:\n\n```typescript\nimport { generateText } from 'ai';\nimport { openai } from '@ai-sdk/openai';\n\nconst { text } = await generateText({\n  model: openai('gpt-4o'),\n  prompt: [\n    { role: 'system', content: 'You are a helpful assistant that speaks like Shakespeare.' },\n    { role: 'user', content: 'Hello, how are you?' },\n  ],\n});\n```\n\nAlternatively, some providers support a top-level `system` parameter:\n\n```typescript\nconst { text } = await generateText({\n  model: openai('gpt-4o'),\n  system: 'You are a helpful assistant that speaks like Shakespeare.',\n  prompt: 'Hello, how are you?',\n});\n```",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "instructions"
+      ],
+      "staleHits": [
+        "system:"
+      ],
+      "latencyMs": 3622,
+      "inputTokens": 91,
+      "outputTokens": 526,
+      "reasoningTokens": 334,
+      "costUsd": 0.00032925
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q02",
+      "answerable": true,
+      "status": "fail",
+      "answer": "The Vercel AI SDK v3+ no longer supports `role: 'system'` in the messages array. System messages must be converted to `role: 'developer'` or handled via the `system` parameter in `generateText`.\n\n### Fix:\n```ts\nimport { generateText } from 'ai';\n\n// Old (failing) way:\n// generateText({ model: ..., messages: [{ role: 'system', content: '...' }] })\n\n// New way (v3+):\ngenerateText({\n  model: ...,\n  system: 'Your system message here', // ✅ Preferred\n  messages: [\n    // Other messages can use role: 'user' or 'assistant'\n  ]\n});\n\n// OR if you need to keep system messages in your array:\ngenerateText({\n  model: ...,\n  messages: [\n    { role: 'developer', content: 'Your system message here' } // ✅ Alternative\n  ]\n});\n```\n\n**Why this changed**: The AI SDK v3+ standardized message roles to align with the [Message API spec](https://ai-sdk.dev/reference/types#message), where `system` was replaced with either a top-level `system` parameter or `developer` role for internal instructions.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "allowSystemInMessages"
+      ],
+      "staleHits": [],
+      "latencyMs": 4079,
+      "inputTokens": 110,
+      "outputTokens": 508,
+      "reasoningTokens": 255,
+      "costUsd": 0.00031482
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q03",
+      "answerable": true,
+      "status": "fail",
+      "answer": "The **Vercel AI SDK** (latest version) requires **Node.js 18+**.\n\nYes, you can still import it using `require()` in CommonJS:\n\n```typescript\nconst { generateText } = require('ai');\n```\n\nThe SDK supports both ES modules (`import`) and CommonJS (`require`) syntax.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "22",
+        "ESM"
+      ],
+      "staleHits": [],
+      "latencyMs": 2703,
+      "inputTokens": 94,
+      "outputTokens": 215,
+      "reasoningTokens": 145,
+      "costUsd": 0.00013662
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q04",
+      "answerable": true,
+      "status": "fail",
+      "answer": "You can track the number of tool calls and break the loop after 5 steps using the `onStepFinish` callback in `streamText`:\n\n```ts\nimport { streamText } from 'ai';\nimport { openai } from '@ai-sdk/openai';\n\nconst result = await streamText({\n  model: openai('gpt-4o'),\n  tools: { /* your tools */ },\n  async onStepFinish({ text, toolCalls, toolResults }) {\n    const toolCallCount = toolCalls.length;\n    if (toolCallCount >= 5) {\n      return { finish: true, reason: 'tool_call_limit' };\n    }\n    return { finish: false };\n  },\n  prompt: '...',\n});\n```\n\nAlternatively, if you're using the lower-level `generateText` with tool calls:\n\n```ts\nimport { generateText } from 'ai';\nimport { openai } from '@ai-sdk/openai';\n\nlet stepCount = 0;\n\nawait generateText({\n  model: openai('gpt-4o'),\n  tools: { /* your tools */ },\n  async onStepFinish({ toolCalls }) {\n    stepCount += toolCalls.length;\n    if (stepCount >= 5) {\n      return { finish: true, reason: 'tool_call_limit' };\n    }\n    return { finish: false };\n  },\n  prompt: '...',\n});\n```",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "stopWhen",
+        "isStepCount"
+      ],
+      "staleHits": [],
+      "latencyMs": 3762,
+      "inputTokens": 90,
+      "outputTokens": 471,
+      "reasoningTokens": 182,
+      "costUsd": 0.00028962
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q05",
+      "answerable": true,
+      "status": "fail",
+      "answer": "Use the **`ToolCallingAgent`** class from `@ai-sdk/agent` to build a tool-using agent.\n\nBy default, it runs **10 steps** before stopping (unless the task completes earlier).\n\n### Example:\n```ts\nimport { ToolCallingAgent } from \"@ai-sdk/agent\";\nimport { openai } from \"@ai-sdk/openai\";\n\nconst agent = new ToolCallingAgent({\n  model: openai(\"gpt-4o\"),\n  tools: { /* your tools here */ },\n});\n\nconst result = await agent.do(\"Solve this task using tools.\");\n```",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "ToolLoopAgent",
+        "20"
+      ],
+      "staleHits": [],
+      "latencyMs": 2416,
+      "inputTokens": 96,
+      "outputTokens": 278,
+      "reasoningTokens": 155,
+      "costUsd": 0.0001812
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q06",
+      "answerable": true,
+      "status": "fail",
+      "answer": "Use `streamObject` or `generateObject` from the Vercel AI SDK with your Zod schema. The SDK will return a typed object that matches your schema.\n\n```typescript\nimport { streamObject } from 'ai';\nimport { z } from 'zod';\n\nconst schema = z.object({\n  name: z.string(),\n  age: z.number(),\n});\n\nconst { object } = await streamObject({\n  model: openai('gpt-4o'),\n  schema,\n  prompt: 'Generate a person',\n});\n\nconst typedObject = await object; // { name: string; age: number }\n```\n\nThe returned `object` is already validated and typed according to your Zod schema.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "Output.object",
+        "output"
+      ],
+      "staleHits": [],
+      "latencyMs": 3447,
+      "inputTokens": 91,
+      "outputTokens": 464,
+      "reasoningTokens": 319,
+      "costUsd": 0.00028557
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q07",
+      "answerable": true,
+      "status": "fail",
+      "answer": "Use the `streamObject` function from the Vercel AI SDK to stream structured objects. Here's a concise example with React:\n\n```tsx\nimport { streamObject } from 'ai';\nimport { experimental_useObject as useObject } from 'ai/react';\n\nfunction StreamingObject() {\n  const { object } = useObject({\n    api: '/api/generate-object',\n    schema: z.object({\n      name: z.string(),\n      age: z.number(),\n      hobbies: z.array(z.string()),\n    }),\n  });\n\n  return (\n    <div>\n      {object ? (\n        <pre>{JSON.stringify(object, null, 2)}</pre>\n      ) : (\n        'Loading...'\n      )}\n    </div>\n  );\n}\n```\n\n**Server API route (`/api/generate-object`):**\n```ts\nimport { streamObject } from 'ai';\nimport { openai } from '@ai-sdk/openai';\n\nexport async function POST() {\n  return streamObject({\n    model: openai('gpt-4o'),\n    schema: z.object({\n      name: z.string(),\n      age: z.number(),\n      hobbies: z.array(z.string()),\n    }),\n    prompt: 'Generate a person profile',\n  });\n}\n```\n\nThe UI will update in real-time as each field is generated. The `useObject` hook handles the streaming automatically.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "streamText",
+        "partialOutputStream"
+      ],
+      "staleHits": [
+        "streamObject("
+      ],
+      "latencyMs": 3914,
+      "inputTokens": 93,
+      "outputTokens": 518,
+      "reasoningTokens": 233,
+      "costUsd": 0.00031827
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q08",
+      "answerable": true,
+      "status": "fail",
+      "answer": "In a multi-step `generateText` call, `result.usage` **only covers the last step**.\n\nTo get **cumulative usage across all steps**, manually track it:\n\n```ts\nimport { generateText } from 'ai';\n\nlet totalUsage = { promptTokens: 0, completionTokens: 0 };\n\nconst result = await generateText({\n  model: yourModel,\n  onStepFinish(stepResult) {\n    totalUsage.promptTokens += stepResult.usage.promptTokens;\n    totalUsage.completionTokens += stepResult.usage.completionTokens;\n  },\n  // ... other args\n});\n\n// totalUsage now contains cumulative values\n```",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "finalStep"
+      ],
+      "staleHits": [
+        "totalUsage"
+      ],
+      "latencyMs": 3404,
+      "inputTokens": 103,
+      "outputTokens": 361,
+      "reasoningTokens": 224,
+      "costUsd": 0.00023205
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q09",
+      "answerable": true,
+      "status": "fail",
+      "answer": "After a multi-step tool call with the Vercel AI SDK, you can access the full conversation history (including assistant and tool messages) through the `messages` property of the returned result:\n\n```typescript\nimport { streamText } from 'ai';\nimport { db } from './your-db'; // Your database client\n\nconst result = await streamText({\n  model: yourModel,\n  messages: yourInitialMessages,\n  tools: yourTools,\n});\n\nconst fullMessages = result.messages; // Array of all messages (user, assistant, tool)\n\n// Save to your database\nawait db.conversation.create({\n  data: {\n    messages: fullMessages,\n    // other metadata...\n  }\n});\n```\n\nThe `result.messages` contains all messages in the conversation history, including:\n- Assistant messages (with tool calls and text responses)\n- Tool messages (results from tool executions)\n\nEach message has a `role` ('assistant' or 'tool') and the corresponding content.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "responseMessages"
+      ],
+      "staleHits": [],
+      "latencyMs": 4084,
+      "inputTokens": 99,
+      "outputTokens": 437,
+      "reasoningTokens": 238,
+      "costUsd": 0.00027057
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q10",
+      "answerable": true,
+      "status": "fail",
+      "answer": "Here's how to iterate over all events from `streamText`, including text deltas and tool calls:\n\n```typescript\nimport { streamText } from 'ai';\n\nasync function processStream() {\n  const { stream } = await streamText({\n    model: yourModel,\n    messages: [{ role: 'user', content: '...' }],\n  });\n\n  for await (const event of stream) {\n    switch (event.type) {\n      case 'text-delta':\n        console.log('Text delta:', event.delta);\n        break;\n      case 'tool-call':\n        console.log('Tool call:', event.toolName, event.args);\n        break;\n      case 'tool-result':\n        console.log('Tool result:', event.result);\n        break;\n      case 'error':\n        console.error('Error:', event.error);\n        break;\n      case 'finish':\n        console.log('Stream complete');\n        break;\n    }\n  }\n}\n```\n\nThe `stream` is an async iterable that yields events with a `type` property you can switch on.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "result.stream"
+      ],
+      "staleHits": [],
+      "latencyMs": 5630,
+      "inputTokens": 93,
+      "outputTokens": 939,
+      "reasoningTokens": 723,
+      "costUsd": 0.00057087
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q11",
+      "answerable": true,
+      "status": "fail",
+      "answer": "To stream UI messages from your API route for `useChat`, return a **Server-Sent Events (SSE)** stream with messages in the expected format. Here's a minimal Next.js API route example:\n\n```ts\n// app/api/chat/route.ts\nimport { experimental_streamText } from 'ai';\nimport { NextResponse } from 'next/server';\n\nexport async function POST(req: Request) {\n  const { messages } = await req.json();\n\n  const result = experimental_streamText({\n    model: /* your AI model */,\n    messages,\n    onChunk: ({ chunk }) => {\n      // Format each chunk as an SSE message\n      return `data: ${JSON.stringify(chunk)}\\n\\n`;\n    },\n  });\n\n  return new NextResponse(result.toAIStream(), {\n    headers: { 'Content-Type': 'text/event-stream' },\n  });\n}\n```\n\n### Key Points:\n1. **SSE Format**: Each message must be prefixed with `data:` and end with `\\n\\n`.\n2. **Stream Type**: Use `experimental_streamText` (or `streamText` in newer versions) to generate the stream.\n3. **Headers**: Set `Content-Type: text/event-stream` for proper streaming.\n\n### Alternative (Simpler):\nIf using the latest AI SDK, you can directly return the stream:\n\n```ts\nimport { streamText } from 'ai';\n\nexport async function POST(req: Request) {\n  const { messages } = await req.json();\n  const result = await streamText({ model: /* your model */, messages });\n  return result.toAIStreamResponse();\n}\n```\n\n`useChat` will automatically consume this stream.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "toUIMessageStream",
+        "createUIMessageStreamResponse"
+      ],
+      "staleHits": [],
+      "latencyMs": 4777,
+      "inputTokens": 93,
+      "outputTokens": 662,
+      "reasoningTokens": 319,
+      "costUsd": 0.00040467
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q12",
+      "answerable": true,
+      "status": "fail",
+      "answer": "Here's how to add user approval to a `deleteFile` tool in the Vercel AI SDK:\n\n```ts\nimport { tool } from 'ai';\nimport { confirm } from '@inquirer/prompts'; // or your preferred input method\n\nconst deleteFile = tool({\n  description: 'Delete a file after user confirmation',\n  parameters: z.object({\n    filePath: z.string().describe('Path of the file to delete'),\n  }),\n  execute: async ({ filePath }) => {\n    // Ask for confirmation\n    const isConfirmed = await confirm({\n      message: `Are you sure you want to delete \"${filePath}\"? This cannot be undone.`,\n    });\n\n    if (!isConfirmed) {\n      return { success: false, message: 'File deletion cancelled by user' };\n    }\n\n    // Proceed with deletion\n    try {\n      await fs.promises.unlink(filePath);\n      return { success: true, message: `Deleted ${filePath}` };\n    } catch (error) {\n      return { success: false, message: `Failed to delete ${filePath}: ${error}` };\n    }\n  },\n});\n```\n\nAlternative with a simple yes/no input:\n```ts\nconst isConfirmed = await confirm({\n  message: `Delete \"${filePath}\"? (y/N)`,\n});\n```\n\nKey points:\n1. The confirmation happens inside the tool's `execute` function\n2. Return early if not confirmed\n3. Only perform the deletion after approval\n4. Return clear success/failure messages\n\nThis pattern works with any input method (CLI prompts, web UI buttons, etc.).",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "toolApproval",
+        "user-approval"
+      ],
+      "staleHits": [],
+      "latencyMs": 4732,
+      "inputTokens": 89,
+      "outputTokens": 506,
+      "reasoningTokens": 165,
+      "costUsd": 0.00031047
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q13",
+      "answerable": true,
+      "status": "fail",
+      "answer": "In the Vercel AI SDK, you can pass the API key as a parameter to your tool's `execute` function. Here's how to do it:\n\n```typescript\nimport { tool } from 'ai';\nimport { z } from 'zod';\n\nconst weatherTool = tool({\n  description: 'Get weather data',\n  parameters: z.object({\n    location: z.string(),\n    apiKey: z.string().describe('Weather API key'),\n  }),\n  execute: async ({ location, apiKey }) => {\n    const response = await fetch(\n      `https://api.weather.com/v3/wx/forecast?apiKey=${apiKey}&location=${location}`\n    );\n    return response.json();\n  },\n});\n\n// Call with API key at runtime\nconst result = await weatherTool.execute({\n  location: 'San Francisco',\n  apiKey: process.env.WEATHER_API_KEY!, // Passed at call time\n});\n```\n\nThis keeps your API key out of the tool definition and allows it to be passed dynamically when the tool is executed.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "contextSchema",
+        "toolsContext"
+      ],
+      "staleHits": [],
+      "latencyMs": 4750,
+      "inputTokens": 96,
+      "outputTokens": 599,
+      "reasoningTokens": 382,
+      "costUsd": 0.00036732
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q14",
+      "answerable": true,
+      "status": "fail",
+      "answer": "To enable OpenTelemetry tracing for all AI SDK calls, install the required packages and configure the OpenTelemetry SDK with AI instrumentation:\n\n```typescript\nimport { NodeSDK } from '@opentelemetry/sdk-node';\nimport { getNodeAutoInstrumentations } from '@opentelemetry/auto-instrumentations-node';\nimport { instrumentAI } from 'ai';\n\nconst sdk = new NodeSDK({\n  instrumentations: [\n    getNodeAutoInstrumentations(),\n    instrumentAI(), // Enables tracing for all AI SDK calls\n  ],\n});\n\nsdk.start();\n```\n\nThis will automatically trace all AI SDK operations (LLM calls, tool usage, etc.) in your application. Make sure you also have an exporter configured to send traces to your desired backend.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "@ai-sdk/otel",
+        "registerTelemetry"
+      ],
+      "staleHits": [],
+      "latencyMs": 12159,
+      "inputTokens": 88,
+      "outputTokens": 1899,
+      "reasoningTokens": 1741,
+      "costUsd": 0.00114612
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q15",
+      "answerable": true,
+      "status": "fail",
+      "answer": "In the Vercel AI SDK v3, you can access prompt cache usage through the `usage` property in the result object. For prompt caching specifically, check the `promptCacheReadInputTokens` property:\n\n```ts\nimport { streamText } from 'ai';\nimport { openai } from '@ai-sdk/openai';\n\nconst { usage } = await streamText({\n  model: openai('gpt-4o'),\n  prompt: 'Your prompt here',\n}).usage;\n\nconsole.log('Tokens read from cache:', usage.promptCacheReadInputTokens);\nconsole.log('Total input tokens:', usage.promptTokens);\n```\n\nThe `promptCacheReadInputTokens` property will show how many tokens were served from the prompt cache. This is available in the `LanguageModelV1Usage` type returned by supported models with prompt caching capabilities.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "inputTokenDetails",
+        "cacheReadTokens"
+      ],
+      "staleHits": [],
+      "latencyMs": 4317,
+      "inputTokens": 89,
+      "outputTokens": 467,
+      "reasoningTokens": 294,
+      "costUsd": 0.00028707
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q16",
+      "answerable": true,
+      "status": "pass",
+      "answer": "Here's how to create an OpenAI embedding model and embed a string using the Vercel AI SDK:\n\n```typescript\nimport { openai } from '@ai-sdk/openai';\nimport { embed } from 'ai';\n\nasync function embedText() {\n  const { embedding } = await embed({\n    model: openai.embedding('text-embedding-3-small'),\n    value: 'Your text to embed here',\n  });\n\n  console.log(embedding); // Float32Array of embeddings\n}\n\nembedText();\n```\n\n**Prerequisites:**\n1. Install the required packages:\n   ```bash\n   npm install ai @ai-sdk/openai\n   ```\n2. Set your OpenAI API key as an environment variable:\n   ```bash\n   export OPENAI_API_KEY=\"your-api-key\"\n   ```\n\n**Notes:**\n- Replace `'text-embedding-3-small'` with your preferred embedding model (e.g., `'text-embedding-3-large'`)\n- The `embed` function returns a `Float32Array` containing the embedding vector\n- For batch embedding, use the `embedMany` function instead",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 5128,
+      "inputTokens": 89,
+      "outputTokens": 568,
+      "reasoningTokens": 331,
+      "costUsd": 0.00034767
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q17",
+      "answerable": false,
+      "status": "unanswerable",
+      "answer": "I don't have information about the release date for AI SDK 8. Check the [official Vercel AI SDK GitHub repository](https://github.com/vercel/ai) or [Vercel's blog](https://vercel.com/blog) for announcements.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 1808,
+      "inputTokens": 83,
+      "outputTokens": 143,
+      "reasoningTokens": 84,
+      "costUsd": 0.00009177
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q18",
+      "answerable": false,
+      "status": "unanswerable",
+      "answer": "I don't have the exact removal date for `generateObject` in my knowledge base. The function was deprecated in favor of the new `streamObject` and `generateObject` functions in the `@ai-sdk/core` package, but the specific removal date isn't documented in my available sources.\n\nCheck the [Vercel AI SDK releases page](https://github.com/vercel/ai/releases) or the [migration guide](https://sdk.vercel.ai/docs/migrations) for the most up-to-date information on removal timelines.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 3219,
+      "inputTokens": 84,
+      "outputTokens": 396,
+      "reasoningTokens": 282,
+      "costUsd": 0.00024372
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q19",
+      "answerable": false,
+      "status": "unanswerable",
+      "answer": "The Vercel AI SDK itself doesn't impose its own rate limits—it inherits the limits from the underlying AI providers (OpenAI, Anthropic, etc.) or Vercel's AI inference endpoints.\n\nFor **Vercel's AI inference endpoints**, the default rate limits per API key are:\n- **Free tier**: 10 requests per second\n- **Pro tier**: 50 requests per second\n\nFor **provider-specific limits** (e.g., OpenAI, Anthropic), check their respective documentation, as these vary by model and account tier.\n\nIf you're using a self-hosted setup, rate limits depend on your infrastructure.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 5823,
+      "inputTokens": 89,
+      "outputTokens": 833,
+      "reasoningTokens": 700,
+      "costUsd": 0.00050667
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q20",
+      "answerable": false,
+      "status": "unanswerable",
+      "answer": "I don't have real-time access to npm's download statistics. You can check the latest weekly downloads for the `ai` package on [npmjs.com](https://www.npmjs.com/package/ai) or by running:\n\n```bash\nnpm view ai weekly-downloads\n```",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 1637,
+      "inputTokens": 85,
+      "outputTokens": 112,
+      "reasoningTokens": 52,
+      "costUsd": 0.00007347
+    }
+  ]
+}
