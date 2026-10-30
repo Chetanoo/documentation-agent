@@ -1,0 +1,278 @@
+{
+  "meta": {
+    "name": "ai-sdk-docs-bot-evals",
+    "docs_version": "AI SDK 7.x",
+    "created": "2026-10-29",
+    "notes": "16 answerable + 4 unanswerable. 'must_include' = identifiers a correct answer should contain (cheap string check). 'stale_signals' = outdated v5/v6 APIs; if the answer RECOMMENDS one of these, it's wrong (mentioning it as deprecated is fine), so grade those with the LLM judge, not string match."
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "category": "api-usage",
+      "answerable": true,
+      "question": "In the current AI SDK, how do I pass a system prompt to generateText?",
+      "expected_answer": [
+        "Use the top-level `instructions` option",
+        "`system` still works as a deprecated fallback",
+        "If both are set, `instructions` takes precedence"
+      ],
+      "must_include": ["instructions"],
+      "stale_signals": ["system:"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "`system` Renamed to `instructions`" }]
+    },
+    {
+      "id": "q02",
+      "category": "troubleshooting",
+      "answerable": true,
+      "question": "After upgrading, my generateText call fails when my messages array contains a { role: 'system' } message loaded from my database. Why, and how do I fix it?",
+      "expected_answer": [
+        "AI SDK 7 rejects system messages in `prompt`/`messages` by default",
+        "Preferred fix: move them to the top-level `instructions` option",
+        "For trusted persisted chats, set `allowSystemInMessages: true`",
+        "Never enable it for user-editable messages (prompt injection risk)"
+      ],
+      "must_include": ["instructions", "allowSystemInMessages"],
+      "stale_signals": [],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "Prompt Messages: System Messages in `prompt` or `messages` Are Rejected by Default" }]
+    },
+    {
+      "id": "q03",
+      "category": "setup",
+      "answerable": true,
+      "question": "What Node.js version does the AI SDK require, and can I still import it with require()?",
+      "expected_answer": [
+        "Node.js 22 or later (tested on 22, 24, 26); 18 and 20 unsupported",
+        "Packages are ESM-only; require() is not supported",
+        "Add \"type\": \"module\" to package.json or use .mjs files"
+      ],
+      "must_include": ["22", "ESM"],
+      "stale_signals": [],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "Minimum Node.js Version / ESM Only — CommonJS Support Removed" }]
+    },
+    {
+      "id": "q04",
+      "category": "api-usage",
+      "answerable": true,
+      "question": "How do I stop a multi-step tool-calling loop after 5 steps?",
+      "expected_answer": [
+        "Set `stopWhen: isStepCount(5)`",
+        "`stepCountIs` was renamed to `isStepCount` in v7"
+      ],
+      "must_include": ["stopWhen", "isStepCount"],
+      "stale_signals": ["stepCountIs(", "maxSteps"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "Stop Condition Helper Rename: `stepCountIs` -> `isStepCount`" }]
+    },
+    {
+      "id": "q05",
+      "category": "agents",
+      "answerable": true,
+      "question": "What class do I use to build a tool-using agent, and how many steps does it run by default?",
+      "expected_answer": [
+        "`ToolLoopAgent` (replaced `Experimental_Agent`)",
+        "Default `stopWhen` is `isStepCount(20)`",
+        "Agent instructions go in `instructions`, not `system`"
+      ],
+      "must_include": ["ToolLoopAgent", "20"],
+      "stale_signals": ["Experimental_Agent"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0", "section": "`Experimental_Agent` to `ToolLoopAgent` Class" }]
+    },
+    {
+      "id": "q06",
+      "category": "structured-output",
+      "answerable": true,
+      "question": "How do I get a typed object that matches a Zod schema from the model?",
+      "expected_answer": [
+        "Call `generateText` with `output: Output.object({ schema })`",
+        "Read the result from `result.output`",
+        "`generateObject` is deprecated; `experimental_output` was removed in v7"
+      ],
+      "must_include": ["Output.object", "output"],
+      "stale_signals": ["generateObject(", "experimental_output"],
+      "sources": [
+        { "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0", "section": "`generateObject` and `streamObject` Deprecation" },
+        { "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "Structured Outputs: Remove Deprecated `experimental_output` Option and Result" }
+      ]
+    },
+    {
+      "id": "q07",
+      "category": "structured-output",
+      "answerable": true,
+      "question": "How do I stream a structured object so the UI can render it while it's being generated?",
+      "expected_answer": [
+        "Use `streamText` with `output: Output.object({ schema })`",
+        "Iterate `partialOutputStream` with for await",
+        "`streamObject` / `partialObjectStream` are the deprecated approach"
+      ],
+      "must_include": ["streamText", "partialOutputStream"],
+      "stale_signals": ["streamObject(", "partialObjectStream"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0", "section": "`generateObject` and `streamObject` Deprecation" }]
+    },
+    {
+      "id": "q08",
+      "category": "result-shape",
+      "answerable": true,
+      "question": "In a multi-step generateText call, does result.usage cover only the last step or all steps? How do I get the other one?",
+      "expected_answer": [
+        "`result.usage` is total usage across all steps",
+        "`result.finalStep.usage` gives only the final step",
+        "`totalUsage` is deprecated"
+      ],
+      "must_include": ["finalStep"],
+      "stale_signals": ["totalUsage"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "`generateText` and `streamText` `usage` Now Includes All Steps" }]
+    },
+    {
+      "id": "q09",
+      "category": "result-shape",
+      "answerable": true,
+      "question": "After a multi-step tool call, how do I get the full list of assistant and tool messages to save to my database?",
+      "expected_answer": [
+        "Use `result.responseMessages`",
+        "`step.response.messages` now only contains that step's messages (no longer accumulated)",
+        "Alternative: `result.steps.flatMap(step => step.response.messages)`"
+      ],
+      "must_include": ["responseMessages"],
+      "stale_signals": ["response.messages"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "Step Response Messages Are No Longer Accumulated" }]
+    },
+    {
+      "id": "q10",
+      "category": "streaming",
+      "answerable": true,
+      "question": "How do I iterate over every event from streamText, including text deltas and tool calls?",
+      "expected_answer": [
+        "Iterate `result.stream` with for await",
+        "`fullStream` was renamed to `stream` (kept as a deprecated alias)"
+      ],
+      "must_include": ["result.stream"],
+      "stale_signals": ["fullStream"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "`StreamTextResult.fullStream` Renamed to `stream`" }]
+    },
+    {
+      "id": "q11",
+      "category": "streaming",
+      "answerable": true,
+      "question": "How do I return a UI message stream from my API route so useChat can consume it?",
+      "expected_answer": [
+        "Build it with the top-level `toUIMessageStream({ stream: result.stream, ... })`",
+        "Return `createUIMessageStreamResponse({ stream: uiStream })`",
+        "`result.toUIMessageStreamResponse()` still works but is deprecated"
+      ],
+      "must_include": ["toUIMessageStream", "createUIMessageStreamResponse"],
+      "stale_signals": ["toDataStreamResponse", "result.toUIMessageStreamResponse"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "`streamText` Response Helpers Deprecated — Use Stateless Helpers" }]
+    },
+    {
+      "id": "q12",
+      "category": "tools",
+      "answerable": true,
+      "question": "How do I make a deleteFile tool require user approval before it executes?",
+      "expected_answer": [
+        "Set `toolApproval` on the generateText/streamText call or the agent",
+        "e.g. `toolApproval: { deleteFile: 'user-approval' }`, or a function returning 'user-approval' / undefined",
+        "`needsApproval` on tool() is deprecated in v7"
+      ],
+      "must_include": ["toolApproval", "user-approval"],
+      "stale_signals": ["needsApproval"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "Migrate Deprecated `needsApproval` to `toolApproval`" }]
+    },
+    {
+      "id": "q13",
+      "category": "tools",
+      "answerable": true,
+      "question": "How do I pass an API key into a tool's execute function at call time instead of hardcoding it?",
+      "expected_answer": [
+        "Declare `contextSchema` on the tool",
+        "Pass values via `toolsContext`, keyed by tool name",
+        "Read it in execute as `{ context }` (typed from the schema)",
+        "Shared, non-tool state goes in `runtimeContext`; `experimental_context` was renamed"
+      ],
+      "must_include": ["contextSchema", "toolsContext"],
+      "stale_signals": ["experimental_context"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "Context: `experimental_context` Became Tool `context`, and Shared Runtime Data Moved to `runtimeContext`" }]
+    },
+    {
+      "id": "q14",
+      "category": "observability",
+      "answerable": true,
+      "question": "How do I enable OpenTelemetry tracing for all AI SDK calls?",
+      "expected_answer": [
+        "Install `@ai-sdk/otel`",
+        "Call `registerTelemetry(new OpenTelemetry())` once at startup",
+        "Telemetry is then on by default; opt out per call with `isEnabled: false`",
+        "The option is now `telemetry` (`experimental_telemetry` is a deprecated alias)"
+      ],
+      "must_include": ["@ai-sdk/otel", "registerTelemetry"],
+      "stale_signals": ["isEnabled: true"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "Telemetry" }]
+    },
+    {
+      "id": "q15",
+      "category": "result-shape",
+      "answerable": true,
+      "question": "How do I read how many input tokens were served from the prompt cache?",
+      "expected_answer": [
+        "`result.usage.inputTokenDetails.cacheReadTokens`",
+        "Cache writes: `inputTokenDetails.cacheWriteTokens`",
+        "Top-level `cachedInputTokens` was removed in v7"
+      ],
+      "must_include": ["inputTokenDetails", "cacheReadTokens"],
+      "stale_signals": ["cachedInputTokens"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "`cachedInputTokens` and `reasoningTokens` Removed from `LanguageModelUsage`" }]
+    },
+    {
+      "id": "q16",
+      "category": "embeddings",
+      "answerable": true,
+      "question": "How do I create an OpenAI embedding model and embed a single string?",
+      "expected_answer": [
+        "`openai.embeddingModel('text-embedding-3-small')` or shorthand `openai.embedding(...)`",
+        "Pass it to `embed({ model, value })`",
+        "`textEmbeddingModel` / `textEmbedding` are the old names"
+      ],
+      "must_include": ["embed(", "embedding"],
+      "stale_signals": ["textEmbeddingModel", "textEmbedding("],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0", "section": "Embedding Model Method Rename" }]
+    },
+    {
+      "id": "q17",
+      "category": "unanswerable",
+      "answerable": false,
+      "question": "When will AI SDK 8 be released?",
+      "expected_answer": ["The docs don't say; the bot should state that and not guess a date"],
+      "must_include": [],
+      "stale_signals": [],
+      "sources": []
+    },
+    {
+      "id": "q18",
+      "category": "unanswerable",
+      "answerable": false,
+      "question": "On what date will generateObject be fully removed?",
+      "expected_answer": ["Docs only say it will be removed in a future version; no date given. The bot may mention the Output replacement but must not invent a date or version number"],
+      "must_include": [],
+      "stale_signals": [],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0", "section": "`generateObject` and `streamObject` Deprecation" }]
+    },
+    {
+      "id": "q19",
+      "category": "unanswerable",
+      "answerable": false,
+      "question": "What are the AI SDK's built-in default rate limits per API key?",
+      "expected_answer": ["Not in the docs; rate limits come from the model provider. The bot should say it can't find this rather than invent numbers"],
+      "must_include": [],
+      "stale_signals": [],
+      "sources": []
+    },
+    {
+      "id": "q20",
+      "category": "unanswerable",
+      "answerable": false,
+      "question": "How many weekly npm downloads does the ai package have?",
+      "expected_answer": ["Out of scope for the docs; the bot should decline and not produce a number"],
+      "must_include": [],
+      "stale_signals": [],
+      "sources": []
+    }
+  ]
+}
