@@ -1,0 +1,20 @@
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    container_name: docrag-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres # local only
+      POSTGRES_DB: docrag
+    ports:
+      - '5432:5432'
+    volumes:
+      - docrag-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d docrag']
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+volumes:
+  docrag-pgdata:

@@ -10,7 +10,11 @@
     "eval": "tsx --env-file=$HOME/.secrets/docs-bot.env scripts/run-evals.ts",
     "eval:judge": "tsx scripts/judge.ts",
     "fetch-docs": "tsx scripts/fetch-docs.ts",
-    "check-coverage": "tsx scripts/check-coverage.ts"
+    "check-coverage": "tsx scripts/check-coverage.ts",
+    "chunk-docs": "tsx scripts/chunk-docs.ts",
+    "db:up": "docker compose up -d --wait",
+    "db:migrate": "tsx scripts/db-migrate.ts",
+    "embed": "tsx scripts/embed-chunks.ts"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +23,12 @@
   "dependencies": {
     "@openrouter/ai-sdk-provider": "^3.1.0",
     "ai": "^7.0.158",
+    "pg": "^8.23.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",
+    "@types/pg": "^8.23.1",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
   }
