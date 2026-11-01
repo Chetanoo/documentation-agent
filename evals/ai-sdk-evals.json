@@ -3,7 +3,7 @@
     "name": "ai-sdk-docs-bot-evals",
     "docs_version": "AI SDK 7.x",
     "created": "2026-10-29",
-    "notes": "16 answerable + 4 unanswerable. 'must_include' = identifiers a correct answer should contain (cheap string check). 'evidence' = facts needed to answer; each fact is a list of terms that must all appear in one retrieved chunk ('a|b' = either), used for retrieval scoring. 'stale_signals' = outdated v5/v6 APIs; if the answer RECOMMENDS one of these, it's wrong (mentioning it as deprecated is fine), so grade those with the LLM judge, not string match."
+    "notes": "29 answerable + 6 unanswerable. q01-q20 written mostly from the v6/v7 migration guides; q21-q35 from the regular docs (MCP, chat persistence, embeddings, tools). 'must_include' = identifiers a correct answer should contain (cheap string check). 'evidence' = facts needed to answer; each fact is a list of terms that must all appear in one retrieved chunk ('a|b' = either), used for retrieval scoring. 'stale_signals' = outdated v5/v6 APIs; if the answer RECOMMENDS one of these, it's wrong (mentioning it as deprecated is fine), so grade those with the LLM judge, not string match."
   },
   "questions": [
     {
@@ -289,6 +289,221 @@
       "must_include": [],
       "stale_signals": [],
       "sources": []
+    },
+    {
+      "id": "q21",
+      "category": "mcp",
+      "answerable": true,
+      "question": "How do I connect to a remote MCP server over HTTP and let streamText use its tools?",
+      "expected_answer": [
+        "Create a client with `createMCPClient` from `@ai-sdk/mcp`, e.g. `transport: { type: 'http', url }`",
+        "Get the tools with `await mcpClient.tools()` and pass them as `tools`",
+        "Close the client when done, e.g. `await mcpClient.close()` in streamText's `onEnd`",
+        "stdio transport is for local servers only, not production"
+      ],
+      "must_include": ["createMCPClient", "@ai-sdk/mcp"],
+      "evidence": [["createMCPClient", "type: 'http'"], ["mcpClient.close()", "onEnd"]],
+      "stale_signals": ["experimental_createMCPClient", "onFinish"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-core/mcp-tools", "section": "Initializing an MCP Client / Closing the MCP Client" }]
+    },
+    {
+      "id": "q22",
+      "category": "mcp",
+      "answerable": true,
+      "question": "My MCP server marks a tool with destructiveHint: true. Will the AI SDK automatically ask the user for approval before running it?",
+      "expected_answer": [
+        "No: annotations are untrusted, server-provided hints and the MCP client does not turn them into an approval policy",
+        "They are exposed on the tool's `metadata.annotations` and the tool call's `toolMetadata.annotations`",
+        "Write your own `toolApproval` policy, e.g. return 'user-approval' unless `readOnlyHint === true`"
+      ],
+      "must_include": ["toolApproval", "annotations"],
+      "evidence": [["destructiveHint", "toolApproval"]],
+      "stale_signals": ["needsApproval"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-core/mcp-tools", "section": "Tool Annotations and Approval" }]
+    },
+    {
+      "id": "q23",
+      "category": "mcp",
+      "answerable": true,
+      "question": "MCP tool calls sometimes fail with rate limits or gateway timeouts. Can the MCP client retry them automatically?",
+      "expected_answer": [
+        "Yes, opt in with `maxRetries` on `createMCPClient` (e.g. `maxRetries: 2`)",
+        "Retries are disabled by default",
+        "They apply to `tools/call` requests"
+      ],
+      "must_include": ["maxRetries", "createMCPClient"],
+      "evidence": [["createMCPClient", "maxRetries"]],
+      "stale_signals": [],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-core/mcp-tools", "section": "Retrying Transient Tool Failures" }]
+    },
+    {
+      "id": "q24",
+      "category": "chat-persistence",
+      "answerable": true,
+      "question": "In my useChat API route, how do I save the full conversation, including the new AI response, once streaming finishes?",
+      "expected_answer": [
+        "Use `toUIMessageStream({ stream: result.stream, originalMessages: messages, onEnd: ({ messages }) => saveChat(...) })`",
+        "`onEnd` receives the complete `UIMessage[]` including the new response",
+        "Return it with `createUIMessageStreamResponse({ stream })`",
+        "Store messages in the `UIMessage` (useChat) format"
+      ],
+      "must_include": ["originalMessages", "onEnd"],
+      "evidence": [["originalMessages", "onEnd", "saveChat"]],
+      "stale_signals": ["onFinish", "result.toUIMessageStreamResponse"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-message-persistence", "section": "Storing messages" }]
+    },
+    {
+      "id": "q25",
+      "category": "chat-persistence",
+      "answerable": true,
+      "question": "If the user closes the browser tab while the response is still streaming, the answer never gets saved. How do I fix that?",
+      "expected_answer": [
+        "Call `result.consumeStream()` (without await) before returning the response",
+        "It removes backpressure, so the stream runs to completion and `onEnd` still fires and saves the chat",
+        "For more robust handling, use resumable streams"
+      ],
+      "must_include": ["consumeStream"],
+      "evidence": [["consumeStream", "onEnd"]],
+      "stale_signals": ["onFinish"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-message-persistence", "section": "Handling client disconnects" }]
+    },
+    {
+      "id": "q26",
+      "category": "chat-persistence",
+      "answerable": true,
+      "question": "Should I store chat messages in my database as ModelMessage or UIMessage, and what should I do when I load them back?",
+      "expected_answer": [
+        "Store them as `UIMessage` (the useChat format, with fields like `id`)",
+        "Validate loaded messages that contain tools, metadata or data parts with `validateUIMessages`",
+        "Convert them with `convertToModelMessages` before passing them to the model"
+      ],
+      "must_include": ["UIMessage", "validateUIMessages"],
+      "evidence": [["validateUIMessages"]],
+      "stale_signals": [],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-message-persistence", "section": "Storing messages / Validating messages on the server" }]
+    },
+    {
+      "id": "q27",
+      "category": "embeddings",
+      "answerable": true,
+      "question": "I need to embed thousands of document chunks for RAG. How do I embed them in bulk while limiting how many requests run at once?",
+      "expected_answer": [
+        "Use `embedMany({ model, values })`; embeddings come back in the same order as the values",
+        "Limit concurrency with `maxParallelCalls`",
+        "embedMany splits large inputs into multiple model calls"
+      ],
+      "must_include": ["embedMany", "maxParallelCalls"],
+      "evidence": [["embedMany(", "maxParallelCalls"]],
+      "stale_signals": ["textEmbeddingModel"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-core/embeddings", "section": "Embedding Many Values / Parallel Requests" }]
+    },
+    {
+      "id": "q28",
+      "category": "embeddings",
+      "answerable": true,
+      "question": "How do I request smaller embedding vectors, for example 512 dimensions?",
+      "expected_answer": [
+        "Pass the top-level `dimensions: 512` option to `embed` or `embedMany`",
+        "A dimension setting in `providerOptions` takes precedence over `dimensions`",
+        "Support and allowed values depend on the model; the SDK does not truncate or resize vectors"
+      ],
+      "must_include": ["dimensions"],
+      "evidence": [["dimensions: 512"]],
+      "stale_signals": ["textEmbeddingModel"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-core/embeddings", "section": "Output Dimensions" }]
+    },
+    {
+      "id": "q29",
+      "category": "embeddings",
+      "answerable": true,
+      "question": "How do I compare two embeddings to see how similar they are?",
+      "expected_answer": [
+        "Use `cosineSimilarity(a, b)` exported from `ai`"
+      ],
+      "must_include": ["cosineSimilarity"],
+      "evidence": [["cosineSimilarity("]],
+      "stale_signals": [],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-core/embeddings", "section": "Embedding Similarity" }]
+    },
+    {
+      "id": "q30",
+      "category": "tools",
+      "answerable": true,
+      "question": "The model calls two tools in one step, but the second one must see the side effects of the first. How do I make tool calls run one at a time?",
+      "expected_answer": [
+        "Set `toolCallConcurrency: 1` (by default tool calls in a step run concurrently)",
+        "Calls then start sequentially in the order the model generated them",
+        "It does not change how many tool calls the model generates; provider options like `parallelToolCalls` control that"
+      ],
+      "must_include": ["toolCallConcurrency"],
+      "evidence": [["toolCallConcurrency: 1"]],
+      "stale_signals": [],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling", "section": "Tool call execution concurrency" }]
+    },
+    {
+      "id": "q31",
+      "category": "tools",
+      "answerable": true,
+      "question": "How do I force the model to call one specific tool?",
+      "expected_answer": [
+        "Set `toolChoice: { type: 'tool', toolName: '<name>' }`",
+        "`'required'` forces some tool, `'none'` forbids tools, `'auto'` is the default"
+      ],
+      "must_include": ["toolChoice", "toolName"],
+      "evidence": [["toolChoice", "type: 'tool'"]],
+      "stale_signals": [],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling", "section": "Tool Choice" }]
+    },
+    {
+      "id": "q32",
+      "category": "tools",
+      "answerable": true,
+      "question": "When my tool's execute function throws an error, does generateText throw too? How do I find out which tool failed?",
+      "expected_answer": [
+        "No: tool execution errors become `tool-error` content parts so the model can react in multi-step loops",
+        "Find them in `result.steps`, e.g. `step.content.filter(part => part.type === 'tool-error')`, with `toolName`, `input` and `error`",
+        "generateText does throw for other tool errors such as `NoSuchToolError` or `InvalidToolInputError`",
+        "In streamText, they appear as `tool-error` parts in the stream"
+      ],
+      "must_include": ["tool-error"],
+      "evidence": [["tool-error", "NoSuchToolError"]],
+      "stale_signals": ["fullStream"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling", "section": "Handling Errors" }]
+    },
+    {
+      "id": "q33",
+      "category": "tools",
+      "answerable": true,
+      "question": "I have about 50 tools defined but want the model to see only a few of them in a given call. How do I do that?",
+      "expected_answer": [
+        "Pass `activeTools` with the names of the tools to expose; by default all tools are active",
+        "It keeps static typing for the full tool set while limiting what the model sees",
+        "`prepareStep` can change `activeTools` per step"
+      ],
+      "must_include": ["activeTools"],
+      "evidence": [["activeTools"]],
+      "stale_signals": ["experimental_activeTools"],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling", "section": "Active Tools" }]
+    },
+    {
+      "id": "q34",
+      "category": "unanswerable",
+      "answerable": false,
+      "question": "What is the maximum number of tools I can pass to generateText?",
+      "expected_answer": ["The docs give no fixed limit; they only say models can handle a limited number of tools depending on the model. The bot may suggest `activeTools` but must not invent a number"],
+      "must_include": [],
+      "stale_signals": [],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling", "section": "Active Tools" }]
+    },
+    {
+      "id": "q35",
+      "category": "unanswerable",
+      "answerable": false,
+      "question": "What is the default timeout for an MCP tool call in the AI SDK?",
+      "expected_answer": ["The docs don't state a default timeout; requests accept an optional `timeout` in their request options. The bot must not invent a value or borrow unrelated numbers (e.g. the elicitation retry limit or delay)"],
+      "must_include": [],
+      "stale_signals": [],
+      "sources": [{ "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/create-mcp-client" }]
     }
   ]
 }

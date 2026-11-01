@@ -52,6 +52,9 @@ For answerable questions, pick exactly one verdict:
   deprecated or removed.
 - "wrong": the answer contradicts the reference, or its core solution relies on SDK functions, options,
   packages or behavior that the reference contradicts or that appear to be invented.
+  An answer that says the information isn't available is also "wrong", even if it is honest about it.
+  If the answer covers the main recommendation and only says a secondary detail is missing,
+  grade the part it answered.
 
 For unanswerable questions (the docs do not contain the answer), pick exactly one verdict:
 - "declined": the answer says it doesn't know or can't find it. Pointing to where to look is fine.

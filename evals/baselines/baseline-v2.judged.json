@@ -1,0 +1,566 @@
+{
+  "runFile": "baseline-2026-11-01T19-04-35-890Z.json",
+  "judgeModel": "google/gemini-3.6-flash",
+  "judgments": [
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q01",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends using the deprecated `system` property as the primary/idiomatic approach instead of `instructions`.",
+      "judgeCostUsd": 0.0007035
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q02",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly attributes the change to AI SDK v3 using a `system` parameter instead of AI SDK 7's top-level `instructions` option or the `allowSystemInMessages: true` setting.",
+      "judgeCostUsd": 0.0009885
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q03",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly states that the AI SDK requires Node.js >= 18, whereas the SDK actually requires Node.js 22 or later.",
+      "judgeCostUsd": 0.00081675
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q04",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends `maxSteps` and `stepCountIs`, which are outdated APIs in v7; `stepCountIs` was renamed to `isStepCount`.",
+      "judgeCostUsd": 0.000762
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q05",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly recommends the non-existent 'Agent' class with 'maxSteps: 1', whereas the reference specifies using 'ToolLoopAgent' which defaults to 'stopWhen: isStepCount(20)'.",
+      "judgeCostUsd": 0.0009075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q06",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends `generateObject`, which is deprecated in v7 in favor of `generateText` with `output: Output.object({ schema })`.",
+      "judgeCostUsd": 0.00110775
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q07",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends using `streamObject`, which is deprecated/outdated in favor of `streamText` with `output: Output.object({ schema })`.",
+      "judgeCostUsd": 0.0011865
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q08",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly states that `result.usage` covers only the last step and that there is no built-in aggregated total, directly contradicting the reference which states `result.usage` is the total usage across all steps and `result.finalStep.usage` provides the last step.",
+      "judgeCostUsd": 0.0009915
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q09",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer recommends using `result.messages` instead of `result.responseMessages` or flat mapping `step.response.messages` as specified in the reference.",
+      "judgeCostUsd": 0.00115125
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q10",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends using `fullStream`, which has been renamed to `stream` in AI SDK v7.",
+      "judgeCostUsd": 0.0011085
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q11",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends `toDataStreamResponse()`, which is explicitly listed as an outdated API in the reference.",
+      "judgeCostUsd": 0.00138
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q12",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer states that the AI SDK does not have a built-in approval flag, ignoring the `toolApproval` setting in `generateText`/`streamText` and recommending a custom promise wrapper instead.",
+      "judgeCostUsd": 0.00119625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q13",
+      "answerable": true,
+      "verdict": "acceptable",
+      "reason": "The answer provides a generic JavaScript closure pattern to inject credentials at call time rather than using the SDK's built-in `contextSchema` and `toolsContext` features.",
+      "judgeCostUsd": 0.001941
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q14",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer recommends non-existent SDK APIs like `setGlobalTelemetry` and outdated patterns like `isEnabled: true` instead of installing `@ai-sdk/otel` and calling `registerTelemetry(new OpenTelemetry())`.",
+      "judgeCostUsd": 0.0011685
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q15",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer invents provider-specific property names (such as cacheReadInputTokens and cachedTokens) instead of using the standardized result.usage.inputTokenDetails.cacheReadTokens provided by the AI SDK.",
+      "judgeCostUsd": 0.001002
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q16",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer invents non-existent `embeddings()` function from `ai` package instead of using `embed()` as specified in the reference.",
+      "judgeCostUsd": 0.0007035
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q17",
+      "answerable": false,
+      "verdict": "hallucinated",
+      "reason": "The answer claims that the latest major version of the AI SDK is version 5 and that there is no roadmap for versions 6, 7, or 8, which is an hallucinated fact.",
+      "judgeCostUsd": 0.00072825
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q18",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that no specific removal date has been announced for `generateObject`.",
+      "judgeCostUsd": 0.0006195
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q19",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the AI SDK does not have built-in rate limits and points to the model providers, aligning with the reference without inventing false numbers or facts.",
+      "judgeCostUsd": 0.000687
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q20",
+      "answerable": false,
+      "verdict": "hallucinated",
+      "reason": "The answer correctly declines to provide the real-time download statistics and directs the user to npm platforms, but then states a specific historical figure ('several million weekly downloads') unsupported by the reference docs, making it hallucinated.",
+      "judgeCostUsd": 0.0007305
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q21",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates using `createMCPClient` from `@ai-sdk/mcp`, calling `await client.tools()`, passing the tools to `streamText`, and mentioning `client.close()` for cleanup.",
+      "judgeCostUsd": 0.00113325
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q22",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that the AI SDK does not automatically ask for user approval based on MCP annotations, and explains that the annotations are exposed as metadata that must be handled by application-level logic.",
+      "judgeCostUsd": 0.00126075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q23",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly states that there is no built-in auto-retry for MCP tool calls, contradicting the reference which explicitly states that `createMCPClient` supports `maxRetries` for `tools/call` requests.",
+      "judgeCostUsd": 0.00178575
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q24",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer recommends using `onFinish` on the client or `result.text` background promises, missing the standard v7 server-side pattern of using `onEnd` inside `toUIMessageStream` with `createUIMessageStreamResponse`.",
+      "judgeCostUsd": 0.00116175
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q25",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends using the `onFinish` callback to persist the response, which is listed as an outdated API.",
+      "judgeCostUsd": 0.00183225
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q26",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer directly contradicts the reference, recommending storing messages as ModelMessage instead of UIMessage, and claiming the SDK does not ship a built-in converter when validateUIMessages and convertToModelMessages exist.",
+      "judgeCostUsd": 0.00124575
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q27",
+      "answerable": true,
+      "verdict": "acceptable",
+      "reason": "The answer misses the built-in `maxParallelCalls` parameter in `embedMany` which handles limiting request concurrency directly without custom batching code or external libraries like `p-limit`, but it provides a valid generic solution.",
+      "judgeCostUsd": 0.00125175
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q28",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer recommends setting dimensions inside `providerOptions.openai.dimensions`, whereas the AI SDK has a standard top-level `dimensions` parameter for `embed` and `embedMany`.",
+      "judgeCostUsd": 0.00092325
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q29",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer claims the Vercel AI SDK doesn't export a built-in comparison function, but the SDK exports `cosineSimilarity` directly from the `ai` package.",
+      "judgeCostUsd": 0.00093675
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q30",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly states that there is no option to force tool calls to run sequentially within a step, whereas the SDK supports setting `toolCallConcurrency: 1`.",
+      "judgeCostUsd": 0.00126
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q31",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly uses `name` instead of `toolName` inside the `toolChoice` object (e.g., `{ type: 'tool', name: 'getWeather' }`).",
+      "judgeCostUsd": 0.00087225
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q32",
+      "answerable": true,
+      "verdict": "acceptable",
+      "reason": "The answer correctly identifies that `generateText` does not throw when a tool's `execute` function fails. However, to find out which tool failed, it suggests heuristics with `onStepFinish` or manual wrapping instead of using `result.steps` and filtering for `tool-error` content parts as described in the reference.",
+      "judgeCostUsd": 0.00123975
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q33",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer claims there is no filter API, but the Vercel AI SDK provides the `activeTools` option specifically for filtering which tools are exposed in a call while keeping static typing.",
+      "judgeCostUsd": 0.001842
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q34",
+      "answerable": false,
+      "verdict": "hallucinated",
+      "reason": "The answer states specific numbers as hard provider limits (such as 128 tools for OpenAI/Anthropic and 20 for Gemini) which are not supported by the reference, violating the requirement not to invent a number.",
+      "judgeCostUsd": 0.00080625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q35",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly declines to state a specific default timeout for MCP tool calls, noting that the information isn't specified and correctly pointing to the configurable `timeout` option.",
+      "judgeCostUsd": 0.00073725
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q01",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends using the deprecated `system` option instead of the current `instructions` option.",
+      "judgeCostUsd": 0.00064575
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q02",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer references obsolete/outdated Vercel AI SDK v3 behavior (using `system: ...`) and recommends downgrading to v2.x, whereas AI SDK 7 rejects system messages in messages arrays by default and provides `instructions` or `allowSystemInMessages: true` to resolve it.",
+      "judgeCostUsd": 0.00089325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q03",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly claims Node.js 18+ is required (Node.js 22+ is required) and incorrectly states that require() is supported (the packages are ESM-only).",
+      "judgeCostUsd": 0.000696
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q04",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer invents custom state-tracking logic inside tool execution and `onStepFinish` instead of using the SDK's built-in `stopWhen: isStepCount(5)` stopping condition.",
+      "judgeCostUsd": 0.00086475
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q05",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer falsely claims to use 'ToolCallingAgent' with a default of 10 steps, contradicting the reference which specifies 'ToolLoopAgent' and a default of 20 steps.",
+      "judgeCostUsd": 0.00068475
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q06",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends using `generateObject`, which is deprecated in AI SDK v7 in favor of `generateText` with `Output.object({ schema })`.",
+      "judgeCostUsd": 0.0010155
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q07",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends `streamObject` and `partialObjectStream`, which are explicitly listed as deprecated/outdated APIs in favor of `streamText` with `output: Output.object({ schema })`.",
+      "judgeCostUsd": 0.00089325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q08",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly claims that getting only the last step's usage requires manual tracking or streaming, whereas the reference states `result.finalStep.usage` directly provides the usage for the final step.",
+      "judgeCostUsd": 0.0008385
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q09",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends accessing messages via `chunk.response.messages` (or `response.messages`), which is listed as an outdated API in the reference.",
+      "judgeCostUsd": 0.00091425
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q10",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates using `for await (const event of stream)` to iterate over events from streamText, matching the updated `stream` API requirement.",
+      "judgeCostUsd": 0.0007905
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q11",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends outdated/removed APIs like `result.toAIStream()` and `experimental_streamText` instead of using `toUIMessageStream` and `createUIMessageStreamResponse` as specified in the reference.",
+      "judgeCostUsd": 0.0009345
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q12",
+      "answerable": true,
+      "verdict": "acceptable",
+      "reason": "The answer uses generic application-level confirmation logic inside the tool's execute function instead of using the Vercel AI SDK's built-in toolApproval feature.",
+      "judgeCostUsd": 0.0009105
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q13",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer recommends passing the API key as an LLM parameter in the tool's parameter schema instead of using contextSchema and toolsContext as specified in the reference.",
+      "judgeCostUsd": 0.000861
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q14",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer invents non-existent APIs like `@ai-sdk/opentelemetry` and `instrumentAI` instead of using `@ai-sdk/otel` and `registerTelemetry` as specified in the reference.",
+      "judgeCostUsd": 0.000921
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q15",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer invents non-existent `usage` fields such as `usage.cacheReadInputTokens` and `usage.promptTokens` instead of using the standard `usage.inputTokenDetails.cacheReadTokens` path.",
+      "judgeCostUsd": 0.000846
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q16",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses `openai.embedding('text-embedding-3-small')` and passes it to `embed({ model, value })` to embed a single string.",
+      "judgeCostUsd": 0.00071475
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q17",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the information is not available and directs the user to official resources.",
+      "judgeCostUsd": 0.00057825
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q18",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that no exact removal date has been announced in the documentation and points to the official resources.",
+      "judgeCostUsd": 0.00064575
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q19",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the SDK has no built-in rate limits and points out that rate limits come directly from the AI providers.",
+      "judgeCostUsd": 0.000786
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q20",
+      "answerable": false,
+      "verdict": "hallucinated",
+      "reason": "The answer correctly declined to answer using live stats, but hallucinated a specific download figure (~500K weekly downloads) not supported by the reference.",
+      "judgeCostUsd": 0.000681
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q21",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer invents an non-existent `mcpClient` function and `experimental_mcpClient` parameter instead of using `createMCPClient` and passing tools retrieved via `await mcpClient.tools()` to `tools`.",
+      "judgeCostUsd": 0.00093225
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q22",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer correctly states that the AI SDK does not automatically ask for user approval based on the metadata hint. However, it invents a `destructiveHint` parameter directly on the `tool()` function instead of referencing MCP tool metadata/annotations.",
+      "judgeCostUsd": 0.00210225
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q23",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly states that the MCP client does not automatically retry failed tool calls, contradicting the reference which explains that `maxRetries` can be configured on `createMCPClient`.",
+      "judgeCostUsd": 0.00083925
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q24",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The response relies on the outdated `onFinish` callback and `toDataStreamResponse` (or `result.toUIMessageStreamResponse`), whereas the current approach uses `toUIMessageStream` with its `onEnd` callback.",
+      "judgeCostUsd": 0.00087675
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q25",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends using `onFinish` (which is listed as an outdated API) and manually persisting chunks in a custom ReadableStream, instead of recommending `result.consumeStream()` or resumable streams as documented.",
+      "judgeCostUsd": 0.00101925
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q26",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer recommends storing messages as ModelMessage instead of UIMessage, directly contradicting the reference.",
+      "judgeCostUsd": 0.00075075
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q27",
+      "answerable": true,
+      "verdict": "acceptable",
+      "reason": "The answer provides a generic JavaScript concurrency solution using `embed` instead of the SDK's built-in `embedMany` function with the `maxParallelCalls` option.",
+      "judgeCostUsd": 0.00089325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q28",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer recommends passing `dimensions` inside the model instantiation (`openai.embedding(..., { dimensions: 512 })`) rather than passing `dimensions: 512` directly as a top-level option to `embed` or `embedMany` as specified in the reference.",
+      "judgeCostUsd": 0.00088425
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q29",
+      "answerable": true,
+      "verdict": "acceptable",
+      "reason": "The answer provides a standard custom JavaScript implementation of cosine similarity instead of using the SDK's built-in `cosineSimilarity` function exported from `ai`.",
+      "judgeCostUsd": 0.00077325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q30",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer misses the standard SDK option `toolCallConcurrency: 1` and instead invents custom manual tool execution workarounds using `onFinish` or loops.",
+      "judgeCostUsd": 0.00088125
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q31",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "Passing a string directly to `toolChoice` (e.g., `toolChoice: 'myTool'`) is incorrect in the Vercel AI SDK; `toolChoice` requires the object syntax `{ type: 'tool', toolName: 'myTool' }` to specify a tool.",
+      "judgeCostUsd": 0.00082425
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q32",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly claims that `generateText` throws when a tool's `execute` function throws an error, whereas tool execution errors are captured as `tool-error` content parts in `result.steps` so the model can handle them.",
+      "judgeCostUsd": 0.0009
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q33",
+      "answerable": true,
+      "verdict": "acceptable",
+      "reason": "The answer recommends manually filtering the `tools` object passed to `generateText`, which is a standard and generic JavaScript approach that doesn't contradict the SDK or use outdated APIs.",
+      "judgeCostUsd": 0.0007695
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q34",
+      "answerable": false,
+      "verdict": "hallucinated",
+      "reason": "The answer attempts to answer an unanswerable question with specific guidance and claims rather than declining to answer.",
+      "judgeCostUsd": 0.00149025
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q35",
+      "answerable": false,
+      "verdict": "hallucinated",
+      "reason": "The answer states a specific default timeout of 30 seconds for MCP tool calls, which is not mentioned in the documentation.",
+      "judgeCostUsd": 0.0008475
+    }
+  ]
+}
