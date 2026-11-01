@@ -1,0 +1,566 @@
+{
+  "runFile": "rag-2026-11-01T20-08-03-431Z.json",
+  "judgeModel": "google/gemini-3.6-flash",
+  "judgments": [
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the top-level `instructions` option in `generateText` as specified in the reference.",
+      "judgeCostUsd": 0.00070425
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that system messages inside `messages` are rejected by default in AI SDK 7, and provides both recommended fixes: moving the message to `instructions` or setting `allowSystemInMessages: true`.",
+      "judgeCostUsd": 0.0010005
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately states that Node.js 22+ is required (18/20 are unsupported) and that packages are ESM-only, prohibiting require().",
+      "judgeCostUsd": 0.00079125
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends setting `stopWhen: isStepCount(5)` using the updated v7 API name.",
+      "judgeCostUsd": 0.0008115
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `ToolLoopAgent` as the class to use and states that it runs for 20 steps by default (`stopWhen: isStepCount(20)`).",
+      "judgeCostUsd": 0.00076425
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `generateText` with `output: Output.object({ schema })` and accessing the typed result via `result.output` as specified in the reference.",
+      "judgeCostUsd": 0.00092025
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `streamText` with `Output.object` and iterating over `partialOutputStream`, matching the reference key points.",
+      "judgeCostUsd": 0.00087975
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `result.usage` covers all steps and `result.finalStep.usage` provides the usage for only the final step.",
+      "judgeCostUsd": 0.00083925
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `responseMessages` from the result of `generateText`/`streamText` and mentions the alternative approach using `steps.flatMap`, matching the reference key points.",
+      "judgeCostUsd": 0.000861
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q10",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates iterating over `result.stream` using `for await` to handle stream events such as text deltas and tool calls, adhering to the updated property name in Vercel AI SDK version 7.",
+      "judgeCostUsd": 0.0010665
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using top-level `toUIMessageStream({ stream: result.stream })` and wrapping it in `createUIMessageStreamResponse`, matching the reference.",
+      "judgeCostUsd": 0.00116625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q12",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer explicitly recommends using `needsApproval: true` on `tool()` for `streamText`, `generateText`, and `WorkflowAgent`, which is deprecated in v7 in favor of `toolApproval`.",
+      "judgeCostUsd": 0.00132675
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates using `contextSchema` on the tool definition and passing the API key via `toolsContext` at call time, accessing it via `{ context }` in the `execute` function.",
+      "judgeCostUsd": 0.00095475
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q14",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes installing `@ai-sdk/otel`, calling `registerTelemetry(new OpenTelemetry())` at startup, and opting out per call using `telemetry: { isEnabled: false }`.",
+      "judgeCostUsd": 0.00102825
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q15",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `result.usage.inputTokenDetails.cacheReadTokens` as the field for reading tokens served from the prompt cache.",
+      "judgeCostUsd": 0.00084525
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q16",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates creating an OpenAI embedding model using `openai.embeddingModel('text-embedding-3-small')` and embedding a string using `embed({ model, value })`.",
+      "judgeCostUsd": 0.00081075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q17",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not contain information about an AI SDK 8 release date.",
+      "judgeCostUsd": 0.000588
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q18",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not specify a date or version number for the removal of generateObject.",
+      "judgeCostUsd": 0.00059325
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q19",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not mention built-in default rate limits per API key in the AI SDK and accurately notes that rate limits are imposed by model providers.",
+      "judgeCostUsd": 0.00089775
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q20",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not contain information about weekly npm download statistics.",
+      "judgeCostUsd": 0.00052875
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q21",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses `createMCPClient` with an HTTP transport configuration, gets the tools with `await mcpClient.tools()`, passes them to `streamText`, and handles closing the client in `onEnd`.",
+      "judgeCostUsd": 0.00135
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q22",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The response correctly states that the AI SDK does not automatically enforce approval based on MCP annotations, and demonstrates how to handle them using `toolApproval` and `toolMetadata.annotations` as described in the reference.",
+      "judgeCostUsd": 0.000888
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q23",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that MCP client retries can be enabled using `maxRetries` on `createMCPClient`, that retries are disabled by default, and that they apply to `tools/call` requests.",
+      "judgeCostUsd": 0.00101625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q24",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses `toUIMessageStream` with the `onEnd` callback to access the full conversation as `UIMessage[]` and returns it via `createUIMessageStreamResponse`, matching the reference exactly.",
+      "judgeCostUsd": 0.0012
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q25",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends calling `result.consumeStream()` without `await` to remove backpressure and ensure `onEnd` runs to save the chat, and mentions resumable streams for more robust handling.",
+      "judgeCostUsd": 0.0009975
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q26",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies storing messages as `UIMessage`, validating them with `validateUIMessages` when loaded back, and converting them using `convertToModelMessages` before passing to the model.",
+      "judgeCostUsd": 0.00114975
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q27",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer claims there is no documented concurrency option for `embedMany`, but the SDK provides `maxParallelCalls` specifically to limit concurrency.",
+      "judgeCostUsd": 0.0008295
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q28",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the top-level `dimensions` parameter with `embed` or `embedMany` and accurately highlights that `providerOptions` takes precedence and the SDK does not truncate vectors.",
+      "judgeCostUsd": 0.001047
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q29",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `cosineSimilarity` exported from the `ai` package and provides a valid code example.",
+      "judgeCostUsd": 0.00071775
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q30",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies the `toolCallConcurrency: 1` option for `generateText`/`streamText` to run tool calls sequentially in order.",
+      "judgeCostUsd": 0.0008025
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q31",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly specifies using `toolChoice: { type: 'tool', toolName: '...' }` to force a specific tool call, matching the reference.",
+      "judgeCostUsd": 0.0008115
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q32",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately states that generateText does not throw on tool execution errors, explains how to find tool-error parts in steps with their properties (toolName, input, error), and mentions schema-level error exceptions.",
+      "judgeCostUsd": 0.00108
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q33",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the `activeTools` option to specify an array of tool names to expose to the model.",
+      "judgeCostUsd": 0.001014
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q34",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not specify a hard limit on the number of tools and mentions model-dependent limitations.",
+      "judgeCostUsd": 0.00093825
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q35",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not contain information about a default timeout for MCP tool calls.",
+      "judgeCostUsd": 0.0008355
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the top-level `instructions` option for system prompts in `generateText` as specified in the reference.",
+      "judgeCostUsd": 0.00066075
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that system messages in `messages` are disabled by default in AI SDK 7 and explains how to fix it using the `allowSystemInMessages: true` option.",
+      "judgeCostUsd": 0.0007185
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that Node.js 22 or later is required and that require() is not supported because the SDK is ESM-only.",
+      "judgeCostUsd": 0.00066975
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses `stopWhen: isStepCount(5)` as documented in Vercel AI SDK v7.",
+      "judgeCostUsd": 0.000729
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `ToolLoopAgent` as the class to use and correctly states that it runs for 20 steps by default.",
+      "judgeCostUsd": 0.00060825
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `generateText` with `Output.object({ schema })` and reading `result.output`, matching the reference key points.",
+      "judgeCostUsd": 0.0008025
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `streamText` with `Output.object` and consuming `partialOutputStream` via a `for await` loop, matching the reference instructions.",
+      "judgeCostUsd": 0.00084375
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `result.usage` covers all steps and `result.finalStep.usage` provides usage for only the last step.",
+      "judgeCostUsd": 0.00075825
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer recommends using `steps.flatMap(step => step.response.messages)`, which is explicitly listed as a valid alternative in the reference.",
+      "judgeCostUsd": 0.00078
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q10",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends iterating over `result.stream` using `for await...of` to access all stream events, matching the reference.",
+      "judgeCostUsd": 0.00077925
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates using `toUIMessageStream` and `createUIMessageStreamResponse` to construct and return a stream response for `useChat`.",
+      "judgeCostUsd": 0.00086025
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q12",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses the `toolApproval` setting with `'user-approval'` as specified in the reference.",
+      "judgeCostUsd": 0.00083025
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates defining `contextSchema` on the tool and receiving `{ context }` in the execute function's options, matching the reference key points.",
+      "judgeCostUsd": 0.000861
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q14",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies installing `@ai-sdk/otel` and calling `registerTelemetry(new OpenTelemetry())` at application startup to enable telemetry globally.",
+      "judgeCostUsd": 0.00069975
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q15",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `usage.inputTokenDetails.cacheReadTokens` to access the prompt cache token count.",
+      "judgeCostUsd": 0.00068625
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q16",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses the `embed` function with `openai/text-embedding-3-small` as the model string and a `value` parameter, matching the recommended SDK pattern.",
+      "judgeCostUsd": 0.0007095
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q17",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not contain information about an AI SDK 8 release date.",
+      "judgeCostUsd": 0.0005565
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q18",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly acknowledges that no specific removal date is given in the documentation.",
+      "judgeCostUsd": 0.000564
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q19",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the information isn't in the documentation and notes that rate limits are handled externally.",
+      "judgeCostUsd": 0.0006015
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q20",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the information about weekly npm downloads is not available in the documentation.",
+      "judgeCostUsd": 0.000552
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q21",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses `createMCPClient` with an HTTP transport, calls `await mcpClient.tools()`, passes them to `streamText`, and closes the client when finished.",
+      "judgeCostUsd": 0.00086475
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q22",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that the AI SDK does not automatically ask for user approval based on the destructiveHint annotation and demonstrates writing a toolApproval policy checking toolCall.toolMetadata.annotations.",
+      "judgeCostUsd": 0.00087
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q23",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `maxRetries` can be passed to `createMCPClient` to opt into automatic retries, which are disabled by default.",
+      "judgeCostUsd": 0.00070725
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q24",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `toUIMessageStream` with its `onEnd` callback to access the full array of `messages` (including the new response) and wrapping it with `createUIMessageStreamResponse`.",
+      "judgeCostUsd": 0.00093525
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q25",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `result.consumeStream()` without awaiting it to allow `onEnd` to fire and save the chat upon client disconnection.",
+      "judgeCostUsd": 0.0007875
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q26",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends storing messages as UIMessage and validating loaded messages using validateUIMessages, but it omits converting them to ModelMessage using convertToModelMessages before sending them to the model, which is a key step.",
+      "judgeCostUsd": 0.00095175
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q27",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer states that you need to control concurrency yourself using custom batching logic, whereas `embedMany` natively supports limiting concurrency via the `maxParallelCalls` parameter.",
+      "judgeCostUsd": 0.0008985
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q28",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends passing the top-level `dimensions: 512` parameter to `embed` and `embedMany` functions.",
+      "judgeCostUsd": 0.000864
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q29",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the `cosineSimilarity` function exported from the `ai` package and demonstrates its usage with embeddings.",
+      "judgeCostUsd": 0.00063
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q30",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends setting `toolCallConcurrency: 1` in `generateText` to execute tool calls sequentially within a step.",
+      "judgeCostUsd": 0.0007305
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q31",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends setting `toolChoice` to `{ type: 'tool', toolName: 'yourToolName' }`, matching the reference.",
+      "judgeCostUsd": 0.000858
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q32",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that generateText does not throw on tool execution errors and shows how to inspect step.content for 'tool-error' parts containing toolName, input, and error.",
+      "judgeCostUsd": 0.000915
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q33",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the `activeTools` option with an array of tool names to restrict which tools are exposed to the model.",
+      "judgeCostUsd": 0.00077325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q34",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not specify a maximum number of tools and that it depends on the language model being used.",
+      "judgeCostUsd": 0.0006345
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q35",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the default timeout for MCP tool calls is not specified in the documentation, which matches the reference.",
+      "judgeCostUsd": 0.00059775
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 /**
  * RAG eval: same questions, models and settings as run-baseline.ts, but each question
- * gets the top-5 hybrid-retrieved chunks as numbered sources. Retrieval is the only change.
+ * gets the retrieved chunks (see RETRIEVAL in src/rag/retrieve.ts) as numbered sources. Retrieval is the only change.
  *
  * Run (from your own terminal):
  *   withsecrets npm run eval:rag                 -> full run, writes evals/runs/rag-<stamp>.json
@@ -246,7 +246,7 @@ async function main() {
         models: MODELS,
         instructions: RAG_INSTRUCTIONS,
         settings: { REASONING_MAX_TOKENS, MAX_OUTPUT_TOKENS, temperature: 0 },
-        retrieval: { ...RETRIEVAL, mode: 'hybrid', embedding: EMBEDDING, embeddingTokens: retrieved.embeddingTokens },
+        retrieval: { ...RETRIEVAL, mode: RETRIEVAL.textWeight === 0 ? 'vector' : 'hybrid', embedding: EMBEDDING, embeddingTokens: retrieved.embeddingTokens },
         results,
       },
       null,

@@ -243,7 +243,8 @@
       "expected_answer": [
         "`openai.embeddingModel('text-embedding-3-small')` or shorthand `openai.embedding(...)`",
         "Pass it to `embed({ model, value })`",
-        "`textEmbeddingModel` / `textEmbedding` are the old names"
+        "`textEmbeddingModel` / `textEmbedding` are the old names",
+        "A model id string like 'openai/text-embedding-3-small' also works"
       ],
       "must_include": ["embed(", "embedding"],
       "evidence": [["embeddingModel(", "embed("]],
