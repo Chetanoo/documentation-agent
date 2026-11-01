@@ -1,6 +1,6 @@
 # Progress
 
-_Last updated: 2026-10-30_
+_Last updated: 2026-11-01_
 
 ## Goal
 
@@ -20,12 +20,16 @@ Later: a mini eval framework that compares models, prompts, cost and speed.
   - `toolApproval`, `toolsContext` / `contextSchema`
   - `@ai-sdk/otel`
   - Node 22+, ESM-only
-- **Ingestion source:** every docs page is available as Markdown at `<url>.md`, and `/llms.txt` indexes all pages.
+- **Ingestion source:** `/llms.txt`. It is not an index: it's the full docs concatenated (541 pages, each with its own frontmatter). We split it locally instead of fetching pages one by one.
+- **Corpus scope:** unprefixed `/docs/*` (= v7) and `/cookbook/*`. Excluded: provider pages (for now) and migration guides older than 5→6 (full of stale code).
 - **Models:** via OpenRouter ($10 credit limit).
   - Contestants: `qwen/qwen3.8-27b`, `mistralai/mistral-small-2603`
   - Judge: `google/gemini-3.6-flash` (a third model family)
-- **LLM client:** the AI SDK itself, with `@openrouter/ai-sdk-provider`.
-- **Planned stack:** Postgres + pgvector, hybrid search (full-text + vector, merged with reciprocal rank fusion), chunking by headings, SSE streaming.
+- **Embeddings:** `openai/text-embedding-3-small` via OpenRouter (1536 dims, $0.02 / 1M tokens). Fallback candidate: Qwen3 Embedding 8B (check its dimensions first: pgvector HNSW indexes at most 2000).
+- **LLM client:** the AI SDK itself, with `@openrouter/ai-sdk-provider` (3.x line = AI SDK v7). Note: this provider still uses `textEmbeddingModel`, not the v6+ name `embeddingModel`.
+- **Database:** Postgres 17 + pgvector in Docker locally (port 5433, because 5432 is taken on this machine). Neon later for deployment (same SQL).
+- **Retrieval:** hybrid. Vector search (HNSW, cosine) + full-text search (`tsvector`, terms OR-ed, title/section weighted above body), merged with reciprocal rank fusion (k = 60, 50 candidates from each side).
+- **Planned:** SSE streaming, Fastify API, React chat.
 
 ## Secrets setup (done)
 
@@ -35,22 +39,42 @@ Later: a mini eval framework that compares models, prompts, cost and speed.
   ```powershell
   withsecrets npm run <script>
   ```
+  Only scripts that call OpenRouter need it (`embed`, `eval:retrieval`, baseline, judge).
 - `.claude/settings.json` denies reads of `.env*` and the secrets folder, and denies `bws`.
 - Environment: Windows, WebStorm, PowerShell 5.1.
+
+## Pipeline
+
+```
+npm run fetch-docs        llms.txt → data/corpus/ (375 pages, committed) + _manifest.json (sha256 per page)
+npm run check-coverage    every eval source exists in the corpus
+npm run chunk-docs        corpus → data/chunks.jsonl (1986 chunks, gitignored, deterministic)
+npm run db:up             Postgres + pgvector in Docker
+npm run db:migrate        schema (add -- --reset after changing embedding dims)
+withsecrets npm run embed            embed new/changed chunks only, delete stale ones
+withsecrets npm run eval:retrieval   vector / text / hybrid scores → evals/runs/
+```
 
 ## Repo contents
 
 | Path | What it is |
 |---|---|
-| `evals/ai-sdk-evals.json` | 20 questions (16 answerable, 4 unanswerable). Each has `expected_answer`, `must_include`, `stale_signals`, `sources`. |
-| `scripts/run-baseline.ts` | Asks each model the questions with no retrieval. Reasoning capped at 4k tokens, total output 12k, 5 calls in parallel. Writes to `evals/runs/` (gitignored). |
-| `scripts/judge.ts` | Grades answers as correct / acceptable / outdated / wrong; unanswerable ones as declined / hallucinated. Uses `Output.object`. Throttled under 20 requests/min. |
+| `data/corpus/` | Snapshot of the v7 docs + cookbook as Markdown. `.gitattributes` marks it `-text` so line endings (and hashes) don't change on Windows. |
+| `scripts/fetch-docs.ts` | Splits `llms.txt` by frontmatter, filters by path, writes pages + manifest. Section index pages are stored as `_index.md`. |
+| `scripts/check-coverage.ts` | Checks that every eval `sources` URL exists in the corpus. |
+| `scripts/chunk-docs.ts` | Splits pages at `##`/`###` (never inside code fences). Merges sections < 120 tokens into the next; splits sections > 800 tokens at paragraphs, top-level list items, nested list items (parent line repeated) and table rows (header repeated). Each chunk has `content` and `embed_text` (= "Title > Section" + content), `kind`, `url` with anchor. |
+| `scripts/db-migrate.ts`, `src/db/schema.ts` | `chunks` table: metadata, `vector(1536)` with HNSW index, generated weighted `tsvector` with GIN index. |
+| `scripts/embed-chunks.ts` | Batches of 200, hash per chunk (model + chunk) so reruns only embed what changed, each batch committed separately. |
+| `src/config.ts` | Embedding model + dims, `DATABASE_URL` default. |
+| `src/embedding.ts` | Embedding model + `embedTexts()`. |
+| `src/retrieval/search.ts` | `vectorSearch`, `textSearch`, `rrf`, `hybridSearch`. |
+| `scripts/eval-retrieval.ts` | Scores all three modes on evidence@k and MRR, prints misses, saves the run. |
+| `evals/ai-sdk-evals.json` | 20 questions (16 answerable, 4 unanswerable). Each has `expected_answer`, `must_include`, `stale_signals`, `sources`; answerable ones also have `evidence`. |
+| `scripts/run-baseline.ts`, `scripts/judge.ts` | No-retrieval baseline + LLM judge (see below). |
 | `src/lib/pool.ts` | Shared helper for running requests in parallel. |
-| `evals/baselines/baseline-v1.json` (+ judged file) | The official "before" snapshot. |
+| `evals/baselines/` | `baseline-v1.json` (+ judged): generation "before". `retrieval-v1.json`: first retrieval measurement. |
 
-Known gaps:
-- 13 of the 16 answerable questions come from the v6/v7 migration guides. Need more on tool calling, embeddings, chat persistence and MCP.
-- TODO in `judge.ts`: set `MIN_INTERVAL_MS` to 0 once the OpenRouter account is no longer "new".
+Corpus stats: 375 pages → 1,986 chunks, ~644k tokens (estimated), median chunk 254 tokens, p90 667. Embedding the whole corpus: 618k tokens, 51 s, ~$0.012.
 
 ## Baseline results (no retrieval)
 
@@ -63,12 +87,41 @@ Known gaps:
 - Qwen costs about 6× more and is 2.5× slower.
 - The judge is calibrated but slightly lenient on invented side details.
 
+## Retrieval results (retrieval-v1)
+
+16 answerable questions, top-k chunks, `text-embedding-3-small`:
+
+| Mode | evidence@1 | evidence@3 | evidence@5 | evidence@10 | MRR |
+|---|---|---|---|---|---|
+| Vector | 0.53 | 0.81 | 0.81 | 0.94 | 0.69 |
+| Full-text | 0.38 | 0.63 | 0.75 | 0.88 | 0.52 |
+| **Hybrid (RRF)** | **0.56** | **0.75** | **0.94** | **0.97** | **0.71** |
+
+- Hybrid beats both single modes at k = 5, which is the number of chunks generation will use.
+- Only miss at k = 5: q03 (Node version + ESM). It asks two things, and the ESM / `require()` fact exists in a single chunk of the migration guide. Possible later fix: split multi-part questions into sub-queries.
+- With 16 questions, one question ≈ 6 points. Read it as "retrieval works", not as a precise number.
+
+### Lesson: the first retrieval eval measured the labels, not retrieval
+
+The first run scored retrieval by page: did the top-k chunks come from the page in each question's `sources`? Result: hybrid recall@5 = 0.41.
+
+But `sources` recorded where each question was *written from* (13 of 16 from the migration guides), not every page that *answers* it. The v7 answers are spread across the docs: `isStepCount` is on 8 pages, `toolApproval` on 8+. Retrieval kept returning correct pages (`agents/loop-control`, `reference/ai-sdk-core/tool-loop-agent` with "Default: isStepCount(20)", `agents/tool-approvals`), and they were scored as misses.
+
+Fix: score at chunk level instead. Each question got an `evidence` field: a list of facts, each a set of terms that must all appear in one retrieved chunk (e.g. `["isStepCount(", "stopWhen"]`). A chunk counts if it actually contains the answer. Same retrieval, re-scored: hybrid evidence@5 went from 0.41 → 0.94. Page-level scoring was also lenient in another way: a 25-chunk reference page counted as a hit even when the retrieved chunk didn't contain the answer.
+
+## Known gaps
+
+- 13 of the 16 answerable questions come from the v6/v7 migration guides. Need more on tool calling, embeddings, chat persistence and MCP. Add them before tuning anything else.
+- Heading anchors in chunk URLs are an approximation of the site's slugs. Spot-check before relying on them for citations.
+- Migration-guide chunks contain "before" (v6) code. If they start showing up as sources of wrong answers, use `kind` to down-rank them.
+- TODO in `judge.ts`: set `MIN_INTERVAL_MS` to 0 once the OpenRouter account is no longer "new".
+
 ## Next steps
 
-1. Commit `evals/baselines/` if not done yet.
-2. **Ingestion:** fetch pages via `llms.txt` and `.md` URLs → chunk by headings with metadata (URL, section path) → embed → pgvector.
-3. **Measure retrieval alone first:** recall@k against each question's expected sources, before writing any generation code.
-4. Generation with citations.
-5. RAG eval run (the "after" numbers).
-6. Web UI.
-7. Deployment.
+1. **Generation with citations:** retrieve the top 5 chunks (hybrid), pass them as numbered sources, the model answers citing `[1]`, `[2]`, declines when the sources don't cover the question.
+2. **RAG eval run:** same 20 questions, same judge, both models → the "after" table next to the baseline.
+3. Expand the eval set (tool calling, embeddings, persistence, MCP).
+4. Fastify API with SSE streaming.
+5. React web chat.
+6. Deployment (Neon + hosting).
+7. Later: eval framework comparing models, prompts, embedding models, cost and speed.
