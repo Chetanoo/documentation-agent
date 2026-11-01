@@ -1,0 +1,3515 @@
+{
+  "config": {
+    "embedding": {
+      "model": "openai/text-embedding-3-small",
+      "dims": 1536
+    },
+    "hybrid": {
+      "candidates": 50,
+      "rrfK": 60
+    },
+    "ks": [
+      1,
+      3,
+      5,
+      10
+    ]
+  },
+  "summary": {
+    "vector": {
+      "evidence@1": 0.53125,
+      "evidence@3": 0.8125,
+      "evidence@5": 0.8125,
+      "evidence@10": 0.9375,
+      "mrr": 0.6938244047619048
+    },
+    "text": {
+      "evidence@1": 0.375,
+      "evidence@3": 0.625,
+      "evidence@5": 0.75,
+      "evidence@10": 0.875,
+      "mrr": 0.5224702380952381
+    },
+    "hybrid": {
+      "evidence@1": 0.5625,
+      "evidence@3": 0.75,
+      "evidence@5": 0.9375,
+      "evidence@10": 0.96875,
+      "mrr": 0.709375
+    }
+  },
+  "results": [
+    {
+      "id": "q01",
+      "question": "In the current AI SDK, how do I pass a system prompt to generateText?",
+      "vector": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 0,
+          "10": 0
+        },
+        "rr": 0,
+        "top": [
+          {
+            "id": "/cookbook/node/generate-text-with-chat-prompt#0",
+            "crumb": "Generate Text with Chat Prompt",
+            "evidence": false,
+            "score": 0.6719
+          },
+          {
+            "id": "/docs/reference/ai-sdk-errors/ai-invalid-prompt-error#0",
+            "crumb": "AI_InvalidPromptError > Potential Causes > System Messages in `prompt` or `messages`",
+            "evidence": false,
+            "score": 0.6518
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-text#0",
+            "crumb": "Generating Text",
+            "evidence": false,
+            "score": 0.645
+          },
+          {
+            "id": "/cookbook/next/generate-text-with-chat-prompt#0",
+            "crumb": "Generate Text with Chat Prompt",
+            "evidence": false,
+            "score": 0.6435
+          },
+          {
+            "id": "/docs/foundations/prompts#1",
+            "crumb": "Prompts > Text Prompts",
+            "evidence": false,
+            "score": 0.642
+          },
+          {
+            "id": "/cookbook/rsc/generate-text-with-chat-prompt#0",
+            "crumb": "Generate Text with Chat Prompt",
+            "evidence": false,
+            "score": 0.6411
+          },
+          {
+            "id": "/cookbook/rsc/generate-text#1",
+            "crumb": "Generate Text > Server",
+            "evidence": false,
+            "score": 0.6311
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#0",
+            "crumb": "generateText",
+            "evidence": false,
+            "score": 0.6223
+          },
+          {
+            "id": "/docs/foundations/prompts#0",
+            "crumb": "Prompts",
+            "evidence": false,
+            "score": 0.6221
+          },
+          {
+            "id": "/cookbook/node/generate-text#0",
+            "crumb": "Generate Text",
+            "evidence": false,
+            "score": 0.6196
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#8",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (1/3)",
+            "evidence": true,
+            "score": 27
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#9",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (2/3)",
+            "evidence": false,
+            "score": 25.8
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#14",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (1/3)",
+            "evidence": false,
+            "score": 25.2
+          },
+          {
+            "id": "/docs/foundations/providers-and-models#1",
+            "crumb": "Providers and Models > AI SDK Providers (1/2)",
+            "evidence": false,
+            "score": 22.8
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#15",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (2/3)",
+            "evidence": false,
+            "score": 20.8
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#11",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Lifecycle Events (1/2)",
+            "evidence": false,
+            "score": 19.2
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#17",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Streaming and Include Options (1/2)",
+            "evidence": false,
+            "score": 18.8
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#6",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Core API Renames and Removals (1/2)",
+            "evidence": false,
+            "score": 18.4
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#29",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Stream Response Helpers",
+            "evidence": false,
+            "score": 15.2
+          },
+          {
+            "id": "/cookbook/guides/r1#3",
+            "crumb": "Get started with DeepSeek R1 > Getting Started with the AI SDK",
+            "evidence": false,
+            "score": 14.8
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 0,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.5,
+        "top": [
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#9",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (2/3)",
+            "evidence": false,
+            "score": 0.0279
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#8",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (1/3)",
+            "evidence": true,
+            "score": 0.0271
+          },
+          {
+            "id": "/docs/foundations/prompts#2",
+            "crumb": "Prompts > System Prompts",
+            "evidence": false,
+            "score": 0.0245
+          },
+          {
+            "id": "/cookbook/guides/o1#3",
+            "crumb": "Get started with OpenAI o1 > Getting Started with the AI SDK",
+            "evidence": false,
+            "score": 0.0243
+          },
+          {
+            "id": "/cookbook/guides/o3#3",
+            "crumb": "Get started with OpenAI o3-mini > Getting Started with the AI SDK",
+            "evidence": false,
+            "score": 0.0192
+          },
+          {
+            "id": "/cookbook/node/generate-text-with-chat-prompt#0",
+            "crumb": "Generate Text with Chat Prompt",
+            "evidence": false,
+            "score": 0.0164
+          },
+          {
+            "id": "/docs/reference/ai-sdk-errors/ai-invalid-prompt-error#0",
+            "crumb": "AI_InvalidPromptError > Potential Causes > System Messages in `prompt` or `messages`",
+            "evidence": false,
+            "score": 0.0161
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-text#0",
+            "crumb": "Generating Text",
+            "evidence": false,
+            "score": 0.0159
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#14",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (1/3)",
+            "evidence": false,
+            "score": 0.0159
+          },
+          {
+            "id": "/cookbook/next/generate-text-with-chat-prompt#0",
+            "crumb": "Generate Text with Chat Prompt",
+            "evidence": false,
+            "score": 0.0156
+          }
+        ]
+      }
+    },
+    {
+      "id": "q02",
+      "question": "After upgrading, my generateText call fails when my messages array contains a { role: 'system' } message loaded from my database. Why, and how do I fix it?",
+      "vector": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/foundations/prompts#10",
+            "crumb": "Prompts > Message Prompts > System Messages",
+            "evidence": true,
+            "score": 0.4971
+          },
+          {
+            "id": "/cookbook/node/generate-text-with-chat-prompt#0",
+            "crumb": "Generate Text with Chat Prompt",
+            "evidence": false,
+            "score": 0.4635
+          },
+          {
+            "id": "/cookbook/rsc/generate-text-with-chat-prompt#2",
+            "crumb": "Generate Text with Chat Prompt > Server",
+            "evidence": false,
+            "score": 0.4619
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-message-persistence#4",
+            "crumb": "Chatbot Message Persistence > Validating messages on the server > Handling validation errors",
+            "evidence": false,
+            "score": 0.4527
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#10",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (3/3)",
+            "evidence": false,
+            "score": 0.4499
+          },
+          {
+            "id": "/cookbook/next/generate-text-with-chat-prompt#2",
+            "crumb": "Generate Text with Chat Prompt > Server",
+            "evidence": false,
+            "score": 0.4408
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/output#6",
+            "crumb": "Output > Error Handling",
+            "evidence": false,
+            "score": 0.4386
+          },
+          {
+            "id": "/docs/foundations/prompts#9",
+            "crumb": "Prompts > Message Prompts > Tool Messages (2/2)",
+            "evidence": false,
+            "score": 0.4292
+          },
+          {
+            "id": "/docs/ai-sdk-core/testing#1",
+            "crumb": "Testing > Examples > generateText",
+            "evidence": false,
+            "score": 0.4237
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#9",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (2/3)",
+            "evidence": true,
+            "score": 0.4207
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#9",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (2/3)",
+            "evidence": true,
+            "score": 18.8
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (2/3)",
+            "evidence": false,
+            "score": 16.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-rsc/stream-ui#1",
+            "crumb": "streamUI > Parameters (1/3)",
+            "evidence": false,
+            "score": 16
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#2",
+            "crumb": "generateText > API Signature > Parameters (2/23)",
+            "evidence": false,
+            "score": 15
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#16",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `prepareStep` callback (1/2)",
+            "evidence": false,
+            "score": 14.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#3",
+            "crumb": "generateText > API Signature > Parameters (3/23)",
+            "evidence": true,
+            "score": 14.6
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#3",
+            "crumb": "streamText > API Signature > Parameters (3/25)",
+            "evidence": true,
+            "score": 13.6
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#2",
+            "crumb": "streamText > API Signature > Parameters (2/25)",
+            "evidence": false,
+            "score": 13.6
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/agent#1",
+            "crumb": "Agent (Interface) > Interface Definition",
+            "evidence": false,
+            "score": 13.6
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool-loop-agent#5",
+            "crumb": "ToolLoopAgent > Constructor > Parameters (5/7)",
+            "evidence": false,
+            "score": 13.6
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#9",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (2/3)",
+            "evidence": true,
+            "score": 0.0307
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#2",
+            "crumb": "generateText > API Signature > Parameters (2/23)",
+            "evidence": false,
+            "score": 0.0293
+          },
+          {
+            "id": "/docs/foundations/prompts#7",
+            "crumb": "Prompts > Message Prompts > Assistant Messages",
+            "evidence": false,
+            "score": 0.0253
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-message-persistence#4",
+            "crumb": "Chatbot Message Persistence > Validating messages on the server > Handling validation errors",
+            "evidence": false,
+            "score": 0.025
+          },
+          {
+            "id": "/docs/foundations/prompts#3",
+            "crumb": "Prompts > Message Prompts",
+            "evidence": false,
+            "score": 0.0216
+          },
+          {
+            "id": "/cookbook/rsc/restore-messages-from-database#1",
+            "crumb": "Restore Messages From Database > Server",
+            "evidence": false,
+            "score": 0.0214
+          },
+          {
+            "id": "/docs/foundations/prompts#10",
+            "crumb": "Prompts > Message Prompts > System Messages",
+            "evidence": true,
+            "score": 0.0164
+          },
+          {
+            "id": "/cookbook/node/generate-text-with-chat-prompt#0",
+            "crumb": "Generate Text with Chat Prompt",
+            "evidence": false,
+            "score": 0.0161
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (2/3)",
+            "evidence": false,
+            "score": 0.0161
+          },
+          {
+            "id": "/cookbook/rsc/generate-text-with-chat-prompt#2",
+            "crumb": "Generate Text with Chat Prompt > Server",
+            "evidence": false,
+            "score": 0.0159
+          }
+        ]
+      }
+    },
+    {
+      "id": "q03",
+      "question": "What Node.js version does the AI SDK require, and can I still import it with require()?",
+      "vector": {
+        "coverage": {
+          "1": 0.5,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#4",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > All Packages > Minimum Node.js Version",
+            "evidence": true,
+            "score": 0.6851
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#5",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > All Packages > ESM Only — CommonJS Support Removed",
+            "evidence": true,
+            "score": 0.5862
+          },
+          {
+            "id": "/docs/getting-started/nodejs#0",
+            "crumb": "Node.js",
+            "evidence": false,
+            "score": 0.5642
+          },
+          {
+            "id": "/cookbook/guides/rag-chatbot#11",
+            "crumb": "RAG Agent > Build > Install AI SDK",
+            "evidence": false,
+            "score": 0.5603
+          },
+          {
+            "id": "/docs/getting-started/nodejs#2",
+            "crumb": "Node.js > Setup Your Application > Install Dependencies",
+            "evidence": false,
+            "score": 0.556
+          },
+          {
+            "id": "/docs/getting-started/navigating-the-library#2",
+            "crumb": "Navigating the Library > Environment Compatibility",
+            "evidence": false,
+            "score": 0.5371
+          },
+          {
+            "id": "/docs/troubleshooting/typescript-cannot-find-namespace-jsx#0",
+            "crumb": "\"TypeScript error \\\"Cannot find namespace 'JSX'\\\"\" > Solution",
+            "evidence": false,
+            "score": 0.5238
+          },
+          {
+            "id": "/docs/getting-started/coding-agents#1",
+            "crumb": "Coding Agents > Docs and Source Code in `node_modules`",
+            "evidence": false,
+            "score": 0.5227
+          },
+          {
+            "id": "/docs/getting-started/nodejs#4",
+            "crumb": "Node.js > Choosing a Provider",
+            "evidence": false,
+            "score": 0.5179
+          },
+          {
+            "id": "/docs/getting-started/navigating-the-library#1",
+            "crumb": "Navigating the Library > Choosing the Right Tool for Your Environment",
+            "evidence": false,
+            "score": 0.5149
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 0,
+          "10": 0
+        },
+        "rr": 0,
+        "top": [
+          {
+            "id": "/docs/foundations/providers-and-models#1",
+            "crumb": "Providers and Models > AI SDK Providers (1/2)",
+            "evidence": false,
+            "score": 22.8
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#14",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (1/3)",
+            "evidence": false,
+            "score": 21.6
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#6",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Core API Renames and Removals (1/2)",
+            "evidence": false,
+            "score": 21.2
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#15",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (2/3)",
+            "evidence": false,
+            "score": 18.4
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#29",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Stream Response Helpers",
+            "evidence": false,
+            "score": 17.6
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-6-0#14",
+            "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK UI > Tool UI Part Helper Functions Rename",
+            "evidence": false,
+            "score": 17.6
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-6-0#16",
+            "crumb": "Migrate AI SDK 5.x to 6.0 > Providers > Azure",
+            "evidence": false,
+            "score": 15.2
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#17",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Streaming and Include Options (1/2)",
+            "evidence": false,
+            "score": 14
+          },
+          {
+            "id": "/cookbook/guides/r1#3",
+            "crumb": "Get started with DeepSeek R1 > Getting Started with the AI SDK",
+            "evidence": false,
+            "score": 14
+          },
+          {
+            "id": "/docs/troubleshooting/unsupported-model-version#1",
+            "crumb": "Unsupported model version error > Solution > Update provider packages to AI SDK 5 compatible versions",
+            "evidence": false,
+            "score": 14
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 0,
+          "10": 0.5
+        },
+        "rr": 0.1,
+        "top": [
+          {
+            "id": "/docs/introduction#0",
+            "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+            "evidence": false,
+            "score": 0.0258
+          },
+          {
+            "id": "/docs/troubleshooting/unsupported-model-version#1",
+            "crumb": "Unsupported model version error > Solution > Update provider packages to AI SDK 5 compatible versions",
+            "evidence": false,
+            "score": 0.0244
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#22",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Tools and Tool Execution (3/3)",
+            "evidence": false,
+            "score": 0.0243
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-6-0#0",
+            "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK 6.0 Package Versions",
+            "evidence": false,
+            "score": 0.0241
+          },
+          {
+            "id": "/cookbook/guides/sonnet-3-7#2",
+            "crumb": "Get started with Claude 3.7 Sonnet > Getting Started with the AI SDK",
+            "evidence": false,
+            "score": 0.0225
+          },
+          {
+            "id": "/docs/reference/ai-sdk-errors#0",
+            "crumb": "AI SDK Errors > Importing Errors",
+            "evidence": false,
+            "score": 0.0221
+          },
+          {
+            "id": "/cookbook/guides/llama-3_1#3",
+            "crumb": "Get started with Llama 3.1 > Getting Started with the AI SDK",
+            "evidence": false,
+            "score": 0.0217
+          },
+          {
+            "id": "/docs/migration-guides#0",
+            "crumb": "Migration Guides",
+            "evidence": false,
+            "score": 0.0198
+          },
+          {
+            "id": "/cookbook/guides/o3#3",
+            "crumb": "Get started with OpenAI o3-mini > Getting Started with the AI SDK",
+            "evidence": false,
+            "score": 0.0198
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#4",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > All Packages > Minimum Node.js Version",
+            "evidence": true,
+            "score": 0.0164
+          }
+        ]
+      }
+    },
+    {
+      "id": "q04",
+      "question": "How do I stop a multi-step tool-calling loop after 5 steps?",
+      "vector": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/agents/loop-control#2",
+            "crumb": "Loop Control > Stop Conditions > Run Up to a Maximum Number of Steps",
+            "evidence": true,
+            "score": 0.6373
+          },
+          {
+            "id": "/docs/agents/loop-control#4",
+            "crumb": "Loop Control > Stop Conditions > Combine Multiple Conditions",
+            "evidence": true,
+            "score": 0.6302
+          },
+          {
+            "id": "/docs/getting-started/expo#12",
+            "crumb": "Expo > Enabling Multi-Step Tool Calls",
+            "evidence": true,
+            "score": 0.6035
+          },
+          {
+            "id": "/docs/getting-started/svelte#11",
+            "crumb": "Svelte > Enabling Multi-Step Tool Calls",
+            "evidence": true,
+            "score": 0.6025
+          },
+          {
+            "id": "/docs/agents/building-agents#5",
+            "crumb": "Building Agents > Configuration Options > Loop Control",
+            "evidence": true,
+            "score": 0.5976
+          },
+          {
+            "id": "/docs/getting-started/nextjs-app-router#10",
+            "crumb": "Next.js App Router > Enabling Multi-Step Tool Calls",
+            "evidence": true,
+            "score": 0.5863
+          },
+          {
+            "id": "/docs/getting-started/tanstack-start#10",
+            "crumb": "TanStack Start > Enabling Multi-Step Tool Calls",
+            "evidence": true,
+            "score": 0.5842
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#11",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Example",
+            "evidence": true,
+            "score": 0.5769
+          },
+          {
+            "id": "/docs/getting-started/nextjs-pages-router#9",
+            "crumb": "Next.js Pages Router > Enabling Multi-Step Tool Calls",
+            "evidence": true,
+            "score": 0.572
+          },
+          {
+            "id": "/docs/getting-started/nuxt#9",
+            "crumb": "Vue.js (Nuxt) > Enabling Multi-Step Tool Calls",
+            "evidence": true,
+            "score": 0.5704
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+            "evidence": true,
+            "score": 25.6
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (2/3)",
+            "evidence": false,
+            "score": 23.6
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#16",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `prepareStep` callback (1/2)",
+            "evidence": false,
+            "score": 19.6
+          },
+          {
+            "id": "/docs/reference/ai-sdk-workflow/workflow-agent#3",
+            "crumb": "WorkflowAgent > Constructor > Parameters (3/4)",
+            "evidence": false,
+            "score": 17.6
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#12",
+            "crumb": "streamText > API Signature > Parameters (12/25)",
+            "evidence": false,
+            "score": 17.2
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool-loop-agent#5",
+            "crumb": "ToolLoopAgent > Constructor > Parameters (5/7)",
+            "evidence": false,
+            "score": 17.2
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/agent#1",
+            "crumb": "Agent (Interface) > Interface Definition",
+            "evidence": false,
+            "score": 16.8
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#14",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Tool call execution concurrency",
+            "evidence": false,
+            "score": 16.4
+          },
+          {
+            "id": "/docs/ai-sdk-rsc/migrating-to-ui#3",
+            "crumb": "Migrating from RSC to UI > Streaming Chat Completions > Multi-Step Tool Calls",
+            "evidence": false,
+            "score": 16.2
+          },
+          {
+            "id": "/docs/reference/ai-sdk-workflow/workflow-agent#1",
+            "crumb": "WorkflowAgent > Constructor > Parameters (1/4)",
+            "evidence": true,
+            "score": 16
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+            "evidence": true,
+            "score": 0.0289
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#11",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Example",
+            "evidence": true,
+            "score": 0.0258
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#14",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Tool call execution concurrency",
+            "evidence": false,
+            "score": 0.025
+          },
+          {
+            "id": "/docs/agents/loop-control#17",
+            "crumb": "Loop Control > Forced Tool Calling",
+            "evidence": false,
+            "score": 0.0245
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#12",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Steps",
+            "evidence": true,
+            "score": 0.0231
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#4",
+            "crumb": "Lifecycle Callbacks > Use Cases > Debugging Multi-Step Tool Calls",
+            "evidence": true,
+            "score": 0.0226
+          },
+          {
+            "id": "/cookbook/guides/rag-chatbot#19",
+            "crumb": "RAG Agent > Build > Improving UX with Multi-Step Calls",
+            "evidence": true,
+            "score": 0.0198
+          },
+          {
+            "id": "/docs/agents/loop-control#2",
+            "crumb": "Loop Control > Stop Conditions > Run Up to a Maximum Number of Steps",
+            "evidence": true,
+            "score": 0.0164
+          },
+          {
+            "id": "/docs/agents/loop-control#4",
+            "crumb": "Loop Control > Stop Conditions > Combine Multiple Conditions",
+            "evidence": true,
+            "score": 0.0161
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (2/3)",
+            "evidence": false,
+            "score": 0.0161
+          }
+        ]
+      }
+    },
+    {
+      "id": "q05",
+      "question": "What class do I use to build a tool-using agent, and how many steps does it run by default?",
+      "vector": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 0,
+          "10": 1
+        },
+        "rr": 0.125,
+        "top": [
+          {
+            "id": "/docs/reference/ai-sdk-core/tool-loop-agent#13",
+            "crumb": "ToolLoopAgent > Examples > Basic Agent with Tools",
+            "evidence": false,
+            "score": 0.6442
+          },
+          {
+            "id": "/docs/agents/building-agents#10",
+            "crumb": "Building Agents > Define Agent Behavior with System Instructions > Tool Usage Instructions",
+            "evidence": false,
+            "score": 0.6133
+          },
+          {
+            "id": "/docs/agents/building-agents#2",
+            "crumb": "Building Agents > Configuration Options > Tools",
+            "evidence": false,
+            "score": 0.6055
+          },
+          {
+            "id": "/docs/agents/building-agents#1",
+            "crumb": "Building Agents > Configuration Options > Model and System Instructions",
+            "evidence": false,
+            "score": 0.6021
+          },
+          {
+            "id": "/docs/getting-started/nodejs#11",
+            "crumb": "Node.js > Enabling Multi-Step Tool Calls > Adding a second tool (2/2)",
+            "evidence": false,
+            "score": 0.6012
+          },
+          {
+            "id": "/docs/reference/ai-sdk-workflow/workflow-agent#15",
+            "crumb": "WorkflowAgent > Examples > Basic Agent with Tools",
+            "evidence": false,
+            "score": 0.6006
+          },
+          {
+            "id": "/docs/agents/building-agents#6",
+            "crumb": "Building Agents > Configuration Options > Tool Choice",
+            "evidence": false,
+            "score": 0.5956
+          },
+          {
+            "id": "/docs/agents/building-agents#5",
+            "crumb": "Building Agents > Configuration Options > Loop Control",
+            "evidence": true,
+            "score": 0.5922
+          },
+          {
+            "id": "/docs/agents/overview#3",
+            "crumb": "Overview > Why Use the ToolLoopAgent?",
+            "evidence": false,
+            "score": 0.5918
+          },
+          {
+            "id": "/cookbook/guides/agent-skills#8",
+            "crumb": "Add Skills to Your Agent > Step 5: Create the Agent",
+            "evidence": false,
+            "score": 0.5912
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 0,
+          "10": 0
+        },
+        "rr": 0,
+        "top": [
+          {
+            "id": "/docs/reference/ai-sdk-workflow/workflow-agent#1",
+            "crumb": "WorkflowAgent > Constructor > Parameters (1/4)",
+            "evidence": false,
+            "score": 23.2
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#8",
+            "crumb": "generateText > API Signature > Parameters (8/23)",
+            "evidence": false,
+            "score": 18.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#9",
+            "crumb": "streamText > API Signature > Parameters (9/25)",
+            "evidence": false,
+            "score": 18.8
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#16",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `prepareStep` callback (1/2)",
+            "evidence": false,
+            "score": 18.6
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/agent#1",
+            "crumb": "Agent (Interface) > Interface Definition",
+            "evidence": false,
+            "score": 18.2
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+            "evidence": false,
+            "score": 17.8
+          },
+          {
+            "id": "/docs/agents/building-agents#13",
+            "crumb": "Building Agents > Using an Agent > Lifecycle Callbacks (1/2)",
+            "evidence": false,
+            "score": 16
+          },
+          {
+            "id": "/docs/reference/ai-sdk-workflow/workflow-agent#3",
+            "crumb": "WorkflowAgent > Constructor > Parameters (3/4)",
+            "evidence": false,
+            "score": 15.6
+          },
+          {
+            "id": "/docs/foundations/tools#11",
+            "crumb": "Tools > Toolsets > Ready-to-Use Tool Packages",
+            "evidence": false,
+            "score": 14.6
+          },
+          {
+            "id": "/cookbook/guides/rag-chatbot#17",
+            "crumb": "RAG Agent > Build > Add Resource Tool (1/2)",
+            "evidence": false,
+            "score": 14.6
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.25,
+        "top": [
+          {
+            "id": "/docs/reference/ai-sdk-workflow/workflow-agent#1",
+            "crumb": "WorkflowAgent > Constructor > Parameters (1/4)",
+            "evidence": false,
+            "score": 0.0299
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/agent#1",
+            "crumb": "Agent (Interface) > Interface Definition",
+            "evidence": false,
+            "score": 0.0256
+          },
+          {
+            "id": "/docs/agents/building-agents#13",
+            "crumb": "Building Agents > Using an Agent > Lifecycle Callbacks (1/2)",
+            "evidence": false,
+            "score": 0.0246
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool-loop-agent#1",
+            "crumb": "ToolLoopAgent > Constructor > Parameters (1/7)",
+            "evidence": true,
+            "score": 0.024
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool-loop-agent#13",
+            "crumb": "ToolLoopAgent > Examples > Basic Agent with Tools",
+            "evidence": false,
+            "score": 0.0164
+          },
+          {
+            "id": "/docs/agents/building-agents#10",
+            "crumb": "Building Agents > Define Agent Behavior with System Instructions > Tool Usage Instructions",
+            "evidence": false,
+            "score": 0.0161
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#9",
+            "crumb": "streamText > API Signature > Parameters (9/25)",
+            "evidence": false,
+            "score": 0.0161
+          },
+          {
+            "id": "/docs/agents/building-agents#2",
+            "crumb": "Building Agents > Configuration Options > Tools",
+            "evidence": false,
+            "score": 0.0159
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#8",
+            "crumb": "generateText > API Signature > Parameters (8/23)",
+            "evidence": false,
+            "score": 0.0159
+          },
+          {
+            "id": "/docs/agents/building-agents#1",
+            "crumb": "Building Agents > Configuration Options > Model and System Instructions",
+            "evidence": false,
+            "score": 0.0156
+          }
+        ]
+      }
+    },
+    {
+      "id": "q06",
+      "question": "How do I get a typed object that matches a Zod schema from the model?",
+      "vector": {
+        "coverage": {
+          "1": 0,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.5,
+        "top": [
+          {
+            "id": "/docs/reference/ai-sdk-core/zod-schema#0",
+            "crumb": "zodSchema",
+            "evidence": false,
+            "score": 0.5808
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-structured-data#6",
+            "crumb": "Generating Structured Data > Output Types > `Output.object()`",
+            "evidence": true,
+            "score": 0.567
+          },
+          {
+            "id": "/docs/troubleshooting/no-object-generated-content-filter#2",
+            "crumb": "Object generation failed with OpenAI > Related Information",
+            "evidence": false,
+            "score": 0.5554
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/output#2",
+            "crumb": "Output > Output Types > `Output.object()`",
+            "evidence": true,
+            "score": 0.5485
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/zod-schema#1",
+            "crumb": "zodSchema > Example with recursive schemas",
+            "evidence": false,
+            "score": 0.5311
+          },
+          {
+            "id": "/docs/troubleshooting/no-object-generated-content-filter#1",
+            "crumb": "Object generation failed with OpenAI > Solution",
+            "evidence": true,
+            "score": 0.5271
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/zod-schema#2",
+            "crumb": "zodSchema > API Signature > Returns",
+            "evidence": false,
+            "score": 0.5267
+          },
+          {
+            "id": "/docs/ai-sdk-core/mcp-tools#14",
+            "crumb": "Model Context Protocol (MCP) > Using MCP Tools > Schema Definition",
+            "evidence": false,
+            "score": 0.4875
+          },
+          {
+            "id": "/cookbook/next/stream-object#1",
+            "crumb": "Stream Object > Object Mode > Client",
+            "evidence": false,
+            "score": 0.4772
+          },
+          {
+            "id": "/cookbook/next/stream-object#5",
+            "crumb": "Stream Object > Array Mode > Client",
+            "evidence": false,
+            "score": 0.4755
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.2,
+        "top": [
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#24",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Tool and Message Content Parts (1/2)",
+            "evidence": false,
+            "score": 13.6
+          },
+          {
+            "id": "/docs/ai-sdk-core/transcription#8",
+            "crumb": "Transcription > Transcription Models (1/2)",
+            "evidence": false,
+            "score": 13.4
+          },
+          {
+            "id": "/docs/ai-sdk-core/speech#5",
+            "crumb": "Speech > Speech Models",
+            "evidence": false,
+            "score": 13.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#12",
+            "crumb": "streamText > API Signature > Parameters (12/25)",
+            "evidence": false,
+            "score": 12.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/output#2",
+            "crumb": "Output > Output Types > `Output.object()`",
+            "evidence": true,
+            "score": 11
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#31",
+            "crumb": "streamText > API Signature > Returns (6/13)",
+            "evidence": false,
+            "score": 10.8
+          },
+          {
+            "id": "/docs/ai-sdk-core/image-generation#12",
+            "crumb": "Image Generation > Image Models (3/3)",
+            "evidence": false,
+            "score": 10.2
+          },
+          {
+            "id": "/docs/ai-sdk-core/image-generation#10",
+            "crumb": "Image Generation > Image Models (1/3)",
+            "evidence": false,
+            "score": 10.2
+          },
+          {
+            "id": "/docs/reference/ai-sdk-ui/use-object#1",
+            "crumb": "useObject > API Signature > Parameters",
+            "evidence": false,
+            "score": 10
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#2",
+            "crumb": "generateText > API Signature > Parameters (2/23)",
+            "evidence": false,
+            "score": 9.6
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/reference/ai-sdk-core/output#2",
+            "crumb": "Output > Output Types > `Output.object()`",
+            "evidence": true,
+            "score": 0.031
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/zod-schema#0",
+            "crumb": "zodSchema",
+            "evidence": false,
+            "score": 0.0291
+          },
+          {
+            "id": "/docs/ai-sdk-core/prompt-engineering#1",
+            "crumb": "Prompt Engineering > Tips > Tool & Structured Data Schemas",
+            "evidence": true,
+            "score": 0.0278
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-structured-data#6",
+            "crumb": "Generating Structured Data > Output Types > `Output.object()`",
+            "evidence": true,
+            "score": 0.0258
+          },
+          {
+            "id": "/docs/reference/ai-sdk-ui/use-object#1",
+            "crumb": "useObject > API Signature > Parameters",
+            "evidence": false,
+            "score": 0.0255
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/json-schema#0",
+            "crumb": "jsonSchema",
+            "evidence": false,
+            "score": 0.0247
+          },
+          {
+            "id": "/cookbook/guides/natural-language-postgres#13",
+            "crumb": "Natural Language Postgres > Visualizing query results > Generate the chart configuration",
+            "evidence": false,
+            "score": 0.0192
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#24",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Tool and Message Content Parts (1/2)",
+            "evidence": false,
+            "score": 0.0164
+          },
+          {
+            "id": "/docs/ai-sdk-core/speech#5",
+            "crumb": "Speech > Speech Models",
+            "evidence": false,
+            "score": 0.0161
+          },
+          {
+            "id": "/docs/troubleshooting/no-object-generated-content-filter#2",
+            "crumb": "Object generation failed with OpenAI > Related Information",
+            "evidence": false,
+            "score": 0.0159
+          }
+        ]
+      }
+    },
+    {
+      "id": "q07",
+      "question": "How do I stream a structured object so the UI can render it while it's being generated?",
+      "vector": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/cookbook/node/stream-object#0",
+            "crumb": "Stream Object",
+            "evidence": true,
+            "score": 0.6144
+          },
+          {
+            "id": "/docs/advanced/multiple-streamables#1",
+            "crumb": "Multiple Streamables > Nested Streamable UIs",
+            "evidence": false,
+            "score": 0.5922
+          },
+          {
+            "id": "/cookbook/rsc/stream-object#0",
+            "crumb": "Stream Object",
+            "evidence": false,
+            "score": 0.5911
+          },
+          {
+            "id": "/cookbook/next/stream-object#0",
+            "crumb": "Stream Object > Object Mode",
+            "evidence": false,
+            "score": 0.5881
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-structured-data#3",
+            "crumb": "Generating Structured Data > Stream Structured Outputs",
+            "evidence": true,
+            "score": 0.585
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-structured-data#0",
+            "crumb": "Generating Structured Data",
+            "evidence": false,
+            "score": 0.5427
+          },
+          {
+            "id": "/docs/foundations/streaming#1",
+            "crumb": "Streaming > Real-world Examples > Streaming UI",
+            "evidence": false,
+            "score": 0.5419
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-structured-data#15",
+            "crumb": "Generating Structured Data > More Examples > `generateText` with Output",
+            "evidence": false,
+            "score": 0.5329
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/create-agent-ui-stream#5",
+            "crumb": "createAgentUIStream > How It Works",
+            "evidence": false,
+            "score": 0.5257
+          },
+          {
+            "id": "/cookbook/rsc/stream-object#2",
+            "crumb": "Stream Object > Server",
+            "evidence": true,
+            "score": 0.5242
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 0,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.3333333333333333,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/generating-text#5",
+            "crumb": "Generating Text > `streamText` (1/2)",
+            "evidence": false,
+            "score": 13
+          },
+          {
+            "id": "/docs/advanced/rendering-ui-with-language-models#3",
+            "crumb": "Rendering UI with Language Models > Rendering User Interfaces on the Server",
+            "evidence": false,
+            "score": 12.6
+          },
+          {
+            "id": "/docs/ai-sdk-rsc/migrating-to-ui#10",
+            "crumb": "Migrating from RSC to UI > Streaming Object Generation (1/2)",
+            "evidence": true,
+            "score": 11.6
+          },
+          {
+            "id": "/docs/foundations/streaming#1",
+            "crumb": "Streaming > Real-world Examples > Streaming UI",
+            "evidence": false,
+            "score": 11
+          },
+          {
+            "id": "/docs/reference/ai-sdk-ui#0",
+            "crumb": "AI SDK UI",
+            "evidence": false,
+            "score": 9
+          },
+          {
+            "id": "/docs/ai-sdk-rsc/migrating-to-ui#1",
+            "crumb": "Migrating from RSC to UI > Streaming Chat Completions > Basic Setup (1/2)",
+            "evidence": false,
+            "score": 8.8
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-resume-streams#2",
+            "crumb": "Chatbot Resume Streams > Implementation > 1. Client-side: Enable stream resumption",
+            "evidence": false,
+            "score": 8.8
+          },
+          {
+            "id": "/docs/ai-sdk-rsc/migrating-to-ui#4",
+            "crumb": "Migrating from RSC to UI > Streaming Chat Completions > Generative User Interfaces (1/2)",
+            "evidence": false,
+            "score": 8.6
+          },
+          {
+            "id": "/docs/ai-sdk-rsc/generative-ui-state#2",
+            "crumb": "Managing Generative UI State > Using AI / UI State > Creating the AI Context",
+            "evidence": false,
+            "score": 8.6
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-structured-data#15",
+            "crumb": "Generating Structured Data > More Examples > `generateText` with Output",
+            "evidence": false,
+            "score": 8.4
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 0,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.5,
+        "top": [
+          {
+            "id": "/docs/foundations/streaming#1",
+            "crumb": "Streaming > Real-world Examples > Streaming UI",
+            "evidence": false,
+            "score": 0.0306
+          },
+          {
+            "id": "/cookbook/node/stream-object#0",
+            "crumb": "Stream Object",
+            "evidence": true,
+            "score": 0.0297
+          },
+          {
+            "id": "/docs/advanced/rendering-ui-with-language-models#3",
+            "crumb": "Rendering UI with Language Models > Rendering User Interfaces on the Server",
+            "evidence": false,
+            "score": 0.0295
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-structured-data#15",
+            "crumb": "Generating Structured Data > More Examples > `generateText` with Output",
+            "evidence": false,
+            "score": 0.029
+          },
+          {
+            "id": "/cookbook/next/stream-object#0",
+            "crumb": "Stream Object > Object Mode",
+            "evidence": false,
+            "score": 0.0288
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-structured-data#0",
+            "crumb": "Generating Structured Data",
+            "evidence": false,
+            "score": 0.0287
+          },
+          {
+            "id": "/docs/ai-sdk-rsc/migrating-to-ui#10",
+            "crumb": "Migrating from RSC to UI > Streaming Object Generation (1/2)",
+            "evidence": true,
+            "score": 0.0285
+          },
+          {
+            "id": "/cookbook/rsc/stream-object#0",
+            "crumb": "Stream Object",
+            "evidence": false,
+            "score": 0.0279
+          },
+          {
+            "id": "/docs/ai-sdk-rsc/migrating-to-ui#4",
+            "crumb": "Migrating from RSC to UI > Streaming Chat Completions > Generative User Interfaces (1/2)",
+            "evidence": false,
+            "score": 0.0277
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-structured-data#3",
+            "crumb": "Generating Structured Data > Stream Structured Outputs",
+            "evidence": true,
+            "score": 0.025
+          }
+        ]
+      }
+    },
+    {
+      "id": "q08",
+      "question": "In a multi-step generateText call, does result.usage cover only the last step or all steps? How do I get the other one?",
+      "vector": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/generating-text#1",
+            "crumb": "Generating Text > `generateText` (1/2)",
+            "evidence": true,
+            "score": 0.6295
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#18",
+            "crumb": "generateText > API Signature > Parameters (18/23)",
+            "evidence": false,
+            "score": 0.6085
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#25",
+            "crumb": "generateText > API Signature > Returns (2/6)",
+            "evidence": true,
+            "score": 0.6049
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#28",
+            "crumb": "generateText > API Signature > Returns (5/6)",
+            "evidence": false,
+            "score": 0.5821
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#12",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Steps",
+            "evidence": false,
+            "score": 0.5801
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#13",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (3/3)",
+            "evidence": true,
+            "score": 0.58
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#21",
+            "crumb": "generateText > API Signature > Parameters (21/23)",
+            "evidence": false,
+            "score": 0.57
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#13",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `onStepEnd` callback",
+            "evidence": false,
+            "score": 0.5584
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-text#3",
+            "crumb": "Generating Text > `generateText` > `onEnd` callback",
+            "evidence": true,
+            "score": 0.5574
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#29",
+            "crumb": "generateText > API Signature > Returns (6/6)",
+            "evidence": false,
+            "score": 0.5532
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 0,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.3333333333333333,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+            "evidence": false,
+            "score": 17
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#16",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `prepareStep` callback (1/2)",
+            "evidence": false,
+            "score": 16.6
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#26",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Multi-Step Result Shape (1/3)",
+            "evidence": true,
+            "score": 15.8
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-text#1",
+            "crumb": "Generating Text > `generateText` (1/2)",
+            "evidence": true,
+            "score": 14.6
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (2/3)",
+            "evidence": false,
+            "score": 14
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#12",
+            "crumb": "Telemetry > Telemetry Integrations > Available lifecycle methods (1/2)",
+            "evidence": false,
+            "score": 13.6
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#27",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Multi-Step Result Shape (2/3)",
+            "evidence": true,
+            "score": 12.6
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#8",
+            "crumb": "generateText > API Signature > Parameters (8/23)",
+            "evidence": false,
+            "score": 12.2
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-text#4",
+            "crumb": "Generating Text > `generateText` > Lifecycle callbacks (experimental)",
+            "evidence": false,
+            "score": 12.2
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/agent#1",
+            "crumb": "Agent (Interface) > Interface Definition",
+            "evidence": false,
+            "score": 11.6
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/generating-text#1",
+            "crumb": "Generating Text > `generateText` (1/2)",
+            "evidence": true,
+            "score": 0.032
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#26",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Multi-Step Result Shape (1/3)",
+            "evidence": true,
+            "score": 0.029
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#12",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Steps",
+            "evidence": false,
+            "score": 0.0287
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#27",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Multi-Step Result Shape (2/3)",
+            "evidence": true,
+            "score": 0.0274
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+            "evidence": false,
+            "score": 0.0273
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#13",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `onStepEnd` callback",
+            "evidence": false,
+            "score": 0.0268
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#4",
+            "crumb": "Lifecycle Callbacks > Use Cases > Debugging Multi-Step Tool Calls",
+            "evidence": false,
+            "score": 0.0265
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-text#4",
+            "crumb": "Generating Text > `generateText` > Lifecycle callbacks (experimental)",
+            "evidence": false,
+            "score": 0.026
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#24",
+            "crumb": "generateText > API Signature > Returns (1/6)",
+            "evidence": false,
+            "score": 0.0252
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#21",
+            "crumb": "generateText > API Signature > Parameters (21/23)",
+            "evidence": false,
+            "score": 0.0249
+          }
+        ]
+      }
+    },
+    {
+      "id": "q09",
+      "question": "After a multi-step tool call, how do I get the full list of assistant and tool messages to save to my database?",
+      "vector": {
+        "coverage": {
+          "1": 0,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.5,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#24",
+            "crumb": "Tool Calling > Tool Execution Options > Messages",
+            "evidence": false,
+            "score": 0.6353
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#18",
+            "crumb": "Tool Calling > Response Messages",
+            "evidence": true,
+            "score": 0.5846
+          },
+          {
+            "id": "/docs/troubleshooting/missing-tool-results-error#1",
+            "crumb": "Missing Tool Results Error > Solution > 1. Provide Tool Results",
+            "evidence": false,
+            "score": 0.5623
+          },
+          {
+            "id": "/docs/foundations/prompts#8",
+            "crumb": "Prompts > Message Prompts > Tool Messages (1/2)",
+            "evidence": false,
+            "score": 0.5593
+          },
+          {
+            "id": "/docs/agents/loop-control#11",
+            "crumb": "Loop Control > Prepare Step > Message Modification",
+            "evidence": false,
+            "score": 0.5582
+          },
+          {
+            "id": "/cookbook/node/manual-agent-loop#2",
+            "crumb": "Manual Agent Loop > Key Concepts > Tool Execution Control",
+            "evidence": true,
+            "score": 0.5542
+          },
+          {
+            "id": "/docs/agents/loop-control#16",
+            "crumb": "Loop Control > Access Step Information",
+            "evidence": true,
+            "score": 0.5473
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#12",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Steps",
+            "evidence": false,
+            "score": 0.5365
+          },
+          {
+            "id": "/cookbook/node/call-tools#1",
+            "crumb": "Call Tools > Accessing Tool Calls and Tool Results",
+            "evidence": false,
+            "score": 0.5307
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#4",
+            "crumb": "Lifecycle Callbacks > Use Cases > Debugging Multi-Step Tool Calls",
+            "evidence": false,
+            "score": 0.5294
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 0,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.5,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (2/3)",
+            "evidence": false,
+            "score": 26.4
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#16",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `prepareStep` callback (1/2)",
+            "evidence": true,
+            "score": 25.6
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+            "evidence": false,
+            "score": 23.6
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/agent#1",
+            "crumb": "Agent (Interface) > Interface Definition",
+            "evidence": false,
+            "score": 22.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#3",
+            "crumb": "generateText > API Signature > Parameters (3/23)",
+            "evidence": false,
+            "score": 20.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#3",
+            "crumb": "streamText > API Signature > Parameters (3/25)",
+            "evidence": false,
+            "score": 20.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool-loop-agent#5",
+            "crumb": "ToolLoopAgent > Constructor > Parameters (5/7)",
+            "evidence": false,
+            "score": 20.4
+          },
+          {
+            "id": "/docs/foundations/prompts#8",
+            "crumb": "Prompts > Message Prompts > Tool Messages (1/2)",
+            "evidence": false,
+            "score": 20.2
+          },
+          {
+            "id": "/docs/reference/ai-sdk-workflow/workflow-agent#3",
+            "crumb": "WorkflowAgent > Constructor > Parameters (3/4)",
+            "evidence": false,
+            "score": 18.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#25",
+            "crumb": "streamText > API Signature > Parameters (25/25)",
+            "evidence": false,
+            "score": 18.4
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.25,
+        "top": [
+          {
+            "id": "/docs/foundations/prompts#8",
+            "crumb": "Prompts > Message Prompts > Tool Messages (1/2)",
+            "evidence": false,
+            "score": 0.0303
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+            "evidence": false,
+            "score": 0.0276
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-tool-usage#0",
+            "crumb": "Chatbot Tool Usage",
+            "evidence": false,
+            "score": 0.027
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#16",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `prepareStep` callback (1/2)",
+            "evidence": true,
+            "score": 0.0269
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool-loop-agent#5",
+            "crumb": "ToolLoopAgent > Constructor > Parameters (5/7)",
+            "evidence": false,
+            "score": 0.0266
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#3",
+            "crumb": "generateText > API Signature > Parameters (3/23)",
+            "evidence": false,
+            "score": 0.0258
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (2/3)",
+            "evidence": false,
+            "score": 0.0257
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#3",
+            "crumb": "streamText > API Signature > Parameters (3/25)",
+            "evidence": false,
+            "score": 0.0242
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#4",
+            "crumb": "Lifecycle Callbacks > Use Cases > Debugging Multi-Step Tool Calls",
+            "evidence": false,
+            "score": 0.0236
+          },
+          {
+            "id": "/cookbook/next/call-tools-multiple-steps#1",
+            "crumb": "Call Tools in Multiple Steps > Server",
+            "evidence": false,
+            "score": 0.0225
+          }
+        ]
+      }
+    },
+    {
+      "id": "q10",
+      "question": "How do I iterate over every event from streamText, including text deltas and tool calls?",
+      "vector": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/generating-text#11",
+            "crumb": "Generating Text > `streamText` > `stream` property",
+            "evidence": true,
+            "score": 0.6604
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#32",
+            "crumb": "streamText > API Signature > Returns (7/13)",
+            "evidence": false,
+            "score": 0.6012
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-text#10",
+            "crumb": "Generating Text > `streamText` > Lifecycle callbacks (experimental)",
+            "evidence": false,
+            "score": 0.5853
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-text#8",
+            "crumb": "Generating Text > `streamText` > `onChunk` callback",
+            "evidence": false,
+            "score": 0.5742
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#31",
+            "crumb": "streamText > API Signature > Returns (6/13)",
+            "evidence": false,
+            "score": 0.5666
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#0",
+            "crumb": "streamText",
+            "evidence": false,
+            "score": 0.5645
+          },
+          {
+            "id": "/docs/ai-sdk-ui/reading-ui-message-streams#1",
+            "crumb": "Reading UIMessage Streams > Tool Calls Integration",
+            "evidence": true,
+            "score": 0.5603
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-text#13",
+            "crumb": "Generating Text > `streamText` > Stream transformation (2/2)",
+            "evidence": false,
+            "score": 0.5573
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool-loop-agent#11",
+            "crumb": "ToolLoopAgent > Methods > `stream()` (2/2)",
+            "evidence": false,
+            "score": 0.555
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text-low-memory#1",
+            "crumb": "experimental_streamTextLowMemory > Supported features",
+            "evidence": true,
+            "score": 0.5515
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 0,
+          "10": 1
+        },
+        "rr": 0.14285714285714285,
+        "top": [
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#12",
+            "crumb": "streamText > API Signature > Parameters (12/25)",
+            "evidence": false,
+            "score": 28.6
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (2/3)",
+            "evidence": false,
+            "score": 25.8
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#12",
+            "crumb": "Telemetry > Telemetry Integrations > Available lifecycle methods (1/2)",
+            "evidence": false,
+            "score": 22.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#25",
+            "crumb": "streamText > API Signature > Parameters (25/25)",
+            "evidence": false,
+            "score": 19.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#16",
+            "crumb": "generateText > API Signature > Parameters (16/23)",
+            "evidence": false,
+            "score": 18.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool-loop-agent#5",
+            "crumb": "ToolLoopAgent > Constructor > Parameters (5/7)",
+            "evidence": false,
+            "score": 18.4
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#17",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Streaming and Include Options (1/2)",
+            "evidence": true,
+            "score": 17.8
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+            "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+            "evidence": false,
+            "score": 17.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-workflow/workflow-agent#3",
+            "crumb": "WorkflowAgent > Constructor > Parameters (3/4)",
+            "evidence": false,
+            "score": 16.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#3",
+            "crumb": "streamText > API Signature > Parameters (3/25)",
+            "evidence": false,
+            "score": 16.2
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.25,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/generating-text#10",
+            "crumb": "Generating Text > `streamText` > Lifecycle callbacks (experimental)",
+            "evidence": false,
+            "score": 0.0296
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#31",
+            "crumb": "streamText > API Signature > Returns (6/13)",
+            "evidence": false,
+            "score": 0.0289
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#32",
+            "crumb": "streamText > API Signature > Returns (7/13)",
+            "evidence": false,
+            "score": 0.0282
+          },
+          {
+            "id": "/docs/ai-sdk-core/generating-text#11",
+            "crumb": "Generating Text > `streamText` > `stream` property",
+            "evidence": true,
+            "score": 0.028
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#12",
+            "crumb": "streamText > API Signature > Parameters (12/25)",
+            "evidence": false,
+            "score": 0.027
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#16",
+            "crumb": "generateText > API Signature > Parameters (16/23)",
+            "evidence": false,
+            "score": 0.0263
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#25",
+            "crumb": "streamText > API Signature > Parameters (25/25)",
+            "evidence": false,
+            "score": 0.0259
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (2/3)",
+            "evidence": false,
+            "score": 0.0258
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#21",
+            "crumb": "Telemetry > Collected Data > Legacy AI SDK Spans (`LegacyOpenTelemetry`) (2/4)",
+            "evidence": false,
+            "score": 0.0237
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#20",
+            "crumb": "Telemetry > Collected Data > Legacy AI SDK Spans (`LegacyOpenTelemetry`) (1/4)",
+            "evidence": false,
+            "score": 0.023
+          }
+        ]
+      }
+    },
+    {
+      "id": "q11",
+      "question": "How do I return a UI message stream from my API route so useChat can consume it?",
+      "vector": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-harnesses/ui#2",
+            "crumb": "UI > Route",
+            "evidence": true,
+            "score": 0.6595
+          },
+          {
+            "id": "/docs/ai-sdk-ui/stream-protocol#16",
+            "crumb": "Stream Protocols > Data Stream Protocol > UI Message Stream Example",
+            "evidence": true,
+            "score": 0.6373
+          },
+          {
+            "id": "/docs/ai-sdk-rsc/migrating-to-ui#1",
+            "crumb": "Migrating from RSC to UI > Streaming Chat Completions > Basic Setup (1/2)",
+            "evidence": true,
+            "score": 0.6193
+          },
+          {
+            "id": "/docs/getting-started/nuxt#3",
+            "crumb": "Vue.js (Nuxt) > Create an API route",
+            "evidence": true,
+            "score": 0.6144
+          },
+          {
+            "id": "/docs/ai-sdk-harnesses/ui#0",
+            "crumb": "UI > Client",
+            "evidence": false,
+            "score": 0.6075
+          },
+          {
+            "id": "/cookbook/next/use-shared-chat-context#3",
+            "crumb": "Share useChat State Across Components > Server",
+            "evidence": true,
+            "score": 0.6064
+          },
+          {
+            "id": "/docs/ai-sdk-rsc/migrating-to-ui#4",
+            "crumb": "Migrating from RSC to UI > Streaming Chat Completions > Generative User Interfaces (1/2)",
+            "evidence": true,
+            "score": 0.6032
+          },
+          {
+            "id": "/cookbook/next/stream-text-with-chat-prompt#1",
+            "crumb": "Stream Text with Chat Prompt > Server",
+            "evidence": true,
+            "score": 0.603
+          },
+          {
+            "id": "/docs/ai-sdk-rsc/migrating-to-ui#8",
+            "crumb": "Migrating from RSC to UI > Streaming Chat Completions > Saving Chats",
+            "evidence": true,
+            "score": 0.6023
+          },
+          {
+            "id": "/cookbook/api-servers/fastify#1",
+            "crumb": "Fastify > Examples > UI Message Stream",
+            "evidence": false,
+            "score": 0.5879
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.25,
+        "top": [
+          {
+            "id": "/docs/reference/ai-sdk-ui/create-ui-message-stream#1",
+            "crumb": "createUIMessageStream > API Signature > Parameters (1/2)",
+            "evidence": false,
+            "score": 16.2
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#37",
+            "crumb": "streamText > API Signature > Returns (12/13)",
+            "evidence": false,
+            "score": 14.8
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-resume-streams#2",
+            "crumb": "Chatbot Resume Streams > Implementation > 1. Client-side: Enable stream resumption",
+            "evidence": false,
+            "score": 14.8
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot#12",
+            "crumb": "Chatbot > Transport Configuration > Advanced: Trigger-based routing",
+            "evidence": true,
+            "score": 14.2
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-message-persistence#9",
+            "crumb": "Chatbot Message Persistence > Sending only the last message",
+            "evidence": true,
+            "score": 14
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-tool-usage#3",
+            "crumb": "Chatbot Tool Usage > Example > Client-side page (2/2)",
+            "evidence": false,
+            "score": 13.6
+          },
+          {
+            "id": "/docs/getting-started/nextjs-pages-router#2",
+            "crumb": "Next.js Pages Router > Create a Route Handler",
+            "evidence": true,
+            "score": 13.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-ui/use-chat#3",
+            "crumb": "useChat > API Signature > Returns (1/2)",
+            "evidence": false,
+            "score": 13.4
+          },
+          {
+            "id": "/docs/getting-started/expo#2",
+            "crumb": "Expo > Create an API Route",
+            "evidence": true,
+            "score": 13.2
+          },
+          {
+            "id": "/cookbook/guides/multi-modal-chatbot#4",
+            "crumb": "Multi-Modal Agent > Create a Route Handler",
+            "evidence": true,
+            "score": 13
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-rsc/migrating-to-ui#1",
+            "crumb": "Migrating from RSC to UI > Streaming Chat Completions > Basic Setup (1/2)",
+            "evidence": true,
+            "score": 0.0294
+          },
+          {
+            "id": "/docs/ai-sdk-ui/stream-protocol#16",
+            "crumb": "Stream Protocols > Data Stream Protocol > UI Message Stream Example",
+            "evidence": true,
+            "score": 0.0289
+          },
+          {
+            "id": "/docs/getting-started/nuxt#3",
+            "crumb": "Vue.js (Nuxt) > Create an API route",
+            "evidence": true,
+            "score": 0.0286
+          },
+          {
+            "id": "/docs/getting-started/svelte#4",
+            "crumb": "Svelte > Create an API route",
+            "evidence": true,
+            "score": 0.0262
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot#12",
+            "crumb": "Chatbot > Transport Configuration > Advanced: Trigger-based routing",
+            "evidence": true,
+            "score": 0.0262
+          },
+          {
+            "id": "/docs/ai-sdk-harnesses/ui#2",
+            "crumb": "UI > Route",
+            "evidence": true,
+            "score": 0.0256
+          },
+          {
+            "id": "/docs/getting-started/expo#2",
+            "crumb": "Expo > Create an API Route",
+            "evidence": true,
+            "score": 0.0255
+          },
+          {
+            "id": "/cookbook/guides/multi-modal-chatbot#4",
+            "crumb": "Multi-Modal Agent > Create a Route Handler",
+            "evidence": true,
+            "score": 0.0254
+          },
+          {
+            "id": "/docs/getting-started/tanstack-start#3",
+            "crumb": "TanStack Start > Create a Route Handler",
+            "evidence": true,
+            "score": 0.0242
+          },
+          {
+            "id": "/docs/getting-started/nextjs-pages-router#2",
+            "crumb": "Next.js Pages Router > Create a Route Handler",
+            "evidence": true,
+            "score": 0.024
+          }
+        ]
+      }
+    },
+    {
+      "id": "q12",
+      "question": "How do I make a deleteFile tool require user approval before it executes?",
+      "vector": {
+        "coverage": {
+          "1": 0,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.3333333333333333,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-tool-usage#5",
+            "crumb": "Chatbot Tool Usage > Tool Execution Approval",
+            "evidence": false,
+            "score": 0.546
+          },
+          {
+            "id": "/docs/agents/tool-approvals#6",
+            "crumb": "Tool Approvals > Handle Manual Approvals",
+            "evidence": false,
+            "score": 0.5255
+          },
+          {
+            "id": "/docs/agents/tool-approvals#2",
+            "crumb": "Tool Approvals > Require Approval for a Tool",
+            "evidence": true,
+            "score": 0.5195
+          },
+          {
+            "id": "/docs/agents/terminal-ui#5",
+            "crumb": "Terminal UI > Tool Approvals",
+            "evidence": true,
+            "score": 0.5082
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#8",
+            "crumb": "Tool Calling > Tool Execution Approval > Handling Approval Requests (2/2)",
+            "evidence": false,
+            "score": 0.5076
+          },
+          {
+            "id": "/docs/agents/workflow-agent#8",
+            "crumb": "WorkflowAgent > Tool Approval",
+            "evidence": false,
+            "score": 0.5063
+          },
+          {
+            "id": "/cookbook/next/human-in-the-loop#1",
+            "crumb": "Human-in-the-Loop with Next.js > Adding Tool Execution Approval > Server Setup",
+            "evidence": false,
+            "score": 0.4945
+          },
+          {
+            "id": "/docs/agents/tool-approvals#3",
+            "crumb": "Tool Approvals > Decide Based on Tool Input",
+            "evidence": true,
+            "score": 0.4884
+          },
+          {
+            "id": "/cookbook/next/human-in-the-loop#5",
+            "crumb": "Human-in-the-Loop with Next.js > Adding Tool Execution Approval > Dynamic Approval",
+            "evidence": false,
+            "score": 0.481
+          },
+          {
+            "id": "/docs/agents/tool-approvals#0",
+            "crumb": "Tool Approvals",
+            "evidence": false,
+            "score": 0.4742
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#7",
+            "crumb": "Tool Calling > Tool Execution Approval > Handling Approval Requests (1/2)",
+            "evidence": true,
+            "score": 28.2
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#5",
+            "crumb": "Tool Calling > Tool Execution Approval > Configure `toolApproval`",
+            "evidence": true,
+            "score": 20
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-tool-usage#0",
+            "crumb": "Chatbot Tool Usage",
+            "evidence": false,
+            "score": 17.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#7",
+            "crumb": "streamText > API Signature > Parameters (7/25)",
+            "evidence": true,
+            "score": 16.8
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#6",
+            "crumb": "Tool Calling > Tool Execution Approval > How It Works",
+            "evidence": true,
+            "score": 16.8
+          },
+          {
+            "id": "/docs/advanced/multistep-interfaces#2",
+            "crumb": "Multistep Interfaces > Tool Composition (1/2)",
+            "evidence": false,
+            "score": 16.2
+          },
+          {
+            "id": "/docs/ai-sdk-harnesses/tools#5",
+            "crumb": "Tools > Tool Approvals",
+            "evidence": true,
+            "score": 15.4
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-tool-usage#9",
+            "crumb": "Chatbot Tool Usage > Tool Execution Approval > Client-Side Approval UI (3/3)",
+            "evidence": false,
+            "score": 15.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#3",
+            "crumb": "generateText > API Signature > Parameters (3/23)",
+            "evidence": false,
+            "score": 15.2
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#3",
+            "crumb": "streamText > API Signature > Parameters (3/25)",
+            "evidence": false,
+            "score": 15.2
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#6",
+            "crumb": "Tool Calling > Tool Execution Approval > How It Works",
+            "evidence": true,
+            "score": 0.0295
+          },
+          {
+            "id": "/docs/agents/tool-approvals#6",
+            "crumb": "Tool Approvals > Handle Manual Approvals",
+            "evidence": false,
+            "score": 0.0288
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#7",
+            "crumb": "Tool Calling > Tool Execution Approval > Handling Approval Requests (1/2)",
+            "evidence": true,
+            "score": 0.028
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#5",
+            "crumb": "Tool Calling > Tool Execution Approval > Configure `toolApproval`",
+            "evidence": true,
+            "score": 0.0275
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-tool-usage#5",
+            "crumb": "Chatbot Tool Usage > Tool Execution Approval",
+            "evidence": false,
+            "score": 0.0274
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-tool-usage#9",
+            "crumb": "Chatbot Tool Usage > Tool Execution Approval > Client-Side Approval UI (3/3)",
+            "evidence": false,
+            "score": 0.0269
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#9",
+            "crumb": "Tool Calling > Tool Execution Approval > Dynamic Approval",
+            "evidence": true,
+            "score": 0.0255
+          },
+          {
+            "id": "/docs/ai-sdk-harnesses/tools#5",
+            "crumb": "Tools > Tool Approvals",
+            "evidence": true,
+            "score": 0.0247
+          },
+          {
+            "id": "/docs/agents/tool-approvals#10",
+            "crumb": "Tool Approvals > Security Considerations > Signing approvals with `experimental_toolApprovalSecret`",
+            "evidence": true,
+            "score": 0.0237
+          },
+          {
+            "id": "/docs/agents/workflow-agent#9",
+            "crumb": "WorkflowAgent > Tool Approval > Signed Tool Approvals",
+            "evidence": false,
+            "score": 0.0212
+          }
+        ]
+      }
+    },
+    {
+      "id": "q13",
+      "question": "How do I pass an API key into a tool's execute function at call time instead of hardcoding it?",
+      "vector": {
+        "coverage": {
+          "1": 0,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.5,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/realtime#4",
+            "crumb": "Realtime > Tool Calling",
+            "evidence": false,
+            "score": 0.4556
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool#1",
+            "crumb": "tool > API Signature > Parameters (1/3)",
+            "evidence": true,
+            "score": 0.438
+          },
+          {
+            "id": "/docs/ai-sdk-core/mcp-apps#4",
+            "crumb": "MCP Apps > Proxy App-Visible Tool Calls",
+            "evidence": false,
+            "score": 0.4299
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/dynamic-tool#2",
+            "crumb": "dynamicTool > API Signature > Parameters (2/2)",
+            "evidence": false,
+            "score": 0.4287
+          },
+          {
+            "id": "/docs/reference/ai-sdk-ui/use-realtime#8",
+            "crumb": "experimental_useRealtime > Tool Calling",
+            "evidence": false,
+            "score": 0.4246
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#23",
+            "crumb": "Tool Calling > Tool Execution Options > Tool Call ID",
+            "evidence": false,
+            "score": 0.4206
+          },
+          {
+            "id": "/docs/agents/configuring-call-options#3",
+            "crumb": "Configuring Call Options > Modifying Agent Settings > Dynamic Tool Configuration",
+            "evidence": false,
+            "score": 0.4168
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool#3",
+            "crumb": "tool > API Signature > Parameters (3/3)",
+            "evidence": false,
+            "score": 0.4148
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#27",
+            "crumb": "Tool Calling > Tool Execution Options > Runtime Context",
+            "evidence": true,
+            "score": 0.4113
+          },
+          {
+            "id": "/docs/agents/workflow-agent#9",
+            "crumb": "WorkflowAgent > Tool Approval > Signed Tool Approvals",
+            "evidence": false,
+            "score": 0.4086
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 0,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.5,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (2/3)",
+            "evidence": false,
+            "score": 24.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool#2",
+            "crumb": "tool > API Signature > Parameters (2/3)",
+            "evidence": true,
+            "score": 22.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#3",
+            "crumb": "generateText > API Signature > Parameters (3/23)",
+            "evidence": false,
+            "score": 19.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#25",
+            "crumb": "streamText > API Signature > Parameters (25/25)",
+            "evidence": false,
+            "score": 19.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#16",
+            "crumb": "generateText > API Signature > Parameters (16/23)",
+            "evidence": false,
+            "score": 19.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#3",
+            "crumb": "streamText > API Signature > Parameters (3/25)",
+            "evidence": false,
+            "score": 19.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool-loop-agent#5",
+            "crumb": "ToolLoopAgent > Constructor > Parameters (5/7)",
+            "evidence": false,
+            "score": 19.6
+          },
+          {
+            "id": "/docs/reference/ai-sdk-workflow/workflow-agent#3",
+            "crumb": "WorkflowAgent > Constructor > Parameters (3/4)",
+            "evidence": false,
+            "score": 19.2
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#7",
+            "crumb": "Tool Calling > Tool Execution Approval > Handling Approval Requests (1/2)",
+            "evidence": false,
+            "score": 19.2
+          },
+          {
+            "id": "/docs/ai-sdk-ui/chatbot-tool-usage#0",
+            "crumb": "Chatbot Tool Usage",
+            "evidence": false,
+            "score": 19
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/reference/ai-sdk-core/tool#2",
+            "crumb": "tool > API Signature > Parameters (2/3)",
+            "evidence": true,
+            "score": 0.0289
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#7",
+            "crumb": "streamText > API Signature > Parameters (7/25)",
+            "evidence": false,
+            "score": 0.0268
+          },
+          {
+            "id": "/docs/ai-sdk-core/tools-and-tool-calling#23",
+            "crumb": "Tool Calling > Tool Execution Options > Tool Call ID",
+            "evidence": false,
+            "score": 0.0244
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/dynamic-tool#1",
+            "crumb": "dynamicTool > API Signature > Parameters (1/2)",
+            "evidence": false,
+            "score": 0.024
+          },
+          {
+            "id": "/docs/reference/ai-sdk-workflow/workflow-agent#1",
+            "crumb": "WorkflowAgent > Constructor > Parameters (1/4)",
+            "evidence": false,
+            "score": 0.0202
+          },
+          {
+            "id": "/docs/ai-sdk-core/realtime#4",
+            "crumb": "Realtime > Tool Calling",
+            "evidence": false,
+            "score": 0.0164
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (2/3)",
+            "evidence": false,
+            "score": 0.0164
+          },
+          {
+            "id": "/docs/getting-started/svelte#3",
+            "crumb": "Svelte > Set Up Your Application > Configure your AI Gateway API key",
+            "evidence": false,
+            "score": 0.0161
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/tool#1",
+            "crumb": "tool > API Signature > Parameters (1/3)",
+            "evidence": true,
+            "score": 0.0159
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#16",
+            "crumb": "generateText > API Signature > Parameters (16/23)",
+            "evidence": false,
+            "score": 0.0159
+          }
+        ]
+      }
+    },
+    {
+      "id": "q14",
+      "question": "How do I enable OpenTelemetry tracing for all AI SDK calls?",
+      "vector": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/telemetry#0",
+            "crumb": "Telemetry > Enabling telemetry > Step 1: Register the OpenTelemetry integration",
+            "evidence": true,
+            "score": 0.7153
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#10",
+            "crumb": "Telemetry > Telemetry Integrations > Tracing channel",
+            "evidence": false,
+            "score": 0.6693
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#14",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (1/3)",
+            "evidence": true,
+            "score": 0.6494
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#8",
+            "crumb": "Telemetry > Telemetry Integrations > Registering integrations globally",
+            "evidence": true,
+            "score": 0.5991
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#1",
+            "crumb": "Telemetry > Enabling telemetry > Step 2: Enabling Telemetry",
+            "evidence": false,
+            "score": 0.595
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#19",
+            "crumb": "Telemetry > Collected Data > Supplemental AI SDK attributes on OpenTelemetry spans",
+            "evidence": true,
+            "score": 0.594
+          },
+          {
+            "id": "/docs/getting-started/coding-agents#2",
+            "crumb": "Coding Agents > Install DevTools > Register the integration",
+            "evidence": false,
+            "score": 0.5937
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#16",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (3/3)",
+            "evidence": false,
+            "score": 0.5832
+          },
+          {
+            "id": "/docs/ai-sdk-core/devtools#1",
+            "crumb": "DevTools > Using DevTools > Register the integration",
+            "evidence": false,
+            "score": 0.5669
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#7",
+            "crumb": "Telemetry > Telemetry Integrations",
+            "evidence": true,
+            "score": 0.5645
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#14",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (1/3)",
+            "evidence": true,
+            "score": 26.4
+          },
+          {
+            "id": "/docs/foundations/providers-and-models#1",
+            "crumb": "Providers and Models > AI SDK Providers (1/2)",
+            "evidence": false,
+            "score": 22.8
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#15",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (2/3)",
+            "evidence": true,
+            "score": 19.6
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#6",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Core API Renames and Removals (1/2)",
+            "evidence": false,
+            "score": 17.6
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#29",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Stream Response Helpers",
+            "evidence": false,
+            "score": 14.4
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#17",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Streaming and Include Options (1/2)",
+            "evidence": false,
+            "score": 14.4
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#0",
+            "crumb": "Telemetry > Enabling telemetry > Step 1: Register the OpenTelemetry integration",
+            "evidence": true,
+            "score": 14
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-6-0#14",
+            "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK UI > Tool UI Part Helper Functions Rename",
+            "evidence": false,
+            "score": 13.6
+          },
+          {
+            "id": "/docs/introduction#0",
+            "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+            "evidence": false,
+            "score": 13.2
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#8",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (1/3)",
+            "evidence": false,
+            "score": 13.2
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#14",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (1/3)",
+            "evidence": true,
+            "score": 0.0323
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#0",
+            "crumb": "Telemetry > Enabling telemetry > Step 1: Register the OpenTelemetry integration",
+            "evidence": true,
+            "score": 0.0313
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#15",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (2/3)",
+            "evidence": true,
+            "score": 0.0298
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#10",
+            "crumb": "Telemetry > Telemetry Integrations > Tracing channel",
+            "evidence": false,
+            "score": 0.0259
+          },
+          {
+            "id": "/docs/introduction#0",
+            "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+            "evidence": false,
+            "score": 0.0252
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-7-0#16",
+            "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (3/3)",
+            "evidence": false,
+            "score": 0.025
+          },
+          {
+            "id": "/cookbook/guides/o1#3",
+            "crumb": "Get started with OpenAI o1 > Getting Started with the AI SDK",
+            "evidence": false,
+            "score": 0.0233
+          },
+          {
+            "id": "/cookbook/guides/o3#3",
+            "crumb": "Get started with OpenAI o3-mini > Getting Started with the AI SDK",
+            "evidence": false,
+            "score": 0.0204
+          },
+          {
+            "id": "/docs/foundations/providers-and-models#1",
+            "crumb": "Providers and Models > AI SDK Providers (1/2)",
+            "evidence": false,
+            "score": 0.0161
+          },
+          {
+            "id": "/docs/ai-sdk-core/telemetry#8",
+            "crumb": "Telemetry > Telemetry Integrations > Registering integrations globally",
+            "evidence": true,
+            "score": 0.0156
+          }
+        ]
+      }
+    },
+    {
+      "id": "q15",
+      "question": "How do I read how many input tokens were served from the prompt cache?",
+      "vector": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 0,
+          "10": 1
+        },
+        "rr": 0.14285714285714285,
+        "top": [
+          {
+            "id": "/cookbook/node/stream-object-record-token-usage#1",
+            "crumb": "Record Token Usage After Streaming Object > `usage` Promise",
+            "evidence": false,
+            "score": 0.4492
+          },
+          {
+            "id": "/cookbook/node/dynamic-prompt-caching#5",
+            "crumb": "Dynamic Prompt Caching > Considerations",
+            "evidence": false,
+            "score": 0.4401
+          },
+          {
+            "id": "/docs/ai-sdk-core/devtools#3",
+            "crumb": "DevTools > Captured data",
+            "evidence": false,
+            "score": 0.4123
+          },
+          {
+            "id": "/cookbook/node/dynamic-prompt-caching#0",
+            "crumb": "Dynamic Prompt Caching",
+            "evidence": false,
+            "score": 0.4081
+          },
+          {
+            "id": "/cookbook/node/dynamic-prompt-caching#4",
+            "crumb": "Dynamic Prompt Caching > Using the Utility",
+            "evidence": false,
+            "score": 0.4037
+          },
+          {
+            "id": "/cookbook/rsc/stream-ui-record-token-usage#0",
+            "crumb": "Record Token Usage after Streaming User Interfaces > `onFinish` Callback",
+            "evidence": false,
+            "score": 0.3978
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#25",
+            "crumb": "generateText > API Signature > Returns (2/6)",
+            "evidence": true,
+            "score": 0.3974
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#18",
+            "crumb": "generateText > API Signature > Parameters (18/23)",
+            "evidence": true,
+            "score": 0.388
+          },
+          {
+            "id": "/docs/advanced/prompt-engineering#1",
+            "crumb": "Prompt Engineering > Why is prompt engineering needed?",
+            "evidence": false,
+            "score": 0.3839
+          },
+          {
+            "id": "/cookbook/rsc/stream-ui-record-token-usage#1",
+            "crumb": "Record Token Usage after Streaming User Interfaces > Server",
+            "evidence": false,
+            "score": 0.3769
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#25",
+            "crumb": "generateText > API Signature > Returns (2/6)",
+            "evidence": true,
+            "score": 14.8
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#18",
+            "crumb": "streamText > API Signature > Parameters (18/25)",
+            "evidence": true,
+            "score": 14.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#26",
+            "crumb": "streamText > API Signature > Returns (1/13)",
+            "evidence": true,
+            "score": 14.4
+          },
+          {
+            "id": "/cookbook/node/local-caching-middleware#2",
+            "crumb": "Local Caching Middleware > Implementation > Middleware",
+            "evidence": false,
+            "score": 13.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#21",
+            "crumb": "generateText > API Signature > Parameters (21/23)",
+            "evidence": true,
+            "score": 12.4
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#29",
+            "crumb": "streamText > API Signature > Returns (4/13)",
+            "evidence": true,
+            "score": 12
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#28",
+            "crumb": "generateText > API Signature > Returns (5/6)",
+            "evidence": true,
+            "score": 12
+          },
+          {
+            "id": "/docs/reference/ai-sdk-rsc/stream-ui#3",
+            "crumb": "streamUI > Parameters (3/3)",
+            "evidence": true,
+            "score": 12
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#15",
+            "crumb": "streamText > API Signature > Parameters (15/25)",
+            "evidence": true,
+            "score": 11.6
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#33",
+            "crumb": "streamText > API Signature > Returns (8/13)",
+            "evidence": true,
+            "score": 11.6
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#25",
+            "crumb": "generateText > API Signature > Returns (2/6)",
+            "evidence": true,
+            "score": 0.0313
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#26",
+            "crumb": "streamText > API Signature > Returns (1/13)",
+            "evidence": true,
+            "score": 0.0302
+          },
+          {
+            "id": "/cookbook/node/dynamic-prompt-caching#5",
+            "crumb": "Dynamic Prompt Caching > Considerations",
+            "evidence": false,
+            "score": 0.0295
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#18",
+            "crumb": "generateText > API Signature > Parameters (18/23)",
+            "evidence": true,
+            "score": 0.0284
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/generate-text#28",
+            "crumb": "generateText > API Signature > Returns (5/6)",
+            "evidence": true,
+            "score": 0.0279
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#18",
+            "crumb": "streamText > API Signature > Parameters (18/25)",
+            "evidence": true,
+            "score": 0.0278
+          },
+          {
+            "id": "/docs/advanced/prompt-engineering#1",
+            "crumb": "Prompt Engineering > Why is prompt engineering needed?",
+            "evidence": false,
+            "score": 0.0275
+          },
+          {
+            "id": "/docs/reference/ai-sdk-rsc/stream-ui#3",
+            "crumb": "streamUI > Parameters (3/3)",
+            "evidence": true,
+            "score": 0.0274
+          },
+          {
+            "id": "/cookbook/node/dynamic-prompt-caching#0",
+            "crumb": "Dynamic Prompt Caching",
+            "evidence": false,
+            "score": 0.0267
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/stream-text#15",
+            "crumb": "streamText > API Signature > Parameters (15/25)",
+            "evidence": true,
+            "score": 0.0261
+          }
+        ]
+      }
+    },
+    {
+      "id": "q16",
+      "question": "How do I create an OpenAI embedding model and embed a single string?",
+      "vector": {
+        "coverage": {
+          "1": 1,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/embeddings#0",
+            "crumb": "Embeddings > Embedding a Single Value",
+            "evidence": true,
+            "score": 0.6106
+          },
+          {
+            "id": "/cookbook/guides/rag-chatbot#12",
+            "crumb": "RAG Agent > Build > Generate Embeddings",
+            "evidence": false,
+            "score": 0.5506
+          },
+          {
+            "id": "/cookbook/node/embed-text#0",
+            "crumb": "Embed Text",
+            "evidence": false,
+            "score": 0.5459
+          },
+          {
+            "id": "/docs/foundations/overview#2",
+            "crumb": "Overview > Embedding Models",
+            "evidence": false,
+            "score": 0.5314
+          },
+          {
+            "id": "/docs/ai-sdk-core/embeddings#8",
+            "crumb": "Embeddings > Embedding Providers & Models",
+            "evidence": false,
+            "score": 0.529
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/embed#0",
+            "crumb": "embed > API Signature > Parameters (1/2)",
+            "evidence": true,
+            "score": 0.5164
+          },
+          {
+            "id": "/docs/ai-sdk-core/embeddings#1",
+            "crumb": "Embeddings > Embedding Many Values",
+            "evidence": false,
+            "score": 0.5129
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/embed-many#0",
+            "crumb": "embedMany",
+            "evidence": false,
+            "score": 0.5021
+          },
+          {
+            "id": "/cookbook/node/embed-text-batch#0",
+            "crumb": "Embed Text in Batch",
+            "evidence": false,
+            "score": 0.4954
+          },
+          {
+            "id": "/cookbook/guides/rag-chatbot#1",
+            "crumb": "RAG Agent > What is RAG? > Embedding",
+            "evidence": false,
+            "score": 0.4953
+          }
+        ]
+      },
+      "text": {
+        "coverage": {
+          "1": 0,
+          "3": 0,
+          "5": 0,
+          "10": 1
+        },
+        "rr": 0.1,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/embeddings#8",
+            "crumb": "Embeddings > Embedding Providers & Models",
+            "evidence": false,
+            "score": 25
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#14",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Embedding Events",
+            "evidence": false,
+            "score": 17
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/embed#1",
+            "crumb": "embed > API Signature > Parameters (2/2)",
+            "evidence": false,
+            "score": 16.6
+          },
+          {
+            "id": "/docs/ai-sdk-core/transcription#8",
+            "crumb": "Transcription > Transcription Models (1/2)",
+            "evidence": false,
+            "score": 16.2
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/embed-many#2",
+            "crumb": "embedMany > API Signature > Parameters (2/2)",
+            "evidence": false,
+            "score": 15.6
+          },
+          {
+            "id": "/docs/ai-sdk-core/speech#5",
+            "crumb": "Speech > Speech Models",
+            "evidence": false,
+            "score": 14.6
+          },
+          {
+            "id": "/docs/ai-sdk-core/image-generation#10",
+            "crumb": "Image Generation > Image Models (1/3)",
+            "evidence": false,
+            "score": 12.2
+          },
+          {
+            "id": "/cookbook/guides/rag-chatbot#20",
+            "crumb": "RAG Agent > Build > Retrieve Resource Tool (1/2)",
+            "evidence": false,
+            "score": 11.6
+          },
+          {
+            "id": "/docs/ai-sdk-core/lifecycle-callbacks#11",
+            "crumb": "Lifecycle Callbacks > Event Data Reference > Text Generation Events (1/3)",
+            "evidence": false,
+            "score": 11.6
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-6-0#11",
+            "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK Core > Embedding Model Method Rename",
+            "evidence": true,
+            "score": 11.6
+          }
+        ]
+      },
+      "hybrid": {
+        "coverage": {
+          "1": 0,
+          "3": 1,
+          "5": 1,
+          "10": 1
+        },
+        "rr": 0.5,
+        "top": [
+          {
+            "id": "/docs/ai-sdk-core/embeddings#8",
+            "crumb": "Embeddings > Embedding Providers & Models",
+            "evidence": false,
+            "score": 0.0318
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/embed#0",
+            "crumb": "embed > API Signature > Parameters (1/2)",
+            "evidence": true,
+            "score": 0.0289
+          },
+          {
+            "id": "/docs/ai-sdk-core/embeddings#0",
+            "crumb": "Embeddings > Embedding a Single Value",
+            "evidence": true,
+            "score": 0.0286
+          },
+          {
+            "id": "/cookbook/guides/rag-chatbot#12",
+            "crumb": "RAG Agent > Build > Generate Embeddings",
+            "evidence": false,
+            "score": 0.0278
+          },
+          {
+            "id": "/docs/migration-guides/migration-guide-6-0#11",
+            "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK Core > Embedding Model Method Rename",
+            "evidence": true,
+            "score": 0.0274
+          },
+          {
+            "id": "/cookbook/guides/rag-chatbot#20",
+            "crumb": "RAG Agent > Build > Retrieve Resource Tool (1/2)",
+            "evidence": false,
+            "score": 0.0247
+          },
+          {
+            "id": "/docs/ai-sdk-core/provider-management#6",
+            "crumb": "\"Provider & Model Management\" > Provider Registry > Example: Use image models",
+            "evidence": true,
+            "score": 0.0246
+          },
+          {
+            "id": "/docs/ai-sdk-core/embeddings#4",
+            "crumb": "Embeddings > Settings > Provider Options",
+            "evidence": false,
+            "score": 0.0242
+          },
+          {
+            "id": "/docs/reference/ai-sdk-core/provider-registry#3",
+            "crumb": "createProviderRegistry > Setup > Image models",
+            "evidence": true,
+            "score": 0.0234
+          },
+          {
+            "id": "/docs/ai-sdk-core/embeddings#3",
+            "crumb": "Embeddings > Settings > Output Dimensions",
+            "evidence": false,
+            "score": 0.0223
+          }
+        ]
+      }
+    }
+  ]
+}
