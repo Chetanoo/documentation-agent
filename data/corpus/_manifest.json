@@ -1,0 +1,2632 @@
+{
+  "source": "https://ai-sdk.dev/llms.txt",
+  "fetched_at": "2026-11-01T17:30:19.748Z",
+  "total_in_llms": 541,
+  "pages": [
+    {
+      "path": "/cookbook/api-servers/express",
+      "url": "https://ai-sdk.dev/cookbook/api-servers/express",
+      "title": "Express",
+      "bytes": 3632,
+      "sha256": "1e04d6fe0dc0db15f772b4e55ab32c320764c8cc1c7bfebc5f388e6a1469d449"
+    },
+    {
+      "path": "/cookbook/api-servers/fastify",
+      "url": "https://ai-sdk.dev/cookbook/api-servers/fastify",
+      "title": "Fastify",
+      "bytes": 3704,
+      "sha256": "d464c70f3587cf769443cdd4c2a5bf203580e232524f85b89048f820d1aaa5ff"
+    },
+    {
+      "path": "/cookbook/api-servers/hono",
+      "url": "https://ai-sdk.dev/cookbook/api-servers/hono",
+      "title": "Hono",
+      "bytes": 3782,
+      "sha256": "9dcf476412ad29d76c8f4a9349f4e2fea5a099d66edb44b9d71732692363c300"
+    },
+    {
+      "path": "/cookbook/api-servers/nest",
+      "url": "https://ai-sdk.dev/cookbook/api-servers/nest",
+      "title": "Nest.js",
+      "bytes": 3835,
+      "sha256": "e45ab7fbf09fcb05cb106014a42f31ece2b5eb867cd4051e8d74e376c4e68a8c"
+    },
+    {
+      "path": "/cookbook/api-servers/node-http-server",
+      "url": "https://ai-sdk.dev/cookbook/api-servers/node-http-server",
+      "title": "Node.js HTTP Server",
+      "bytes": 3859,
+      "sha256": "2dbb368d3cc4c5321f2da226880ed6871a8818f74bbe3446565e9b6b5a8d3466"
+    },
+    {
+      "path": "/cookbook/guides",
+      "url": "https://ai-sdk.dev/cookbook/guides",
+      "title": "Guides",
+      "bytes": 2573,
+      "sha256": "1acc58b6702b0a09578496726e7d2a51401ef522ef3dd6f0471c02d7d155ceee"
+    },
+    {
+      "path": "/cookbook/guides/agent-context-compaction",
+      "url": "https://ai-sdk.dev/cookbook/guides/agent-context-compaction",
+      "title": "Compact Agent Context",
+      "bytes": 5617,
+      "sha256": "0220d54f3240ea9f8ed79c3e0586f8d90505892548570a2dbef1b649a6e7b67c"
+    },
+    {
+      "path": "/cookbook/guides/agent-skills",
+      "url": "https://ai-sdk.dev/cookbook/guides/agent-skills",
+      "title": "Add Skills to Your Agent",
+      "bytes": 10322,
+      "sha256": "683ea8293e12087b393bcd25afeb752399711afab37cdb5b64dd541e94d02cc2"
+    },
+    {
+      "path": "/cookbook/guides/claude-4",
+      "url": "https://ai-sdk.dev/cookbook/guides/claude-4",
+      "title": "Get started with Claude 4",
+      "bytes": 10834,
+      "sha256": "8b7a0dbe923823b11f89c88910b99e91c763b4dbe74c0b39e3bb9c6307874925"
+    },
+    {
+      "path": "/cookbook/guides/computer-use",
+      "url": "https://ai-sdk.dev/cookbook/guides/computer-use",
+      "title": "Get started with Computer Use",
+      "bytes": 10684,
+      "sha256": "fc25fe9f37f4836fa118f879e2fc3656bbdd9661853b3fc89ff4378d5918f4fa"
+    },
+    {
+      "path": "/cookbook/guides/custom-memory-tool",
+      "url": "https://ai-sdk.dev/cookbook/guides/custom-memory-tool",
+      "title": "Build a Custom Memory Tool",
+      "bytes": 21160,
+      "sha256": "689ee7b027466948032fafed7e182cfdacf27c4651898a3154bfd66db9e93966"
+    },
+    {
+      "path": "/cookbook/guides/deepseek-v3-2",
+      "url": "https://ai-sdk.dev/cookbook/guides/deepseek-v3-2",
+      "title": "Get started with DeepSeek V3.2",
+      "bytes": 9325,
+      "sha256": "f0dab2ba41715eecbfc5bd51d97f3ace4b870e40ebdc9cde031c2147c50a0c98"
+    },
+    {
+      "path": "/cookbook/guides/gemini",
+      "url": "https://ai-sdk.dev/cookbook/guides/gemini",
+      "title": "Get started with Gemini 3",
+      "bytes": 9121,
+      "sha256": "03de36a2eed980046411cc83cc8c912d197ebbdd8005700d45dc390e9343f183"
+    },
+    {
+      "path": "/cookbook/guides/google-gemini-image-generation",
+      "url": "https://ai-sdk.dev/cookbook/guides/google-gemini-image-generation",
+      "title": "Google Gemini Image Generation",
+      "bytes": 3871,
+      "sha256": "34ca4b844da226be88500ec1fb9f70aa0c5580117600ae0f7b245f4a1bcfb9bb"
+    },
+    {
+      "path": "/cookbook/guides/gpt-5",
+      "url": "https://ai-sdk.dev/cookbook/guides/gpt-5",
+      "title": "Get started with GPT-5",
+      "bytes": 12016,
+      "sha256": "a1a6ed732d9921a48cfa0f7a052165b52bc5329c802fd9b8014f6c04d54bd3f2"
+    },
+    {
+      "path": "/cookbook/guides/llama-3_1",
+      "url": "https://ai-sdk.dev/cookbook/guides/llama-3_1",
+      "title": "Get started with Llama 3.1",
+      "bytes": 19256,
+      "sha256": "0d784bcd9e72f9642c641709d425f1f87d3dbe936a8b766b0de20422f60f500c"
+    },
+    {
+      "path": "/cookbook/guides/multi-modal-chatbot",
+      "url": "https://ai-sdk.dev/cookbook/guides/multi-modal-chatbot",
+      "title": "Multi-Modal Agent",
+      "bytes": 13923,
+      "sha256": "3ca95dc6fa632e70d25820526d5e60439e34bf6b0b6ef479e86fbcb5bf3db6fd"
+    },
+    {
+      "path": "/cookbook/guides/natural-language-postgres",
+      "url": "https://ai-sdk.dev/cookbook/guides/natural-language-postgres",
+      "title": "Natural Language Postgres",
+      "bytes": 28197,
+      "sha256": "f4831d098d0a48f8554fe94f108f05f5790a4deb2fd624a77499d85acc11a0be"
+    },
+    {
+      "path": "/cookbook/guides/o1",
+      "url": "https://ai-sdk.dev/cookbook/guides/o1",
+      "title": "Get started with OpenAI o1",
+      "bytes": 12064,
+      "sha256": "1c8d63817c1b66b6bf99501bd54785ea471aeff39dde6ffe594cafa19b7caaa1"
+    },
+    {
+      "path": "/cookbook/guides/o3",
+      "url": "https://ai-sdk.dev/cookbook/guides/o3",
+      "title": "Get started with OpenAI o3-mini",
+      "bytes": 10754,
+      "sha256": "0c956ca157f985649124e9dee75c7529709c456cd5e52c153160bce52d6bc51e"
+    },
+    {
+      "path": "/cookbook/guides/openai-responses",
+      "url": "https://ai-sdk.dev/cookbook/guides/openai-responses",
+      "title": "OpenAI Responses API",
+      "bytes": 10157,
+      "sha256": "5ccc48cba88fdcc5b613cec75ee72646c162cc97efed93ba755265c88383630f"
+    },
+    {
+      "path": "/cookbook/guides/r1",
+      "url": "https://ai-sdk.dev/cookbook/guides/r1",
+      "title": "Get started with DeepSeek R1",
+      "bytes": 11955,
+      "sha256": "1356c78c1f70239535f4e5c0b4dc64eace61251d17dbabdd3ce16711f8a8e073"
+    },
+    {
+      "path": "/cookbook/guides/rag-chatbot",
+      "url": "https://ai-sdk.dev/cookbook/guides/rag-chatbot",
+      "title": "RAG Agent",
+      "bytes": 35830,
+      "sha256": "0abf068e6402eb5182ae766d49c24e6ed85da39f4281b15cdb3b366b05cdc355"
+    },
+    {
+      "path": "/cookbook/guides/slackbot",
+      "url": "https://ai-sdk.dev/cookbook/guides/slackbot",
+      "title": "Slackbot Agent Guide",
+      "bytes": 10116,
+      "sha256": "21b53197a5fa7923b9796bffeb754ee64317ad886b01c230788da4888ddc59ea"
+    },
+    {
+      "path": "/cookbook/guides/sonnet-3-7",
+      "url": "https://ai-sdk.dev/cookbook/guides/sonnet-3-7",
+      "title": "Get started with Claude 3.7 Sonnet",
+      "bytes": 8799,
+      "sha256": "0555e408343f2ca877848c85e1562b0836498a7b19e6bf60fac476025743578f"
+    },
+    {
+      "path": "/cookbook/next/caching-middleware",
+      "url": "https://ai-sdk.dev/cookbook/next/caching-middleware",
+      "title": "Caching Middleware",
+      "bytes": 6722,
+      "sha256": "4db5276ff4a90bf534ce00bff368c383915078597c96fee5dc1ca6c4ec3ec256"
+    },
+    {
+      "path": "/cookbook/next/call-tools",
+      "url": "https://ai-sdk.dev/cookbook/next/call-tools",
+      "title": "Call Tools",
+      "bytes": 4561,
+      "sha256": "2f8ee384e4b493cae0a97260d1200740310170e1579a926d677eaad2744667b9"
+    },
+    {
+      "path": "/cookbook/next/call-tools-multiple-steps",
+      "url": "https://ai-sdk.dev/cookbook/next/call-tools-multiple-steps",
+      "title": "Call Tools in Multiple Steps",
+      "bytes": 5031,
+      "sha256": "012ec308cfdf4c4bab7dd474553f3efdc814cb25ae443986766be2b4273befc2"
+    },
+    {
+      "path": "/cookbook/next/chat-with-pdf",
+      "url": "https://ai-sdk.dev/cookbook/next/chat-with-pdf",
+      "title": "Chat with PDFs",
+      "bytes": 5077,
+      "sha256": "7399ff48507b875ee889abbd72dd08765e8e4a16953bf023913d5e1d78966692"
+    },
+    {
+      "path": "/cookbook/next/custom-stream-format",
+      "url": "https://ai-sdk.dev/cookbook/next/custom-stream-format",
+      "title": "Streaming with Custom Format",
+      "bytes": 5429,
+      "sha256": "edd23246878d1597feef63f9803bfc24c11e53264ff0825415cb0da6980d4061"
+    },
+    {
+      "path": "/cookbook/next/generate-image-with-chat-prompt",
+      "url": "https://ai-sdk.dev/cookbook/next/generate-image-with-chat-prompt",
+      "title": "Generate Image with Chat Prompt",
+      "bytes": 5777,
+      "sha256": "8bf816f8e10e655a38798df1317cf0af8f2d91d365d00874d40134666b082685"
+    },
+    {
+      "path": "/cookbook/next/generate-object",
+      "url": "https://ai-sdk.dev/cookbook/next/generate-object",
+      "title": "Generate Object",
+      "bytes": 3214,
+      "sha256": "a14446b70a62cd68dd7ea25cd6447c18e9a711e01a81da7c3506fecf0d8b5edd"
+    },
+    {
+      "path": "/cookbook/next/generate-object-with-file-prompt",
+      "url": "https://ai-sdk.dev/cookbook/next/generate-object-with-file-prompt",
+      "title": "Generate Object with File Prompt through Form Submission",
+      "bytes": 4039,
+      "sha256": "76a2069c7f7b71b64a4411379901d7e99ad0bb39f8e73e55a49cc3f97c1faae1"
+    },
+    {
+      "path": "/cookbook/next/generate-text",
+      "url": "https://ai-sdk.dev/cookbook/next/generate-text",
+      "title": "Generate Text",
+      "bytes": 2496,
+      "sha256": "445ab16585c0449428c89a5666dc9fe83895cafe827860e2acd6d834721646e6"
+    },
+    {
+      "path": "/cookbook/next/generate-text-with-chat-prompt",
+      "url": "https://ai-sdk.dev/cookbook/next/generate-text-with-chat-prompt",
+      "title": "Generate Text with Chat Prompt",
+      "bytes": 3613,
+      "sha256": "e6a7a388394b6277dea583f25805c29693c1166cf24833ca9b916f3f4b5eb67d"
+    },
+    {
+      "path": "/cookbook/next/human-in-the-loop",
+      "url": "https://ai-sdk.dev/cookbook/next/human-in-the-loop",
+      "title": "Human-in-the-Loop with Next.js",
+      "bytes": 11715,
+      "sha256": "c2fa50b1b0f353eb8a8880a5cf4d50d4ece25f39398e88814a2ef9976154cf48"
+    },
+    {
+      "path": "/cookbook/next/markdown-chatbot-with-memoization",
+      "url": "https://ai-sdk.dev/cookbook/next/markdown-chatbot-with-memoization",
+      "title": "Markdown Chatbot with Streamdown",
+      "bytes": 3181,
+      "sha256": "d61aa05320ccfa7c58b9848b8bd081bbd4402e77d081df86844ea7c504c5820e"
+    },
+    {
+      "path": "/cookbook/next/mcp-tools",
+      "url": "https://ai-sdk.dev/cookbook/next/mcp-tools",
+      "title": "Model Context Protocol (MCP) Tools",
+      "bytes": 5906,
+      "sha256": "0e3f39ae006218fa265a12e8f8c754a832cfe827faf930bddc2e1c4f17869cc0"
+    },
+    {
+      "path": "/cookbook/next/render-visual-interface-in-chat",
+      "url": "https://ai-sdk.dev/cookbook/next/render-visual-interface-in-chat",
+      "title": "Render Visual Interface in Chat",
+      "bytes": 8885,
+      "sha256": "b4766d9073ae8c9161ebf754d3803d94b85ca540a1c372e539672fa67f9d5a3c"
+    },
+    {
+      "path": "/cookbook/next/send-custom-body-from-use-chat",
+      "url": "https://ai-sdk.dev/cookbook/next/send-custom-body-from-use-chat",
+      "title": "Send Custom Body from useChat",
+      "bytes": 3749,
+      "sha256": "c6cd70b906a2125a6055defaeeef081530d6c2068d9d04eb756a0e24b60b93d6"
+    },
+    {
+      "path": "/cookbook/next/stream-object",
+      "url": "https://ai-sdk.dev/cookbook/next/stream-object",
+      "title": "Stream Object",
+      "bytes": 8174,
+      "sha256": "1e5ea84e160e0229e4392d43914675ecfa928f4c231dd40d5cfdab94c756ba51"
+    },
+    {
+      "path": "/cookbook/next/stream-text",
+      "url": "https://ai-sdk.dev/cookbook/next/stream-text",
+      "title": "Stream Text",
+      "bytes": 2481,
+      "sha256": "6092947761d2d5310553794123dc973bce72862e4105856d90c994a7db7d9a27"
+    },
+    {
+      "path": "/cookbook/next/stream-text-multistep",
+      "url": "https://ai-sdk.dev/cookbook/next/stream-text-multistep",
+      "title": "streamText Multi-Step Cookbook",
+      "bytes": 4009,
+      "sha256": "cb3ed50e4481d0836ba5459035f49cdc1ffda8f39dd41559562ada15a6f8aae4"
+    },
+    {
+      "path": "/cookbook/next/stream-text-with-chat-prompt",
+      "url": "https://ai-sdk.dev/cookbook/next/stream-text-with-chat-prompt",
+      "title": "Stream Text with Chat Prompt",
+      "bytes": 3106,
+      "sha256": "2fce9559d1b5c9e17289bbd09b1d7c264f6063c259a917317e4483301460f14e"
+    },
+    {
+      "path": "/cookbook/next/stream-text-with-image-prompt",
+      "url": "https://ai-sdk.dev/cookbook/next/stream-text-with-image-prompt",
+      "title": "Stream Text with Image Prompt",
+      "bytes": 4208,
+      "sha256": "19fc4db6c77542163d40933a05e35d5e9efd38cd06fb086877b48284d3158a44"
+    },
+    {
+      "path": "/cookbook/next/track-agent-token-usage",
+      "url": "https://ai-sdk.dev/cookbook/next/track-agent-token-usage",
+      "title": "Track Agent Token Usage",
+      "bytes": 10520,
+      "sha256": "78a4a7304312677ca298843812be7cd72e0bd6b70d88eeec8fe5bce97e32479d"
+    },
+    {
+      "path": "/cookbook/next/use-shared-chat-context",
+      "url": "https://ai-sdk.dev/cookbook/next/use-shared-chat-context",
+      "title": "Share useChat State Across Components",
+      "bytes": 5088,
+      "sha256": "5267ff5a7b90269386d751addadad58f6b9e7d15c34bb15ea5c1578f579167c6"
+    },
+    {
+      "path": "/cookbook/node/call-tools",
+      "url": "https://ai-sdk.dev/cookbook/node/call-tools",
+      "title": "Call Tools",
+      "bytes": 4888,
+      "sha256": "94a043b8ba9fa88996fbfef5a8a3e1cbd323b99177d8643038af794fe9a496dc"
+    },
+    {
+      "path": "/cookbook/node/call-tools-in-parallel",
+      "url": "https://ai-sdk.dev/cookbook/node/call-tools-in-parallel",
+      "title": "Call Tools in Parallel",
+      "bytes": 2084,
+      "sha256": "133c74b1f3947eacc7d3ee7f730f3e8dc6c64503725eda3c0cd7de9236e64ef1"
+    },
+    {
+      "path": "/cookbook/node/call-tools-multiple-steps",
+      "url": "https://ai-sdk.dev/cookbook/node/call-tools-multiple-steps",
+      "title": "Call Tools in Multiple Steps",
+      "bytes": 1597,
+      "sha256": "07c5847f1609a2b7718d3646ace2a18147eff69b75ca5c4ea303c7d7d226b28e"
+    },
+    {
+      "path": "/cookbook/node/call-tools-with-image-prompt",
+      "url": "https://ai-sdk.dev/cookbook/node/call-tools-with-image-prompt",
+      "title": "Call Tools with Image Prompt",
+      "bytes": 1651,
+      "sha256": "57fadd9745fc4035282381a9205502d51e3ca3f7bf7b322e52379b54f36a3af5"
+    },
+    {
+      "path": "/cookbook/node/dynamic-prompt-caching",
+      "url": "https://ai-sdk.dev/cookbook/node/dynamic-prompt-caching",
+      "title": "Dynamic Prompt Caching",
+      "bytes": 6885,
+      "sha256": "a326fab6e74a04b5851c629e1e69a6d7cad3de00f231266057672f7be5be0cf4"
+    },
+    {
+      "path": "/cookbook/node/embed-text",
+      "url": "https://ai-sdk.dev/cookbook/node/embed-text",
+      "title": "Embed Text",
+      "bytes": 1524,
+      "sha256": "01430bf687ab0350721eb0c0eb9a087843d7f3bc0e7eb2b9d82a7351c6a2d39e"
+    },
+    {
+      "path": "/cookbook/node/embed-text-batch",
+      "url": "https://ai-sdk.dev/cookbook/node/embed-text-batch",
+      "title": "Embed Text in Batch",
+      "bytes": 1692,
+      "sha256": "816b07bd2a2a6ecbd1705705b142292330bc13fd9514f3480302dab9eae333c7"
+    },
+    {
+      "path": "/cookbook/node/generate-object",
+      "url": "https://ai-sdk.dev/cookbook/node/generate-object",
+      "title": "Generate Object",
+      "bytes": 1637,
+      "sha256": "46fad343b0924a12e9bd72e8421d75b2f5628c910a62ee716c33e35833562a31"
+    },
+    {
+      "path": "/cookbook/node/generate-object-reasoning",
+      "url": "https://ai-sdk.dev/cookbook/node/generate-object-reasoning",
+      "title": "Generate Object with a Reasoning Model",
+      "bytes": 2276,
+      "sha256": "55fade823f1f33fc2fe1b5974d8d0e2fb45ea0d78e716d717ad956f58d35adcb"
+    },
+    {
+      "path": "/cookbook/node/generate-text",
+      "url": "https://ai-sdk.dev/cookbook/node/generate-text",
+      "title": "Generate Text",
+      "bytes": 932,
+      "sha256": "349140f664f3537908807d8745477ff1aab64bac963611a48cf18afd3bea6aff"
+    },
+    {
+      "path": "/cookbook/node/generate-text-with-chat-prompt",
+      "url": "https://ai-sdk.dev/cookbook/node/generate-text-with-chat-prompt",
+      "title": "Generate Text with Chat Prompt",
+      "bytes": 1649,
+      "sha256": "f35659e3feec7446353d3e9981685c89e2c956cbed57d4fddf0dbe77699eaf3e"
+    },
+    {
+      "path": "/cookbook/node/generate-text-with-image-prompt",
+      "url": "https://ai-sdk.dev/cookbook/node/generate-text-with-image-prompt",
+      "title": "Generate Text with Image Prompt",
+      "bytes": 2009,
+      "sha256": "7cb356afdf2dbe8c866a357f31eb07cc694f5980df3247559984ad6fb3ae5795"
+    },
+    {
+      "path": "/cookbook/node/intercept-fetch-requests",
+      "url": "https://ai-sdk.dev/cookbook/node/intercept-fetch-requests",
+      "title": "Intercepting Fetch Requests",
+      "bytes": 1624,
+      "sha256": "7936074a7955593ea34444a82b7aa279ddffed78a093a8f47763f0751998659a"
+    },
+    {
+      "path": "/cookbook/node/knowledge-base-agent",
+      "url": "https://ai-sdk.dev/cookbook/node/knowledge-base-agent",
+      "title": "Knowledge Base Agent",
+      "bytes": 8267,
+      "sha256": "1caa6f0243b40fbe4ae0762bbdac59348f101461d2fdf5e7f36e645534567dd8"
+    },
+    {
+      "path": "/cookbook/node/local-caching-middleware",
+      "url": "https://ai-sdk.dev/cookbook/node/local-caching-middleware",
+      "title": "Local Caching Middleware",
+      "bytes": 8157,
+      "sha256": "de706adbb53e00fc70dc9aa70676044128402e7cfa17d0e38043c5e30fbbd3dd"
+    },
+    {
+      "path": "/cookbook/node/manual-agent-loop",
+      "url": "https://ai-sdk.dev/cookbook/node/manual-agent-loop",
+      "title": "Manual Agent Loop",
+      "bytes": 5834,
+      "sha256": "c59b4416b537a8ffb0396da64bd020642284e5661c1aafe8cb5d25931ee0e297"
+    },
+    {
+      "path": "/cookbook/node/mcp-elicitation",
+      "url": "https://ai-sdk.dev/cookbook/node/mcp-elicitation",
+      "title": "Model Context Protocol (MCP) Elicitation",
+      "bytes": 3600,
+      "sha256": "aa3a21e5c51dac51f8895a6795bb210a2bdc7b1c23b1b6c02f59847e1c0716fa"
+    },
+    {
+      "path": "/cookbook/node/mcp-events",
+      "url": "https://ai-sdk.dev/cookbook/node/mcp-events",
+      "title": "Receive MCP Webhook Events",
+      "bytes": 15280,
+      "sha256": "623deeddf2c6dead96047108f6e5cabc5d17fa9e7f37af55b2457509dc113bf8"
+    },
+    {
+      "path": "/cookbook/node/mcp-tools",
+      "url": "https://ai-sdk.dev/cookbook/node/mcp-tools",
+      "title": "Model Context Protocol (MCP) Tools",
+      "bytes": 3827,
+      "sha256": "d9f088bd3313218f5b479d6f85f40434dc358690268ff003d8be35caf2ee353b"
+    },
+    {
+      "path": "/cookbook/node/repair-json-with-jsonrepair",
+      "url": "https://ai-sdk.dev/cookbook/node/repair-json-with-jsonrepair",
+      "title": "Repair Malformed JSON with jsonrepair",
+      "bytes": 3199,
+      "sha256": "da69be7b2773e673a1e05473516a59f0a8f049911562e9a8303cd8aa9b0ac90d"
+    },
+    {
+      "path": "/cookbook/node/retrieval-augmented-generation",
+      "url": "https://ai-sdk.dev/cookbook/node/retrieval-augmented-generation",
+      "title": "Retrieval Augmented Generation",
+      "bytes": 3026,
+      "sha256": "f70de9cd62ac0827c71442cf7f6c5eabde8bb61b7639957cb834c7a2e0b439ad"
+    },
+    {
+      "path": "/cookbook/node/stream-object",
+      "url": "https://ai-sdk.dev/cookbook/node/stream-object",
+      "title": "Stream Object",
+      "bytes": 1400,
+      "sha256": "9e7a8498369c53c31340aabee0103e7e8c3eb6aa74b87ebdc10dca3d54fef274"
+    },
+    {
+      "path": "/cookbook/node/stream-object-record-final-object",
+      "url": "https://ai-sdk.dev/cookbook/node/stream-object-record-final-object",
+      "title": "Record Final Object after Streaming Object",
+      "bytes": 2450,
+      "sha256": "b4f0d5d8a091600b52e362e3471798c41a51efbe85c8a4ad35df58fe2489d483"
+    },
+    {
+      "path": "/cookbook/node/stream-object-record-token-usage",
+      "url": "https://ai-sdk.dev/cookbook/node/stream-object-record-token-usage",
+      "title": "Record Token Usage After Streaming Object",
+      "bytes": 2646,
+      "sha256": "b3b6a2ffc83b9fad3883cb8e92cfcafde21f530c2565fab1f11ca2e0c0b64085"
+    },
+    {
+      "path": "/cookbook/node/stream-object-with-image-prompt",
+      "url": "https://ai-sdk.dev/cookbook/node/stream-object-with-image-prompt",
+      "title": "Stream Object with Image Prompt",
+      "bytes": 2996,
+      "sha256": "f17a627cc02154303dcfdbb715db7bff5437509162b80cddf11ce10f44969094"
+    },
+    {
+      "path": "/cookbook/node/stream-text",
+      "url": "https://ai-sdk.dev/cookbook/node/stream-text",
+      "title": "Stream Text",
+      "bytes": 2836,
+      "sha256": "77ddc9c14fd72c8061e7dcf76faede8c55740c5b0245ecb534df939e149d91aa"
+    },
+    {
+      "path": "/cookbook/node/stream-text-with-chat-prompt",
+      "url": "https://ai-sdk.dev/cookbook/node/stream-text-with-chat-prompt",
+      "title": "Stream Text with Chat Prompt",
+      "bytes": 1491,
+      "sha256": "ae67b0b94fba0fddb44f0ee0637006b33451428d8c255d80c324e6d999fd52a2"
+    },
+    {
+      "path": "/cookbook/node/stream-text-with-file-prompt",
+      "url": "https://ai-sdk.dev/cookbook/node/stream-text-with-file-prompt",
+      "title": "Stream Text with File Prompt",
+      "bytes": 1585,
+      "sha256": "0f97bd1c5fc2dcdf788f8b460d427125d5ea68187a313d64430f73e4acbe3c37"
+    },
+    {
+      "path": "/cookbook/node/stream-text-with-image-prompt",
+      "url": "https://ai-sdk.dev/cookbook/node/stream-text-with-image-prompt",
+      "title": "Stream Text with Image Prompt",
+      "bytes": 1588,
+      "sha256": "774bf9a3e65a281c167905765d68e9ca8da5020725c855c51afb45425701e277"
+    },
+    {
+      "path": "/cookbook/node/web-search-agent",
+      "url": "https://ai-sdk.dev/cookbook/node/web-search-agent",
+      "title": "Web Search Agent",
+      "bytes": 12877,
+      "sha256": "1038897c3c55af3de012bc81dca24f362674190a417fa304c2109922fd0e6579"
+    },
+    {
+      "path": "/cookbook/rsc/call-tools",
+      "url": "https://ai-sdk.dev/cookbook/rsc/call-tools",
+      "title": "Call Tools",
+      "bytes": 3598,
+      "sha256": "6d0ec9347271a2bb3350b5e9f7060bd43b72724001be2868b247057418fe5647"
+    },
+    {
+      "path": "/cookbook/rsc/call-tools-in-parallel",
+      "url": "https://ai-sdk.dev/cookbook/rsc/call-tools-in-parallel",
+      "title": "Call Tools in Parallel",
+      "bytes": 3504,
+      "sha256": "066b0174e944a35f49d3090f7fc1b44643070f3adde8e74a938a876e30ad0d65"
+    },
+    {
+      "path": "/cookbook/rsc/generate-object",
+      "url": "https://ai-sdk.dev/cookbook/rsc/generate-object",
+      "title": "Generate Object",
+      "bytes": 2967,
+      "sha256": "ed4e27bc52bdf8c7bd83123d6f929ed31a6ddfeb26e81fd0085cc019f2d0e37d"
+    },
+    {
+      "path": "/cookbook/rsc/generate-text",
+      "url": "https://ai-sdk.dev/cookbook/rsc/generate-text",
+      "title": "Generate Text",
+      "bytes": 2315,
+      "sha256": "851c45455b230c1a797c94f46af2519c2abae3d8085239d22d03af1101e26ec6"
+    },
+    {
+      "path": "/cookbook/rsc/generate-text-with-chat-prompt",
+      "url": "https://ai-sdk.dev/cookbook/rsc/generate-text-with-chat-prompt",
+      "title": "Generate Text with Chat Prompt",
+      "bytes": 3105,
+      "sha256": "eafa086d9e3306b1b6dcadc658ae14b047f92401b651a8bbb92fed44f415e69c"
+    },
+    {
+      "path": "/cookbook/rsc/render-visual-interface-in-chat",
+      "url": "https://ai-sdk.dev/cookbook/rsc/render-visual-interface-in-chat",
+      "title": "Render Visual Interface in Chat",
+      "bytes": 6119,
+      "sha256": "ac0e1536a0b89b10150dcad7996b91d04e68a115a6f45ba7e27bffa60a67c6f6"
+    },
+    {
+      "path": "/cookbook/rsc/restore-messages-from-database",
+      "url": "https://ai-sdk.dev/cookbook/rsc/restore-messages-from-database",
+      "title": "Restore Messages From Database",
+      "bytes": 4622,
+      "sha256": "82df8b867421a80c9ec383cab2b3d3aaa3bc85c2715160d41390e4ff44213871"
+    },
+    {
+      "path": "/cookbook/rsc/save-messages-to-database",
+      "url": "https://ai-sdk.dev/cookbook/rsc/save-messages-to-database",
+      "title": "Save Messages To Database",
+      "bytes": 5526,
+      "sha256": "ac9f6439da2846f94dff2af323b2e299c942ff86987f03b214a5649924040bab"
+    },
+    {
+      "path": "/cookbook/rsc/stream-object",
+      "url": "https://ai-sdk.dev/cookbook/rsc/stream-object",
+      "title": "Stream Object",
+      "bytes": 3389,
+      "sha256": "6747d5c7ffd368a0f901b4eb4c611e70d5acb7fd50169ade789fd8e0cac79c55"
+    },
+    {
+      "path": "/cookbook/rsc/stream-text",
+      "url": "https://ai-sdk.dev/cookbook/rsc/stream-text",
+      "title": "Stream Text",
+      "bytes": 3144,
+      "sha256": "52e4f2693b5f517f25a1d7aa6a97ebec04d941ebbe0a49f4d21f56d0cd1c91a8"
+    },
+    {
+      "path": "/cookbook/rsc/stream-text-with-chat-prompt",
+      "url": "https://ai-sdk.dev/cookbook/rsc/stream-text-with-chat-prompt",
+      "title": "Stream Text with Chat Prompt",
+      "bytes": 3439,
+      "sha256": "b572fd814b3e5e409025ae0beab6fa9a55e41799698a89a42ef4b4035cf9d5cc"
+    },
+    {
+      "path": "/cookbook/rsc/stream-ui-record-token-usage",
+      "url": "https://ai-sdk.dev/cookbook/rsc/stream-ui-record-token-usage",
+      "title": "Record Token Usage after Streaming User Interfaces",
+      "bytes": 4660,
+      "sha256": "eb3b0213cbf36f30ab82f19d5c54a2a4e1ecae826e9727edb74c19ee25b77b3b"
+    },
+    {
+      "path": "/cookbook/rsc/stream-updates-to-visual-interfaces",
+      "url": "https://ai-sdk.dev/cookbook/rsc/stream-updates-to-visual-interfaces",
+      "title": "Stream Updates to Visual Interfaces",
+      "bytes": 4268,
+      "sha256": "2a4a3b6665d08263b368a6ab1a8faa7a4592d4a6d1eb381b5866a8d46d9a024e"
+    },
+    {
+      "path": "/docs/advanced",
+      "url": "https://ai-sdk.dev/docs/advanced",
+      "title": "Advanced",
+      "bytes": 825,
+      "sha256": "5626c1e318d1ba274bf254d59eb6f6c09aa4891d75b8c20d531f6f50f13751ff"
+    },
+    {
+      "path": "/docs/advanced/backpressure",
+      "url": "https://ai-sdk.dev/docs/advanced/backpressure",
+      "title": "Backpressure",
+      "bytes": 8851,
+      "sha256": "b3651b62273e3c4a4447eec94f6e6c5ddeeed8ab1b76e007c50bcdcbfadd6a6d"
+    },
+    {
+      "path": "/docs/advanced/caching",
+      "url": "https://ai-sdk.dev/docs/advanced/caching",
+      "title": "Caching",
+      "bytes": 6803,
+      "sha256": "59e7e5fe8a1abfb710dde9a5229f91bebbc1c5ecd9729e805ae972bb2cb4d89e"
+    },
+    {
+      "path": "/docs/advanced/model-as-router",
+      "url": "https://ai-sdk.dev/docs/advanced/model-as-router",
+      "title": "Language Models as Routers",
+      "bytes": 6433,
+      "sha256": "91946d21c01d1bd43b0646c698ba2c973ca872d6435c074601c3a682b86b7158"
+    },
+    {
+      "path": "/docs/advanced/multiple-streamables",
+      "url": "https://ai-sdk.dev/docs/advanced/multiple-streamables",
+      "title": "Multiple Streamables",
+      "bytes": 2860,
+      "sha256": "88d35f3ed4705fef0d67a255bdc438abe4c267e2ddba283b6150e172377aed3b"
+    },
+    {
+      "path": "/docs/advanced/multistep-interfaces",
+      "url": "https://ai-sdk.dev/docs/advanced/multistep-interfaces",
+      "title": "Multistep Interfaces",
+      "bytes": 7590,
+      "sha256": "2cdde8b7fa0158522bc8ce83af6d9ddde5dd27ddf2c25399a6178366a8c932c6"
+    },
+    {
+      "path": "/docs/advanced/prompt-engineering",
+      "url": "https://ai-sdk.dev/docs/advanced/prompt-engineering",
+      "title": "Prompt Engineering",
+      "bytes": 5412,
+      "sha256": "1cc97eaed9d031a99ce8d3e973f5efd3331280472d3c18f58bba66b2e772919d"
+    },
+    {
+      "path": "/docs/advanced/rate-limiting",
+      "url": "https://ai-sdk.dev/docs/advanced/rate-limiting",
+      "title": "Rate Limiting",
+      "bytes": 2319,
+      "sha256": "0de74ac9f6f9bdf4a94bb5dd650fa633a196a93359e1c83f680276188e8f94b6"
+    },
+    {
+      "path": "/docs/advanced/rendering-ui-with-language-models",
+      "url": "https://ai-sdk.dev/docs/advanced/rendering-ui-with-language-models",
+      "title": "Rendering UI with Language Models",
+      "bytes": 8542,
+      "sha256": "117684a72037146f7e7f6a5c63760b63cea63a761dd4d128407e0e3e3d8bf15c"
+    },
+    {
+      "path": "/docs/advanced/secure-url-fetching",
+      "url": "https://ai-sdk.dev/docs/advanced/secure-url-fetching",
+      "title": "Secure URL Fetching",
+      "bytes": 7559,
+      "sha256": "dd5bfc580bef9ec53e29f665bf665c170160f9b9560c28ea4d672067df562581"
+    },
+    {
+      "path": "/docs/advanced/sequential-generations",
+      "url": "https://ai-sdk.dev/docs/advanced/sequential-generations",
+      "title": "Sequential Generations",
+      "bytes": 2421,
+      "sha256": "190ac36903187c8aec54d09606a5cc8fc7f2273c8cca3c1e6484e83be0d9b774"
+    },
+    {
+      "path": "/docs/advanced/stopping-streams",
+      "url": "https://ai-sdk.dev/docs/advanced/stopping-streams",
+      "title": "Stopping Streams",
+      "bytes": 7440,
+      "sha256": "86dfd5999d3820b57d4e52fc8245a6b93b9e04cc49302856c81862d7e3d926e4"
+    },
+    {
+      "path": "/docs/advanced/vercel-deployment-guide",
+      "url": "https://ai-sdk.dev/docs/advanced/vercel-deployment-guide",
+      "title": "Vercel Deployment Guide",
+      "bytes": 8005,
+      "sha256": "4ffa744d28cb0b93a99491a7201b7021d1db606acd2e7d99211ba1c786803df0"
+    },
+    {
+      "path": "/docs/agents/building-agents",
+      "url": "https://ai-sdk.dev/docs/agents/building-agents",
+      "title": "Building Agents",
+      "bytes": 17485,
+      "sha256": "1aa9c1f3ccae336e7dcfd07aeb20860fc5e04f560a817914e207763fac450373"
+    },
+    {
+      "path": "/docs/agents/chat-platforms",
+      "url": "https://ai-sdk.dev/docs/agents/chat-platforms",
+      "title": "Chat Platforms",
+      "bytes": 7455,
+      "sha256": "762407a656763513386cc64d3d5b438b5d6b55d2f6e7944f50f0538644cec362"
+    },
+    {
+      "path": "/docs/agents/configuring-call-options",
+      "url": "https://ai-sdk.dev/docs/agents/configuring-call-options",
+      "title": "Configuring Call Options",
+      "bytes": 7911,
+      "sha256": "6615064a329cfd238ff2f92ecabc74471f6cc5cd56a78aaadfebd75c8084342a"
+    },
+    {
+      "path": "/docs/agents/eve",
+      "url": "https://ai-sdk.dev/docs/agents/eve",
+      "title": "eve",
+      "bytes": 4510,
+      "sha256": "d9a09326bb7258c4454768fcfa35cb28237280f0478490383322b010b150ad97"
+    },
+    {
+      "path": "/docs/agents/loop-control",
+      "url": "https://ai-sdk.dev/docs/agents/loop-control",
+      "title": "Loop Control",
+      "bytes": 20716,
+      "sha256": "8521ab143d29c4bec0dd6c80de047edf5700bcbc6b1e909bc8bcb609eb92efad"
+    },
+    {
+      "path": "/docs/agents/memory",
+      "url": "https://ai-sdk.dev/docs/agents/memory",
+      "title": "Memory",
+      "bytes": 11527,
+      "sha256": "c1f7a39907a9c504827890d1aeda596472c5cda4fb277bdfb7da519fb92b4be1"
+    },
+    {
+      "path": "/docs/agents/overview",
+      "url": "https://ai-sdk.dev/docs/agents/overview",
+      "title": "Overview",
+      "bytes": 6381,
+      "sha256": "746e4c8c33de067f5bd74218fe0fb3cde497b4578b0bef980c44d0fc9a78ab3c"
+    },
+    {
+      "path": "/docs/agents/policy-tool-approvals",
+      "url": "https://ai-sdk.dev/docs/agents/policy-tool-approvals",
+      "title": "Policy-Based Tool Approvals",
+      "bytes": 19926,
+      "sha256": "70ca7917109d35dc4e239fda250abccf6d9d304142e641b73244e1825d53abe0"
+    },
+    {
+      "path": "/docs/agents/subagents",
+      "url": "https://ai-sdk.dev/docs/agents/subagents",
+      "title": "Subagents",
+      "bytes": 13435,
+      "sha256": "5e96b7be601b9eeefc4984b143a3ff4bf42b8a4071e314c79ed54ba698a2ac11"
+    },
+    {
+      "path": "/docs/agents/terminal-ui",
+      "url": "https://ai-sdk.dev/docs/agents/terminal-ui",
+      "title": "Terminal UI",
+      "bytes": 6108,
+      "sha256": "17a0c895bd9ff843993e0468671e9ff19ef63d728c53caa7485cb499e2dad124"
+    },
+    {
+      "path": "/docs/agents/tool-approvals",
+      "url": "https://ai-sdk.dev/docs/agents/tool-approvals",
+      "title": "Tool Approvals",
+      "bytes": 13041,
+      "sha256": "4e738360cf5d253fa769891e20e2a41df890bca238d3584bc7a3d2ec49297bc8"
+    },
+    {
+      "path": "/docs/agents/workflow-agent",
+      "url": "https://ai-sdk.dev/docs/agents/workflow-agent",
+      "title": "WorkflowAgent",
+      "bytes": 35503,
+      "sha256": "d004b25b0c520beb6075becccee8ce087afbf160d00fa878d8ad359e59744f3b"
+    },
+    {
+      "path": "/docs/agents/workflows",
+      "url": "https://ai-sdk.dev/docs/agents/workflows",
+      "title": "Workflow Patterns",
+      "bytes": 13754,
+      "sha256": "eab5b7ce8135ef35e84902429047462e25bfb78d70a020c01d6bb8cf573ecbb0"
+    },
+    {
+      "path": "/docs/ai-sdk-core/batch",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/batch",
+      "title": "Batch",
+      "bytes": 14057,
+      "sha256": "4c1a8fe9edfa3362295dfa2326a08ceb86934775d41ed91506734ae6849cb0a8"
+    },
+    {
+      "path": "/docs/ai-sdk-core/code-mode",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/code-mode",
+      "title": "Code Mode",
+      "bytes": 9694,
+      "sha256": "a06ad5b0f8380a2aeabd30d4237a5cbce3a47771abe3c7d1b27362502e270bab"
+    },
+    {
+      "path": "/docs/ai-sdk-core/decisions",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/decisions",
+      "title": "Decisions",
+      "bytes": 15775,
+      "sha256": "1ef58c5add06e6aa7337d9e09683294193abeb6b2b3f5f68d81a3e67dfe3dfb1"
+    },
+    {
+      "path": "/docs/ai-sdk-core/devtools",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/devtools",
+      "title": "DevTools",
+      "bytes": 7312,
+      "sha256": "4ed798c80c676d5bfcb339f9fc63721104183f608bd872b5ad8d5f029886baec"
+    },
+    {
+      "path": "/docs/ai-sdk-core/embeddings",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/embeddings",
+      "title": "Embeddings",
+      "bytes": 10697,
+      "sha256": "bf4360d1560b12acc46903ab830c52a777c7288b5836a1fafb8ceb9088bd12e0"
+    },
+    {
+      "path": "/docs/ai-sdk-core/error-handling",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/error-handling",
+      "title": "Error Handling",
+      "bytes": 7681,
+      "sha256": "9e20d60184a53b774bff2ebc6993c8ef63f8cbfb0b6bb1d2f9a69e2664b178d6"
+    },
+    {
+      "path": "/docs/ai-sdk-core/file-uploads",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/file-uploads",
+      "title": "File Uploads",
+      "bytes": 5685,
+      "sha256": "4db819714603129ba2c2c856c82a55fae7a30290416b1c2740c56683e0914186"
+    },
+    {
+      "path": "/docs/ai-sdk-core/generating-structured-data",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-structured-data",
+      "title": "Generating Structured Data",
+      "bytes": 16780,
+      "sha256": "c5e93044459cfed8a997c7bfe5b5fb5a5daa901ccbc7d817fa0751db01d76685"
+    },
+    {
+      "path": "/docs/ai-sdk-core/generating-text",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-text",
+      "title": "Generating Text",
+      "bytes": 30818,
+      "sha256": "ded378cd88c22843cf351b198b43ac6fb8c57e8286cf33cc215b3450dc2038be"
+    },
+    {
+      "path": "/docs/ai-sdk-core/image-generation",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/image-generation",
+      "title": "Image Generation",
+      "bytes": 30947,
+      "sha256": "be7918ce595c2a70f94af1acb98bf39144e33fea1782eb62afd254651eb098c1"
+    },
+    {
+      "path": "/docs/ai-sdk-core/lifecycle-callbacks",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/lifecycle-callbacks",
+      "title": "Lifecycle Callbacks",
+      "bytes": 27371,
+      "sha256": "5442c995876a7e1c988700a6be8e63518cd1c406de70021b2847b8549d4e58b9"
+    },
+    {
+      "path": "/docs/ai-sdk-core/mcp-apps",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/mcp-apps",
+      "title": "MCP Apps",
+      "bytes": 8977,
+      "sha256": "54ed28ddcad8e4d4097ac39df346cfb1c05b6d807e10294241e3e0b00e453675"
+    },
+    {
+      "path": "/docs/ai-sdk-core/mcp-events",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/mcp-events",
+      "title": "MCP Events",
+      "bytes": 11125,
+      "sha256": "0ba635c399f4ad58fd6353882c72df7b15edd159c51bff5f23a3545efc1cf52c"
+    },
+    {
+      "path": "/docs/ai-sdk-core/mcp-tools",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/mcp-tools",
+      "title": "Model Context Protocol (MCP)",
+      "bytes": 28680,
+      "sha256": "c56054de44f38dbc85b7542a8abbf10013bc1b49111e951d4200f7aa72f9a37d"
+    },
+    {
+      "path": "/docs/ai-sdk-core/middleware",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/middleware",
+      "title": "Language Model Middleware",
+      "bytes": 19625,
+      "sha256": "88a9c268fe6f4346736080a2d91bd7a7fedafa3ac153a4e51fa7971069b5f8f7"
+    },
+    {
+      "path": "/docs/ai-sdk-core/overview",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/overview",
+      "title": "Overview",
+      "bytes": 2477,
+      "sha256": "edcc3aea134261f611287d8ebed91f31c82eade377c7d76cda9b2333d48bb873"
+    },
+    {
+      "path": "/docs/ai-sdk-core/prompt-engineering",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/prompt-engineering",
+      "title": "Prompt Engineering",
+      "bytes": 5803,
+      "sha256": "259d0448ffccf1780261441a3f41dfc7655573557d3cf861e1274014694bc290"
+    },
+    {
+      "path": "/docs/ai-sdk-core/provider-management",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/provider-management",
+      "title": "\"Provider & Model Management\"",
+      "bytes": 14443,
+      "sha256": "a4e781681d6e4089fbf6a6352ba1809ec0ae62824867ae5b5aa5dbfc875743eb"
+    },
+    {
+      "path": "/docs/ai-sdk-core/realtime",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/realtime",
+      "title": "Realtime",
+      "bytes": 9362,
+      "sha256": "3159836d72a0270703a0560bf5d17e196b59f0669ee7aaf5c1fa8d4dbafc6d1d"
+    },
+    {
+      "path": "/docs/ai-sdk-core/reasoning",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/reasoning",
+      "title": "Reasoning",
+      "bytes": 8208,
+      "sha256": "46912926d09daa10e3ee5a8dc1c5b8ccb85f3519e33f74b63a2f6ef15fa58128"
+    },
+    {
+      "path": "/docs/ai-sdk-core/reranking",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/reranking",
+      "title": "Reranking",
+      "bytes": 7819,
+      "sha256": "4ac050a04e2b24e41e32c3c3e4781c02f8c8d6164b109c9bf8c7bdd26cf2a3d3"
+    },
+    {
+      "path": "/docs/ai-sdk-core/runtime-and-tool-context",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/runtime-and-tool-context",
+      "title": "Runtime and Tool Context",
+      "bytes": 11254,
+      "sha256": "7f747da2f9bb6bd74f5df3ffab09863ab99237be6ddc87943157eaa55d3df051"
+    },
+    {
+      "path": "/docs/ai-sdk-core/settings",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/settings",
+      "title": "Settings",
+      "bytes": 10815,
+      "sha256": "73d25b462ceec5e1316923d2851a15685d77d3cb39aab2a284afaf076e334472"
+    },
+    {
+      "path": "/docs/ai-sdk-core/skill-uploads",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/skill-uploads",
+      "title": "Skill Uploads",
+      "bytes": 6755,
+      "sha256": "6d073a50026dd5b25f01b9285b7189f1e5a6fdd08076456d26b3c28070cef5da"
+    },
+    {
+      "path": "/docs/ai-sdk-core/speech",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/speech",
+      "title": "Speech",
+      "bytes": 11052,
+      "sha256": "15d29320583845aa5b440940229317be7dc502b207693c7234b8ccedbfec7e56"
+    },
+    {
+      "path": "/docs/ai-sdk-core/telemetry",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/telemetry",
+      "title": "Telemetry",
+      "bytes": 45125,
+      "sha256": "4b2d603e8476311c05f4416619556e3d585bf5b6fd452f49c58c55f67d3c3fa8"
+    },
+    {
+      "path": "/docs/ai-sdk-core/testing",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/testing",
+      "title": "Testing",
+      "bytes": 8884,
+      "sha256": "9772e60eca159daac52f6571166ac28e2b08293e7acafc04c57f68fef9be9307"
+    },
+    {
+      "path": "/docs/ai-sdk-core/tool-search",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/tool-search",
+      "title": "Tool Search",
+      "bytes": 4612,
+      "sha256": "53d53ebb1f7bc80147a7873e02ff5ebf5a255a18da885a6a459d3c51946ec071"
+    },
+    {
+      "path": "/docs/ai-sdk-core/tools",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools",
+      "title": "Tools",
+      "bytes": 11377,
+      "sha256": "a9198b43e330b99eb964c92c933b14f7ecc92994d75c677fc4cb6b1ccf66916c"
+    },
+    {
+      "path": "/docs/ai-sdk-core/tools-and-tool-calling",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling",
+      "title": "Tool Calling",
+      "bytes": 56988,
+      "sha256": "76a10a3c31e66bd08c8bac2ef63604dd15813807d689880e1b5b86c36bdda647"
+    },
+    {
+      "path": "/docs/ai-sdk-core/transcription",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/transcription",
+      "title": "Transcription",
+      "bytes": 16284,
+      "sha256": "31b19feb8c439a809ffca85b84f5a9114732ddc8233295de53fa5801813d33bd"
+    },
+    {
+      "path": "/docs/ai-sdk-core/translation",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/translation",
+      "title": "Translation",
+      "bytes": 7588,
+      "sha256": "182a6f67dc38eba9dc6e3f427eeac9782fef1b25d6c0b921b3c2af43aa140a66"
+    },
+    {
+      "path": "/docs/ai-sdk-core/video-generation",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-core/video-generation",
+      "title": "Video Generation",
+      "bytes": 17652,
+      "sha256": "67a93d02bf87c78e9a075929cdbecd0ca4664f0eabe0de77ba664a8ff930cc50"
+    },
+    {
+      "path": "/docs/ai-sdk-harnesses/harness-adapters",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-harnesses/harness-adapters",
+      "title": "Harness Adapters",
+      "bytes": 4525,
+      "sha256": "d19446472c29bda9c159d0e632ca09f363514eab52dced9d03203d3ee98ba91d"
+    },
+    {
+      "path": "/docs/ai-sdk-harnesses/harness-agent",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-harnesses/harness-agent",
+      "title": "HarnessAgent",
+      "bytes": 27552,
+      "sha256": "ee1182671d085a3eb29a72628c6bf607d6a1c7d04410bbb7d8ceda8088b473a9"
+    },
+    {
+      "path": "/docs/ai-sdk-harnesses/overview",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-harnesses/overview",
+      "title": "Overview",
+      "bytes": 4945,
+      "sha256": "f5c224d5fa82cad5079de7d353a5261cb5dd54ca29e845963072ebddcd6d502f"
+    },
+    {
+      "path": "/docs/ai-sdk-harnesses/skills",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-harnesses/skills",
+      "title": "Skills",
+      "bytes": 2492,
+      "sha256": "33ecb068c8e936502c1d436949a2620798cada1ff8a94658e9b6f2bae9c6fe58"
+    },
+    {
+      "path": "/docs/ai-sdk-harnesses/terminal-ui",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-harnesses/terminal-ui",
+      "title": "Terminal UI",
+      "bytes": 2629,
+      "sha256": "4b2ecf569af6656ba2536ad8cddf7b5fd82755d3c8ad914c9faf1b96b3e5f4ab"
+    },
+    {
+      "path": "/docs/ai-sdk-harnesses/tools",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-harnesses/tools",
+      "title": "Tools",
+      "bytes": 10531,
+      "sha256": "5328de780d9ff7a7afdc3ff5f4bce2e63a48c6749cbdbc2d5a91cf187ce3f74e"
+    },
+    {
+      "path": "/docs/ai-sdk-harnesses/ui",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-harnesses/ui",
+      "title": "UI",
+      "bytes": 7823,
+      "sha256": "202623d7b71fadc9907a44e67ecd18efe429ae11b650812b3655d0e7fc718874"
+    },
+    {
+      "path": "/docs/ai-sdk-harnesses/workflow-utilities",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-harnesses/workflow-utilities",
+      "title": "Workflow Utilities",
+      "bytes": 14770,
+      "sha256": "c563d270ad02ddab6b678c6498a13a5cf7c5ff4fd486babca67f2dc5be8f69b3"
+    },
+    {
+      "path": "/docs/ai-sdk-rsc/authentication",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/authentication",
+      "title": "Handling Authentication",
+      "bytes": 1721,
+      "sha256": "7ba9812b909e11aae4dabc099c9f5b9e156179132017ad9b391ecf44cdff47c1"
+    },
+    {
+      "path": "/docs/ai-sdk-rsc/error-handling",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/error-handling",
+      "title": "Error Handling",
+      "bytes": 3014,
+      "sha256": "e283334af08fe78eed069bd78cbcab06e31043e9b3170ac0bcbbbc35b2582ec2"
+    },
+    {
+      "path": "/docs/ai-sdk-rsc/generative-ui-state",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/generative-ui-state",
+      "title": "Managing Generative UI State",
+      "bytes": 10238,
+      "sha256": "e7b6098fb88277c6100ac2fdfda39bce95f7caa82432308daf606fdb852b1f54"
+    },
+    {
+      "path": "/docs/ai-sdk-rsc/loading-state",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/loading-state",
+      "title": "Handling Loading State",
+      "bytes": 8795,
+      "sha256": "8bf115caeea1183b70a54baf190b2d3d1d04d442df85081ea709226ea59acf3c"
+    },
+    {
+      "path": "/docs/ai-sdk-rsc/migrating-to-ui",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/migrating-to-ui",
+      "title": "Migrating from RSC to UI",
+      "bytes": 22881,
+      "sha256": "5e3ff70961a142fa5162790bb839f7bca86f6d4190860c99957998511b214b22"
+    },
+    {
+      "path": "/docs/ai-sdk-rsc/multistep-interfaces",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/multistep-interfaces",
+      "title": "Multistep Interfaces",
+      "bytes": 10201,
+      "sha256": "8afff08e8546cffcf0152736f2cf6c09ff75662fec4e92a37e88124c2c4cacd5"
+    },
+    {
+      "path": "/docs/ai-sdk-rsc/overview",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/overview",
+      "title": "Overview",
+      "bytes": 3709,
+      "sha256": "041ceddda2606e004c88beab9b1170fa830e0907e1486baf584db285282e9fb6"
+    },
+    {
+      "path": "/docs/ai-sdk-rsc/saving-and-restoring-states",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/saving-and-restoring-states",
+      "title": "Saving and Restoring States",
+      "bytes": 3969,
+      "sha256": "2e6df5b798d49b1629a22ee8243c043125a9510c8711f4c00b42cee52879e6ca"
+    },
+    {
+      "path": "/docs/ai-sdk-rsc/streaming-react-components",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/streaming-react-components",
+      "title": "Streaming React Components",
+      "bytes": 9548,
+      "sha256": "3ee831225832b050f9d1f897d97531b5538bdebbebc49da6d681edc601dedd27"
+    },
+    {
+      "path": "/docs/ai-sdk-rsc/streaming-values",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/streaming-values",
+      "title": "Streaming Values",
+      "bytes": 5684,
+      "sha256": "16a10e63cd30a998b5ec736b9557f8c60646a9fa49ac84fd57cda86435bd9c7c"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/chatbot",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot",
+      "title": "Chatbot",
+      "bytes": 39609,
+      "sha256": "5bbddb63c52ba30f0c239dbdc0fe670ae91bd63fb47d5de671b0d4ad51b0b356"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/chatbot-message-persistence",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-message-persistence",
+      "title": "Chatbot Message Persistence",
+      "bytes": 19827,
+      "sha256": "6135fb603a0fc627bc89a4951e4a4b9bee4088a21072b4d7363046c70f754067"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/chatbot-resume-streams",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-resume-streams",
+      "title": "Chatbot Resume Streams",
+      "bytes": 17302,
+      "sha256": "dc80c153f06c35a81307fc10b80e4c39d8f92d676ed98f20ae600a8834a85de7"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/chatbot-tool-usage",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-tool-usage",
+      "title": "Chatbot Tool Usage",
+      "bytes": 29988,
+      "sha256": "f1ba0c10b361da6383d975beb5b846694863f4d5f0f85a4494118ff8042b0905"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/completion",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/completion",
+      "title": "Completion",
+      "bytes": 6470,
+      "sha256": "c1c6945be833f108d7072b3bcd65d724336b38869fbd152aaa64d54006e849cc"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/error-handling",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/error-handling",
+      "title": "Error Handling",
+      "bytes": 11039,
+      "sha256": "ebd2ca26018070872862e1bac6b6de758c38f14088db5e406fb14ad09ce5c903"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/generative-user-interfaces",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/generative-user-interfaces",
+      "title": "Generative User Interfaces",
+      "bytes": 12861,
+      "sha256": "5c7f595b80568876c43f1f3e6b151ecbd57ccabdb769370f6e80938d96ad5856"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/message-metadata",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/message-metadata",
+      "title": "Message Metadata",
+      "bytes": 5182,
+      "sha256": "98f0f69ac066a1009c6f352e1e60678887e77a60c2aa96f1972d7b36f81a729a"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/object-generation",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/object-generation",
+      "title": "Object Generation",
+      "bytes": 9562,
+      "sha256": "810ab45a0ea7b487daba5de92243329e8f32f37e5a89e0eea4dadfe4e041d04c"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/overview",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/overview",
+      "title": "Overview",
+      "bytes": 4635,
+      "sha256": "051c11bccfd5aca288dd89ad9de337cf6f5809b3bcdc5dc3045404d1923a37cf"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/reading-ui-message-streams",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/reading-ui-message-streams",
+      "title": "Reading UIMessage Streams",
+      "bytes": 3232,
+      "sha256": "8c47fc09a35057cd4748392dfa8f941fd91fcb03cc7cba825112ef0eb8388228"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/stream-protocol",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/stream-protocol",
+      "title": "Stream Protocols",
+      "bytes": 14537,
+      "sha256": "c39a8717922cce0c280c00417b46308f8083c9f7602844391f6a098c3d9f3ab2"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/streaming-data",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/streaming-data",
+      "title": "Streaming Custom Data",
+      "bytes": 12178,
+      "sha256": "30665811f0adda62bae338931fa73e44c4050db3706bc69f994e6a13f0c514a9"
+    },
+    {
+      "path": "/docs/ai-sdk-ui/transport",
+      "url": "https://ai-sdk.dev/docs/ai-sdk-ui/transport",
+      "title": "Transport",
+      "bytes": 13749,
+      "sha256": "0450ff73e7c7527f8ec9cae97b8733b191329c6c4026fcb00f633079dfa87d25"
+    },
+    {
+      "path": "/docs/foundations/overview",
+      "url": "https://ai-sdk.dev/docs/foundations/overview",
+      "title": "Overview",
+      "bytes": 3248,
+      "sha256": "bff1fa25f097cbcee4998d20069fe58f6a2c8c4a417d785f79cadeae7f727741"
+    },
+    {
+      "path": "/docs/foundations/prompts",
+      "url": "https://ai-sdk.dev/docs/foundations/prompts",
+      "title": "Prompts",
+      "bytes": 17853,
+      "sha256": "895071f9949c381d3f18469787299e1abf33a4a2858dfd547c4abf33a8c1ab4f"
+    },
+    {
+      "path": "/docs/foundations/provider-options",
+      "url": "https://ai-sdk.dev/docs/foundations/provider-options",
+      "title": "Provider Options",
+      "bytes": 11820,
+      "sha256": "886f88644f27202d6211d0640795620977c92db6ca6f253d3299e39c1756ef26"
+    },
+    {
+      "path": "/docs/foundations/providers-and-models",
+      "url": "https://ai-sdk.dev/docs/foundations/providers-and-models",
+      "title": "Providers and Models",
+      "bytes": 26015,
+      "sha256": "26a6246f9b6c81126689fb8abf9443127963bd1f6603a1ab7ed94760ce4481a4"
+    },
+    {
+      "path": "/docs/foundations/streaming",
+      "url": "https://ai-sdk.dev/docs/foundations/streaming",
+      "title": "Streaming",
+      "bytes": 3087,
+      "sha256": "c14936f6e7b2fbc2eacc40209d0ed180f60da4b016a78db75309d3b70b5e2ba2"
+    },
+    {
+      "path": "/docs/foundations/tools",
+      "url": "https://ai-sdk.dev/docs/foundations/tools",
+      "title": "Tools",
+      "bytes": 15755,
+      "sha256": "a12f0c3e616bc35e62935ffe164fc4053ab90b4832dfb446251ad1e530552f72"
+    },
+    {
+      "path": "/docs/getting-started",
+      "url": "https://ai-sdk.dev/docs/getting-started",
+      "title": "Getting Started",
+      "bytes": 1313,
+      "sha256": "2ee86be920efe52822778bc42dc929048b6a515d26cde3599a7dbf6cea6d4f62"
+    },
+    {
+      "path": "/docs/getting-started/angular",
+      "url": "https://ai-sdk.dev/docs/getting-started/angular",
+      "title": "Angular",
+      "bytes": 12467,
+      "sha256": "99ff81c1a638e80f8bceadeb9131501cdfec229226e0bf76d1f14c7900e646e0"
+    },
+    {
+      "path": "/docs/getting-started/choosing-a-provider",
+      "url": "https://ai-sdk.dev/docs/getting-started/choosing-a-provider",
+      "title": "Choosing a Provider",
+      "bytes": 3644,
+      "sha256": "95a8075e2b5bb1ff0b5c99a4c13688932920cce2567666f667bd317ee10876d5"
+    },
+    {
+      "path": "/docs/getting-started/coding-agents",
+      "url": "https://ai-sdk.dev/docs/getting-started/coding-agents",
+      "title": "Coding Agents",
+      "bytes": 6208,
+      "sha256": "244f8df374f4c01ef964dbcd5345f446a6471becfb2e38606f29880db66f1440"
+    },
+    {
+      "path": "/docs/getting-started/expo",
+      "url": "https://ai-sdk.dev/docs/getting-started/expo",
+      "title": "Expo",
+      "bytes": 27972,
+      "sha256": "ba374821b2e985936e646918fadb161e23ab71d820a5d50c07f966f207f65380"
+    },
+    {
+      "path": "/docs/getting-started/navigating-the-library",
+      "url": "https://ai-sdk.dev/docs/getting-started/navigating-the-library",
+      "title": "Navigating the Library",
+      "bytes": 7729,
+      "sha256": "44390bda0484c49f0a9c9cdb48194922f71a3fd2c5598de63d62c1aee7cd0a43"
+    },
+    {
+      "path": "/docs/getting-started/nextjs-app-router",
+      "url": "https://ai-sdk.dev/docs/getting-started/nextjs-app-router",
+      "title": "Next.js App Router",
+      "bytes": 23070,
+      "sha256": "f8bf379c3c45fb774572e1ac928e47b6731a32af4ecdcf2af612ff8685ca1ba1"
+    },
+    {
+      "path": "/docs/getting-started/nextjs-pages-router",
+      "url": "https://ai-sdk.dev/docs/getting-started/nextjs-pages-router",
+      "title": "Next.js Pages Router",
+      "bytes": 22307,
+      "sha256": "e18100bb5aaf58a6acaa5a7682ddb949650a4fef9d235d8d520e5c4cdeef476e"
+    },
+    {
+      "path": "/docs/getting-started/nodejs",
+      "url": "https://ai-sdk.dev/docs/getting-started/nodejs",
+      "title": "Node.js",
+      "bytes": 18808,
+      "sha256": "d126afc93d24e3ac058dfcf1ccc03e05107356ca711cfa8bacb85e17a6a7ab8e"
+    },
+    {
+      "path": "/docs/getting-started/nuxt",
+      "url": "https://ai-sdk.dev/docs/getting-started/nuxt",
+      "title": "Vue.js (Nuxt)",
+      "bytes": 22760,
+      "sha256": "37b11c56253acccd77d413401c26c0d69d8f770515794937725e267aa9540d45"
+    },
+    {
+      "path": "/docs/getting-started/svelte",
+      "url": "https://ai-sdk.dev/docs/getting-started/svelte",
+      "title": "Svelte",
+      "bytes": 24696,
+      "sha256": "df45a5a5ebd8f323e22a997513bede7fcc22ee304e06e499fafdb0fad485009d"
+    },
+    {
+      "path": "/docs/getting-started/tanstack-start",
+      "url": "https://ai-sdk.dev/docs/getting-started/tanstack-start",
+      "title": "TanStack Start",
+      "bytes": 24142,
+      "sha256": "86dc2ab69ebba91a471c177e95d74d76b99ce39dd66c5b0abfd6b7845ea0e340"
+    },
+    {
+      "path": "/docs/introduction",
+      "url": "https://ai-sdk.dev/docs/introduction",
+      "title": "AI SDK by Vercel",
+      "bytes": 3224,
+      "sha256": "1fac1865fc429eac98053841d3d330a6d7ee2cad6ef3c8594941d8ab99765dbd"
+    },
+    {
+      "path": "/docs/migration-guides",
+      "url": "https://ai-sdk.dev/docs/migration-guides",
+      "title": "Migration Guides",
+      "bytes": 1368,
+      "sha256": "4180863fb2158e55d7ea7a998197e0118f989f079712d5c4eb740d8ac067637d"
+    },
+    {
+      "path": "/docs/migration-guides/migration-guide-6-0",
+      "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0",
+      "title": "Migrate AI SDK 5.x to 6.0",
+      "bytes": 25630,
+      "sha256": "41cfd804f6b231a0466a64c4abc7bfbf72930140e440a3807a491d26537951e5"
+    },
+    {
+      "path": "/docs/migration-guides/migration-guide-7-0",
+      "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0",
+      "title": "Migrate AI SDK 6.x to 7.0",
+      "bytes": 65162,
+      "sha256": "d0acfbed52d7e855229b8ee79111c50b486ce27204877a2486c834380f9419c9"
+    },
+    {
+      "path": "/docs/reference",
+      "url": "https://ai-sdk.dev/docs/reference",
+      "title": "Reference",
+      "bytes": 1012,
+      "sha256": "6b1573df1c1437511363cf7a98212db432e6795dee8707267ee9b62facbcae46"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core",
+      "title": "AI SDK Core",
+      "bytes": 6762,
+      "sha256": "5ae49db80a94b304ee5ed5645b9a12f2289729cbf17f7880620232af497bca8a"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/add-tool-input-examples-middleware",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/add-tool-input-examples-middleware",
+      "title": "addToolInputExamplesMiddleware",
+      "bytes": 4326,
+      "sha256": "60ebcb889da3942869d89279b6abb7ff49bc62d3ec23de16f6546756c38db270"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/agent",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/agent",
+      "title": "Agent (Interface)",
+      "bytes": 11019,
+      "sha256": "1282a0c1facc336a5a3f6e671058d2d0dc852b00e7495532890b4d28ec141dba"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/cancel-batch",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/cancel-batch",
+      "title": "experimental_cancelBatch",
+      "bytes": 2000,
+      "sha256": "acec7038e1ad37407b0cc73ff8bffa6fba4ff275a15d651fd7ccada6f81f8547"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/cosine-similarity",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/cosine-similarity",
+      "title": "cosineSimilarity",
+      "bytes": 1471,
+      "sha256": "278753b55de957f858ca3d6b49f2ff7343d011d8295aec4a48f9cd1989493632"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/create-agent-ui-stream",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/create-agent-ui-stream",
+      "title": "createAgentUIStream",
+      "bytes": 8520,
+      "sha256": "264a9eae75b101ea112ae229a2b100242ad5cb5c11c0b0dbe1be42a3b4effd37"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/create-agent-ui-stream-response",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/create-agent-ui-stream-response",
+      "title": "createAgentUIStreamResponse",
+      "bytes": 7045,
+      "sha256": "3b2e13587bf78234d145de1201b881aaf7fdd8086662071aef0e02077df376ee"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/create-id-generator",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/create-id-generator",
+      "title": "createIdGenerator",
+      "bytes": 2095,
+      "sha256": "ca86fa3653f7e25abf00b7d39ad8ccb6054a2a7e51249f7d525def004d2b835d"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/create-mcp-client",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/create-mcp-client",
+      "title": "createMCPClient",
+      "bytes": 16612,
+      "sha256": "6cfcc7ca227a136e53852b8646d7750a8809f4d5809c7507ccdf2cc46d1cd763"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/custom-provider",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/custom-provider",
+      "title": "customProvider",
+      "bytes": 5707,
+      "sha256": "514552e906e290353eeb20f01eec94732527824cd98d60b82eb0a71bf015843f"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/decide",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/decide",
+      "title": "experimental_decide",
+      "bytes": 8812,
+      "sha256": "85dca874917535ef8b3fd59cd87eff51e825c65fc69e501551f6126c16399fbb"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/default-generated-file",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/default-generated-file",
+      "title": "DefaultGeneratedFile",
+      "bytes": 1413,
+      "sha256": "49889ecb34a03b6f9760e6192d301778016ec74effc72f4b66bba7ac264fc013"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/default-instructions-middleware",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/default-instructions-middleware",
+      "title": "defaultInstructionsMiddleware",
+      "bytes": 2848,
+      "sha256": "76d8bcd8ec5754c9cd122724e678145a7421cf9208009737dfe4ce62d9fcca85"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/default-settings-middleware",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/default-settings-middleware",
+      "title": "defaultSettingsMiddleware",
+      "bytes": 2628,
+      "sha256": "d25908afff1a8f59de5e17cb7ad2f14fc1aad8e65342e4f4d18263c7dee0f619"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/dynamic-tool",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/dynamic-tool",
+      "title": "dynamicTool",
+      "bytes": 6794,
+      "sha256": "6a4062285cf8f5a3d81b63264b4e743fee2be6a4e29ea76ecb14b67949a11aae"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/embed",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/embed",
+      "title": "embed",
+      "bytes": 6147,
+      "sha256": "6f0a8a49f4ec3d53a74c98955de4eec6f8dba556dd824fb60aebf34f3ecab5ce"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/embed-many",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/embed-many",
+      "title": "embedMany",
+      "bytes": 7100,
+      "sha256": "03bc30b07ec385930a04450022d6697c9c963a90b5d5258a0ea762ed0640d5bb"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/extract-json-middleware",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/extract-json-middleware",
+      "title": "extractJsonMiddleware",
+      "bytes": 3944,
+      "sha256": "da49272b517db2f84e259d3e5702c76af5e7a245a94a7e7bf74c55d0404fc8e8"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/extract-reasoning-middleware",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/extract-reasoning-middleware",
+      "title": "extractReasoningMiddleware",
+      "bytes": 2746,
+      "sha256": "40477c37aab83fb2342b00555434b88df7c7facecdaab6a32b1b198f7fbfafa6"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/filter-active-tools",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/filter-active-tools",
+      "title": "filterActiveTools",
+      "bytes": 2034,
+      "sha256": "81b9a7723ba86f7b5ba291c918642b07a4aed21cd20acea1ca77621b0d7f6c92"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/generate-id",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-id",
+      "title": "generateId",
+      "bytes": 849,
+      "sha256": "9e546f7b8f573b5b210b6719087c219f0a3691bd4fdf83cecf559a62f72fb66d"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/generate-image",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-image",
+      "title": "generateImage",
+      "bytes": 3927,
+      "sha256": "dd8158b729dc4e5ac57dc88440c7aa784c7042101ca11f55889c3c92cd89116d"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/generate-speech",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-speech",
+      "title": "generateSpeech",
+      "bytes": 3732,
+      "sha256": "954b29eec8abb6a03c8779cb2d8f92961ff236e66dea4ed58e40848a195d9dc3"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/generate-text",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-text",
+      "title": "generateText",
+      "bytes": 68988,
+      "sha256": "9ac1bbb8d8616aee8e862e23fec649b33f0337155a831c9df0ecff9d5173d437"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/generate-video",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-video",
+      "title": "experimental_generateVideo",
+      "bytes": 6250,
+      "sha256": "68956d690c8c76b45314373fe245a9a3339b7d9a8a5cf54b4027c5842ec2d8c7"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/get-batch-results",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/get-batch-results",
+      "title": "experimental_getBatchResults",
+      "bytes": 2801,
+      "sha256": "9d6c88fc067b5d2781816ab81d470a1dd2e4f91f86ba61c96214505da1044cc7"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/get-batch-status",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/get-batch-status",
+      "title": "experimental_getBatchStatus",
+      "bytes": 2472,
+      "sha256": "8259233a4147232ff3c511f77b23f32fd7de00b13fec86774a50f1afb2d83e91"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/get-realtime-tool-definitions",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/get-realtime-tool-definitions",
+      "title": "experimental_getRealtimeToolDefinitions",
+      "bytes": 2819,
+      "sha256": "d3408e8ff1e406f340c31d4f3609691abf16c4c7fdf29ed79afb561b9b66f63a"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/has-tool-call",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/has-tool-call",
+      "title": "hasToolCall",
+      "bytes": 3388,
+      "sha256": "d9a1a9b9bbd9282fa2a1a16c25ae3882e36a88c29e4efcf2ce2d6c779963cdc4"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/is-step-count",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/is-step-count",
+      "title": "isStepCount",
+      "bytes": 2141,
+      "sha256": "ed67c91948061c0ccc005e3a4ac2784aeb89f244d25f3eb393576a91c3839224"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/json-schema",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/json-schema",
+      "title": "jsonSchema",
+      "bytes": 2586,
+      "sha256": "d8b5ee0ef1377bf271966b473d1da7e68b553957f7fe30fc4ed50e4bcb33b201"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/language-model-v2-middleware",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/language-model-v2-middleware",
+      "title": "LanguageModelV4Middleware",
+      "bytes": 2455,
+      "sha256": "492ef43b4ce3731b7c871da746ac7abff8e7dfe0e90334c8349eb5282513bd81"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/list-batches",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/list-batches",
+      "title": "experimental_listBatches",
+      "bytes": 2360,
+      "sha256": "04dd239ed29d0a6f32256cc174685b1d5104b826792fd7056377474f1d83af89"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/loop-finished",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/loop-finished",
+      "title": "isLoopFinished",
+      "bytes": 2655,
+      "sha256": "57f88d4da40c06012862b2f51cbafd4ca74ed17a918378d49613e1c2474e79b3"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/mcp-apps",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/mcp-apps",
+      "title": "MCP Apps",
+      "bytes": 3461,
+      "sha256": "bfa07d8bab8c1d21b669224a66ecbd9dfeea070700d8bad45a157d9f864f5cb0"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/mcp-events",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/mcp-events",
+      "title": "MCP Events",
+      "bytes": 29546,
+      "sha256": "b9f9768d77d90e60c661edd288988cf81435663eae4dffbe346c39c75a86cb78"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/mcp-stdio-transport",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/mcp-stdio-transport",
+      "title": "StdioMCPTransport",
+      "bytes": 1446,
+      "sha256": "128039a8e5f3160649eb5e1ee426c8146e53139c67a855e99c43c1149b5cb3aa"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/model-message",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/model-message",
+      "title": "ModelMessage",
+      "bytes": 12339,
+      "sha256": "587472d05f1c539a32841bd14a2de9b8f5a7368fc1cae5c1069748ee7e78d0c0"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/output",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/output",
+      "title": "Output",
+      "bytes": 9321,
+      "sha256": "d8a8c61d9133309c37a041d9062c59c44776728ec50191d0bf025ad98c8bb319"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/pipe-agent-ui-stream-to-response",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/pipe-agent-ui-stream-to-response",
+      "title": "pipeAgentUIStreamToResponse",
+      "bytes": 6733,
+      "sha256": "228b1c541b0091956e141a461b436008e2b5181e9aa63488a3f9a56081f997ce"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/provider-registry",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/provider-registry",
+      "title": "createProviderRegistry",
+      "bytes": 7800,
+      "sha256": "f1068605c59d79e8b21256c2fb8a9a89e09481abd1488dbc1274a5e20d65a293"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/rerank",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/rerank",
+      "title": "rerank",
+      "bytes": 6242,
+      "sha256": "b997a228ac4d5692eb638f97265b7874fc8d364ec361d2b8e902ee2854149af3"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/safe-validate-ui-messages",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/safe-validate-ui-messages",
+      "title": "safeValidateUIMessages",
+      "bytes": 3260,
+      "sha256": "0deb509122c3a528cfc0a8b3b04db8165b1c26ac611855a7ea48c60871471f94"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/sandbox",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/sandbox",
+      "title": "Experimental_SandboxSession",
+      "bytes": 8692,
+      "sha256": "5beb41b9b57e4b402bf5db50896e0a4542aa7af6d0227d91d3ffe76de478098a"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/simulate-readable-stream",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/simulate-readable-stream",
+      "title": "simulateReadableStream",
+      "bytes": 2432,
+      "sha256": "816b3fca2edfbf729465ef47802db30bc1db45fc6d734efa68756c31eafe3c69"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/simulate-streaming-middleware",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/simulate-streaming-middleware",
+      "title": "simulateStreamingMiddleware",
+      "bytes": 2223,
+      "sha256": "3eaff4fe4312149ba972c2e36714f8c3c0c462869dd2a572798f2cb7145efcce"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/smooth-stream",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/smooth-stream",
+      "title": "smoothStream",
+      "bytes": 4187,
+      "sha256": "a66917fb60dbf6b07481d36178587c7429605e6c405d980c7672ec685f6e50ea"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/start-batch",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/start-batch",
+      "title": "experimental_startBatch",
+      "bytes": 2858,
+      "sha256": "ee2c19928b7762d40ccad5d650136db783e0be5cb74ddc316c481bc87c452d4e"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/stream-speech",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-speech",
+      "title": "experimental_streamSpeech",
+      "bytes": 5913,
+      "sha256": "5e30ecad4b12b00e756f58aa68d79ea7cec705767373b3fe8d0360ecd13e143c"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/stream-text",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text",
+      "title": "streamText",
+      "bytes": 91503,
+      "sha256": "04de2f7765ba37d60125f61a42461a4dc494110adb9ee234ceb2126acaaafaaf"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/stream-text-low-memory",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text-low-memory",
+      "title": "experimental_streamTextLowMemory",
+      "bytes": 6021,
+      "sha256": "394d5d15185734bb5dbf50e362c1a9a1137e01d49fb0ad4df0b929bf53c4432d"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/stream-transcribe",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-transcribe",
+      "title": "experimental_streamTranscribe",
+      "bytes": 4847,
+      "sha256": "5ca9b23ecc2576f1ff2df466e16fa85b8ac10e0bb241fb2b4e67951f028c23a9"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/stream-translate",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-translate",
+      "title": "experimental_streamTranslate",
+      "bytes": 5186,
+      "sha256": "17d287f1e3de7a21af625a111c6dc40bf964466c943c3e0bc4904404143f6e1d"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/tool",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool",
+      "title": "tool",
+      "bytes": 8752,
+      "sha256": "96a91ca374d38136a04cadef538466f76c84690e5fd81107ed7755c39fb67716"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/tool-loop-agent",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool-loop-agent",
+      "title": "ToolLoopAgent",
+      "bytes": 32171,
+      "sha256": "a67fcc2a70876101363fd42c62e8cffac836eb33951171006fa4498bd6023329"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/tool-search",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool-search",
+      "title": "toolSearch",
+      "bytes": 5368,
+      "sha256": "0c75e50de81ea5f063ce9b83ec8029ef1e61ec21fecd9218f86bc7c3b3d51e88"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/transcribe",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/transcribe",
+      "title": "transcribe",
+      "bytes": 3174,
+      "sha256": "cea6917c769abe60eb9400d990dbe1c357476067af092f22346f3ba47ada6bff"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/ui-message",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/ui-message",
+      "title": "UIMessage",
+      "bytes": 7685,
+      "sha256": "bc134b5883bc92ade4ca71a8646c5c771b89eb04dba037b4692a81cb5675b6d4"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/upload-file",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/upload-file",
+      "title": "uploadFile",
+      "bytes": 3261,
+      "sha256": "cba550a27c276c098bf5cf1266c3b7f3b5dd9a88941df6a4b27c2647328ff8bb"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/upload-skill",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/upload-skill",
+      "title": "uploadSkill",
+      "bytes": 2497,
+      "sha256": "2d7862599cd3b968b1044863c117e84b37ff6d51dc23f2382a8d8a6e2de3f95d"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/valibot-schema",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/valibot-schema",
+      "title": "valibotSchema",
+      "bytes": 1492,
+      "sha256": "55fbc6ecaa43148545947a1db5b5398f45ee35093547a1a82916c90ae6a43f9c"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/validate-ui-messages",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/validate-ui-messages",
+      "title": "validateUIMessages",
+      "bytes": 3440,
+      "sha256": "ed81f15561b6648de1670331ffa60e414acacc6ea66944baa09db5c9173f7272"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/wrap-image-model",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/wrap-image-model",
+      "title": "wrapImageModel",
+      "bytes": 2180,
+      "sha256": "1a1353e6d911d020fee176adcb1a13ffb19829a009379a774dea54f07bf5ebb7"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/wrap-language-model",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/wrap-language-model",
+      "title": "wrapLanguageModel",
+      "bytes": 1667,
+      "sha256": "55034c7b52d3ffbbfbb0f545291db56658b42212d5ecabd5ab820fe3564c8abd"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-core/zod-schema",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/zod-schema",
+      "title": "zodSchema",
+      "bytes": 3151,
+      "sha256": "955a3b19abba8b4d845962781c39f637e8a80f86d6d743b9a14f028395f39088"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors",
+      "title": "AI SDK Errors",
+      "bytes": 11283,
+      "sha256": "d73b691b19f780d45c8b993d6cdb14ce2bce3ef2389b04fbbbfae2892cb1d761"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-api-call-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-api-call-error",
+      "title": "AI_APICallError",
+      "bytes": 1491,
+      "sha256": "9ea0be617a42161832d2cb6e39dfe275ab205f60e0a4d093a0fcd73be4a00515"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-decision-refusal-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-decision-refusal-error",
+      "title": "AI_DecisionRefusalError",
+      "bytes": 1469,
+      "sha256": "256568b7a1191b4e8aaf66b343b7de6b828b095257ed703ca6836067f5d634a9"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-decision-unsupported-question-type-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-decision-unsupported-question-type-error",
+      "title": "AI_DecisionUnsupportedQuestionTypeError",
+      "bytes": 1441,
+      "sha256": "3d80481853ace83526af61b3bf79045077cc9a3ab04278d18f959780a6e76b13"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-download-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-download-error",
+      "title": "AI_DownloadError",
+      "bytes": 1125,
+      "sha256": "ebc9a8ef6365aa87de15d0dfd309e7c621c1bd5ee88e42e58b0da579d8a8cf14"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-empty-response-body-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-empty-response-body-error",
+      "title": "AI_EmptyResponseBodyError",
+      "bytes": 874,
+      "sha256": "d76cd458006fda8ea156b8932c714ebe5004c7eb7ad276bd268f1a1a016a0f13"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-invalid-argument-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-invalid-argument-error",
+      "title": "AI_InvalidArgumentError",
+      "bytes": 1235,
+      "sha256": "2bcfee41c8abef3e41fbb812e60dfdf36d7088b68b6c4fe932126f8982905637"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-invalid-data-content-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-invalid-data-content-error",
+      "title": "AI_InvalidDataContentError",
+      "bytes": 1185,
+      "sha256": "fa36c65fa910d1c6c9a884cc8f10591fc99af9787a69173d353984e83bb0fcff"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-invalid-message-role-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-invalid-message-role-error",
+      "title": "AI_InvalidMessageRoleError",
+      "bytes": 946,
+      "sha256": "e9b6ac70e0533a560a8c14c99e0868c6374e349e21dc15691c48d0d09f059024"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-invalid-prompt-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-invalid-prompt-error",
+      "title": "AI_InvalidPromptError",
+      "bytes": 2157,
+      "sha256": "30abecc44c6fa2910bd91bf98ee155a3f114166c9c44fe98be3d66a0704e3303"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-invalid-response-data-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-invalid-response-data-error",
+      "title": "AI_InvalidResponseDataError",
+      "bytes": 942,
+      "sha256": "e124d0973fc6cd187f9d0e550bd6d2ed1271d08edfcdea732563e2178982715c"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-invalid-tool-approval-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-invalid-tool-approval-error",
+      "title": "AI_InvalidToolApprovalError",
+      "bytes": 994,
+      "sha256": "181991f227c1636be4ce8cdfd3b48f4ae9e5a5554b9003b54913ac434340a752"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-invalid-tool-approval-signature-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-invalid-tool-approval-signature-error",
+      "title": "AI_InvalidToolApprovalSignatureError",
+      "bytes": 1432,
+      "sha256": "9abc7d44f8fe52ddd1b25abee406fbb4f81bd6c51a610ba3fecf5c0979220b4b"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-invalid-tool-input-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-invalid-tool-input-error",
+      "title": "AI_InvalidToolInputError",
+      "bytes": 986,
+      "sha256": "d016fc092c3d0b147ef48f992c4fecb8ce19edbb8913065a55ee03e79cdb5b94"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-json-parse-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-json-parse-error",
+      "title": "AI_JSONParseError",
+      "bytes": 888,
+      "sha256": "d1eaa82a86ed2368fd4b8fbe78a256276bb40279daad0ebab1a87e71c666aef3"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-load-api-key-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-load-api-key-error",
+      "title": "AI_LoadAPIKeyError",
+      "bytes": 825,
+      "sha256": "f36c78de6905f2dadc372d0524f9607d1658d63b1608b2782e553e40e469eaae"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-load-setting-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-load-setting-error",
+      "title": "AI_LoadSettingError",
+      "bytes": 832,
+      "sha256": "9e31a7ad223b50c39760e46b11ccbaaa9710c5a1f4f4b76c4dd7b9adbfbf968f"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-message-conversion-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-message-conversion-error",
+      "title": "AI_MessageConversionError",
+      "bytes": 921,
+      "sha256": "bb24742f6426345a570904faebf82eb194a79d68fa52863d9774ca28e004f832"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-content-generated-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-content-generated-error",
+      "title": "AI_NoContentGeneratedError",
+      "bytes": 930,
+      "sha256": "6e9b122282730de959f8478d961d2f87c3b18300d0bd6174db037cd1828a8e80"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-image-generated-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-image-generated-error",
+      "title": "AI_NoImageGeneratedError",
+      "bytes": 1808,
+      "sha256": "05339bd95f9cb82afd6794aa42135f7e55d3cc1526d0c370b5d42fd192ad4676"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-object-generated-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-object-generated-error",
+      "title": "AI_NoObjectGeneratedError",
+      "bytes": 2197,
+      "sha256": "f0bf4966311c1d13a31d4876e9beceb6c7f66cef04aec2b7edc5df01188cab63"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-output-generated-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-output-generated-error",
+      "title": "AI_NoOutputGeneratedError",
+      "bytes": 1330,
+      "sha256": "f4cc8a530affb1859ca59b784fb1ac6ddc66994a5f701a238f81700d50d82720"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-speech-generated-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-speech-generated-error",
+      "title": "AI_NoSpeechGeneratedError",
+      "bytes": 925,
+      "sha256": "a21d96ed1599a0ff14916daa00072a6833e01829dceeddaab3d9d7cad6c0c200"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-such-model-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-such-model-error",
+      "title": "AI_NoSuchModelError",
+      "bytes": 1315,
+      "sha256": "a19085f93bdd51524fe100170786ea085466ed193c927b0260f89e600517ca81"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-such-provider-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-such-provider-error",
+      "title": "AI_NoSuchProviderError",
+      "bytes": 1253,
+      "sha256": "7bc0d8f39cab177a017a1aeec8b46f2b34047afd8f4cfab87457c374f9332831"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-such-provider-reference-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-such-provider-reference-error",
+      "title": "AI_NoSuchProviderReferenceError",
+      "bytes": 1102,
+      "sha256": "a4e8e8db816012e183b57bb2c37e476972b7127ddd6ebce87f857790edf96e81"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-such-tool-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-such-tool-error",
+      "title": "AI_NoSuchToolError",
+      "bytes": 1011,
+      "sha256": "e62ffa9a2a3d04aa95b808fd8afd0a4d02e55bf32fc400c0f3691d66b3047849"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-transcript-generated-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-transcript-generated-error",
+      "title": "AI_NoTranscriptGeneratedError",
+      "bytes": 961,
+      "sha256": "76e6506fd6061dd80b67615ac3d8b83a9a7450a4f54be7b2f88273d73bfc2fc7"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-translation-generated-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-translation-generated-error",
+      "title": "AI_NoTranslationGeneratedError",
+      "bytes": 1077,
+      "sha256": "c64d34047e535d35ce7ad167a3e7db75f0694762429fb3eb1eddf466fd15326d"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-no-video-generated-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-no-video-generated-error",
+      "title": "AI_NoVideoGeneratedError",
+      "bytes": 1483,
+      "sha256": "30d095e6401f3bb96eb97aaed1d280b5e88aa199b70e3d16ba597c9b49fba1af"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-retry-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-retry-error",
+      "title": "AI_RetryError",
+      "bytes": 961,
+      "sha256": "6b527664d20239689d40cc16eb5e3b9bcafb07ffd93120eefb8eefc8148af8c1"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-stream-provider-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-stream-provider-error",
+      "title": "AI_StreamProviderError",
+      "bytes": 2496,
+      "sha256": "842857d3243d50f9f968240022a25d0ecf8a59b2ff43a589334298fe14c54f08"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-too-many-embedding-values-for-call-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-too-many-embedding-values-for-call-error",
+      "title": "AI_TooManyEmbeddingValuesForCallError",
+      "bytes": 1136,
+      "sha256": "85009aafe518ddc897a187f78562606ce68b194a71679e27ed28dda237d26334"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-tool-call-not-found-for-approval-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-tool-call-not-found-for-approval-error",
+      "title": "AI_ToolCallNotFoundForApprovalError",
+      "bytes": 1157,
+      "sha256": "3ca3535aa0825aff0bd078e0329f17b0179683f187622b9edef9c17b26107eec"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-tool-call-repair-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-tool-call-repair-error",
+      "title": "ToolCallRepairError",
+      "bytes": 1174,
+      "sha256": "149b1d9fa5ef9c5942212e5425d60b2c08d6d7a0d6d978eeb3fad59d36f25791"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-tool-choice-violation-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-tool-choice-violation-error",
+      "title": "ToolChoiceViolationError",
+      "bytes": 1969,
+      "sha256": "cead88a7cbc3c212232923eb9980e538aa2dca1fcda6261dbf948df63be67763"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-type-validation-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-type-validation-error",
+      "title": "AI_TypeValidationError",
+      "bytes": 917,
+      "sha256": "07bdf7b8e5fab1f72a0224fa95c7de6c37193494bc0dafb92120051e187e3d45"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-ui-message-stream-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-ui-message-stream-error",
+      "title": "AI_UIMessageStreamError",
+      "bytes": 3167,
+      "sha256": "843642d288ca176461fa4920a900aec756e1a6f8e2d6a680b4f2998831060ded"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-errors/ai-unsupported-functionality-error",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-errors/ai-unsupported-functionality-error",
+      "title": "AI_UnsupportedFunctionalityError",
+      "bytes": 1013,
+      "sha256": "676b29c045b90e569acef46af9a7a5138268a3dc739d007466f9478a9855d9bb"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc",
+      "title": "AI SDK RSC",
+      "bytes": 1891,
+      "sha256": "baffc32e9acb7683b803b176999ec2f8db6cf613539f0774f8733ff5aded9361"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/create-ai",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/create-ai",
+      "title": "createAI",
+      "bytes": 1945,
+      "sha256": "6b746f5a5aaa8c33ce6c87a0c8bd5ca914a006ecfce7419f398e51fa0ad9c505"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/create-streamable-ui",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/create-streamable-ui",
+      "title": "createStreamableUI",
+      "bytes": 2033,
+      "sha256": "8dd90274a1fe1f1ef0da7b0d0de9b66b4588f53ae2b47239f19f52fba4c97629"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/create-streamable-value",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/create-streamable-value",
+      "title": "createStreamableValue",
+      "bytes": 2071,
+      "sha256": "4e136ddd5c582b926975dc1e97d97574247026abd4d5c7eabfc8f4f7fe8bcabd"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/get-ai-state",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/get-ai-state",
+      "title": "getAIState",
+      "bytes": 1125,
+      "sha256": "3059b5e353bc5371c9b932d363e8a28c88cdb7511944434a23e6cb761e604c29"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/get-mutable-ai-state",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/get-mutable-ai-state",
+      "title": "getMutableAIState",
+      "bytes": 1419,
+      "sha256": "58028a4fcda452741f52f208ed2c802d3e9f0dce378d04b8dbf621843708b115"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/read-streamable-value",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/read-streamable-value",
+      "title": "readStreamableValue",
+      "bytes": 1958,
+      "sha256": "fa0af272bfc9dbd694c33e00c5fead170e93223b7bb3c02ac46a1a65c6e7ffa6"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/render",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/render",
+      "title": "render (Removed)",
+      "bytes": 4207,
+      "sha256": "14e829b2c91bdedf2753b7c9d4cf91e24549aa148f2f778eee16e5c9196947de"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/stream-ui",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/stream-ui",
+      "title": "streamUI",
+      "bytes": 12913,
+      "sha256": "9411bb17143d2479e1054c77422518ca20ee8744537669bd1fde5d5176a7e789"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/use-actions",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/use-actions",
+      "title": "useActions",
+      "bytes": 1516,
+      "sha256": "35f69a1d8d4c48662a5eb4b46240b332601f6d10fdf418d5edee5be1a4c45e8e"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/use-ai-state",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/use-ai-state",
+      "title": "useAIState",
+      "bytes": 1263,
+      "sha256": "f788d305b9df7b438c0c90e530b3e758bd8623585a8ee9ea378b0a819de871af"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/use-streamable-value",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/use-streamable-value",
+      "title": "useStreamableValue",
+      "bytes": 1682,
+      "sha256": "dd448df239763d22fde583ae9c1314571ee90ca6d81343ea6e780377e7c20db1"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-rsc/use-ui-state",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-rsc/use-ui-state",
+      "title": "useUIState",
+      "bytes": 1263,
+      "sha256": "412ece478bcc95997ae6fe474e9257d4c3ad2600139a072c1069efe1884ab418"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-tui",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-tui",
+      "title": "AI SDK TUI",
+      "bytes": 778,
+      "sha256": "d213cafbdd6e014e83dbd4a7ae460c222a22bb803a3f8c363cfe99e6d5c80f70"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-tui/run-agent-tui",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-tui/run-agent-tui",
+      "title": "runAgentTUI",
+      "bytes": 5255,
+      "sha256": "b334b2d512dce46311c264c4ba452e0ff2b5ff612e16b9c1a5b7ccbc14a70fc6"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui",
+      "title": "AI SDK UI",
+      "bytes": 4817,
+      "sha256": "7d02f3734d73ab7b1075055bfb3d6abcb86415c5dec556019347fe60f2b801d5"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/convert-to-model-messages",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/convert-to-model-messages",
+      "title": "convertToModelMessages",
+      "bytes": 8029,
+      "sha256": "b22e2d744323f36fdeb70bd1a6b4b2bb4ba28421b54bbbd29401d22103640464"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/create-ui-message-stream",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/create-ui-message-stream",
+      "title": "createUIMessageStream",
+      "bytes": 6483,
+      "sha256": "c6ab87c27488fa792f4a096c460cac7eeee30900e0beb33f4284ce835ad0ad08"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/create-ui-message-stream-response",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/create-ui-message-stream-response",
+      "title": "createUIMessageStreamResponse",
+      "bytes": 3014,
+      "sha256": "a4db5a5866bc6abd4f422a14990599702b0b43c328ff8df051067fd6db871b67"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/direct-chat-transport",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/direct-chat-transport",
+      "title": "DirectChatTransport",
+      "bytes": 8194,
+      "sha256": "ec0946ca1733acf658243575b19bb6a98e2d03b4f2d116d8a6319666affe948c"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/infer-ui-tool",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/infer-ui-tool",
+      "title": "InferUITool",
+      "bytes": 1740,
+      "sha256": "d5e5cfc80f3466677158ed287105db7e0998e5d1324b6a8c9ee0ae985d13a2cd"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/infer-ui-tools",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/infer-ui-tools",
+      "title": "InferUITools",
+      "bytes": 2464,
+      "sha256": "81af0ae40d171ef4b5b97640d6b0d1429cdb5c429e5b36bca8f50a8f26d52d3a"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/mcp-app-renderer",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/mcp-app-renderer",
+      "title": "MCPAppRenderer",
+      "bytes": 5994,
+      "sha256": "eddfe8b5701e1e9dce7f1128f00c1793c9d95a06d03e82aa28cdad9978ac0a74"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/pipe-ui-message-stream-to-response",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/pipe-ui-message-stream-to-response",
+      "title": "pipeUIMessageStreamToResponse",
+      "bytes": 2194,
+      "sha256": "6cfb10837f26d1b429f0b6a19310c600ec5b6d590ca6ed61f454b28df8b1c70e"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/prune-messages",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/prune-messages",
+      "title": "pruneMessages",
+      "bytes": 3870,
+      "sha256": "503a7e5d4990a5f73b7b04268d1dc1aa1eee989184b6fb93ace9b1d9c8f01b80"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/read-ui-message-stream",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/read-ui-message-stream",
+      "title": "readUIMessageStream",
+      "bytes": 1561,
+      "sha256": "216831800cb71d7b23f61297937c715e4fc652d4cb0892b7e55ae6b4d804b4a4"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/use-chat",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat",
+      "title": "useChat",
+      "bytes": 11040,
+      "sha256": "db3c220922532d8b6101bca4ef8a6595309fd6a3c76f9606d1bc8d375189e3ff"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/use-completion",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-completion",
+      "title": "useCompletion",
+      "bytes": 4374,
+      "sha256": "49dc7ee98746bdcd0e3cda136c2bfa24e7e47879387d11833915dba91fcd5bca"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/use-object",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-object",
+      "title": "useObject",
+      "bytes": 3815,
+      "sha256": "09f4eca2d6078b1aac8e7bf6de6c305bc3b4c51f086e6865266669bff78ebe2c"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/use-realtime",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-realtime",
+      "title": "experimental_useRealtime",
+      "bytes": 20645,
+      "sha256": "1e078937150d8f1f74a769d12f8c0192729dc06180a19e94b05174c6da6fd8b8"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-ui/websocket-chat-transport",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/websocket-chat-transport",
+      "title": "WebSocketChatTransport",
+      "bytes": 13294,
+      "sha256": "816a1a422348d226d35b8ffd2d35fa26aa3f0a2334a5c520b79117450e2a38d8"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-workflow",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-workflow",
+      "title": "AI SDK Workflow",
+      "bytes": 1196,
+      "sha256": "bceb69e75db834318b56d806903a83717ac1d3d9c86fc4393f2806719b12ab60"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-workflow/generate-video",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-workflow/generate-video",
+      "title": "generateVideo",
+      "bytes": 3674,
+      "sha256": "c3e144d2b3ebcca36fe429faaa5389e90352ecf40a89b7bb889224d9fc2e61a3"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-workflow/workflow-agent",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-workflow/workflow-agent",
+      "title": "WorkflowAgent",
+      "bytes": 32129,
+      "sha256": "2476f385e2052b27bb9d39b49c9e89252aa9625b5991533c8d4c8fa4e2f5d1ee"
+    },
+    {
+      "path": "/docs/reference/ai-sdk-workflow/workflow-chat-transport",
+      "url": "https://ai-sdk.dev/docs/reference/ai-sdk-workflow/workflow-chat-transport",
+      "title": "WorkflowChatTransport",
+      "bytes": 11383,
+      "sha256": "d074c40aa28cf95da7b03869b67e7bb81549d53d8527325d62093d34bf49b396"
+    },
+    {
+      "path": "/docs/troubleshooting",
+      "url": "https://ai-sdk.dev/docs/troubleshooting",
+      "title": "Troubleshooting",
+      "bytes": 673,
+      "sha256": "32f4804095d1617a00ea7d2fcf40f3ebc8967470b5359b55a3a1e71ac22c5b06"
+    },
+    {
+      "path": "/docs/troubleshooting/abort-breaks-resumable-streams",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/abort-breaks-resumable-streams",
+      "title": "Abort and resumable streams",
+      "bytes": 3089,
+      "sha256": "8aa07fb76435011cfef4b0386c07e17f8af37467eb898f2ac5b51f023c810a45"
+    },
+    {
+      "path": "/docs/troubleshooting/azure-stream-slow",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/azure-stream-slow",
+      "title": "Azure OpenAI Slow to Stream",
+      "bytes": 1270,
+      "sha256": "53936b98d2f081a4dfc552d96a366c66964cf4bb081aadb038dde77c175912d6"
+    },
+    {
+      "path": "/docs/troubleshooting/client-stream-error",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/client-stream-error",
+      "title": "Server Action Plain Objects Error",
+      "bytes": 1751,
+      "sha256": "5917c06f8e262d06c9994acf9aa99a7e09bdfe9dffc336a0d5b7da5fd2bf5192"
+    },
+    {
+      "path": "/docs/troubleshooting/high-memory-usage-with-images",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/high-memory-usage-with-images",
+      "title": "High memory usage when processing many images",
+      "bytes": 4366,
+      "sha256": "599727e366ed8eab12d6194737c02cc747f4afa6009f32b89eefb5199791afc6"
+    },
+    {
+      "path": "/docs/troubleshooting/jest-cannot-find-module-ai-rsc",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/jest-cannot-find-module-ai-rsc",
+      "title": "\"Jest: cannot find module '@ai-sdk/rsc'\"",
+      "bytes": 946,
+      "sha256": "49ebb3ccf3a5ed91371e1717c50c67bb92fdf4c7359f341c183e5e2b84a93beb"
+    },
+    {
+      "path": "/docs/troubleshooting/missing-tool-results-error",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/missing-tool-results-error",
+      "title": "Missing Tool Results Error",
+      "bytes": 2611,
+      "sha256": "c2b820963a3711f55377f9bac65cb42017add630ad4ca7f94cb4a0df618d35f5"
+    },
+    {
+      "path": "/docs/troubleshooting/model-is-not-assignable-to-type",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/model-is-not-assignable-to-type",
+      "title": "\"Model is not assignable to type \\\"LanguageModelV1\\\"\"",
+      "bytes": 975,
+      "sha256": "0c89f66b7f923802490c8799a4a3981b599a68bfa45a5a1ead0a34a3645f48a3"
+    },
+    {
+      "path": "/docs/troubleshooting/no-object-generated-content-filter",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/no-object-generated-content-filter",
+      "title": "Object generation failed with OpenAI",
+      "bytes": 3517,
+      "sha256": "e696759bedf82885fb07e1ca0509378e2b200cd9a308b370929eaf6fdfc94cbb"
+    },
+    {
+      "path": "/docs/troubleshooting/ontoolcall-type-narrowing",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/ontoolcall-type-narrowing",
+      "title": "Type Error with onToolCall",
+      "bytes": 2359,
+      "sha256": "d29df09670e310455643fe0d5283f3c2bd41c81ac3f0ae38631068fb4b89ba01"
+    },
+    {
+      "path": "/docs/troubleshooting/react-maximum-update-depth-exceeded",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/react-maximum-update-depth-exceeded",
+      "title": "\"React error \\\"Maximum update depth exceeded\\\"\"",
+      "bytes": 1383,
+      "sha256": "32350d5b888a627153fbded75cf62ae61c8580e150dfeddac5f912a8f2e21010"
+    },
+    {
+      "path": "/docs/troubleshooting/repeated-assistant-messages",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/repeated-assistant-messages",
+      "title": "Repeated assistant messages in useChat",
+      "bytes": 2762,
+      "sha256": "d2568a74f758efcf51c42e95bb6830cb7a9f2bedf545f5b840b4c439eabdde46"
+    },
+    {
+      "path": "/docs/troubleshooting/server-actions-in-client-components",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/server-actions-in-client-components",
+      "title": "Server Actions in Client Components",
+      "bytes": 1555,
+      "sha256": "ce96edff0ab8db04b2bb458cef9957346ad97d8278d458e1bc7aaa30d2a0c033"
+    },
+    {
+      "path": "/docs/troubleshooting/strange-stream-output",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/strange-stream-output",
+      "title": "\"useChat/useCompletion stream output contains 0:... instead of text\"",
+      "bytes": 1643,
+      "sha256": "8209a75e7822a48c94b6765b54297a27368c1e14946063927b475f0ac0946269"
+    },
+    {
+      "path": "/docs/troubleshooting/stream-abort-handling",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/stream-abort-handling",
+      "title": "onEnd not called when stream is aborted",
+      "bytes": 2992,
+      "sha256": "7b1f5921337359466033bb020f2d56472886813284f2dba02ceb5d28dd5a2572"
+    },
+    {
+      "path": "/docs/troubleshooting/stream-text-not-working",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/stream-text-not-working",
+      "title": "streamText fails silently",
+      "bytes": 1300,
+      "sha256": "21f3112156d43246113347853bd5c9dd29cb211fc41249cf1762c37e772b7352"
+    },
+    {
+      "path": "/docs/troubleshooting/streamable-ui-errors",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/streamable-ui-errors",
+      "title": "Streamable UI Errors",
+      "bytes": 776,
+      "sha256": "1b720fdab6a5b21f2b627639669c8115568159840772d1408a593a4a11a1ea90"
+    },
+    {
+      "path": "/docs/troubleshooting/streaming-not-working-when-deployed",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/streaming-not-working-when-deployed",
+      "title": "Streaming Not Working When Deployed",
+      "bytes": 1179,
+      "sha256": "9e18537e6f34327d702b8e464ffd7cf30e846bfd7081acf065488a7eca2c2ee6"
+    },
+    {
+      "path": "/docs/troubleshooting/streaming-not-working-when-proxied",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/streaming-not-working-when-proxied",
+      "title": "Streaming Not Working When Proxied",
+      "bytes": 1200,
+      "sha256": "27fc3af7b687e90272459e79ba4199cf33daedc9b2cb1eefdf7b987d8e8cc9fc"
+    },
+    {
+      "path": "/docs/troubleshooting/streaming-status-delay",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/streaming-status-delay",
+      "title": "Streaming Status Shows But No Text Appears",
+      "bytes": 1983,
+      "sha256": "594403a7a095d2733e736434b3af89508a135e496871cda885373dc5eeeb6ead"
+    },
+    {
+      "path": "/docs/troubleshooting/timeout-on-vercel",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/timeout-on-vercel",
+      "title": "Getting Timeouts When Deploying on Vercel",
+      "bytes": 2127,
+      "sha256": "b71dbb46d470f95025b003d7983a5c6d080c308edabdecec6a65050129c23aa9"
+    },
+    {
+      "path": "/docs/troubleshooting/tool-calling-with-structured-outputs",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/tool-calling-with-structured-outputs",
+      "title": "Tool calling with structured outputs",
+      "bytes": 1969,
+      "sha256": "ce3dce10820527921e8a39365df65771b0a91a12185d196a631fef57f45313e6"
+    },
+    {
+      "path": "/docs/troubleshooting/tool-invocation-missing-result",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/tool-invocation-missing-result",
+      "title": "Tool Invocation Missing Result Error",
+      "bytes": 3518,
+      "sha256": "fe03e11d1babe4cbd095536ede2b4012ad0d2358c07647a5700f888cd4480420"
+    },
+    {
+      "path": "/docs/troubleshooting/typescript-cannot-find-namespace-jsx",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/typescript-cannot-find-namespace-jsx",
+      "title": "\"TypeScript error \\\"Cannot find namespace 'JSX'\\\"\"",
+      "bytes": 995,
+      "sha256": "9f8d80bcea083e193bde04976eb32700679f70dd182aa90f6154ff1d7eb334ba"
+    },
+    {
+      "path": "/docs/troubleshooting/typescript-performance-zod",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/typescript-performance-zod",
+      "title": "TypeScript performance issues with Zod and AI SDK 5",
+      "bytes": 1945,
+      "sha256": "eec2d3fe14cc0b78361f4d2f504e1b33a262fbcb72c0e930b02ffbf861548506"
+    },
+    {
+      "path": "/docs/troubleshooting/unclosed-streams",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/unclosed-streams",
+      "title": "Unclosed Streams",
+      "bytes": 1364,
+      "sha256": "e1605b3152a26787602cfc20410a5d4894971f006e7cc578e464e394d7b962c3"
+    },
+    {
+      "path": "/docs/troubleshooting/unsupported-model-version",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/unsupported-model-version",
+      "title": "Unsupported model version error",
+      "bytes": 2411,
+      "sha256": "1bdb432cbfca5fba64db56d6d0ec573f54c46e879adde5c816a41c12e5996a44"
+    },
+    {
+      "path": "/docs/troubleshooting/use-chat-an-error-occurred",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/use-chat-an-error-occurred",
+      "title": "\"useChat \\\"An error occurred\\\"\"",
+      "bytes": 1737,
+      "sha256": "39fe8a5e75543e2c072801b20c7d5237593986450f65a47fb0d852d5c387e193"
+    },
+    {
+      "path": "/docs/troubleshooting/use-chat-custom-request-options",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/use-chat-custom-request-options",
+      "title": "Custom headers, body, and credentials not working with useChat",
+      "bytes": 4644,
+      "sha256": "bf433436bb28571821ab11f12980849fa9e6a8608662414a127278d1ff1ae6c1"
+    },
+    {
+      "path": "/docs/troubleshooting/use-chat-failed-to-parse-stream",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/use-chat-failed-to-parse-stream",
+      "title": "useChat Failed to Parse Stream",
+      "bytes": 1658,
+      "sha256": "18a531b7ec4c65e2dd810faca1bb2f0c117ce287f3bce093ed232fb24f9b0605"
+    },
+    {
+      "path": "/docs/troubleshooting/use-chat-stale-body-data",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/use-chat-stale-body-data",
+      "title": "Stale body values with useChat",
+      "bytes": 4769,
+      "sha256": "1c0b9e5378b0d4a7eb0bf4f3e556f2b20e42ea23912cf8377adb331f67acc79c"
+    },
+    {
+      "path": "/docs/troubleshooting/use-chat-tools-no-response",
+      "url": "https://ai-sdk.dev/docs/troubleshooting/use-chat-tools-no-response",
+      "title": "useChat No Response",
+      "bytes": 1439,
+      "sha256": "4a44a4ff31721fc7e3eef25fd6c0e6d8cb5c780e5ad8b62dd98832c2d220f083"
+    }
+  ]
+}

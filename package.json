@@ -8,7 +8,9 @@
     "eval:baseline": "tsx scripts/run-baseline.ts",
     "dev": "tsx watch --env-file=$HOME/.secrets/docs-bot.env src/index.ts",
     "eval": "tsx --env-file=$HOME/.secrets/docs-bot.env scripts/run-evals.ts",
-    "eval:judge": "tsx scripts/judge.ts"
+    "eval:judge": "tsx scripts/judge.ts",
+    "fetch-docs": "tsx scripts/fetch-docs.ts",
+    "check-coverage": "tsx scripts/check-coverage.ts"
   },
   "keywords": [],
   "author": "",
