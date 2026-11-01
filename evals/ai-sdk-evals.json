@@ -140,7 +140,7 @@
         "Alternative: `result.steps.flatMap(step => step.response.messages)`"
       ],
       "must_include": ["responseMessages"],
-      "evidence": [["responseMessages"]],
+      "evidence": [["result.responseMessages"]],
       "stale_signals": ["response.messages"],
       "sources": [{ "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0", "section": "Step Response Messages Are No Longer Accumulated" }]
     },

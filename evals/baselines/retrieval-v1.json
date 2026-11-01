@@ -25,17 +25,17 @@
     },
     "text": {
       "evidence@1": 0.375,
-      "evidence@3": 0.625,
-      "evidence@5": 0.75,
-      "evidence@10": 0.875,
-      "mrr": 0.5224702380952381
+      "evidence@3": 0.5625,
+      "evidence@5": 0.6875,
+      "evidence@10": 0.8125,
+      "mrr": 0.4912202380952381
     },
     "hybrid": {
       "evidence@1": 0.5625,
       "evidence@3": 0.75,
-      "evidence@5": 0.9375,
-      "evidence@10": 0.96875,
-      "mrr": 0.709375
+      "evidence@5": 0.875,
+      "evidence@10": 0.90625,
+      "mrr": 0.69375
     }
   },
   "results": [
@@ -1826,7 +1826,7 @@
           {
             "id": "/docs/agents/loop-control#16",
             "crumb": "Loop Control > Access Step Information",
-            "evidence": true,
+            "evidence": false,
             "score": 0.5473
           },
           {
@@ -1852,11 +1852,11 @@
       "text": {
         "coverage": {
           "1": 0,
-          "3": 1,
-          "5": 1,
-          "10": 1
+          "3": 0,
+          "5": 0,
+          "10": 0
         },
-        "rr": 0.5,
+        "rr": 0,
         "top": [
           {
             "id": "/docs/ai-sdk-core/lifecycle-callbacks#12",
@@ -1867,7 +1867,7 @@
           {
             "id": "/docs/ai-sdk-core/tools-and-tool-calling#16",
             "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `prepareStep` callback (1/2)",
-            "evidence": true,
+            "evidence": false,
             "score": 25.6
           },
           {
@@ -1924,10 +1924,10 @@
         "coverage": {
           "1": 0,
           "3": 0,
-          "5": 1,
-          "10": 1
+          "5": 0,
+          "10": 0
         },
-        "rr": 0.25,
+        "rr": 0,
         "top": [
           {
             "id": "/docs/foundations/prompts#8",
@@ -1950,7 +1950,7 @@
           {
             "id": "/docs/ai-sdk-core/tools-and-tool-calling#16",
             "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `prepareStep` callback (1/2)",
-            "evidence": true,
+            "evidence": false,
             "score": 0.0269
           },
           {

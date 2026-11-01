@@ -99,8 +99,9 @@ async function findRunFile(): Promise<string> {
 
   const dir = path.resolve('evals/runs');
   const files = (await readdir(dir))
-    .filter((f) => f.startsWith('baseline-') && f.endsWith('.json') && !f.endsWith('.judged.json'))
-    .sort(); // ISO timestamps in names sort chronologically
+    .filter((f) => /^(baseline|rag)-/.test(f) && f.endsWith('.json') && !f.endsWith('.judged.json'))
+    // sort by the ISO timestamp after the prefix, so baseline and rag runs interleave correctly
+    .sort((a, b) => a.slice(a.indexOf('-') + 1).localeCompare(b.slice(b.indexOf('-') + 1)));
   const latest = files.at(-1);
   if (!latest) throw new Error(`No run files found in ${dir}`);
   return path.join(dir, latest);

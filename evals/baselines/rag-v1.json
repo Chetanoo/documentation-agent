@@ -1,0 +1,2434 @@
+{
+  "models": [
+    "qwen/qwen3.8-27b",
+    "mistralai/mistral-small-2603"
+  ],
+  "instructions": "You are a documentation assistant for the Vercel AI SDK (the \"ai\" npm package), version 7.\nAnswer the developer's question using ONLY the numbered sources provided. They are excerpts from the current v7 docs.\n\nRules:\n- Your own knowledge of this SDK is probably outdated: many APIs were renamed or removed in v6 and v7. When the sources and your memory disagree, follow the sources.\n- Cite the sources that support each claim inline by number, e.g. [1] or [2][4], right after the claim.\n- Code examples may only use APIs, options and imports that appear in the sources.\n- Migration guide excerpts show old code in blocks titled \"Before\". Never recommend that code.\n- If the sources don't contain the answer, say you couldn't find it in the docs. Don't guess and don't fill gaps from memory. If they answer only part of the question, answer that part and say what's missing.\n\nAnswer concisely, with a short TypeScript example when useful.",
+  "settings": {
+    "REASONING_MAX_TOKENS": 4000,
+    "MAX_OUTPUT_TOKENS": 12000,
+    "temperature": 0
+  },
+  "retrieval": {
+    "topK": 5,
+    "candidates": 50,
+    "rrfK": 60,
+    "mode": "hybrid",
+    "embedding": {
+      "model": "openai/text-embedding-3-small",
+      "dims": 1536
+    },
+    "embeddingTokens": 362
+  },
+  "results": [
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q01",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/migration-guides/migration-guide-7-0#9",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (2/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#prompts-and-step-preparation",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/migration-guides/migration-guide-7-0#8",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (1/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#prompts-and-step-preparation",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/foundations/prompts#2",
+          "crumb": "Prompts > System Prompts",
+          "url": "https://ai-sdk.dev/docs/foundations/prompts#system-prompts",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/cookbook/guides/o1#3",
+          "crumb": "Get started with OpenAI o1 > Getting Started with the AI SDK",
+          "url": "https://ai-sdk.dev/cookbook/guides/o1#getting-started-with-the-ai-sdk",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/cookbook/guides/o3#3",
+          "crumb": "Get started with OpenAI o3-mini > Getting Started with the AI SDK",
+          "url": "https://ai-sdk.dev/cookbook/guides/o3#getting-started-with-the-ai-sdk",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\nIn AI SDK 7, you pass a system prompt using the **`instructions`** property (renamed from `system` in v6) [2].\n\n```ts\nimport { generateText } from 'ai';\nimport { openai } from '@ai-sdk/openai';\n\nconst result = await generateText({\n  model: openai('gpt-4o'),\n  instructions: 'You are a helpful assistant.',\n  prompt: 'Hello!',\n});\n```\n\nKey points:\n\n- `instructions` works with both `prompt` and `messages` [3].\n- System messages inside `prompt` or `messages` are **rejected by default** in v7. Use `instructions` instead [1][3].\n- If you have persisted chat histories that already contain `{ role: 'system' }` messages, you can opt in with `allowSystemInMessages: true`, but this is only safe for trusted messages [1][3].\n- The old `system` option is still accepted as a deprecated fallback, but `instructions` takes precedence when both are provided [2].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 12353,
+      "inputTokens": 3037,
+      "outputTokens": 294,
+      "reasoningTokens": 59,
+      "costUsd": 0.000463468,
+      "citations": [
+        1,
+        2,
+        3
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q02",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/migration-guides/migration-guide-7-0#9",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (2/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#prompts-and-step-preparation",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/generate-text#2",
+          "crumb": "generateText > API Signature > Parameters (2/23)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-text#parameters",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/foundations/prompts#7",
+          "crumb": "Prompts > Message Prompts > Assistant Messages",
+          "url": "https://ai-sdk.dev/docs/foundations/prompts#assistant-messages",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-ui/chatbot-message-persistence#4",
+          "crumb": "Chatbot Message Persistence > Validating messages on the server > Handling validation errors",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-message-persistence#handling-validation-errors",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/foundations/prompts#3",
+          "crumb": "Prompts > Message Prompts",
+          "url": "https://ai-sdk.dev/docs/foundations/prompts#message-prompts",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\n## Why It Fails\n\nIn AI SDK 7, system messages in the `messages` (or `prompt`) array are **rejected by default**. System instructions are now expected to be passed via the top-level `instructions` option instead [1].\n\n## How to Fix It\n\n**Option 1 (preferred):** Move the system message out of `messages` and into the `instructions` option [1]:\n\n```ts\nconst result = await generateText({\n  model: yourModel,\n  instructions: 'You are a helpful assistant.',\n  messages: [\n    { role: 'user', content: 'Hello!' },\n    // ...other non-system messages from your DB\n  ],\n});\n```\n\n**Option 2 (for legacy persisted chats):** If you can't easily strip system messages from your stored history, opt in to the old behavior with `allowSystemInMessages: true` [1]:\n\n```ts\nconst result = await generateText({\n  model: yourModel,\n  allowSystemInMessages: true,\n  messages: persistedMessages,\n});\n```\n\n> ⚠️ Only use `allowSystemInMessages` for **trusted** messages. If users can submit or edit these messages, they could inject a system message that overrides your system prompt. In most cases, system instructions should only be set by trusted server-side code through the `instructions` property [1].\n\n**Option 3 (defensive handling):** If your database messages might be stale or malformed, you can validate them before passing them to the model and fall back to an empty history on failure [4]:\n\n```ts\nimport { validateUIMessages, TypeValidationError } from 'ai';\n\ntry {\n  validatedMessages = await validateUIMessages({\n    messages: [...previousMessages, message],\n    tools,\n    metadataSchema,\n  });\n} catch (error) {\n  if (error instanceof TypeValidationError) {\n    console.error('Database messages validation failed:', error);\n    validatedMessages = [];\n  } else {\n    throw error;\n  }\n}\n```\n\nThis applies to all AI SDK functions that accept `prompt` or `messages`, including `generateText`, `streamText`, `generateObject`, `streamObject`, and `streamUI` [1].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 9196,
+      "inputTokens": 3247,
+      "outputTokens": 657,
+      "reasoningTokens": 169,
+      "costUsd": 0.000946078,
+      "citations": [
+        1,
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q03",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/introduction#0",
+          "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+          "url": "https://ai-sdk.dev/docs/introduction#why-use-the-ai-sdk",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/troubleshooting/unsupported-model-version#1",
+          "crumb": "Unsupported model version error > Solution > Update provider packages to AI SDK 5 compatible versions",
+          "url": "https://ai-sdk.dev/docs/troubleshooting/unsupported-model-version#update-provider-packages-to-ai-sdk-5-compatible-versions",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/migration-guides/migration-guide-7-0#22",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Tools and Tool Execution (3/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#tools-and-tool-execution",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/migration-guides/migration-guide-6-0#0",
+          "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK 6.0 Package Versions",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0#ai-sdk-60-package-versions",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/cookbook/guides/sonnet-3-7#2",
+          "crumb": "Get started with Claude 3.7 Sonnet > Getting Started with the AI SDK",
+          "url": "https://ai-sdk.dev/cookbook/guides/sonnet-3-7#getting-started-with-the-ai-sdk",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": false,
+      "status": "fail",
+      "answer": "\n\nI couldn't find information about a specific Node.js version requirement or whether `require()` (CommonJS) is supported in the provided documentation excerpts. The sources cover the SDK's purpose, migration guides between major versions, and basic usage examples, but none of them specify a minimum Node.js version or discuss module system support (ESM vs. CommonJS).\n\nYou may want to check the AI SDK's `package.json` (look for the `\"engines\"` field) or the official docs' installation/setup page for that information.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "22"
+      ],
+      "staleHits": [],
+      "latencyMs": 18176,
+      "inputTokens": 2196,
+      "outputTokens": 349,
+      "reasoningTokens": 240,
+      "costUsd": 0.00056228,
+      "citations": [],
+      "invalidCitations": [],
+      "citesEvidence": false
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q04",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#multi-step-calls-using-stopwhen",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#11",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Example",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#example",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#14",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Tool call execution concurrency",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#tool-call-execution-concurrency",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/agents/loop-control#17",
+          "crumb": "Loop Control > Forced Tool Calling",
+          "url": "https://ai-sdk.dev/docs/agents/loop-control#forced-tool-calling",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#12",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Steps",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#steps",
+          "evidence": true
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\nUse the `isStepCount` stopping condition with the `stopWhen` option:\n\n```ts\nimport { generateText, tool, isStepCount } from 'ai';\nimport { z } from 'zod';\n\nconst { text, steps } = await generateText({\n  model: \"anthropic/claude-sonnet-5.5\",\n  tools: {\n    weather: tool({\n      description: 'Get the weather in a location',\n      inputSchema: z.object({\n        location: z.string(),\n      }),\n      execute: async ({ location }) => ({\n        location,\n        temperature: 72,\n      }),\n    }),\n  },\n  stopWhen: isStepCount(5), // stop after a maximum of 5 steps\n  prompt: 'What is the weather in San Francisco?',\n});\n```\n\n`isStepCount(count)` stops the loop after the specified number of steps [1]. The default is `isStepCount(1)`, which means a single generation with no multi-step loop [1]. You can use the same option with `streamText` [2].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 7925,
+      "inputTokens": 2234,
+      "outputTokens": 294,
+      "reasoningTokens": 49,
+      "costUsd": 0.000449652,
+      "citations": [
+        1,
+        2
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q05",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/reference/ai-sdk-workflow/workflow-agent#1",
+          "crumb": "WorkflowAgent > Constructor > Parameters (1/4)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-workflow/workflow-agent#parameters",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/agent#1",
+          "crumb": "Agent (Interface) > Interface Definition",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/agent#interface-definition",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/agents/building-agents#13",
+          "crumb": "Building Agents > Using an Agent > Lifecycle Callbacks (1/2)",
+          "url": "https://ai-sdk.dev/docs/agents/building-agents#lifecycle-callbacks",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/reference/ai-sdk-core/tool-loop-agent#1",
+          "crumb": "ToolLoopAgent > Constructor > Parameters (1/7)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool-loop-agent#parameters",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-core/tool-loop-agent#13",
+          "crumb": "ToolLoopAgent > Examples > Basic Agent with Tools",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool-loop-agent#basic-agent-with-tools",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\nUse the **`ToolLoopAgent`** class, imported from the `ai` package [4].\n\nBy default, it runs for **20 steps** (i.e., `stopWhen` defaults to `isStepCount(20)`) [4].\n\n```ts\nimport { ToolLoopAgent, isStepCount } from 'ai';\n\nconst agent = new ToolLoopAgent({\n  model: 'anthropic/claude-sonnet-5.5',\n  instructions: 'You are a helpful assistant.',\n  tools: {\n    weather: weatherTool,\n    calculator: calculatorTool,\n  },\n  // stopWhen defaults to isStepCount(20)\n});\n\nconst result = await agent.generate({\n  prompt: 'What is the weather in NYC?',\n});\n```\n\nIf you need a different limit, pass `stopWhen` explicitly, e.g. `stopWhen: isStepCount(5)` [5].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 9080,
+      "inputTokens": 3719,
+      "outputTokens": 340,
+      "reasoningTokens": 133,
+      "costUsd": 0.000543696,
+      "citations": [
+        4,
+        5
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q06",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/reference/ai-sdk-core/output#2",
+          "crumb": "Output > Output Types > `Output.object()`",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/output#outputobject",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/zod-schema#0",
+          "crumb": "zodSchema",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/zod-schema",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/prompt-engineering#1",
+          "crumb": "Prompt Engineering > Tips > Tool & Structured Data Schemas",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/prompt-engineering#tool-structured-data-schemas",
+          "evidence": true
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/generating-structured-data#6",
+          "crumb": "Generating Structured Data > Output Types > `Output.object()`",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-structured-data#outputobject",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-ui/use-object#1",
+          "crumb": "useObject > API Signature > Parameters",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-object#parameters",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\nUse `Output.object({ schema })` with `generateText`. The returned `output` is fully validated against your schema and typed accordingly.\n\n```ts\nimport { generateText, Output } from 'ai';\nimport { z } from 'zod';\n\nconst { output } = await generateText({\n  model: yourModel,\n  output: Output.object({\n    schema: z.object({\n      name: z.string(),\n      age: z.number().nullable(),\n      labels: z.array(z.string()),\n    }),\n  }),\n  prompt: 'Generate information for a test user.',\n});\n\n// output is typed as { name: string; age: number | null; labels: string[] }\n```\n\n[1][4]\n\n**Notes:**\n\n- You can pass Zod schemas directly — the SDK converts them to JSON schema internally via `zodSchema()`. [2]\n- For optional fields, prefer `.nullable()` over `.optional()` for better compatibility with strict schema validation (e.g. OpenAI structured outputs). [3]\n- For dates, use `z.string().date().transform(v => new Date(v))` since models return dates as strings. [3]\n- If you're streaming with `streamText`, partial outputs cannot be validated against the schema (they're a `DeepPartial` of the type). [1][4]",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 11189,
+      "inputTokens": 2417,
+      "outputTokens": 414,
+      "reasoningTokens": 122,
+      "costUsd": 0.000618972,
+      "citations": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q07",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/foundations/streaming#1",
+          "crumb": "Streaming > Real-world Examples > Streaming UI",
+          "url": "https://ai-sdk.dev/docs/foundations/streaming#streaming-ui",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/cookbook/node/stream-object#0",
+          "crumb": "Stream Object",
+          "url": "https://ai-sdk.dev/cookbook/node/stream-object",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/advanced/rendering-ui-with-language-models#3",
+          "crumb": "Rendering UI with Language Models > Rendering User Interfaces on the Server",
+          "url": "https://ai-sdk.dev/docs/advanced/rendering-ui-with-language-models#rendering-user-interfaces-on-the-server",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/generating-structured-data#15",
+          "crumb": "Generating Structured Data > More Examples > `generateText` with Output",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-structured-data#generatetext-with-output",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/cookbook/next/stream-object#0",
+          "crumb": "Stream Object > Object Mode",
+          "url": "https://ai-sdk.dev/cookbook/next/stream-object#object-mode",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\nUse `streamText` with `Output.object` — it exposes a `partialOutputStream` that yields the object incrementally as it's generated, so your UI can render partial results in real-time [2][5].\n\n```ts\nimport { streamText, Output } from 'ai';\nimport { z } from 'zod';\n\nconst { partialOutputStream } = streamText({\n  model: 'openai/gpt-6-astra',\n  output: Output.object({\n    schema: z.object({\n      recipe: z.object({\n        name: z.string(),\n        ingredients: z.array(z.string()),\n        steps: z.array(z.string()),\n      }),\n    }),\n  }),\n  prompt: 'Generate a lasagna recipe.',\n});\n\nfor await (const partialObject of partialOutputStream) {\n  // Each iteration gives you the object as it stands so far\n  console.log(partialObject);\n}\n```\n\nEach value from `partialOutputStream` is the best-parsed version of the object up to that point, so you can feed it directly to your UI to show a progressively completing result [2][5].\n\nFor full examples in different frameworks (Node.js, Next.js Route Handlers, Next.js Server Actions), see the [streaming structured data examples](https://ai-sdk.dev/docs/ai-sdk-core/generating-structured-data#generatetext-with-output) [4].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 5887,
+      "inputTokens": 2054,
+      "outputTokens": 436,
+      "reasoningTokens": 136,
+      "costUsd": 0.00067076,
+      "citations": [
+        2,
+        4,
+        5
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q08",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-core/generating-text#1",
+          "crumb": "Generating Text > `generateText` (1/2)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-text#generatetext",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/migration-guides/migration-guide-7-0#26",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Multi-Step Result Shape (1/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#multi-step-result-shape",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#12",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Steps",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#steps",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/migration-guides/migration-guide-7-0#27",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Multi-Step Result Shape (2/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#multi-step-result-shape",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#multi-step-calls-using-stopwhen",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\nIn AI SDK 7, `result.usage` covers **all steps** (total across the entire multi-step generation) [1][2].\n\nTo get the usage for the **final step only**, use `result.finalStep.usage` [2].\n\n```ts\nimport { generateText, isStepCount } from 'ai';\n\nconst result = await generateText({\n  model: 'anthropic/claude-sonnet-5.5',\n  prompt: 'Write a haiku, then revise it.',\n  stopWhen: isStepCount(2),\n});\n\nconsole.log(result.usage);          // total across all steps\nconsole.log(result.finalStep.usage); // final step only\n```\n\n> **Note:** If you're migrating from v6, `result.totalUsage` is deprecated — replace it with `result.usage` [2].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [
+        "totalUsage"
+      ],
+      "latencyMs": 3600,
+      "inputTokens": 3463,
+      "outputTokens": 342,
+      "reasoningTokens": 162,
+      "costUsd": 0.000990924,
+      "citations": [
+        1,
+        2
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q09",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/foundations/prompts#8",
+          "crumb": "Prompts > Message Prompts > Tool Messages (1/2)",
+          "url": "https://ai-sdk.dev/docs/foundations/prompts#tool-messages",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#multi-step-calls-using-stopwhen",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-ui/chatbot-tool-usage#0",
+          "crumb": "Chatbot Tool Usage",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-tool-usage",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#16",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `prepareStep` callback (1/2)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#preparestep-callback",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-core/tool-loop-agent#5",
+          "crumb": "ToolLoopAgent > Constructor > Parameters (5/7)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool-loop-agent#parameters",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": false,
+      "status": "pass",
+      "answer": "\n\nThe provided sources don't explicitly document a property on the `generateText` result that returns the full accumulated message list after a multi-step loop completes.\n\nWhat the sources **do** show:\n\n- **`prepareStep`** receives `steps` (all steps executed so far) and `responseMessages` (accumulated assistant/tool response messages) on each call [4]. You could capture these on the final step, but that's a workaround rather than a clean post-call API.\n- **`onStepEnd`** is invoked after each step completes [5], so you could accumulate messages there.\n- **`onToolExecutionEnd`** provides `messages` (the messages sent to the model for that step) [5].\n\nA practical pattern using `prepareStep` to capture the full state on the last step:\n\n```ts\nimport { generateText } from 'ai';\n\nlet allMessages: any[] = [];\n\nconst result = await generateText({\n  model: 'anthropic/claude-sonnet-5.5',\n  messages: [/* ... */],\n  tools: { /* ... */ },\n  stopWhen: isStepCount(5),\n  prepareStep: async ({ messages, steps }) => {\n    // `messages` here is the full message state for this step\n    // (initialMessages + accumulated responseMessages) [4]\n    allMessages = messages;\n  },\n});\n\n// `allMessages` now holds the last step's full message list\n// Save to your database\n```\n\nHowever, if you need the messages **after** the call returns without relying on a side-effect in a callback, the sources don't show a dedicated result property (e.g., `result.steps` or `result.messages`) for that purpose. You may want to check the full `generateText` result reference for a `steps` or similar field that isn't covered in these excerpts.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 29490,
+      "inputTokens": 3373,
+      "outputTokens": 1265,
+      "reasoningTokens": 859,
+      "costUsd": 0.001957315,
+      "citations": [
+        4,
+        5
+      ],
+      "invalidCitations": [],
+      "citesEvidence": false
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q10",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-core/generating-text#10",
+          "crumb": "Generating Text > `streamText` > Lifecycle callbacks (experimental)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-text#lifecycle-callbacks-experimental",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/stream-text#31",
+          "crumb": "streamText > API Signature > Returns (6/13)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text#returns",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/reference/ai-sdk-core/stream-text#32",
+          "crumb": "streamText > API Signature > Returns (7/13)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text#returns",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/generating-text#11",
+          "crumb": "Generating Text > `streamText` > `stream` property",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-text#stream-property",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-core/stream-text#12",
+          "crumb": "streamText > API Signature > Parameters (12/25)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text#parameters",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\nUse the `stream` property, which is both an `AsyncIterable` and a `ReadableStream` of `TextStreamPart` events [2][3]. You can iterate with a `for await` loop and switch on `part.type` [4]:\n\n```ts\nimport { streamText } from 'ai';\nimport { z } from 'zod';\n\nconst result = streamText({\n  model: 'anthropic/claude-sonnet-5.5',\n  tools: {\n    cityAttractions: {\n      inputSchema: z.object({ city: z.string() }),\n      execute: async ({ city }) => ({\n        attractions: ['attraction1', 'attraction2'],\n      }),\n    },\n  },\n  prompt: 'What are some San Francisco tourist attractions?',\n});\n\nfor await (const part of result.stream) {\n  switch (part.type) {\n    case 'text-delta':\n      console.log(part.text);\n      break;\n    case 'tool-call':\n      console.log(`Tool: ${part.toolName}`, part.input);\n      break;\n    case 'tool-result':\n      console.log(`Result: ${part.toolName}`, part.output);\n      break;\n    case 'finish':\n      console.log('Done');\n      break;\n  }\n}\n```\n\nThe full set of event types you can handle includes: `start`, `start-step`, `text-start`, `text-delta`, `text-end`, `reasoning-start`, `reasoning-delta`, `reasoning-end`, `source`, `file`, `tool-call`, `tool-input-start`, `tool-input-delta`, `tool-input-end`, `tool-result`, `tool-error`, `finish-step`, `finish`, `error`, and `raw` [4][5].\n\n**Alternative:** If you don't need a separate loop, you can use the `onChunk` callback, which fires for every stream part and pauses stream processing until the callback resolves [5]:\n\n```ts\nconst result = streamText({\n  model: 'anthropic/claude-sonnet-5.5',\n  prompt: 'Hello',\n  onChunk({ chunk }) {\n    if (chunk.type === 'text-delta') {\n      console.log(chunk.text);\n    }\n  },\n});\n```",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 9291,
+      "inputTokens": 4153,
+      "outputTokens": 665,
+      "reasoningTokens": 159,
+      "costUsd": 0.0028562,
+      "citations": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q11",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-rsc/migrating-to-ui#1",
+          "crumb": "Migrating from RSC to UI > Streaming Chat Completions > Basic Setup (1/2)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/migrating-to-ui#basic-setup",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/ai-sdk-ui/stream-protocol#16",
+          "crumb": "Stream Protocols > Data Stream Protocol > UI Message Stream Example",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-ui/stream-protocol#ui-message-stream-example",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/getting-started/nuxt#3",
+          "crumb": "Vue.js (Nuxt) > Create an API route",
+          "url": "https://ai-sdk.dev/docs/getting-started/nuxt#create-an-api-route",
+          "evidence": true
+        },
+        {
+          "n": 4,
+          "id": "/docs/getting-started/svelte#4",
+          "crumb": "Svelte > Create an API route",
+          "url": "https://ai-sdk.dev/docs/getting-started/svelte#create-an-api-route",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/ai-sdk-ui/chatbot#12",
+          "crumb": "Chatbot > Transport Configuration > Advanced: Trigger-based routing",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot#advanced-trigger-based-routing",
+          "evidence": true
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "To return a UI message stream that `useChat` can consume, use `createUIMessageStreamResponse` with `toUIMessageStream` wrapping your `streamText` result [2][3][4]:\n\n```ts\nimport {\n  streamText,\n  convertToModelMessages,\n  createUIMessageStreamResponse,\n  toUIMessageStream,\n  type UIMessage,\n} from 'ai';\n\nexport async function POST(req: Request) {\n  const { messages }: { messages: UIMessage[] } = await req.json();\n\n  const result = streamText({\n    model: \"anthropic/claude-sonnet-5.5\",\n    messages: await convertToModelMessages(messages),\n  });\n\n  return createUIMessageStreamResponse({\n    stream: toUIMessageStream({ stream: result.stream }),\n  });\n}\n```\n\n**How it works:**\n\n1. `streamText` returns a `StreamTextResult` [3][4].\n2. `toUIMessageStream({ stream: result.stream })` converts the raw text stream into the UI message stream protocol [2][3].\n3. `createUIMessageStreamResponse` wraps it in a `Response` object with the correct content type for streaming [2][3][4].\n\nOn the client, `useChat` (from `@ai-sdk/react`) decodes this stream automatically [1][2]:\n\n```tsx\nimport { useChat } from '@ai-sdk/react';\n\nconst { messages, sendMessage } = useChat();\n```\n\nThe `messages` array will contain `UIMessage` objects with a `parts` array you can render [2].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 6200,
+      "inputTokens": 3476,
+      "outputTokens": 480,
+      "reasoningTokens": 114,
+      "costUsd": 0.00152912,
+      "citations": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q12",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#6",
+          "crumb": "Tool Calling > Tool Execution Approval > How It Works",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#how-it-works",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/agents/tool-approvals#6",
+          "crumb": "Tool Approvals > Handle Manual Approvals",
+          "url": "https://ai-sdk.dev/docs/agents/tool-approvals#handle-manual-approvals",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#7",
+          "crumb": "Tool Calling > Tool Execution Approval > Handling Approval Requests (1/2)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#handling-approval-requests",
+          "evidence": true
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#5",
+          "crumb": "Tool Calling > Tool Execution Approval > Configure `toolApproval`",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#configure-toolapproval",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/ai-sdk-ui/chatbot-tool-usage#5",
+          "crumb": "Chatbot Tool Usage > Tool Execution Approval",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-tool-usage#tool-execution-approval",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\n## Making a Tool Require User Approval\n\nSet `toolApproval` to `'user-approval'` for that tool, then handle the two-call flow:\n\n### 1. Configure the tool with `'user-approval'`\n\n```ts\nconst result = await generateText({\n  model: \"anthropic/claude-sonnet-5.5\",\n  tools: { deleteFile },\n  toolApproval: {\n    deleteFile: 'user-approval',\n  },\n  messages,\n});\n```\n\n[4] You can also include a reason shown to the approver:\n\n```ts\ntoolApproval: {\n  deleteFile: {\n    type: 'user-approval',\n    reason: 'File deletion requires operator review',\n  },\n}\n```\n\n[4]\n\n### 2. Handle the approval flow\n\nThe first call returns `tool-approval-request` parts in `result.content`. You then collect the user's decision, add a `tool-approval-response` to the messages, and call again:\n\n```ts\nimport { type ModelMessage, type ToolApprovalResponse, generateText } from 'ai';\n\nconst messages: ModelMessage[] = [{ role: 'user', content: 'Delete temp.txt' }];\n\n// First call — returns approval request\nconst result = await generateText({\n  model: \"anthropic/claude-sonnet-5.5\",\n  tools: { deleteFile },\n  toolApproval: { deleteFile: 'user-approval' },\n  messages,\n});\n\nmessages.push(...result.responseMessages);\n\n// Collect the user's decision\nconst approvals: ToolApprovalResponse[] = [];\nfor (const part of result.content) {\n  if (part.type === 'tool-approval-request' && !part.isAutomatic) {\n    const approved = await askUser(part.toolCall, part.reason);\n    approvals.push({\n      type: 'tool-approval-response',\n      approvalId: part.approvalId,\n      approved,\n      reason: approved ? 'User confirmed deletion' : 'User denied deletion',\n    });\n  }\n}\n\nmessages.push({ role: 'tool', content: approvals });\n\n// Second call — tool executes if approved, model sees denial if not\nconst finalResult = await generateText({\n  model: \"anthropic/claude-sonnet-5.5\",\n  tools: { deleteFile },\n  toolApproval: { deleteFile: 'user-approval' },\n  messages,\n});\n```\n\n[1][2][3]\n\n### Key points\n\n- **Two calls required**: `generateText`/`streamText` don't pause; the first call returns the approval request, the second executes (or informs the model of the denial). [1]\n- **`reason` on denial** is included in the tool result so the model sees why it was rejected. [3]\n- **Prevent retries**: if denied, consider adding an instruction like *\"When a tool execution is not approved, do not retry it\"* to avoid repeated approval requests. [2]\n- **Dynamic tools** (created at runtime) are not subject to per-tool `toolApproval` config — use a `GenericToolApprovalFunction` to cover them. [4]",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 14826,
+      "inputTokens": 2808,
+      "outputTokens": 815,
+      "reasoningTokens": 115,
+      "costUsd": 0.00204298,
+      "citations": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q13",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/reference/ai-sdk-core/tool#2",
+          "crumb": "tool > API Signature > Parameters (2/3)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool#parameters",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/stream-text#7",
+          "crumb": "streamText > API Signature > Parameters (7/25)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text#parameters",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#23",
+          "crumb": "Tool Calling > Tool Execution Options > Tool Call ID",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#tool-call-id",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/reference/ai-sdk-core/dynamic-tool#1",
+          "crumb": "dynamicTool > API Signature > Parameters (1/2)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/dynamic-tool#parameters",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-workflow/workflow-agent#1",
+          "crumb": "WorkflowAgent > Constructor > Parameters (1/4)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-workflow/workflow-agent#parameters",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\n## Passing an API Key via Tool Context\n\nThe SDK provides a **tool context** mechanism for exactly this. You define a `contextSchema` on the tool and supply the matching value via `toolsContext` at the call site. The value is then available as `context` in the `execute` function's second argument [1][4].\n\n```ts\nimport { streamText, tool } from 'ai';\nimport { z } from 'zod';\n\nconst result = streamText({\n  model: 'anthropic/claude-sonnet-5.5',\n  messages,\n  tools: {\n    searchApi: tool({\n      description: 'Search an external API',\n      inputSchema: z.object({ query: z.string() }),\n      contextSchema: z.object({\n        apiKey: z.string(),\n      }),\n      execute: async ({ query }, { context }) => {\n        // context.apiKey is available here — no hardcoding\n        const res = await fetch('https://api.example.com/search', {\n          headers: { Authorization: `Bearer ${context.apiKey}` },\n          body: JSON.stringify({ query }),\n        });\n        return res.json();\n      },\n    }),\n  },\n  toolsContext: {\n    searchApi: { apiKey: process.env.EXTERNAL_API_KEY! },\n  },\n});\n```\n\n### How it works\n\n| Piece | Role |\n|-------|------|\n| `contextSchema` on the tool | Declares the shape of the context and gives you typed access in `execute` [1] |\n| `toolsContext` at the call site | Supplies the actual values, keyed by tool name [1][4] |\n| `context` in `ToolExecutionOptions` | The resolved value passed into `execute` at runtime [1][4] |\n\nThis keeps secrets out of the tool definition and lets you inject different values per call (e.g., per-user API keys in a multi-tenant app).",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 12520,
+      "inputTokens": 3572,
+      "outputTokens": 968,
+      "reasoningTokens": 541,
+      "costUsd": 0.00239104,
+      "citations": [
+        1,
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q14",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/migration-guides/migration-guide-7-0#14",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (1/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#telemetry",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/ai-sdk-core/telemetry#0",
+          "crumb": "Telemetry > Enabling telemetry > Step 1: Register the OpenTelemetry integration",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/telemetry#step-1-register-the-opentelemetry-integration",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/migration-guides/migration-guide-7-0#15",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (2/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#telemetry",
+          "evidence": true
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/telemetry#10",
+          "crumb": "Telemetry > Telemetry Integrations > Tracing channel",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/telemetry#tracing-channel",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/introduction#0",
+          "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+          "url": "https://ai-sdk.dev/docs/introduction#why-use-the-ai-sdk",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\n## Enabling OpenTelemetry Tracing\n\nIn AI SDK 7, telemetry is **opt-out**: once you register a telemetry integration, all AI SDK calls emit telemetry events by default [1][2].\n\n### Steps\n\n1. **Install the package:**\n\n```bash\npnpm install @ai-sdk/otel\n```\n\n2. **Register the integration once at application startup:**\n\n```ts\nimport { registerTelemetry } from 'ai';\nimport { OpenTelemetry } from '@ai-sdk/otel';\n\nregisterTelemetry(new OpenTelemetry());\n```\n\nFor **Next.js**, place this in your `instrumentation.ts` file alongside your OpenTelemetry provider setup [2]:\n\n```ts\n// instrumentation.ts\nimport { registerOTel } from '@vercel/otel';\nimport { registerTelemetry } from 'ai';\nimport { OpenTelemetry } from '@ai-sdk/otel';\n\nexport function register() {\n  registerOTel({ serviceName: 'my-ai-app' });\n  registerTelemetry(new OpenTelemetry());\n}\n```\n\nFor **Node.js** (without Next.js), register at the top level of your entry file [1][2].\n\n### That's it\n\nAfter registration, every call to `generateText`, `streamText`, `generateObject`, `streamObject`, `embed`, `embedMany`, `rerank`, `ToolLoopAgent`, and `WorkflowAgent` will emit telemetry events automatically [1][3]. You no longer need `experimental_telemetry: { isEnabled: true }` on individual calls [1].\n\nTo **opt out** for a specific call, set `telemetry: { isEnabled: false }` [1][4].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [
+        "isEnabled: true"
+      ],
+      "latencyMs": 7043,
+      "inputTokens": 3136,
+      "outputTokens": 468,
+      "reasoningTokens": 107,
+      "costUsd": 0.00118659,
+      "citations": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q15",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/reference/ai-sdk-core/generate-text#25",
+          "crumb": "generateText > API Signature > Returns (2/6)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-text#returns",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/stream-text#26",
+          "crumb": "streamText > API Signature > Returns (1/13)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text#returns",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/cookbook/node/dynamic-prompt-caching#5",
+          "crumb": "Dynamic Prompt Caching > Considerations",
+          "url": "https://ai-sdk.dev/cookbook/node/dynamic-prompt-caching#considerations",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/reference/ai-sdk-core/generate-text#18",
+          "crumb": "generateText > API Signature > Parameters (18/23)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-text#parameters",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-core/generate-text#28",
+          "crumb": "generateText > API Signature > Returns (5/6)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-text#returns",
+          "evidence": true
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "\n\nUse `usage.inputTokenDetails.cacheReadTokens` — it reports the number of cached input (prompt) tokens read from the provider's prompt cache [1][2].\n\n```ts\nimport { generateText } from 'ai';\n\nconst { usage } = await generateText({ /* ... */ });\n\nconsole.log(usage.inputTokenDetails?.cacheReadTokens); // e.g. 1200\n```\n\nThe full `inputTokenDetails` object also gives you:\n\n| Field | Meaning |\n|-------|---------|\n| `noCacheTokens` | Non-cached input tokens used |\n| `cacheReadTokens` | Cached input tokens **read** (served from cache) |\n| `cacheWriteTokens` | Cached input tokens **written** (newly cached) |\n\n[1][4][5]\n\nThe same fields are available on `streamText` (via `await result.usage`) [2] and per-step via `onStepEnd` or the `steps` array [4][5].\n\n> **Note:** Cache behavior is provider-specific. For Anthropic, cached tokens cost 10% of normal input tokens, but cache writes cost 25% more [3].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 7135,
+      "inputTokens": 3029,
+      "outputTokens": 422,
+      "reasoningTokens": 165,
+      "costUsd": 0.000635948,
+      "citations": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q16",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-core/embeddings#8",
+          "crumb": "Embeddings > Embedding Providers & Models",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/embeddings#embedding-providers-models",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/embed#0",
+          "crumb": "embed > API Signature > Parameters (1/2)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/embed#parameters",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/embeddings#0",
+          "crumb": "Embeddings > Embedding a Single Value",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/embeddings#embedding-a-single-value",
+          "evidence": true
+        },
+        {
+          "n": 4,
+          "id": "/cookbook/guides/rag-chatbot#12",
+          "crumb": "RAG Agent > Build > Generate Embeddings",
+          "url": "https://ai-sdk.dev/cookbook/guides/rag-chatbot#generate-embeddings",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/migration-guides/migration-guide-6-0#11",
+          "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK Core > Embedding Model Method Rename",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0#embedding-model-method-rename",
+          "evidence": true
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "## Creating an OpenAI Embedding Model & Embedding a Single String\n\nUse the `embed` function from the `ai` package. You can pass the model either as a string shorthand or by calling `embeddingModel` on the provider [2][5].\n\n```ts\nimport { openai } from '@ai-sdk/openai';\nimport { embed } from 'ai';\n\n// Option 1: string shorthand\nconst { embedding } = await embed({\n  model: 'openai/text-embedding-3-small',\n  value: 'sunny day at the beach',\n});\n\n// Option 2: explicit model instance\nconst model = openai.embeddingModel('text-embedding-3-small');\nconst { embedding } = await embed({\n  model,\n  value: 'sunny day at the beach',\n});\n\nconsole.log(embedding); // number[]\n```\n\n`embedding` is a `number[]` vector [3].\n\n> **Note:** In AI SDK 5, the method was called `textEmbeddingModel` / `textEmbedding`. It was renamed to `embeddingModel` / `embedding` in v6+ [5].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [
+        "textEmbeddingModel"
+      ],
+      "latencyMs": 3117,
+      "inputTokens": 2682,
+      "outputTokens": 353,
+      "reasoningTokens": 106,
+      "costUsd": 0.0011373,
+      "citations": [
+        2,
+        3,
+        5
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q17",
+      "answerable": false,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/introduction#0",
+          "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+          "url": "https://ai-sdk.dev/docs/introduction#why-use-the-ai-sdk",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/foundations/providers-and-models#1",
+          "crumb": "Providers and Models > AI SDK Providers (1/2)",
+          "url": "https://ai-sdk.dev/docs/foundations/providers-and-models#ai-sdk-providers",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/migration-guides#0",
+          "crumb": "Migration Guides",
+          "url": "https://ai-sdk.dev/docs/migration-guides",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/migration-guides/migration-guide-7-0#22",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Tools and Tool Execution (3/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#tools-and-tool-execution",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/migration-guides/migration-guide-7-0#20",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Tools and Tool Execution (1/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#tools-and-tool-execution",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": null,
+      "status": "unanswerable",
+      "answer": "\n\nI couldn't find any information about an AI SDK 8 release in the provided documentation. The sources only cover the current v7 and migration paths up to 7.0 [3].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 4769,
+      "inputTokens": 3280,
+      "outputTokens": 194,
+      "reasoningTokens": 154,
+      "costUsd": 0.0003491175,
+      "citations": [
+        3
+      ],
+      "invalidCitations": [],
+      "citesEvidence": null
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q18",
+      "answerable": false,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/migration-guides/migration-guide-6-0#5",
+          "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK Core > `generateObject` and `streamObject` Deprecation",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0#generateobject-and-streamobject-deprecation",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/migration-guides/migration-guide-7-0#6",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Core API Renames and Removals (1/2)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#core-api-renames-and-removals",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/migration-guides/migration-guide-6-0#15",
+          "crumb": "Migrate AI SDK 5.x to 6.0 > Providers > OpenAI",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0#openai",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/migration-guides/migration-guide-7-0#22",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Tools and Tool Execution (3/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#tools-and-tool-execution",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/migration-guides/migration-guide-7-0#15",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (2/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#telemetry",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": null,
+      "status": "unanswerable",
+      "answer": "\n\nThe docs don't specify a date. They only state that `generateObject` and `streamObject` \"will be removed in a future version\" [1]. No concrete timeline is given.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 2592,
+      "inputTokens": 3888,
+      "outputTokens": 144,
+      "reasoningTokens": 103,
+      "costUsd": 0.000564224,
+      "citations": [
+        1
+      ],
+      "invalidCitations": [],
+      "citesEvidence": null
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q19",
+      "answerable": false,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/introduction#0",
+          "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+          "url": "https://ai-sdk.dev/docs/introduction#why-use-the-ai-sdk",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/foundations/providers-and-models#1",
+          "crumb": "Providers and Models > AI SDK Providers (1/2)",
+          "url": "https://ai-sdk.dev/docs/foundations/providers-and-models#ai-sdk-providers",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/foundations/providers-and-models#2",
+          "crumb": "Providers and Models > AI SDK Providers (2/2)",
+          "url": "https://ai-sdk.dev/docs/foundations/providers-and-models#ai-sdk-providers",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/getting-started/choosing-a-provider#0",
+          "crumb": "Choosing a Provider > AI Gateway",
+          "url": "https://ai-sdk.dev/docs/getting-started/choosing-a-provider#ai-gateway",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/getting-started/svelte#3",
+          "crumb": "Svelte > Set Up Your Application > Configure your AI Gateway API key",
+          "url": "https://ai-sdk.dev/docs/getting-started/svelte#configure-your-ai-gateway-api-key",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": null,
+      "status": "unanswerable",
+      "answer": "\n\nI couldn't find any information about built-in default rate limits per API key in the provided documentation sources. The sources cover the AI SDK's introduction, provider lists, AI Gateway setup, and Svelte configuration, but none of them discuss rate limiting.\n\nYou may want to check the [Vercel AI Gateway documentation](https://ai-sdk.dev/providers/ai-sdk-providers/ai-gateway) directly for rate limit details, as that's where such limits would most likely be documented.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 6959,
+      "inputTokens": 3228,
+      "outputTokens": 243,
+      "reasoningTokens": 142,
+      "costUsd": 0.0004210775,
+      "citations": [],
+      "invalidCitations": [],
+      "citesEvidence": null
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q20",
+      "answerable": false,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/introduction#0",
+          "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+          "url": "https://ai-sdk.dev/docs/introduction#why-use-the-ai-sdk",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/getting-started/nextjs-app-router#2",
+          "crumb": "Next.js App Router > Create Your Application > Install dependencies",
+          "url": "https://ai-sdk.dev/docs/getting-started/nextjs-app-router#install-dependencies",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/migration-guides/migration-guide-6-0#0",
+          "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK 6.0 Package Versions",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0#ai-sdk-60-package-versions",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/getting-started/tanstack-start#2",
+          "crumb": "TanStack Start > Create Your Application > Install dependencies",
+          "url": "https://ai-sdk.dev/docs/getting-started/tanstack-start#install-dependencies",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/cookbook/guides/gpt-5#7",
+          "crumb": "Get started with GPT-5 > Getting Started with the AI SDK > Building Interactive Interfaces",
+          "url": "https://ai-sdk.dev/cookbook/guides/gpt-5#building-interactive-interfaces",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": null,
+      "status": "unanswerable",
+      "answer": "\n\nI couldn't find any information about weekly npm downloads for the `ai` package in the provided documentation sources. The sources cover installation, architecture, migration, and usage examples, but don't include download statistics.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 6544,
+      "inputTokens": 2110,
+      "outputTokens": 256,
+      "reasoningTokens": 212,
+      "costUsd": 0.00042201,
+      "citations": [],
+      "invalidCitations": [],
+      "citesEvidence": null
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q01",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/migration-guides/migration-guide-7-0#9",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (2/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#prompts-and-step-preparation",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/migration-guides/migration-guide-7-0#8",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (1/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#prompts-and-step-preparation",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/foundations/prompts#2",
+          "crumb": "Prompts > System Prompts",
+          "url": "https://ai-sdk.dev/docs/foundations/prompts#system-prompts",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/cookbook/guides/o1#3",
+          "crumb": "Get started with OpenAI o1 > Getting Started with the AI SDK",
+          "url": "https://ai-sdk.dev/cookbook/guides/o1#getting-started-with-the-ai-sdk",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/cookbook/guides/o3#3",
+          "crumb": "Get started with OpenAI o3-mini > Getting Started with the AI SDK",
+          "url": "https://ai-sdk.dev/cookbook/guides/o3#getting-started-with-the-ai-sdk",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "Use the top-level `instructions` option to pass a system prompt to `generateText` [2][3].\n\n```ts\nimport { generateText } from 'ai';\n\nconst result = await generateText({\n  model: yourModel,\n  instructions: 'You are a helpful assistant.',\n  prompt: 'Hello!',\n});\n```",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 3351,
+      "inputTokens": 2863,
+      "outputTokens": 332,
+      "reasoningTokens": 262,
+      "costUsd": 0.00024633,
+      "citations": [
+        2,
+        3
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q02",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/migration-guides/migration-guide-7-0#9",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Prompts and Step Preparation (2/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#prompts-and-step-preparation",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/generate-text#2",
+          "crumb": "generateText > API Signature > Parameters (2/23)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-text#parameters",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/foundations/prompts#7",
+          "crumb": "Prompts > Message Prompts > Assistant Messages",
+          "url": "https://ai-sdk.dev/docs/foundations/prompts#assistant-messages",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-ui/chatbot-message-persistence#4",
+          "crumb": "Chatbot Message Persistence > Validating messages on the server > Handling validation errors",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-message-persistence#handling-validation-errors",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/foundations/prompts#3",
+          "crumb": "Prompts > Message Prompts",
+          "url": "https://ai-sdk.dev/docs/foundations/prompts#message-prompts",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "In AI SDK 7, system messages (`{ role: 'system' }`) in the `messages` array are rejected by default, unlike in v6. This is a breaking change introduced to improve security and consistency [1].\n\nTo fix this, you have two options:\n\n1. **Move the system instruction to the top-level `instructions` option** (recommended):\n```ts\nconst result = await generateText({\n  model: yourModel,\n  instructions: 'You are a helpful assistant.', // system instruction here\n  messages: [\n    { role: 'user', content: 'Hello!' },\n    // ... other messages\n  ],\n});\n```\n\n2. **Keep existing messages by opting into the previous behavior** (only for trusted messages):\n```ts\nconst result = await generateText({\n  model: yourModel,\n  allowSystemInMessages: true, // opt-in to v6 behavior\n  messages: persistedMessages, // your database messages\n});\n```\n\nOnly use `allowSystemInMessages: true` if your system messages come from trusted server-side code, as user-editable messages could inject system instructions [1].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 3600,
+      "inputTokens": 3023,
+      "outputTokens": 469,
+      "reasoningTokens": 233,
+      "costUsd": 0.00033093,
+      "citations": [
+        1
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q03",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/introduction#0",
+          "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+          "url": "https://ai-sdk.dev/docs/introduction#why-use-the-ai-sdk",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/troubleshooting/unsupported-model-version#1",
+          "crumb": "Unsupported model version error > Solution > Update provider packages to AI SDK 5 compatible versions",
+          "url": "https://ai-sdk.dev/docs/troubleshooting/unsupported-model-version#update-provider-packages-to-ai-sdk-5-compatible-versions",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/migration-guides/migration-guide-7-0#22",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Tools and Tool Execution (3/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#tools-and-tool-execution",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/migration-guides/migration-guide-6-0#0",
+          "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK 6.0 Package Versions",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0#ai-sdk-60-package-versions",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/cookbook/guides/sonnet-3-7#2",
+          "crumb": "Get started with Claude 3.7 Sonnet > Getting Started with the AI SDK",
+          "url": "https://ai-sdk.dev/cookbook/guides/sonnet-3-7#getting-started-with-the-ai-sdk",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": false,
+      "status": "fail",
+      "answer": "I couldn't find the Node.js version requirement or `require()` import support in the provided documentation sources.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "22",
+        "ESM"
+      ],
+      "staleHits": [],
+      "latencyMs": 1867,
+      "inputTokens": 2091,
+      "outputTokens": 201,
+      "reasoningTokens": 177,
+      "costUsd": 0.00015561,
+      "citations": [],
+      "invalidCitations": [],
+      "citesEvidence": false
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q04",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#multi-step-calls-using-stopwhen",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#11",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Example",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#example",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#14",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Tool call execution concurrency",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#tool-call-execution-concurrency",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/agents/loop-control#17",
+          "crumb": "Loop Control > Forced Tool Calling",
+          "url": "https://ai-sdk.dev/docs/agents/loop-control#forced-tool-calling",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#12",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Steps",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#steps",
+          "evidence": true
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "Use the `isStepCount(5)` stopping condition with the `stopWhen` parameter in `generateText` or `streamText`:\n\n```ts\nimport { generateText, tool, isStepCount } from 'ai';\n\nawait generateText({\n  model: 'your-model',\n  tools: { /* your tools */ },\n  stopWhen: isStepCount(5), // stops after 5 steps\n  prompt: 'Your prompt here',\n});\n```\n\n[1][2]",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 3600,
+      "inputTokens": 2126,
+      "outputTokens": 269,
+      "reasoningTokens": 168,
+      "costUsd": 0.00019734,
+      "citations": [
+        1,
+        2
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q05",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/reference/ai-sdk-workflow/workflow-agent#1",
+          "crumb": "WorkflowAgent > Constructor > Parameters (1/4)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-workflow/workflow-agent#parameters",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/agent#1",
+          "crumb": "Agent (Interface) > Interface Definition",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/agent#interface-definition",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/agents/building-agents#13",
+          "crumb": "Building Agents > Using an Agent > Lifecycle Callbacks (1/2)",
+          "url": "https://ai-sdk.dev/docs/agents/building-agents#lifecycle-callbacks",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/reference/ai-sdk-core/tool-loop-agent#1",
+          "crumb": "ToolLoopAgent > Constructor > Parameters (1/7)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool-loop-agent#parameters",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-core/tool-loop-agent#13",
+          "crumb": "ToolLoopAgent > Examples > Basic Agent with Tools",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool-loop-agent#basic-agent-with-tools",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "Use the `ToolLoopAgent` class to build a tool-using agent. It runs 20 steps by default [4].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 2498,
+      "inputTokens": 3562,
+      "outputTokens": 317,
+      "reasoningTokens": 288,
+      "costUsd": 0.00024714,
+      "citations": [
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q06",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/reference/ai-sdk-core/output#2",
+          "crumb": "Output > Output Types > `Output.object()`",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/output#outputobject",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/zod-schema#0",
+          "crumb": "zodSchema",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/zod-schema",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/prompt-engineering#1",
+          "crumb": "Prompt Engineering > Tips > Tool & Structured Data Schemas",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/prompt-engineering#tool-structured-data-schemas",
+          "evidence": true
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/generating-structured-data#6",
+          "crumb": "Generating Structured Data > Output Types > `Output.object()`",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-structured-data#outputobject",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-ui/use-object#1",
+          "crumb": "useObject > API Signature > Parameters",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-object#parameters",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "To get a typed object that matches a Zod schema from the model, use the `Output.object()` function with your Zod schema. The SDK will validate the output against the schema and provide full type safety.\n\n```ts\nimport { generateText, Output } from 'ai';\nimport { z } from 'zod';\n\nconst { output } = await generateText({\n  model: yourModel,\n  output: Output.object({\n    schema: z.object({\n      name: z.string(),\n      age: z.number().nullable(),\n      labels: z.array(z.string()),\n    }),\n  }),\n  prompt: 'Generate information for a test user.',\n});\n// output is fully typed and validated against the schema\n```\n\nThe returned `output` will be an object that matches your Zod schema type exactly [1, 4].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 3087,
+      "inputTokens": 2288,
+      "outputTokens": 405,
+      "reasoningTokens": 236,
+      "costUsd": 0.00028164,
+      "citations": [
+        1,
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q07",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/foundations/streaming#1",
+          "crumb": "Streaming > Real-world Examples > Streaming UI",
+          "url": "https://ai-sdk.dev/docs/foundations/streaming#streaming-ui",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/cookbook/node/stream-object#0",
+          "crumb": "Stream Object",
+          "url": "https://ai-sdk.dev/cookbook/node/stream-object",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/advanced/rendering-ui-with-language-models#3",
+          "crumb": "Rendering UI with Language Models > Rendering User Interfaces on the Server",
+          "url": "https://ai-sdk.dev/docs/advanced/rendering-ui-with-language-models#rendering-user-interfaces-on-the-server",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/generating-structured-data#15",
+          "crumb": "Generating Structured Data > More Examples > `generateText` with Output",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-structured-data#generatetext-with-output",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/cookbook/next/stream-object#0",
+          "crumb": "Stream Object > Object Mode",
+          "url": "https://ai-sdk.dev/cookbook/next/stream-object#object-mode",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "To stream a structured object so the UI can render it while it's being generated, use `streamText` with `Output.object` and the `partialOutputStream` property. This streams partial objects as they're generated, allowing real-time UI updates.\n\n```ts\nimport { streamText, Output } from 'ai';\nimport { z } from 'zod';\n\nconst { partialOutputStream } = streamText({\n  model: 'openai/gpt-6-astra',\n  output: Output.object({\n    schema: z.object({\n      recipe: z.object({\n        name: z.string(),\n        ingredients: z.array(z.string()),\n        steps: z.array(z.string()),\n      }),\n    }),\n  }),\n  prompt: 'Generate a lasagna recipe.',\n});\n\nfor await (const partialObject of partialOutputStream) {\n  // Update UI with partialObject as it streams in\n  console.log(partialObject);\n}\n```\n\n[2][5]",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 3137,
+      "inputTokens": 1942,
+      "outputTokens": 417,
+      "reasoningTokens": 222,
+      "costUsd": 0.0002823,
+      "citations": [
+        2,
+        5
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q08",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-core/generating-text#1",
+          "crumb": "Generating Text > `generateText` (1/2)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-text#generatetext",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/migration-guides/migration-guide-7-0#26",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Multi-Step Result Shape (1/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#multi-step-result-shape",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#12",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > Steps",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#steps",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/migration-guides/migration-guide-7-0#27",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Multi-Step Result Shape (2/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#multi-step-result-shape",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#multi-step-calls-using-stopwhen",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "In a multi-step `generateText` call, `result.usage` covers **all steps** (total token usage across all steps) [2].\n\nTo get the usage for only the **last step**, use `result.finalStep.usage` [2].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 2269,
+      "inputTokens": 3339,
+      "outputTokens": 283,
+      "reasoningTokens": 226,
+      "costUsd": 0.00022353,
+      "citations": [
+        2
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q09",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/foundations/prompts#8",
+          "crumb": "Prompts > Message Prompts > Tool Messages (1/2)",
+          "url": "https://ai-sdk.dev/docs/foundations/prompts#tool-messages",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#10",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#multi-step-calls-using-stopwhen",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-ui/chatbot-tool-usage#0",
+          "crumb": "Chatbot Tool Usage",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-tool-usage",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#16",
+          "crumb": "Tool Calling > Multi-Step Calls (using stopWhen) > `prepareStep` callback (1/2)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#preparestep-callback",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-core/tool-loop-agent#5",
+          "crumb": "ToolLoopAgent > Constructor > Parameters (5/7)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool-loop-agent#parameters",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": false,
+      "status": "fail",
+      "answer": "You can access the full list of assistant and tool messages from the result of `generateText` or `streamText`. The SDK maintains the complete conversation history across multi-step tool calls in the `messages` property of the result.\n\n```ts\nimport { generateText } from 'ai';\n\nconst result = await generateText({\n  model: 'anthropic/claude-sonnet-5.5',\n  tools: { /* your tools */ },\n  stopWhen: 'natural' as const, // or your custom condition\n  messages: initialMessages,\n});\n\nconst fullMessageHistory = result.messages; // Save this to your database\n```\n\nThe `messages` array contains all user messages, assistant messages (including tool calls), and tool messages (tool results) in chronological order. Each assistant message with tool calls will have `content` parts of type `'tool-call'`, and each tool result appears as a `'tool-result'` part in the assistant message or as a separate tool message, depending on the model's output format [1][3].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [
+        "responseMessages"
+      ],
+      "staleHits": [],
+      "latencyMs": 9574,
+      "inputTokens": 3267,
+      "outputTokens": 1459,
+      "reasoningTokens": 1243,
+      "costUsd": 0.00092697,
+      "citations": [
+        1,
+        3
+      ],
+      "invalidCitations": [],
+      "citesEvidence": false
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q10",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-core/generating-text#10",
+          "crumb": "Generating Text > `streamText` > Lifecycle callbacks (experimental)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-text#lifecycle-callbacks-experimental",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/stream-text#31",
+          "crumb": "streamText > API Signature > Returns (6/13)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text#returns",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/reference/ai-sdk-core/stream-text#32",
+          "crumb": "streamText > API Signature > Returns (7/13)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text#returns",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/generating-text#11",
+          "crumb": "Generating Text > `streamText` > `stream` property",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/generating-text#stream-property",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-core/stream-text#12",
+          "crumb": "streamText > API Signature > Parameters (12/25)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text#parameters",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "Use the `stream` property returned by `streamText` and iterate over it with `for await...of`. Each event is a `TextStreamPart` with a `type` field you can switch on:\n\n```ts\nimport { streamText } from 'ai';\n\nconst result = streamText({\n  model: 'anthropic/claude-sonnet-5.5',\n  prompt: 'List the attractions in San Francisco',\n});\n\nfor await (const part of result.stream) {\n  switch (part.type) {\n    case 'text-delta': {\n      console.log('Text delta:', part.text);\n      break;\n    }\n    case 'tool-call': {\n      console.log('Tool call:', part.toolName, part.input);\n      break;\n    }\n    case 'tool-result': {\n      console.log('Tool result:', part.toolName, part.output);\n      break;\n    }\n    // handle other event types as needed\n    default: {\n      // optional: log unhandled types\n      console.log('Event:', part.type, part);\n    }\n  }\n}\n```\n\n[4]",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 3229,
+      "inputTokens": 3940,
+      "outputTokens": 444,
+      "reasoningTokens": 215,
+      "costUsd": 0.0003282,
+      "citations": [
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q11",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-rsc/migrating-to-ui#1",
+          "crumb": "Migrating from RSC to UI > Streaming Chat Completions > Basic Setup (1/2)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-rsc/migrating-to-ui#basic-setup",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/ai-sdk-ui/stream-protocol#16",
+          "crumb": "Stream Protocols > Data Stream Protocol > UI Message Stream Example",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-ui/stream-protocol#ui-message-stream-example",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/getting-started/nuxt#3",
+          "crumb": "Vue.js (Nuxt) > Create an API route",
+          "url": "https://ai-sdk.dev/docs/getting-started/nuxt#create-an-api-route",
+          "evidence": true
+        },
+        {
+          "n": 4,
+          "id": "/docs/getting-started/svelte#4",
+          "crumb": "Svelte > Create an API route",
+          "url": "https://ai-sdk.dev/docs/getting-started/svelte#create-an-api-route",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/ai-sdk-ui/chatbot#12",
+          "crumb": "Chatbot > Transport Configuration > Advanced: Trigger-based routing",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot#advanced-trigger-based-routing",
+          "evidence": true
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "To return a UI message stream from your API route so `useChat` can consume it, follow this pattern:\n\n1. Use `streamText` to generate the stream\n2. Convert it with `toUIMessageStream`\n3. Return it using `createUIMessageStreamResponse`\n\n**Example API route (Next.js):**\n```ts\nimport {\n  convertToModelMessages,\n  createUIMessageStreamResponse,\n  streamText,\n  toUIMessageStream,\n  UIMessage,\n} from 'ai';\n\nexport async function POST(req: Request) {\n  const { messages }: { messages: UIMessage[] } = await req.json();\n\n  const result = streamText({\n    model: \"anthropic/claude-sonnet-5.5\",\n    messages: await convertToModelMessages(messages),\n  });\n\n  return createUIMessageStreamResponse({\n    stream: toUIMessageStream({ stream: result.stream }),\n  });\n}\n```\n\n**Key points:**\n- `UIMessage[]` is the format expected by the UI layer\n- `convertToModelMessages` transforms UI messages to the format expected by the model\n- The response must be wrapped in `createUIMessageStreamResponse` for the client to process it correctly [2,3,4]",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 4350,
+      "inputTokens": 3233,
+      "outputTokens": 603,
+      "reasoningTokens": 343,
+      "costUsd": 0.00041259,
+      "citations": [
+        2,
+        3,
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q12",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#6",
+          "crumb": "Tool Calling > Tool Execution Approval > How It Works",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#how-it-works",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/agents/tool-approvals#6",
+          "crumb": "Tool Approvals > Handle Manual Approvals",
+          "url": "https://ai-sdk.dev/docs/agents/tool-approvals#handle-manual-approvals",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#7",
+          "crumb": "Tool Calling > Tool Execution Approval > Handling Approval Requests (1/2)",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#handling-approval-requests",
+          "evidence": true
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#5",
+          "crumb": "Tool Calling > Tool Execution Approval > Configure `toolApproval`",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#configure-toolapproval",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/ai-sdk-ui/chatbot-tool-usage#5",
+          "crumb": "Chatbot Tool Usage > Tool Execution Approval",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-ui/chatbot-tool-usage#tool-execution-approval",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "To make a `deleteFile` tool require user approval before execution, configure the `toolApproval` option with `'user-approval'` for that tool:\n\n```ts\nimport { generateText } from 'ai';\n\nconst result = await generateText({\n  model: 'your-model',\n  tools: { deleteFile },\n  toolApproval: {\n    deleteFile: 'user-approval', // or use object form below\n  },\n  messages: [{ role: 'user', content: 'Delete temp.txt' }],\n});\n```\n\nOr with an optional reason shown to the user:\n\n```ts\ntoolApproval: {\n  deleteFile: {\n    type: 'user-approval',\n    reason: 'Deleting files can permanently remove data',\n  },\n},\n```\n\nThis will:\n1. First call returns a `tool-approval-request` part in the result\n2. You collect user approval/denial\n3. Add a `tool-approval-response` to messages\n4. Call the model again to execute (if approved) or continue without execution (if denied) [1][2][3][4]",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 3693,
+      "inputTokens": 2672,
+      "outputTokens": 478,
+      "reasoningTokens": 251,
+      "costUsd": 0.0003312,
+      "citations": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q13",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/reference/ai-sdk-core/tool#2",
+          "crumb": "tool > API Signature > Parameters (2/3)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/tool#parameters",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/stream-text#7",
+          "crumb": "streamText > API Signature > Parameters (7/25)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text#parameters",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/tools-and-tool-calling#23",
+          "crumb": "Tool Calling > Tool Execution Options > Tool Call ID",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/tools-and-tool-calling#tool-call-id",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/reference/ai-sdk-core/dynamic-tool#1",
+          "crumb": "dynamicTool > API Signature > Parameters (1/2)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/dynamic-tool#parameters",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-workflow/workflow-agent#1",
+          "crumb": "WorkflowAgent > Constructor > Parameters (1/4)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-workflow/workflow-agent#parameters",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "To pass an API key (or other runtime data) into a tool's `execute` function without hardcoding it, use the **`context` parameter** in the tool's execution options. The context is passed when calling the generation API (e.g., `streamText`) via the `toolsContext` option.\n\n### How to do it:\n1. **Define your tool** to accept a `context` parameter in its `execute` function.\n2. **Pass the API key** when calling `streamText` (or similar APIs) using the `toolsContext` option.\n\n---\n\n### Example:\n```ts\nimport { streamText, tool } from 'ai';\n\nconst result = await streamText({\n  model: /* your model */,\n  tools: {\n    // Tool definition with context parameter\n    fetchData: tool({\n      description: 'Fetch data from an API',\n      inputSchema: z.object({ query: z.string() }),\n      execute: async ({ query }, { context }) => {\n        // Use the API key from context\n        const apiKey = context.apiKey;\n        const response = await fetch(\n          `https://api.example.com/data?query=${query}`,\n          { headers: { Authorization: `Bearer ${apiKey}` } }\n        );\n        return response.json();\n      },\n    }),\n  },\n  // Pass the API key via toolsContext\n  toolsContext: {\n    fetchData: { apiKey: 'your-api-key-here' }, // Runtime value\n  },\n});\n\nfor await (const chunk of result.fullStream) {\n  // Process stream...\n}\n```\n\n### Key Points:\n- The `context` parameter in `execute` receives the object passed via `toolsContext`.\n- The tool's `context` type is inferred from the `contextSchema` (if provided) or explicitly typed.\n- This pattern avoids hardcoding secrets in the tool definition itself.\n\n[1][4]",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 7902,
+      "inputTokens": 3548,
+      "outputTokens": 1233,
+      "reasoningTokens": 839,
+      "costUsd": 0.0007968,
+      "citations": [
+        1,
+        4
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q14",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/migration-guides/migration-guide-7-0#14",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (1/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#telemetry",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/ai-sdk-core/telemetry#0",
+          "crumb": "Telemetry > Enabling telemetry > Step 1: Register the OpenTelemetry integration",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/telemetry#step-1-register-the-opentelemetry-integration",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/migration-guides/migration-guide-7-0#15",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (2/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#telemetry",
+          "evidence": true
+        },
+        {
+          "n": 4,
+          "id": "/docs/ai-sdk-core/telemetry#10",
+          "crumb": "Telemetry > Telemetry Integrations > Tracing channel",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/telemetry#tracing-channel",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/introduction#0",
+          "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+          "url": "https://ai-sdk.dev/docs/introduction#why-use-the-ai-sdk",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "To enable OpenTelemetry tracing for all AI SDK calls in version 7:\n\n1. Install the `@ai-sdk/otel` package:\n```bash\npnpm install @ai-sdk/otel\n```\n\n2. Register the OpenTelemetry integration once at application startup:\n\n**For Next.js** (in `instrumentation.ts`):\n```ts\nimport { registerOTel } from '@vercel/otel';\nimport { registerTelemetry } from 'ai';\nimport { OpenTelemetry } from '@ai-sdk/otel';\n\nexport function register() {\n  registerOTel({ serviceName: 'my-ai-app' });\n  registerTelemetry(new OpenTelemetry());\n}\n```\n\n**For Node.js** (in your entry file):\n```ts\nimport { registerTelemetry } from 'ai';\nimport { OpenTelemetry } from '@ai-sdk/otel';\n\nregisterTelemetry(new OpenTelemetry());\n```\n\nOnce registered, OpenTelemetry tracing will be enabled by default for all AI SDK calls (including `generateText`, `streamText`, `embed`, etc.) without needing to add any per-call configuration [1][2].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 3428,
+      "inputTokens": 2997,
+      "outputTokens": 536,
+      "reasoningTokens": 305,
+      "costUsd": 0.00036939,
+      "citations": [
+        1,
+        2
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q15",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/reference/ai-sdk-core/generate-text#25",
+          "crumb": "generateText > API Signature > Returns (2/6)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-text#returns",
+          "evidence": true
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/stream-text#26",
+          "crumb": "streamText > API Signature > Returns (1/13)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/stream-text#returns",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/cookbook/node/dynamic-prompt-caching#5",
+          "crumb": "Dynamic Prompt Caching > Considerations",
+          "url": "https://ai-sdk.dev/cookbook/node/dynamic-prompt-caching#considerations",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/reference/ai-sdk-core/generate-text#18",
+          "crumb": "generateText > API Signature > Parameters (18/23)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-text#parameters",
+          "evidence": true
+        },
+        {
+          "n": 5,
+          "id": "/docs/reference/ai-sdk-core/generate-text#28",
+          "crumb": "generateText > API Signature > Returns (5/6)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/generate-text#returns",
+          "evidence": true
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "To read how many input tokens were served from the prompt cache, use the `cacheReadTokens` property in the `inputTokenDetails` object of the `usage` object.\n\n**Example:**\n```ts\nimport { generateText } from 'ai';\n\nconst { usage } = await generateText({\n  model: yourModel,\n  prompt: '...',\n});\n\nconst cachedInputTokens = usage.inputTokenDetails?.cacheReadTokens;\nconsole.log('Cached input tokens:', cachedInputTokens);\n```\n\nThe cached input tokens are available in:\n- `generateText` via `result.usage.inputTokenDetails.cacheReadTokens` [1,4,5]\n- `streamText` via `result.usage.inputTokenDetails.cacheReadTokens` [2]",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [
+        "cachedInputTokens"
+      ],
+      "latencyMs": 3130,
+      "inputTokens": 2929,
+      "outputTokens": 386,
+      "reasoningTokens": 232,
+      "costUsd": 0.00027783,
+      "citations": [
+        1,
+        2,
+        4,
+        5
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q16",
+      "answerable": true,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/ai-sdk-core/embeddings#8",
+          "crumb": "Embeddings > Embedding Providers & Models",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/embeddings#embedding-providers-models",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/reference/ai-sdk-core/embed#0",
+          "crumb": "embed > API Signature > Parameters (1/2)",
+          "url": "https://ai-sdk.dev/docs/reference/ai-sdk-core/embed#parameters",
+          "evidence": true
+        },
+        {
+          "n": 3,
+          "id": "/docs/ai-sdk-core/embeddings#0",
+          "crumb": "Embeddings > Embedding a Single Value",
+          "url": "https://ai-sdk.dev/docs/ai-sdk-core/embeddings#embedding-a-single-value",
+          "evidence": true
+        },
+        {
+          "n": 4,
+          "id": "/cookbook/guides/rag-chatbot#12",
+          "crumb": "RAG Agent > Build > Generate Embeddings",
+          "url": "https://ai-sdk.dev/cookbook/guides/rag-chatbot#generate-embeddings",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/migration-guides/migration-guide-6-0#11",
+          "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK Core > Embedding Model Method Rename",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0#embedding-model-method-rename",
+          "evidence": true
+        }
+      ],
+      "evidenceInSources": true,
+      "status": "pass",
+      "answer": "To create an OpenAI embedding model and embed a single string, use the `embed` function with either a string model reference or a programmatic model:\n\n```ts\nimport { embed } from 'ai';\n\nconst { embedding } = await embed({\n  model: 'openai/text-embedding-3-small',\n  value: 'sunny day at the beach',\n});\n```\n\nOr programmatically:\n\n```ts\nimport { openai } from '@ai-sdk/openai';\nimport { embed } from 'ai';\n\nconst model = openai.embedding('text-embedding-3-small');\nconst { embedding } = await embed({ model, value: 'sunny day at the beach' });\n```\n\n[2][3][5]",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 3682,
+      "inputTokens": 2670,
+      "outputTokens": 552,
+      "reasoningTokens": 400,
+      "costUsd": 0.0003753,
+      "citations": [
+        2,
+        3,
+        5
+      ],
+      "invalidCitations": [],
+      "citesEvidence": true
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q17",
+      "answerable": false,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/introduction#0",
+          "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+          "url": "https://ai-sdk.dev/docs/introduction#why-use-the-ai-sdk",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/foundations/providers-and-models#1",
+          "crumb": "Providers and Models > AI SDK Providers (1/2)",
+          "url": "https://ai-sdk.dev/docs/foundations/providers-and-models#ai-sdk-providers",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/migration-guides#0",
+          "crumb": "Migration Guides",
+          "url": "https://ai-sdk.dev/docs/migration-guides",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/migration-guides/migration-guide-7-0#22",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Tools and Tool Execution (3/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#tools-and-tool-execution",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/migration-guides/migration-guide-7-0#20",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Tools and Tool Execution (1/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#tools-and-tool-execution",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": null,
+      "status": "unanswerable",
+      "answer": "I couldn't find information about when AI SDK 8 will be released in the provided documentation sources.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 2355,
+      "inputTokens": 3142,
+      "outputTokens": 224,
+      "reasoningTokens": 201,
+      "costUsd": 0.0006057,
+      "citations": [],
+      "invalidCitations": [],
+      "citesEvidence": null
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q18",
+      "answerable": false,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/migration-guides/migration-guide-6-0#5",
+          "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK Core > `generateObject` and `streamObject` Deprecation",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0#generateobject-and-streamobject-deprecation",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/migration-guides/migration-guide-7-0#6",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Core API Renames and Removals (1/2)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#core-api-renames-and-removals",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/migration-guides/migration-guide-6-0#15",
+          "crumb": "Migrate AI SDK 5.x to 6.0 > Providers > OpenAI",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0#openai",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/migration-guides/migration-guide-7-0#22",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Tools and Tool Execution (3/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#tools-and-tool-execution",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/migration-guides/migration-guide-7-0#15",
+          "crumb": "Migrate AI SDK 6.x to 7.0 > AI SDK Core > Telemetry (2/3)",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-7-0#telemetry",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": null,
+      "status": "unanswerable",
+      "answer": "I couldn't find a specific removal date for `generateObject` in the provided documentation sources. The sources only state that it has been deprecated and will be removed in a future version, without specifying a date [1].",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 2122,
+      "inputTokens": 3636,
+      "outputTokens": 226,
+      "reasoningTokens": 179,
+      "costUsd": 0.00019284,
+      "citations": [
+        1
+      ],
+      "invalidCitations": [],
+      "citesEvidence": null
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q19",
+      "answerable": false,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/introduction#0",
+          "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+          "url": "https://ai-sdk.dev/docs/introduction#why-use-the-ai-sdk",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/foundations/providers-and-models#1",
+          "crumb": "Providers and Models > AI SDK Providers (1/2)",
+          "url": "https://ai-sdk.dev/docs/foundations/providers-and-models#ai-sdk-providers",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/foundations/providers-and-models#2",
+          "crumb": "Providers and Models > AI SDK Providers (2/2)",
+          "url": "https://ai-sdk.dev/docs/foundations/providers-and-models#ai-sdk-providers",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/getting-started/choosing-a-provider#0",
+          "crumb": "Choosing a Provider > AI Gateway",
+          "url": "https://ai-sdk.dev/docs/getting-started/choosing-a-provider#ai-gateway",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/docs/getting-started/svelte#3",
+          "crumb": "Svelte > Set Up Your Application > Configure your AI Gateway API key",
+          "url": "https://ai-sdk.dev/docs/getting-started/svelte#configure-your-ai-gateway-api-key",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": null,
+      "status": "unanswerable",
+      "answer": "I couldn't find information about built-in default rate limits per API key in the provided documentation excerpts.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 1695,
+      "inputTokens": 3219,
+      "outputTokens": 103,
+      "reasoningTokens": 78,
+      "costUsd": 0.00011265,
+      "citations": [],
+      "invalidCitations": [],
+      "citesEvidence": null
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q20",
+      "answerable": false,
+      "sources": [
+        {
+          "n": 1,
+          "id": "/docs/introduction#0",
+          "crumb": "AI SDK by Vercel > Why use the AI SDK?",
+          "url": "https://ai-sdk.dev/docs/introduction#why-use-the-ai-sdk",
+          "evidence": false
+        },
+        {
+          "n": 2,
+          "id": "/docs/getting-started/nextjs-app-router#2",
+          "crumb": "Next.js App Router > Create Your Application > Install dependencies",
+          "url": "https://ai-sdk.dev/docs/getting-started/nextjs-app-router#install-dependencies",
+          "evidence": false
+        },
+        {
+          "n": 3,
+          "id": "/docs/migration-guides/migration-guide-6-0#0",
+          "crumb": "Migrate AI SDK 5.x to 6.0 > AI SDK 6.0 Package Versions",
+          "url": "https://ai-sdk.dev/docs/migration-guides/migration-guide-6-0#ai-sdk-60-package-versions",
+          "evidence": false
+        },
+        {
+          "n": 4,
+          "id": "/docs/getting-started/tanstack-start#2",
+          "crumb": "TanStack Start > Create Your Application > Install dependencies",
+          "url": "https://ai-sdk.dev/docs/getting-started/tanstack-start#install-dependencies",
+          "evidence": false
+        },
+        {
+          "n": 5,
+          "id": "/cookbook/guides/gpt-5#7",
+          "crumb": "Get started with GPT-5 > Getting Started with the AI SDK > Building Interactive Interfaces",
+          "url": "https://ai-sdk.dev/cookbook/guides/gpt-5#building-interactive-interfaces",
+          "evidence": false
+        }
+      ],
+      "evidenceInSources": null,
+      "status": "unanswerable",
+      "answer": "I couldn't find information about weekly npm downloads for the `ai` package in the provided documentation sources.",
+      "finishReason": "stop",
+      "error": null,
+      "missing": [],
+      "staleHits": [],
+      "latencyMs": 1516,
+      "inputTokens": 1984,
+      "outputTokens": 140,
+      "reasoningTokens": 116,
+      "costUsd": 0.00011808,
+      "citations": [],
+      "invalidCitations": [],
+      "citesEvidence": null
+    }
+  ]
+}

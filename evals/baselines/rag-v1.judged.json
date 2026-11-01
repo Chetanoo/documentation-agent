@@ -1,0 +1,326 @@
+{
+  "runFile": "rag-2026-11-01T18-40-41-945Z.json",
+  "judgeModel": "google/gemini-3.6-flash",
+  "judgments": [
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the top-level `instructions` option for `generateText` and mentions that `system` is supported as a deprecated fallback, matching the reference key points.",
+      "judgeCostUsd": 0.000771
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that AI SDK 7 rejects system messages in `messages` by default, recommends moving them to the top-level `instructions` option, and mentions using `allowSystemInMessages: true` with a security warning for trusted persisted chats.",
+      "judgeCostUsd": 0.00104625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q03",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The question is answerable from the documentation reference (Node.js 22+ required, ESM-only/no require()), but the answer incorrectly claims the documentation does not contain this information.",
+      "judgeCostUsd": 0.00136875
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses `stopWhen: isStepCount(5)` as documented in v7.",
+      "judgeCostUsd": 0.00072075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies the ToolLoopAgent class and states that it runs for 20 steps by default using isStepCount(20), matching the reference.",
+      "judgeCostUsd": 0.00075075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `generateText` with `output: Output.object({ schema })` and reading `output`, which matches the reference.",
+      "judgeCostUsd": 0.00081375
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `streamText` with `Output.object` and consuming `partialOutputStream`, matching the reference exactly.",
+      "judgeCostUsd": 0.00081
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that result.usage covers all steps and result.finalStep.usage gives the final step, matching the reference documentation.",
+      "judgeCostUsd": 0.00072
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q09",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly claims that `generateText` does not provide a property returning the accumulated message list, missing `result.responseMessages` and `result.steps` (which are in the reference).",
+      "judgeCostUsd": 0.000945
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q10",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends iterating over `result.stream` using a `for await...of` loop, matching the reference key points.",
+      "judgeCostUsd": 0.0009645
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `toUIMessageStream` and `createUIMessageStreamResponse` as outlined in the reference.",
+      "judgeCostUsd": 0.00086925
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q12",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates setting `toolApproval: { deleteFile: 'user-approval' }` on the `generateText` call, matching the reference guidance.",
+      "judgeCostUsd": 0.00114075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes using `contextSchema` on the tool, passing values via `toolsContext`, and accessing `{ context }` in the `execute` function.",
+      "judgeCostUsd": 0.00093825
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q14",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes installing `@ai-sdk/otel`, calling `registerTelemetry(new OpenTelemetry())` at startup, and notes that telemetry is enabled by default across all calls unless explicitly opted out with `isEnabled: false`.",
+      "judgeCostUsd": 0.00093
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q15",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly points to `usage.inputTokenDetails.cacheReadTokens` to read prompt cache tokens, matching the reference.",
+      "judgeCostUsd": 0.00072675
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q16",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `openai.embeddingModel` or the string shorthand with `embed({ model, value })` from the `ai` package, matching the reference key points.",
+      "judgeCostUsd": 0.0007635
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q17",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not contain information about the AI SDK 8 release date.",
+      "judgeCostUsd": 0.0005325
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q18",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not specify a date for when generateObject will be removed.",
+      "judgeCostUsd": 0.00054525
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q19",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the information cannot be found in the documentation.",
+      "judgeCostUsd": 0.0005745
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "q20",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly declined to answer the question as npm download statistics are not provided in the documentation.",
+      "judgeCostUsd": 0.00053325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the top-level `instructions` option to pass a system prompt to `generateText` in accordance with the reference.",
+      "judgeCostUsd": 0.00059025
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that system messages in `messages` are rejected by default in AI SDK 7, recommends moving system instructions to the top-level `instructions` parameter, and mentions setting `allowSystemInMessages: true` for trusted database messages.",
+      "judgeCostUsd": 0.0008595
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q03",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer states it couldn't find the information, but the question is answerable from the documentation.",
+      "judgeCostUsd": 0.00056625
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `stopWhen: isStepCount(5)`, which matches the reference specification for v7.",
+      "judgeCostUsd": 0.00063225
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies the `ToolLoopAgent` class and states that it runs 20 steps by default, which matches the reference key points.",
+      "judgeCostUsd": 0.0006045
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends calling `generateText` with `output: Output.object({ schema })` and accessing `result.output`, matching the v7 reference.",
+      "judgeCostUsd": 0.00074025
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends `streamText` with `Output.object` and iterates over `partialOutputStream`, matching the reference key points.",
+      "judgeCostUsd": 0.00074175
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately states that `result.usage` covers all steps and that `result.finalStep.usage` provides the usage for the last step, matching the reference perfectly.",
+      "judgeCostUsd": 0.000648
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q09",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly claims that the complete message history is accessed via `result.messages`, whereas the Vercel AI SDK provides `result.responseMessages` for getting the full list of assistant and tool messages.",
+      "judgeCostUsd": 0.00080475
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q10",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses `result.stream` with a `for await...of` loop to iterate over text deltas and tool call events, matching the reference.",
+      "judgeCostUsd": 0.00078
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `toUIMessageStream` and returning `createUIMessageStreamResponse`, matching the reference key points.",
+      "judgeCostUsd": 0.000813
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q12",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates setting `toolApproval: { deleteFile: 'user-approval' }` on the `generateText` call as specified in the reference.",
+      "judgeCostUsd": 0.000789
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains using `toolsContext` on the generation call and accessing `context` inside the tool's `execute` function, mentioning `contextSchema` for typing.",
+      "judgeCostUsd": 0.00137775
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q14",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly instructs installing `@ai-sdk/otel`, calling `registerTelemetry(new OpenTelemetry())` at startup, and notes that tracing is enabled by default for all calls.",
+      "judgeCostUsd": 0.000771
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q15",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `usage.inputTokenDetails.cacheReadTokens` as the property to read prompt cache tokens, matching the reference.",
+      "judgeCostUsd": 0.0006975
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q16",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses `openai.embedding(...)` alongside `embed({ model, value })`, which matches the reference recommendations.",
+      "judgeCostUsd": 0.0006885
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q17",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the release date for AI SDK 8 is not available in the documentation without guessing or making up facts.",
+      "judgeCostUsd": 0.0005415
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q18",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that no specific removal date is provided in the documentation.",
+      "judgeCostUsd": 0.00053025
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q19",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that it cannot find information about built-in default rate limits in the documentation.",
+      "judgeCostUsd": 0.00053325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "q20",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the requested npm download information is not in the documentation, correctly declining to answer.",
+      "judgeCostUsd": 0.00052425
+    }
+  ]
+}
