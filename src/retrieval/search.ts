@@ -41,32 +41,35 @@ export async function textSearch(db: pg.Pool | pg.Client, query: string, k: numb
   return rows;
 }
 
-// Reciprocal rank fusion: score = sum over lists of 1 / (rrfK + rank). Only ranks matter,
+// Reciprocal rank fusion: score = sum over lists of weight / (rrfK + rank). Only ranks matter,
 // so the incomparable scores of the two searches never have to be normalized.
-export function rrf(lists: Hit[][], k: number, rrfK = 60): Hit[] {
+// weights[i] defaults to 1; a weight of 0 ignores that list entirely.
+export function rrf(lists: Hit[][], k: number, rrfK = 60, weights: number[] = []): Hit[] {
   const fused = new Map<string, Hit>();
-  for (const list of lists) {
+  lists.forEach((list, li) => {
+    const w = weights[li] ?? 1;
+    if (w === 0) return;
     list.forEach((hit, i) => {
       const prev = fused.get(hit.id);
-      const add = 1 / (rrfK + i + 1);
-      fused.set(hit.id, { ...hit, score: (prev?.score ?? 0) + add });
+      fused.set(hit.id, { ...hit, score: (prev?.score ?? 0) + w / (rrfK + i + 1) });
     });
-  }
+  });
   return [...fused.values()].sort((a, b) => b.score - a.score).slice(0, k);
 }
 
-export type HybridOptions = { candidates?: number; rrfK?: number };
+// textWeight scales full-text results relative to vector results (1 = equal, 0 = vector only).
+export type HybridOptions = { candidates?: number; rrfK?: number; textWeight?: number };
 
 export async function hybridSearch(
   db: pg.Pool | pg.Client,
   query: string,
   embedding: number[],
   k: number,
-  { candidates = 50, rrfK = 60 }: HybridOptions = {},
+  { candidates = 50, rrfK = 60, textWeight = 1 }: HybridOptions = {},
 ): Promise<Hit[]> {
   const [vec, txt] = await Promise.all([
     vectorSearch(db, embedding, candidates),
-    textSearch(db, query, candidates),
+    textWeight === 0 ? Promise.resolve([]) : textSearch(db, query, candidates),
   ]);
-  return rrf([vec, txt], k, rrfK);
+  return rrf([vec, txt], k, rrfK, [1, textWeight]);
 }

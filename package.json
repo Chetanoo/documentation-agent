@@ -16,7 +16,8 @@
     "db:migrate": "tsx scripts/db-migrate.ts",
     "embed": "tsx scripts/embed-chunks.ts",
     "eval:retrieval": "tsx scripts/eval-retrieval.ts",
-    "eval:rag": "tsx scripts/run-rag.ts"
+    "eval:rag": "tsx scripts/run-rag.ts",
+    "experiment:retrieval": "tsx scripts/experiment-retrieval.ts"
   },
   "keywords": [],
   "author": "",
