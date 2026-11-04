@@ -18,6 +18,7 @@ export function Composer({ busy, onAsk, onStop }: Props) {
     if (!el) return;
     el.style.height = 'auto';
     el.style.height = `${Math.min(el.scrollHeight, 168)}px`;
+    el.style.overflowY = el.scrollHeight > 168 ? 'auto' : 'hidden';
   }, [value]);
 
   const submit = () => {
