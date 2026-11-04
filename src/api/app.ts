@@ -3,7 +3,7 @@ import path from 'node:path';
 import Fastify, { type FastifyServerOptions } from 'fastify';
 import rateLimit from '@fastify/rate-limit';
 import fastifyStatic from '@fastify/static';
-import { chatRoutes, type ChatDeps } from '../../../../Downloads/chat.js';
+import { chatRoutes, type ChatDeps } from './chat.js';
 
 export type AppDeps = ChatDeps & {
   ping: () => Promise<void>; // throws if the database is unreachable

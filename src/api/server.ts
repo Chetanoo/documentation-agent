@@ -17,7 +17,7 @@ import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 import { DATABASE_URL } from '../config.js';
 import { retrieveMany } from '../rag/retrieve.js';
 import { MODELS } from '../rag/models.js';
-import { buildApp } from '../../../../Downloads/app.js';
+import { buildApp } from './app.js';
 
 if (!process.env.OPENROUTER_API_KEY) {
   console.error('OPENROUTER_API_KEY is not set. Run via: withsecrets npm run dev:api');
