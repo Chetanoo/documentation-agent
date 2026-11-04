@@ -2,6 +2,8 @@
 
 A question-answering bot over the [Vercel AI SDK 7](https://ai-sdk.dev) documentation. Every answer cites the docs sections it is based on, and an eval suite measures each change, so the bot's accuracy is a number, not an impression.
 
+**Live demo: [ask-ai-docs-agent.onrender.com](https://ask-ai-docs-agent.onrender.com)**. It runs on a free instance that sleeps when idle, so the first visit can take about a minute to wake up.
+
 **Built it, measured it, improved it:** small open models answer 2 of 29 questions correctly on their own. With this pipeline they answer 24–28 of 29 correctly and stop inventing answers to questions the docs don't cover.
 
 ![The chat answering a question, with cited sources in the margin](docs/screenshot.png)
@@ -112,6 +114,12 @@ Scripts read `.env` if it exists; variables already set in the environment take 
 
 To refresh the docs snapshot: `npm run fetch-docs`, then `chunk-docs` and `embed` again (only changed chunks are re-embedded).
 
+## Deployment
+
+- **App:** one Docker service on Render's free tier. The Fastify server serves both the API and the built web app, so there is a single URL and no CORS. The instance sleeps after 15 idle minutes.
+- **Database:** Neon (serverless Postgres with pgvector), loaded with the same `db:migrate` and `embed` scripts as the local database. The health check doesn't touch the database, so it doesn't keep Neon awake, and the connection pool survives Neon closing idle connections.
+- **Cost control:** a rate limit of 6 questions per minute per visitor, and a separate OpenRouter key with its own small credit limit, which caps what the public demo can ever spend.
+
 ## Project structure
 
 ```
@@ -130,7 +138,6 @@ docs/PROGRESS.md    Full lab notebook: decisions, every run, lessons
 - **Single-turn.** Each question is answered on its own; follow-ups like "and for streamText?" would need query rewriting first.
 - **A snapshot,** taken on November 1, 2026. Provider pages and migration guides older than 5→6 are not included.
 - **Full-sentence questions only** in the eval. Bare identifiers ("isStepCount") are where full-text search should help, and they aren't tested yet.
-- **No rate limiting yet**, so the API isn't ready to expose publicly.
 - 35 questions is enough to separate 2/29 from 27/29, not to rank configurations that differ by one question.
 
 ---

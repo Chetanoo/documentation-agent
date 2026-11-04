@@ -3,7 +3,10 @@
 
 // A run of citation brackets, e.g. "[4][7]" or "[1, 3]". Leading spaces/tabs are captured so the
 // markers attach to the word before them, like footnotes.
-const CITATION_RUN = /[ \t]*(?<![\w)])((?:\[\d+(?:\s*,\s*\d+)*])+)(?!\()/g;
+const CITATION_RUN = /[ \t]*(?<![\w)])((?:\[\d+(?:\s*,\s*\d+)*)+)(?!\()/g;
+
+// Some models cite inside code as a trailing comment: "saveChat(...); // [2]".
+const CODE_COMMENT_CITATION = /(?:\/\/|\/\*)\s*((?:\[\d+(?:\s*,\s*\d+)*\s*)+)(?:\*\/)?[ \t]*$/gm;
 
 // U+2060 WORD JOINER: no visible width, but the browser won't break the line before the markers.
 const JOINER = '⁠';
@@ -47,8 +50,9 @@ export function citationHref(href: string | undefined): number[] | null {
 export function citedNumbers(md: string): Set<number> {
   const nums = new Set<number>();
   for (const { text, code } of splitCode(md)) {
-    if (code) continue;
-    for (const m of text.matchAll(CITATION_RUN)) for (const n of numbersIn(m[1] ?? '')) nums.add(n);
+    // In code, only a comment ending in citations counts ("// [3]", "/* [1][2] */"); arr[0] does not.
+    const pattern = code ? CODE_COMMENT_CITATION : CITATION_RUN;
+    for (const m of text.matchAll(pattern)) for (const n of numbersIn(m[1] ?? '')) nums.add(n);
   }
   return nums;
 }
