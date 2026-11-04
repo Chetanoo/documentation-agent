@@ -1,10 +1,12 @@
 # Progress
 
-_Last updated: 2026-11-01_
+_Last updated: 2026-11-04_
 
 ## Goal
 
 A RAG bot over the Vercel AI SDK docs, with citations and evals. The story: **built it, measured it, improved it.**
+
+**Live:** [ask-ai-docs-agent.onrender.com](https://ask-ai-docs-agent.onrender.com) (free instance, ~1 min to wake up after 15 idle minutes).
 
 Later: a mini eval framework that compares models, prompts, cost and speed.
 
@@ -17,6 +19,8 @@ Later: a mini eval framework that compares models, prompts, cost and speed.
 | **RAG v3** | **vector, top 8** | **27/29** (both runs) | **24–28/29** | **6/6** | **0** |
 
 35 questions (29 answerable, 6 unanswerable), judged by a third model family against reference answers. Cost per full RAG run: Qwen ~$0.049, Mistral ~$0.024.
+
+After v3: the same pipeline behind a streaming API, a React chat with clickable citations, and a public deployment with cost limits. The demo runs exactly the configuration the evals measured (same retrieval, models and settings, from the same modules).
 
 ## Decisions
 
@@ -32,18 +36,20 @@ Later: a mini eval framework that compares models, prompts, cost and speed.
   - Node 22+, ESM-only
 - **Ingestion source:** `/llms.txt`. It is not an index: it's the full docs concatenated (541 pages, each with its own frontmatter). We split it locally instead of fetching pages one by one.
 - **Corpus scope:** unprefixed `/docs/*` (= v7) and `/cookbook/*`. Excluded: provider pages (for now) and migration guides older than 5→6 (full of stale code).
-- **Models:** via OpenRouter ($10 credit limit).
+- **Models:** via OpenRouter.
   - Contestants: `qwen/qwen3.8-27b`, `mistralai/mistral-small-2603`
   - Judge: `google/gemini-3.6-flash` (a third model family)
+  - In the demo: Mistral is the default ("Faster"), Qwen the alternative ("Slower, more thorough").
 - **Embeddings:** `openai/text-embedding-3-small` via OpenRouter (1536 dims, $0.02 / 1M tokens). Fallback candidate: Qwen3 Embedding 8B (check its dimensions first: pgvector HNSW indexes at most 2000).
 - **LLM client:** the AI SDK itself, with `@openrouter/ai-sdk-provider` (3.x line = AI SDK v7). Note: this provider still uses `textEmbeddingModel`, not the v6+ name `embeddingModel`.
-- **Database:** Postgres 17 + pgvector in Docker locally (port 5433, because 5432 is taken on this machine). Neon later for deployment (same SQL).
+- **Database:** Postgres 17 + pgvector in Docker locally (port 5433, because 5432 is taken on this machine). Neon in production (same SQL, same scripts).
 - **Retrieval:** **vector-only (HNSW, cosine), top 8 chunks**, chosen by the retrieval experiment (see below). Full-text search and weighted RRF are still implemented: `RETRIEVAL.textWeight` in `src/rag/retrieve.ts` turns hybrid back on (0 = vector only).
-- **Generation:** the retrieved chunks as numbered `<source>` blocks (section path + URL + content). Instructions: answer only from the sources, cite `[n]` inline, never recommend migration-guide "Before" code, say "couldn't find it" instead of guessing. Same models and settings as the baseline, so retrieval is the only variable.
+- **Generation:** the retrieved chunks as numbered `<source>` blocks (section path + URL + content). Instructions: answer only from the sources, cite `[n]` inline, never recommend migration-guide "Before" code, say "couldn't find it" instead of guessing. Same models and settings as the baseline, so retrieval is the only variable. Settings live in `src/rag/models.ts` (temperature 0, max output 12k tokens, reasoning capped at 4k), shared by the eval runner and the API.
 - **Judge rules:** grades only against the reference, never its own SDK knowledge. For answerable questions, "the information isn't available" counts as **wrong**; partial answers are graded on the part they answer.
 - **Headline metric:** "correct". The judge's outdated / wrong split is noisy (see below), so the README reports those together as "not usable".
 - **Picking configurations:** with 29 questions, one question ≈ 0.03. Choose the simplest option within about one question of the best, and check it doesn't trade old-question wins for new-question losses.
-- **Planned:** SSE streaming, Fastify API, React chat.
+- **API protocol:** the AI SDK's UI message stream, so the frontend uses `useChat` as-is instead of a custom SSE client.
+- **Hosting:** one Docker service on Render's free tier that serves both the API and the built web app (one URL, no CORS). Fly.io was the first choice but its signup needs a working card.
 
 ## Secrets setup (done)
 
@@ -53,7 +59,9 @@ Later: a mini eval framework that compares models, prompts, cost and speed.
   ```powershell
   withsecrets npm run <script>
   ```
-  Only scripts that call OpenRouter need it (`embed`, `eval:*`, `experiment:retrieval`).
+  Scripts that call OpenRouter need it (`embed`, `eval:*`, `experiment:retrieval`, `dev:api`, `start:api`).
+- Alternative for anyone else: scripts load `.env` if it exists (`src/env.ts`, via `process.loadEnvFile`). Variables already set in the environment take precedence, so `withsecrets` and `.env` don't conflict. `.env.example` lists `OPENROUTER_API_KEY` and an optional `DATABASE_URL`.
+- **Production key:** a separate OpenRouter key with its own small credit limit, set only in Render's environment variables (with Neon's `DATABASE_URL`). It is backed up in Bitwarden under a different name / project, so `withsecrets` never injects it into local runs.
 - `.claude/settings.json` denies reads of `.env*` and the secrets folder, and denies `bws`.
 - Environment: Windows, WebStorm, PowerShell 5.1.
 
@@ -72,9 +80,15 @@ withsecrets npm run eval:baseline          both models, no retrieval → evals/r
 withsecrets npm run eval:rag -- --dry q04  print the prompt for one question, no LLM call
 withsecrets npm run eval:rag               both models answer with retrieved sources → evals/runs/rag-<stamp>.json
 withsecrets npm run eval:judge             grade the latest run (baseline or rag), or pass a path → <run>.judged.json
+
+withsecrets npm run dev:api                API with reload on http://127.0.0.1:3000
+cd web; npm run dev                        web app on http://localhost:5173 (proxies /api to :3000)
+npm run ask -- "question" --model qwen     ask the running API from the terminal
 ```
 
 `evals/runs/` is gitignored. Runs worth keeping are copied ("frozen") into `evals/baselines/` and committed together with the code that produced them.
+
+Loading Neon uses the same scripts with `DATABASE_URL` pointed at it: `db:migrate`, then `embed`.
 
 ## Repo contents
 
@@ -86,20 +100,100 @@ withsecrets npm run eval:judge             grade the latest run (baseline or rag
 | `scripts/chunk-docs.ts` | Splits pages at `##`/`###` (never inside code fences). Merges sections < 120 tokens into the next; splits sections > 800 tokens at paragraphs, top-level list items, nested list items (parent line repeated) and table rows (header repeated). Each chunk has `content` and `embed_text` (= "Title > Section" + content), `kind`, `url` with anchor. |
 | `scripts/db-migrate.ts`, `src/db/schema.ts` | `chunks` table: metadata, `vector(1536)` with HNSW index, generated weighted `tsvector` with GIN index. |
 | `scripts/embed-chunks.ts` | Batches of 200, hash per chunk (model + chunk) so reruns only embed what changed, each batch committed separately. |
-| `src/config.ts` | Embedding model + dims, `DATABASE_URL` default. |
+| `src/env.ts`, `.env.example` | Optional `.env` loading (imported by every script via `tsx --import`). |
+| `src/config.ts` | Embedding model + dims, `DATABASE_URL` default (local Docker). |
 | `src/embedding.ts` | Embedding model + `embedTexts()`. |
 | `src/retrieval/search.ts` | `vectorSearch`, `textSearch`, weighted `rrf`, `hybridSearch` (`textWeight` option; 0 skips full-text). |
 | `scripts/eval-retrieval.ts` | Scores vector / text / equal-weight hybrid on evidence@k and MRR, prints misses, saves the run. |
 | `scripts/experiment-retrieval.ts` | Fetches each question's top-50 vector and full-text candidates once, then scores every configuration in memory (vector only, text only, RRF with text weight 1 / 0.5 / 0.25 / 0.1) at k = 5, 8, 10, split by old/new questions, with context size and per-config misses. |
 | `evals/ai-sdk-evals.json` | 35 questions (29 answerable, 6 unanswerable). q01–q20 written mostly from the v6/v7 migration guides; q21–q35 from the regular docs (MCP, chat persistence, embeddings, tools). Each has `expected_answer`, `must_include`, `stale_signals`, `sources`; answerable ones also have `evidence`. |
 | `scripts/run-baseline.ts`, `scripts/judge.ts` | No-retrieval baseline + LLM judge. The judge picks the newest `baseline-*` or `rag-*` run, or takes a path. |
-| `src/rag/prompt.ts` | RAG instructions, source formatting, citation parser (ignores code and index brackets like `arr[0]`). Shared with the future API. |
+| `src/rag/prompt.ts` | RAG instructions, source formatting, citation parser (ignores code and index brackets like `arr[0]`). Shared by the eval runner and the API. |
 | `src/rag/retrieve.ts` | `RETRIEVAL` config (top 8, vector only) and `retrieveMany()`: embeds all questions in one request. |
+| `src/rag/models.ts` | The two models, `DEFAULT_MODEL` (Mistral), generation settings and provider options. |
 | `scripts/run-rag.ts` | Same as `run-baseline.ts` plus retrieval. Extra fields per answer: sources (with ✓ for evidence), `evidenceInSources`, citations, invalid citations, `citesEvidence`. Records the retrieval config in the run file. `--dry <id>` prints the prompt. |
 | `src/lib/pool.ts` | Shared helper for running requests in parallel. |
+| `src/api/server.ts` | Entry point: checks the key, creates the pg pool, builds the app, shuts down cleanly on SIGINT/SIGTERM. |
+| `src/api/app.ts` | `buildApp()`: rate limiting, `/api/health`, `/api/ready`, static web app with SPA fallback, JSON 404 for unknown `/api/*`. |
+| `src/api/chat.ts`, `src/api/types.ts` | `POST /api/chat` and the message metadata type shared with the web app. |
+| `scripts/ask-api.ts` | CLI client for the API: prints the sources, the streamed answer and the metadata. |
+| `web/` | React chat (own `package.json` and `tsconfig`). `src/lib/citations.ts` (citation parsing), `src/lib/highlight.ts` (code highlighting), `src/components/` (Answer, Sources, Composer, EmptyState). |
+| `Dockerfile`, `.dockerignore` | Two stages: build the web app, then run the server with `tsx`. |
+| `docker-compose.yml` | Local Postgres + pgvector on port 5433. |
+| `README.md`, `docs/screenshot.png` | Public write-up with results, lessons and the live link. |
 | `evals/baselines/` | **v3 (current):** `rag-v3-run1`, `rag-v3-run2` (+ judged), `experiment-retrieval-v1`. **v2:** `baseline-v2`, `rag-v2` (+ judged), `retrieval-v2`. **v1 (first 20 questions):** `baseline-v1`, `rag-v1` (+ judged), `retrieval-v1`. |
 
 Corpus stats: 375 pages → 1,986 chunks, ~644k tokens (estimated), median chunk 254 tokens, p90 667. Embedding the whole corpus: 618k tokens, 51 s, ~$0.012.
+
+## API
+
+`POST /api/chat` with `{ messages, model }` (the `useChat` request body plus the model key).
+
+1. Validates the body with zod and takes the last user message (single-turn, max 2,000 characters).
+2. Retrieves the top 8 chunks with the same `RETRIEVAL` config as the evals.
+3. Streams in the UI message stream protocol:
+   - a `start` part with metadata (model),
+   - the 8 sources as `source-url` parts (`sourceId` "1"–"8", matching the `[n]` numbers in the prompt), **before** the answer, so the UI can show them while the model writes,
+   - the answer from `streamText`, merged with `toUIMessageStream({ sendStart: false })`,
+   - final metadata: time, tokens, cost (OpenRouter's `usage: { include: true }`).
+4. If the client disconnects, the model call is aborted (no paying for answers nobody reads).
+5. Errors are logged on the server with details; the client gets a generic message.
+
+Other routes:
+- `/api/health` → `{ ok: true }` without touching the database (liveness; doesn't keep Neon awake).
+- `/api/ready` → pings the database, 503 if it's down.
+
+Protection for a public demo:
+- `@fastify/rate-limit` on `/api/chat` only: 6 questions per minute per visitor (`CHAT_RATE_LIMIT`), with a readable message ("You've asked 6 questions in the last minute. Try again in …").
+- `TRUST_PROXY=true` in production, so the limit keys on the visitor's IP and not on Render's proxy.
+- pg pool: max 5 connections, idle connections closed after 60 s, and pool errors are logged instead of crashing the process (Neon closes idle connections when it suspends).
+
+### Lesson: the stream hides model errors unless you ask for them
+
+At first, a failed model call (e.g. a provider error from OpenRouter) reached the browser as "An error occurred." and nothing was logged. `toUIMessageStream` swallows errors by default; passing an `onError` that logs the real error and returns a generic message fixed both sides. `streamText` also gets `onError: () => {}` so the same error isn't logged twice.
+
+## Web app
+
+Vite 8, React 19, Tailwind 4, `useChat` with `DefaultChatTransport`.
+
+- Each question is a heading with its answer below; the sources sit in a margin on desktop.
+- The model is chosen in the header and sent with each request (`sendMessage(..., { body: { model } })`).
+- Markdown via react-markdown. Code highlighting with lowlight and only 7 registered languages (bash, diff, javascript, json, shell, typescript, xml): highlight.js with every language had pushed the bundle to 733 kB.
+- **Citations as footnotes:** each `[n]` becomes a small marker linked to source n. Pointing at a marker highlights the source; clicking scrolls to it. Adjacent markers form one group that never wraps apart (a word joiner before them, `nowrap` on the group).
+- The source list says "Cited X of Y sources"; uncited sources are faded. On mobile only the cited ones are shown, with "Show all 8 sources".
+- Source titles are cleaned up (backticks and "(2/3)" chunk counters removed).
+- A meta line under each answer: model, seconds, tokens.
+- Errors are shown under the answer with "Try again" (`regenerate`); rate-limit and other JSON error bodies are turned into readable text.
+- Empty state: four example questions and a note that this is an unofficial project over a November 1, 2026 snapshot.
+
+### Lesson: every model invents its own citation format
+
+The prompt asks for `[n]` inline. In practice the answers contained:
+
+| Format | Example | Handling |
+|---|---|---|
+| Inline, as asked | `…with isStepCount [3].` | Marker after the word |
+| Several | `[4][7]`, `[1, 3]` | One group of markers |
+| A paragraph of only citations | `[1][4]` on its own line | Rendered as a "Sources: 1, 4" line, not a stray "14" |
+| Inside code, as a comment | `saveChat(...); // [2]` | Not linked (code stays code), but counted as cited |
+| Double brackets | `[[2]][[3]]`, `[[2], [3]]` | Unwrapped first; otherwise rendered as "²]³]" |
+| Not a citation | `arr[0]`, `fn()[1]`, `[text](url)` | Left alone |
+
+Each format only showed up when someone asked the live demo a new kind of question. All of them are handled in `web/src/lib/citations.ts`. The parser in `src/rag/prompt.ts` (used by the evals) is older and handles fewer of these, so the eval's citation stats can undercount code-comment and double-bracket citations. A stricter prompt ("cite only in prose, as [n]") would help, but it changes the prompt, so it needs a full eval rerun.
+
+## Deployment
+
+- **App:** Render free tier, one Docker web service built from the repo's `Dockerfile` and redeployed on every push to `main`.
+  - Stage 1 builds `web/` into `web/dist`.
+  - Stage 2 installs dependencies (including `tsx`, which runs the TypeScript server) and copies `src/`, `tsconfig.json` and `web/dist`.
+  - `NODE_ENV=production`, `HOST=0.0.0.0`, `WEB_DIST=web/dist`, `TRUST_PROXY=true`; Render sets `PORT`. Runs as the `node` user.
+  - Sleeps after 15 idle minutes; the first request after that takes about a minute.
+- **Database:** Neon free plan, US East (personal account: the Vercel-managed Neon account couldn't create projects). Loaded with `db:migrate` + `embed` from the local machine. Suspends after 5 idle minutes; 100 CU-hours per month is far more than a demo needs.
+- **Cost control:** the rate limit above, and the production OpenRouter key's own credit limit, which caps what the public demo can ever spend.
+
+### Lesson: a broken import only showed up at runtime
+
+The first deploy crashed with `ERR_MODULE_NOT_FOUND`: `server.ts` imported `'../../../../Downloads/app.js'`. WebStorm had written that path when the file was copied in from the Downloads folder. Locally it worked, because the file existed in Downloads; in the container it didn't. The Docker build runs `tsx` without a type check, so nothing caught it before startup. Fix: `import { buildApp } from './app.js'`. Prevention: save files straight into the project, and type-check (`tsc --noEmit`) inside the Docker build, where only the repo's files exist.
 
 ## Results v3: vector top 8 (35 questions, 2 runs)
 
@@ -116,6 +210,7 @@ Corpus stats: 375 pages → 1,986 chunks, ~644k tokens (estimated), median chunk
 - Mistral run 1's other misses: q13 (put the API key into the tool's input schema: a real model error), q16 (a judge error caused by a too-narrow reference, now fixed), q26 (judge noise: the same omission was "correct" in run 2).
 - Citations: no invented source numbers in either run. The cited source contained the evidence for 25–27 of 29 answers.
 - Qwen is now consistently one notch more reliable (27, 27 vs. 24, 28) at twice Mistral's cost. For the demo either works; Mistral stays the cost-efficient default, Qwen the reliable one.
+- Seen in the live demo too: an answer whose first example used an undefined `coreMessages` variable (a leftover of the AI SDK 3–4 `CoreMessage` name) next to a correct second example. 27/29 is not 29/29.
 
 ### Lesson: the docs can contradict themselves
 
@@ -199,6 +294,12 @@ Fix: score at chunk level instead. Each question got an `evidence` field: a list
 - **Stale cookbook pages** contradict the v7 guides (e.g. `needsApproval` in "Human-in-the-Loop with Next.js"). Candidate fix: `kind` label per source + "prefer guides/reference when sources disagree" rule, measured on q12.
 - **q27** (`maxParallelCalls`) is unreachable by every retrieval config: the fact lives in a single chunk. Worth checking how that chunk was cut.
 - **No keyword-style questions** in the eval (bare identifiers like `isStepCount`). That is where full-text search should help; add a few and rerun the experiment before ruling hybrid out for good.
+- **Two citation parsers.** `web/src/lib/citations.ts` handles every format seen so far; `src/rag/prompt.ts` (evals) handles fewer. Merge them into one shared module so the eval counts what the UI shows.
+- **Citation format isn't enforced.** A "cite only in prose" rule in the prompt would reduce the variety, but needs a full eval rerun.
+- **Single-turn.** Follow-ups ("and for streamText?") are answered without the earlier question; multi-turn needs query rewriting before retrieval.
+- **No type check in the deploy.** The Docker build doesn't run `tsc`, so a bad import is found only when the server starts.
+- `tsconfig.json`: `"include"` is inside `compilerOptions`, where it's ignored. Move it to the top level.
+- Free-tier cold start: ~1 minute after 15 idle minutes (Render), plus Neon waking up.
 - The judge flips on ~17% of borderline answers. Majority-of-3 judging would reduce it (~3× judge cost, ~$0.20 per run).
 - Single runs are noisy (OpenRouter routing). v3 has 2 runs; the runner should support N repetitions and report the range.
 - Heading anchors in chunk URLs are an approximation of the site's slugs. Spot-check before relying on them for citations.
@@ -210,8 +311,15 @@ Fix: score at chunk level instead. Each question got an `evidence` field: a list
 
 ## Next steps
 
-1. **Fastify API with SSE streaming** (reuses `src/rag/`): `POST /chat` → retrieve → `streamText` → stream answer + sources.
-2. **React web chat:** streaming answer, clickable `[n]` citations that show the source section and link to the docs.
-3. Deployment (Neon + hosting).
-4. Quality follow-ups from Known gaps: source `kind` labels for stale cookbook pages, q27, keyword-style questions.
-5. Later: eval framework comparing models, prompts, embedding models, cost and speed.
+Done since the last update: Fastify API with streaming, React chat with clickable citations, README, `.env` support, deployment (Render + Neon + production key + rate limit).
+
+1. **Small fixes:** `tsc --noEmit` in the Docker build; move `"include"` in `tsconfig.json`.
+2. **One citation parser** shared by the evals and the web app (move it to `src/rag/`, import it from `web/`).
+3. **Quality round v4**, measured with the eval as before:
+   - source `kind` labels + "prefer guides when sources disagree" (target: q12),
+   - "cite only in prose" in the prompt,
+   - look at how the q27 chunk was cut,
+   - add keyword-style questions and rerun the retrieval experiment.
+   Run each change 2–3 times and report the range.
+4. Multi-turn: rewrite follow-up questions into standalone ones before retrieval.
+5. Later: eval framework comparing models, prompts, embedding models, cost and speed (N repetitions, majority-of-3 judging).
