@@ -18,12 +18,13 @@ import { runPool } from '../src/lib/pool.js';
 import { DATABASE_URL, EMBEDDING } from '../src/config.js';
 import { RETRIEVAL, retrieveMany } from '../src/rag/retrieve.js';
 import { RAG_INSTRUCTIONS, buildPrompt, parseCitations } from '../src/rag/prompt.js';
+import { GENERATION, MODELS as RAG_MODELS, providerOptions } from '../src/rag/models.js';
 import type { Hit } from '../src/retrieval/search.js';
 
-// Keep identical to run-baseline.ts so the comparison is fair.
-const MODELS = ['qwen/qwen3.8-27b', 'mistralai/mistral-small-2603'];
-const REASONING_MAX_TOKENS = 4000;
-const MAX_OUTPUT_TOKENS = 12000;
+// Shared with the API (src/rag/models.ts). Keep identical to run-baseline.ts so the comparison is fair.
+const MODELS: string[] = Object.values(RAG_MODELS);
+const REASONING_MAX_TOKENS = GENERATION.reasoningMaxTokens;
+const MAX_OUTPUT_TOKENS = GENERATION.maxOutputTokens;
 const CONCURRENCY = 5;
 
 type Fact = string[];
@@ -109,10 +110,8 @@ async function askOne(
       instructions: RAG_INSTRUCTIONS,
       prompt: buildPrompt(q.question, hits),
       maxOutputTokens: MAX_OUTPUT_TOKENS,
-      temperature: 0,
-      providerOptions: {
-        openrouter: { reasoning: { max_tokens: REASONING_MAX_TOKENS } },
-      },
+      temperature: GENERATION.temperature,
+      providerOptions,
     });
 
     const text = result.text;
@@ -245,7 +244,7 @@ async function main() {
       {
         models: MODELS,
         instructions: RAG_INSTRUCTIONS,
-        settings: { REASONING_MAX_TOKENS, MAX_OUTPUT_TOKENS, temperature: 0 },
+        settings: { REASONING_MAX_TOKENS, MAX_OUTPUT_TOKENS, temperature: GENERATION.temperature },
         retrieval: { ...RETRIEVAL, mode: RETRIEVAL.textWeight === 0 ? 'vector' : 'hybrid', embedding: EMBEDDING, embeddingTokens: retrieved.embeddingTokens },
         results,
       },
