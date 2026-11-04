@@ -3,10 +3,15 @@
 
 // A run of citation brackets, e.g. "[4][7]" or "[1, 3]". Leading spaces/tabs are captured so the
 // markers attach to the word before them, like footnotes.
-const CITATION_RUN = /[ \t]*(?<![\w)])((?:\[\d+(?:\s*,\s*\d+)*)+)(?!\()/g;
+const CITATION_RUN = /[ \t]*(?<![\w)])((?:\[\d+(?:\s*,\s*\d+)*\])+)(?!\()/g;
+
+// Some models wrap citations in an extra pair of brackets: "[[2]][[3]]" or "[[2], [3]]".
+const WRAPPED = /\[(\s*\[\d+(?:\s*,\s*\d+)*\](?:\s*,?\s*\[\d+(?:\s*,\s*\d+)*\])*\s*)\]/g;
+const unwrap = (text: string) =>
+  text.replace(WRAPPED, (_m, inner: string) => inner.trim().replace(/\]\s*,?\s*\[/g, ']['));
 
 // Some models cite inside code as a trailing comment: "saveChat(...); // [2]".
-const CODE_COMMENT_CITATION = /(?:\/\/|\/\*)\s*((?:\[\d+(?:\s*,\s*\d+)*\s*)+)(?:\*\/)?[ \t]*$/gm;
+const CODE_COMMENT_CITATION = /(?:\/\/|\/\*)\s*((?:\[\d+(?:\s*,\s*\d+)*\]\s*)+)(?:\*\/)?[ \t]*$/gm;
 
 // U+2060 WORD JOINER: no visible width, but the browser won't break the line before the markers.
 const JOINER = '⁠';
@@ -33,7 +38,7 @@ export function linkCitations(md: string): string {
     .map(({ text, code }) =>
       code
         ? text
-        : text.replace(CITATION_RUN, (_m, run: string) => {
+        : unwrap(text).replace(CITATION_RUN, (_m, run: string) => {
             const nums = numbersIn(run).join(',');
             return `${JOINER}[${nums}](#cite-${nums})`;
           }),
@@ -52,7 +57,7 @@ export function citedNumbers(md: string): Set<number> {
   for (const { text, code } of splitCode(md)) {
     // In code, only a comment ending in citations counts ("// [3]", "/* [1][2] */"); arr[0] does not.
     const pattern = code ? CODE_COMMENT_CITATION : CITATION_RUN;
-    for (const m of text.matchAll(pattern)) for (const n of numbersIn(m[1] ?? '')) nums.add(n);
+    for (const m of (code ? text : unwrap(text)).matchAll(pattern)) for (const n of numbersIn(m[1] ?? '')) nums.add(n);
   }
   return nums;
 }
