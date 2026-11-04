@@ -1,0 +1,14 @@
+# Only package files, tsconfig, src/ and web/ are needed in the image.
+**/node_modules
+web/dist
+.git
+.idea
+.claude
+.env
+.env.*
+data
+evals
+docs
+scripts
+*.log
+Dockerfile

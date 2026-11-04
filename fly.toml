@@ -1,0 +1,35 @@
+# Fly.io config. Replace the app name with the one you create (fly apps create <name>);
+# it becomes the URL: https://<name>.fly.dev
+app = "ask-ai-sdk-docs"
+primary_region = "iad" # Ashburn, Virginia: next to Neon's AWS us-east regions
+
+[build]
+  dockerfile = "Dockerfile"
+
+# Non-secret settings. HOST, PORT, WEB_DIST and TRUST_PROXY are set in the Dockerfile.
+# Secrets (OPENROUTER_API_KEY, DATABASE_URL) are set with `fly secrets set`, never here.
+[env]
+  LOG_LEVEL = "info"
+  CHAT_RATE_LIMIT = "6"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  # Stop the machine when idle and start it on the next request (~2 s cold start),
+  # so a rarely visited demo costs almost nothing.
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  # Liveness only: /api/health doesn't touch the database, so checks don't keep Neon awake.
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    path = "/api/health"
+    timeout = "5s"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory = "512mb"

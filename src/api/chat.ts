@@ -39,9 +39,13 @@ function lastUserQuestion(messages: z.infer<typeof Body>['messages']): string {
     .trim();
 }
 
-export function chatRoutes(deps: ChatDeps) {
+export type ChatRouteOptions = {
+  rateLimit: { max: number; timeWindow: string }; // per client IP; needs @fastify/rate-limit registered
+};
+
+export function chatRoutes(deps: ChatDeps, { rateLimit }: ChatRouteOptions) {
   return async function (app: FastifyInstance) {
-    app.post('/api/chat', async (request, reply) => {
+    app.post('/api/chat', { config: { rateLimit } }, async (request, reply) => {
       const parsed = Body.safeParse(request.body);
       if (!parsed.success) return reply.code(400).send({ error: 'Invalid request body' });
 

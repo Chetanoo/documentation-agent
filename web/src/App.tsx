@@ -10,6 +10,18 @@ const transport = new DefaultChatTransport<ChatUIMessage>({ api: '/api/chat' });
 
 type Turn = { question: ChatUIMessage; answer: ChatUIMessage | undefined };
 
+// HTTP errors reach useChat as the raw response body, often JSON like {"message": "..."} or {"error": "..."}.
+function readableError(error: Error): string {
+  try {
+    const body = JSON.parse(error.message) as { message?: unknown; error?: unknown };
+    if (typeof body.message === 'string') return body.message;
+    if (typeof body.error === 'string') return body.error;
+  } catch {
+    // not JSON: use the message as-is
+  }
+  return error.message || 'Unknown error.';
+}
+
 // Pairs each question with the answer that follows it.
 function toTurns(messages: ChatUIMessage[]): Turn[] {
   const turns: Turn[] = [];
@@ -85,7 +97,7 @@ export function App() {
 
                     {isLast && error && (
                       <div role="alert" className="mt-6 max-w-[66ch] border-l-3 border-pen pl-4">
-                        <p>The answer couldn't be completed: {error.message}</p>
+                        <p>The answer couldn't be completed. {readableError(error)}</p>
                         <button
                           type="button"
                           onClick={() => void regenerate({ body: { model } })}
