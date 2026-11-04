@@ -92,9 +92,10 @@ The judge (`google/gemini-3.6-flash`) is from a different model family than the 
 
 ## Run it locally
 
-Requirements: Node 22+, Docker, an [OpenRouter](https://openrouter.ai) API key. Scripts that call a model read `OPENROUTER_API_KEY` from the environment.
+Requirements: Node 22+, Docker, an [OpenRouter](https://openrouter.ai) API key.
 
 ```bash
+cp .env.example .env     # then put your OpenRouter key in .env
 npm install
 npm run db:up            # Postgres + pgvector in Docker (port 5433)
 npm run db:migrate
@@ -106,6 +107,8 @@ cd web && npm install && npm run dev   # http://localhost:5173
 ```
 
 From the terminal: `npm run ask -- "How do I stop a tool loop after 5 steps?" --model qwen`.
+
+Scripts read `.env` if it exists; variables already set in the environment take precedence, so a secrets manager works too.
 
 To refresh the docs snapshot: `npm run fetch-docs`, then `chunk-docs` and `embed` again (only changed chunks are re-embedded).
 
