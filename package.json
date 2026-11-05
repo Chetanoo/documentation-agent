@@ -17,7 +17,8 @@
     "eval:judge": "tsx --import ./src/env.ts scripts/judge.ts",
     "dev:api": "tsx watch --import ./src/env.ts src/api/server.ts",
     "start:api": "tsx --import ./src/env.ts src/api/server.ts",
-    "ask": "tsx --import ./src/env.ts scripts/ask-api.ts"
+    "ask": "tsx --import ./src/env.ts scripts/ask-api.ts",
+    "typecheck": "tsc && npm --prefix web run typecheck"
   },
   "keywords": [],
   "author": "",
