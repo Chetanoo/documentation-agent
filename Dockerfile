@@ -14,8 +14,8 @@ COPY package.json package-lock.json ./
 RUN npm ci && npm cache clean --force
 COPY tsconfig.json ./
 COPY src ./src
-RUN node_modules/.bin/tsc -p tsconfig.json
 # Fails the build on type errors or bad imports (e.g. a path that only exists on one machine).
+RUN node_modules/.bin/tsc -p tsconfig.json
 COPY --from=web /app/web/dist ./web/dist
 
 ENV NODE_ENV=production \
