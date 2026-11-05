@@ -1,6 +1,7 @@
 import type { Hit } from '../retrieval/search.js';
+import { citedNumbers } from './citations.js';
 
-// Shared by the eval run and (later) the API, so both answer the same way.
+// Shared by the eval run and the API, so both answer the same way.
 export const RAG_INSTRUCTIONS = `You are a documentation assistant for the Vercel AI SDK (the "ai" npm package), version 7.
 Answer the developer's question using ONLY the numbered sources provided. They are excerpts from the current v7 docs.
 
@@ -26,12 +27,8 @@ export function buildPrompt(question: string, hits: Hit[]): string {
   return `<sources>\n${formatSources(hits)}\n</sources>\n\nQuestion: ${question}`;
 }
 
-// Citation numbers used in an answer: [1], [2][4] and [1, 3] forms.
-// Code is ignored, and so are index brackets like arr[0] or fn()[1].
+// Citation numbers used in an answer, sorted. Same parser as the web app (see ./citations.ts):
+// [1], [2][4], [1, 3], [[2]][[3]], and trailing code comments like "// [2]"; not arr[0] or fn()[1].
 export function parseCitations(answer: string): number[] {
-  const prose = answer.replace(/```[\s\S]*?```/g, '').replace(/`[^`\n]*`/g, '');
-  const nums = [...prose.matchAll(/(?<![\w)])\[(\d+(?:\s*,\s*\d+)*)\]/g)].flatMap((m) =>
-    (m[1] ?? '').split(',').map((n) => Number(n.trim())),
-  );
-  return [...new Set(nums)].sort((a, b) => a - b);
+  return [...citedNumbers(answer)].sort((a, b) => a - b);
 }

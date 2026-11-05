@@ -4,6 +4,7 @@ WORKDIR /app/web
 COPY web/package.json web/package-lock.json ./
 RUN npm ci
 COPY web/ ./
+COPY src/rag/citations.ts /app/src/rag/citations.ts
 RUN npm run build
 
 # ---- API server, which also serves the built web app ----
