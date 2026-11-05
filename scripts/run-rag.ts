@@ -4,7 +4,8 @@
  *
  * Run (from your own terminal):
  *   withsecrets npm run eval:rag                 -> full run, writes evals/runs/rag-<stamp>.json
- *   withsecrets npm run eval:rag -- --dry q04    -> print the prompt for one question, no LLM call
+ *   withsecrets npm run eval:rag '--' --dry q04  -> print the prompt for one question, no LLM call
+ *   (PowerShell drops a bare --, so quote it.)
  *
  * Then grade it with the same judge:
  *   withsecrets npm run eval:judge -- evals/runs/rag-<stamp>.json
@@ -41,7 +42,7 @@ type Question = {
 
 type Status = 'pass' | 'fail' | 'truncated' | 'empty' | 'error' | 'unanswerable';
 
-type Source = { n: number; id: string; crumb: string; url: string; evidence: boolean };
+type Source = { n: number; id: string; kind: string; crumb: string; url: string; evidence: boolean };
 
 type RunResult = {
   model: string;
@@ -81,6 +82,7 @@ function sourcesFor(q: Question, hits: Hit[]): Source[] {
   return hits.map((h, i) => ({
     n: i + 1,
     id: h.id,
+    kind: h.kind,
     crumb: h.crumb,
     url: h.url,
     evidence: !!q.evidence?.some((f) => supports(h.content, f)),
@@ -217,7 +219,7 @@ async function main() {
     const q = selected[0]!;
     console.log(`=== INSTRUCTIONS ===\n${RAG_INSTRUCTIONS}\n\n=== PROMPT ===\n${buildPrompt(q.question, hitsById.get(q.id)!)}`);
     console.log('\n=== SOURCES ===');
-    for (const s of sourcesFor(q, hitsById.get(q.id)!)) console.log(`[${s.n}] ${s.evidence ? '✓' : ' '} ${s.crumb}`);
+    for (const s of sourcesFor(q, hitsById.get(q.id)!)) console.log(`[${s.n}] ${s.evidence ? '✓' : ' '} ${s.kind.padEnd(15)} ${s.crumb}`);
     return;
   }
 

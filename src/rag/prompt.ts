@@ -10,6 +10,7 @@ Rules:
 - Cite the sources that support each claim inline by number, e.g. [1] or [2][4], right after the claim.
 - Code examples may only use APIs, options and imports that appear in the sources.
 - Migration guide excerpts show old code in blocks titled "Before". Never recommend that code.
+- Each source has a kind: guide, reference, cookbook, migration-guide or troubleshooting. Guides and reference pages describe the current API; cookbook examples can lag behind it. When sources disagree, follow the guide or reference, and say briefly that another source shows an older approach.
 - If the sources don't contain the answer, say you couldn't find it in the docs. Don't guess and don't fill gaps from memory. If they answer only part of the question, answer that part and say what's missing.
 
 Answer concisely, with a short TypeScript example when useful.`;
@@ -17,9 +18,10 @@ Answer concisely, with a short TypeScript example when useful.`;
 // Some page titles keep YAML quotes ("React error \"...\""), which would break the attribute.
 const attr = (s: string) => s.replace(/\\"/g, "'").replace(/"/g, '');
 
+// noinspection HtmlUnknownAttribute: <source> here is prompt markup for the model, not HTML.
 export function formatSources(hits: Hit[]): string {
   return hits
-    .map((h, i) => `<source id="${i + 1}" section="${attr(h.crumb)}" url="${attr(h.url)}">\n${h.content}\n</source>`)
+    .map((h, i) => `<source id="${i + 1}" kind="${h.kind}" section="${attr(h.crumb)}" url="${attr(h.url)}">\n${h.content}\n</source>`)
     .join('\n\n');
 }
 

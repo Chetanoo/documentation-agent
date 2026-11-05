@@ -4,7 +4,7 @@ A question-answering bot over the [Vercel AI SDK 7](https://ai-sdk.dev) document
 
 **Live demo: [ask-ai-docs-agent.onrender.com](https://ask-ai-docs-agent.onrender.com)**. It runs on a free instance that sleeps when idle, so the first visit can take about a minute to wake up.
 
-**Built it, measured it, improved it:** small open models answer 2 of 29 questions correctly on their own. With this pipeline they answer 24–28 of 29 correctly and stop inventing answers to questions the docs don't cover.
+**Built it, measured it, improved it:** small open models answer 2 of 29 questions correctly on their own. With this pipeline they answer 28 of 29 correctly and stop inventing answers to questions the docs don't cover.
 
 ![The chat answering a question, with cited sources in the margin](docs/screenshot.png)
 
@@ -16,12 +16,13 @@ A question-answering bot over the [Vercel AI SDK 7](https://ai-sdk.dev) document
 |---|---|---|---|---|---|
 | Model alone | none | 2 / 29 | 2 / 29 | 3 / 6 | 3 per model |
 | RAG v2 | hybrid search, 5 chunks | 24 / 29 | 23 / 29 | 6 / 6 | 0 |
-| **RAG v3** | **vector search, 8 chunks** | **27 / 29** (both runs) | **24–28 / 29** | **6 / 6** | **0** |
+| RAG v3 | vector search, 8 chunks | 27 / 29 (both runs) | 24–28 / 29 | 6 / 6 | 0 |
+| **RAG v4** | **+ source type labels** | **28 / 29** (both runs) | **28 / 29** (both runs) | **6 / 6** | **0** |
 
 - **Outdated answers went from 6–10 per model to zero.** Without the docs, both models write AI SDK 4–6 code: `maxSteps`, `fullStream`, `generateObject`, `system`.
 - **Hallucinations went to zero.** Without retrieval the models invented a "128 tools" limit, a "30 seconds" MCP timeout and npm download counts. With it, they say the docs don't cover it.
 - **It doesn't cost more.** The sources add ~3k input tokens per question, but the models reason less when the answer is in front of them. A full run of 35 questions costs about $0.05 with Qwen and $0.02 with Mistral.
-- The remaining failures: one fact that retrieval never finds, one question where the docs contradict themselves, and occasional model or judge noise (see [what I learned](#what-i-learned)).
+- **The one remaining failure** is a fact that retrieval never finds. The judge is still noisy on borderline answers (see [what I learned](#what-i-learned)).
 
 ## Why this is hard
 
@@ -60,7 +61,7 @@ flowchart LR
 
 - **Ingestion.** `llms.txt` turned out to be the entire docs in one file, so it is split locally into pages and committed as a snapshot (with a SHA-256 per page), which makes every eval reproducible. Pages are chunked at headings, never inside code blocks; long parameter lists and tables are split with their parent line or header repeated.
 - **Retrieval.** `text-embedding-3-small` vectors in pgvector with an HNSW index, top 8 chunks. Full-text search and weighted reciprocal rank fusion are implemented too; an experiment chose vector-only (see below).
-- **Generation.** The chunks go into the prompt as numbered `<source>` blocks. The instructions: answer only from the sources, cite them as `[n]`, never recommend code from the migration guides' "Before" blocks, and say "I couldn't find it in the docs" instead of guessing.
+- **Generation.** The chunks go into the prompt as numbered `<source>` blocks, each labeled with its type (guide, reference, cookbook, ...). The instructions: answer only from the sources, cite them as `[n]`, prefer guides and reference over cookbook examples when they disagree, never recommend code from the migration guides' "Before" blocks, and say "I couldn't find it in the docs" instead of guessing.
 - **API.** Fastify, `POST /api/chat`. It speaks the AI SDK's UI message stream protocol, so the frontend uses `useChat` directly. The sources are sent as `source-url` parts before the answer starts. If the client disconnects, the model call is aborted.
 - **UI.** React + Vite. Each `[n]` in the answer is a footnote marker linked to its source in the margin; pointing at a marker highlights the source, and sources the answer didn't cite are faded.
 
@@ -74,9 +75,9 @@ The project uses the AI SDK itself as its LLM client, through OpenRouter.
 
 **Near-miss sources are where hallucination comes back.** When retrieval returns chunks that are related but don't contain the answer, a small model is tempted to fill the gap from memory, even when told not to. Better retrieval fixed that more reliably than prompt wording.
 
-**The docs can contradict themselves.** The v7 guide says to use `toolApproval`; a cookbook page in the same docs still teaches the deprecated `needsApproval`. With both retrieved, the models sometimes followed the stale one. RAG faithfully repeats whatever the corpus says.
+**The docs can contradict themselves.** The v7 guide says to use `toolApproval`; a cookbook page in the same docs still teaches the deprecated `needsApproval`. With both retrieved, the models followed the stale one in 3 of 4 answers. RAG faithfully repeats whatever the corpus says. Labeling each source with its type (from the URL path) and one sentence on which type wins fixed it in 4 of 4, for ~100 extra tokens per question.
 
-**The judge is only as good as its references, and it's noisy on borderline answers.** Re-grading the same baseline answers changed 12 of 70 verdicts (mostly "outdated" vs "wrong"); the clear-cut RAG answers barely moved. So "correct" is the headline metric, and runs that matter are repeated.
+**The judge is only as good as its references, and it's noisy on borderline answers.** Re-grading the same baseline answers changed 12 of 70 verdicts (mostly "outdated" vs "wrong"); the clear-cut RAG answers barely moved. Twice a model was marked down for a correct detail the reference didn't list, and both times the reference was fixed, not the model. So "correct" is the headline metric, and runs that matter are repeated.
 
 More detail, including every intermediate number, is in [docs/PROGRESS.md](docs/PROGRESS.md).
 

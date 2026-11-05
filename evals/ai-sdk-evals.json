@@ -181,7 +181,7 @@
       "expected_answer": [
         "Set `toolApproval` on the generateText/streamText call or the agent",
         "e.g. `toolApproval: { deleteFile: 'user-approval' }`, or a function returning 'user-approval' / undefined",
-        "`needsApproval` on tool() is deprecated in v7"
+        "`needsApproval` on tool() is deprecated for generateText/streamText/ToolLoopAgent; it is still how approval is set with WorkflowAgent"
       ],
       "must_include": ["toolApproval", "user-approval"],
       "evidence": [["toolApproval", "user-approval"]],

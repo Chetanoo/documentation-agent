@@ -1,6 +1,6 @@
 # Progress
 
-_Last updated: 2026-11-04_
+_Last updated: 2026-11-05_
 
 ## Goal
 
@@ -16,11 +16,14 @@ Later: a mini eval framework that compares models, prompts, cost and speed.
 |---|---|---|---|---|---|
 | Baseline | none | 2/29 | 2/29 | 3/6 | 3 per model |
 | RAG v2 | hybrid (RRF), top 5 | 24/29 | 23/29 | 6/6 | 0 |
-| **RAG v3** | **vector, top 8** | **27/29** (both runs) | **24–28/29** | **6/6** | **0** |
+| RAG v3 | vector, top 8 | 27/29 (both runs) | 24–28/29 | 6/6 | 0 |
+| **RAG v4** | **vector, top 8 + source kinds** | **28/29** (both runs) | **28/29** (both runs) | **6/6** | **0** |
 
 35 questions (29 answerable, 6 unanswerable), judged by a third model family against reference answers. Cost per full RAG run: Qwen ~$0.049, Mistral ~$0.024.
 
-After v3: the same pipeline behind a streaming API, a React chat with clickable citations, and a public deployment with cost limits. The demo runs exactly the configuration the evals measured (same retrieval, models and settings, from the same modules).
+v4 labels each source with its kind (guide / reference / cookbook / ...) and tells the model to prefer guides when sources disagree. The only miss left is q27, a retrieval failure.
+
+Around v3: the same pipeline behind a streaming API, a React chat with clickable citations, and a public deployment with cost limits. The demo runs exactly the configuration the evals measured (same retrieval, models and settings, from the same modules).
 
 ## Decisions
 
@@ -44,7 +47,7 @@ After v3: the same pipeline behind a streaming API, a React chat with clickable 
 - **LLM client:** the AI SDK itself, with `@openrouter/ai-sdk-provider` (3.x line = AI SDK v7). Note: this provider still uses `textEmbeddingModel`, not the v6+ name `embeddingModel`.
 - **Database:** Postgres 17 + pgvector in Docker locally (port 5433, because 5432 is taken on this machine). Neon in production (same SQL, same scripts).
 - **Retrieval:** **vector-only (HNSW, cosine), top 8 chunks**, chosen by the retrieval experiment (see below). Full-text search and weighted RRF are still implemented: `RETRIEVAL.textWeight` in `src/rag/retrieve.ts` turns hybrid back on (0 = vector only).
-- **Generation:** the retrieved chunks as numbered `<source>` blocks (section path + URL + content). Instructions: answer only from the sources, cite `[n]` inline, never recommend migration-guide "Before" code, say "couldn't find it" instead of guessing. Same models and settings as the baseline, so retrieval is the only variable. Settings live in `src/rag/models.ts` (temperature 0, max output 12k tokens, reasoning capped at 4k), shared by the eval runner and the API.
+- **Generation:** the retrieved chunks as numbered `<source>` blocks (kind + section path + URL + content). Instructions: answer only from the sources, cite `[n]` inline, never recommend migration-guide "Before" code, say "couldn't find it" instead of guessing, and (v4) when sources disagree, follow guides and reference over cookbook examples. Same models and settings as the baseline, so retrieval is the only variable. Settings live in `src/rag/models.ts` (temperature 0, max output 12k tokens, reasoning capped at 4k), shared by the eval runner and the API.
 - **Judge rules:** grades only against the reference, never its own SDK knowledge. For answerable questions, "the information isn't available" counts as **wrong**; partial answers are graded on the part they answer.
 - **Headline metric:** "correct". The judge's outdated / wrong split is noisy (see below), so the README reports those together as "not usable".
 - **Picking configurations:** with 29 questions, one question ≈ 0.03. Choose the simplest option within about one question of the best, and check it doesn't trade old-question wins for new-question losses.
@@ -77,7 +80,7 @@ withsecrets npm run embed                  embed new/changed chunks only, delete
 withsecrets npm run eval:retrieval         vector / text / hybrid scores at k = 1, 3, 5, 10 → evals/runs/
 withsecrets npm run experiment:retrieval   compare retrieval configs on the same candidates → evals/runs/
 withsecrets npm run eval:baseline          both models, no retrieval → evals/runs/baseline-<stamp>.json
-withsecrets npm run eval:rag -- --dry q04  print the prompt for one question, no LLM call
+withsecrets npm run eval:rag '--' --dry q04  print the prompt for one question, no LLM call
 withsecrets npm run eval:rag               both models answer with retrieved sources → evals/runs/rag-<stamp>.json
 withsecrets npm run eval:judge             grade the latest run (baseline or rag), or pass a path → <run>.judged.json
 
@@ -85,6 +88,8 @@ withsecrets npm run dev:api                API with reload on http://127.0.0.1:3
 cd web; npm run dev                        web app on http://localhost:5173 (proxies /api to :3000)
 npm run ask -- "question" --model qwen     ask the running API from the terminal
 ```
+
+In PowerShell, quote the separator (`'--'`): a bare `--` is dropped and npm reads `--dry` as its own `--dry-run`.
 
 `evals/runs/` is gitignored. Runs worth keeping are copied ("frozen") into `evals/baselines/` and committed together with the code that produced them.
 
@@ -108,20 +113,21 @@ Loading Neon uses the same scripts with `DATABASE_URL` pointed at it: `db:migrat
 | `scripts/experiment-retrieval.ts` | Fetches each question's top-50 vector and full-text candidates once, then scores every configuration in memory (vector only, text only, RRF with text weight 1 / 0.5 / 0.25 / 0.1) at k = 5, 8, 10, split by old/new questions, with context size and per-config misses. |
 | `evals/ai-sdk-evals.json` | 35 questions (29 answerable, 6 unanswerable). q01–q20 written mostly from the v6/v7 migration guides; q21–q35 from the regular docs (MCP, chat persistence, embeddings, tools). Each has `expected_answer`, `must_include`, `stale_signals`, `sources`; answerable ones also have `evidence`. |
 | `scripts/run-baseline.ts`, `scripts/judge.ts` | No-retrieval baseline + LLM judge. The judge picks the newest `baseline-*` or `rag-*` run, or takes a path. |
-| `src/rag/prompt.ts` | RAG instructions, source formatting, citation parser (ignores code and index brackets like `arr[0]`). Shared by the eval runner and the API. |
+| `src/rag/prompt.ts` | RAG instructions and source formatting (with `kind`). Shared by the eval runner and the API. |
+| `src/rag/citations.ts` | The one citation parser, used by the eval runner (`parseCitations`) and the web app (re-exported from `web/src/lib/citations.ts`). No imports, so it compiles under both tsconfigs. |
 | `src/rag/retrieve.ts` | `RETRIEVAL` config (top 8, vector only) and `retrieveMany()`: embeds all questions in one request. |
 | `src/rag/models.ts` | The two models, `DEFAULT_MODEL` (Mistral), generation settings and provider options. |
-| `scripts/run-rag.ts` | Same as `run-baseline.ts` plus retrieval. Extra fields per answer: sources (with ✓ for evidence), `evidenceInSources`, citations, invalid citations, `citesEvidence`. Records the retrieval config in the run file. `--dry <id>` prints the prompt. |
+| `scripts/run-rag.ts` | Same as `../../../Downloads/run-baseline.ts` plus retrieval. Extra fields per answer: sources (with kind and ✓ for evidence), `evidenceInSources`, citations, invalid citations, `citesEvidence`. Records the retrieval config in the run file. `--dry <id>` prints the prompt. |
 | `src/lib/pool.ts` | Shared helper for running requests in parallel. |
 | `src/api/server.ts` | Entry point: checks the key, creates the pg pool, builds the app, shuts down cleanly on SIGINT/SIGTERM. |
 | `src/api/app.ts` | `buildApp()`: rate limiting, `/api/health`, `/api/ready`, static web app with SPA fallback, JSON 404 for unknown `/api/*`. |
 | `src/api/chat.ts`, `src/api/types.ts` | `POST /api/chat` and the message metadata type shared with the web app. |
 | `scripts/ask-api.ts` | CLI client for the API: prints the sources, the streamed answer and the metadata. |
-| `web/` | React chat (own `package.json` and `tsconfig`). `src/lib/citations.ts` (citation parsing), `src/lib/highlight.ts` (code highlighting), `src/components/` (Answer, Sources, Composer, EmptyState). |
-| `Dockerfile`, `.dockerignore` | Two stages: build the web app, then run the server with `tsx`. |
+| `web/` | React chat (own `package.json` and `tsconfig`). `src/lib/citations.ts` (re-exports the shared parser), `src/lib/highlight.ts` (code highlighting), `src/components/` (Answer, Sources, Composer, EmptyState). |
+| `Dockerfile`, `.dockerignore` | Two stages: build the web app (copies `src/rag/citations.ts` in for it), then type-check and run the server with `tsx`. |
 | `docker-compose.yml` | Local Postgres + pgvector on port 5433. |
 | `README.md`, `docs/screenshot.png` | Public write-up with results, lessons and the live link. |
-| `evals/baselines/` | **v3 (current):** `rag-v3-run1`, `rag-v3-run2` (+ judged), `experiment-retrieval-v1`. **v2:** `baseline-v2`, `rag-v2` (+ judged), `retrieval-v2`. **v1 (first 20 questions):** `baseline-v1`, `rag-v1` (+ judged), `retrieval-v1`. |
+| `evals/baselines/` | **v4 (current):** `rag-v4-run1`, `rag-v4-run2` (+ judged). **v3:** `rag-v3-run1`, `rag-v3-run2` (+ judged), `experiment-retrieval-v1`. **v2:** `baseline-v2`, `rag-v2` (+ judged), `retrieval-v2`. **v1 (first 20 questions):** `baseline-v1`, `rag-v1` (+ judged), `retrieval-v1`. |
 
 Corpus stats: 375 pages → 1,986 chunks, ~644k tokens (estimated), median chunk 254 tokens, p90 667. Embedding the whole corpus: 618k tokens, 51 s, ~$0.012.
 
@@ -179,7 +185,7 @@ The prompt asks for `[n]` inline. In practice the answers contained:
 | Double brackets | `[[2]][[3]]`, `[[2], [3]]` | Unwrapped first; otherwise rendered as "²]³]" |
 | Not a citation | `arr[0]`, `fn()[1]`, `[text](url)` | Left alone |
 
-Each format only showed up when someone asked the live demo a new kind of question. All of them are handled in `web/src/lib/citations.ts`. The parser in `src/rag/prompt.ts` (used by the evals) is older and handles fewer of these, so the eval's citation stats can undercount code-comment and double-bracket citations. A stricter prompt ("cite only in prose, as [n]") would help, but it changes the prompt, so it needs a full eval rerun.
+Each format only showed up when someone asked the live demo a new kind of question. All of them are handled in one parser, `src/rag/citations.ts`, shared by the web app and the evals. Before the merge the evals had their own, older parser; tested against every format above, it differed only on code-comment citations (missed) and markdown links like `[1](url)` (wrongly counted), so earlier citation stats are barely affected. A stricter prompt ("cite only in prose, as [n]") would help, but it changes the prompt, so it needs a full eval rerun.
 
 ## Deployment
 
@@ -193,7 +199,32 @@ Each format only showed up when someone asked the live demo a new kind of questi
 
 ### Lesson: a broken import only showed up at runtime
 
-The first deploy crashed with `ERR_MODULE_NOT_FOUND`: `server.ts` imported `'../../../../Downloads/app.js'`. WebStorm had written that path when the file was copied in from the Downloads folder. Locally it worked, because the file existed in Downloads; in the container it didn't. The Docker build runs `tsx` without a type check, so nothing caught it before startup. Fix: `import { buildApp } from './app.js'`. Prevention: save files straight into the project, and type-check (`tsc --noEmit`) inside the Docker build, where only the repo's files exist.
+The first deploy crashed with `ERR_MODULE_NOT_FOUND`: `server.ts` imported `'../../../../Downloads/app.js'`. WebStorm had written that path when the file was copied in from the Downloads folder. Locally it worked, because the file existed in Downloads; in the container it didn't. The Docker build runs `tsx` without a type check, so nothing caught it before startup. Fix: `import { buildApp } from './app.js'`. Prevention, now in place: the Docker build runs `tsc` on the server before it ships (`npm run typecheck` does the same locally for server + web). Inside the image only the repo's files exist, so an import like this fails the build instead of the live server. One catch: the image has `src/` but not `scripts/`, so TypeScript inferred a different source root than locally and newer versions require it to be explicit (TS5011). Fixed with `"rootDir": "."` in `tsconfig.json`, which also replaced a `"declaration": true` that did nothing under `noEmit`. (`"include"` had been inside `compilerOptions`, where it was ignored; moved to the top level.)
+
+## Results v4: source kinds (35 questions, 2 runs)
+
+The one change from v3: every source carries `kind="guide|reference|cookbook|migration-guide|troubleshooting"`, and the instructions say guides and reference describe the current API, cookbook examples can lag behind, and when sources disagree the model should follow the guide or reference and mention the conflict. Retrieval, models and settings are unchanged.
+
+| Model | Run | Correct | Not correct | Declined (/6) | Hallucinated | Cost | Avg latency |
+|---|---|---|---|---|---|---|---|
+| Qwen | 1 | **28/29** | q27 (wrong) | 6 | 0 | $0.051 | 5.6 s |
+| Qwen | 2 | **28/29** | q27 (wrong) | 6 | 0 | $0.042 | 6.6 s |
+| Mistral | 1 | **28/29** | q27 (acceptable) | 6 | 0 | $0.026 | 4.5 s |
+| Mistral | 2 | **28/29** | q27 (wrong) | 6 | 0 | $0.027 | 4.1 s |
+
+- **q12 fixed in 4 of 4 answers** (v3: 3 of 4 recommended the deprecated `needsApproval`). The stale cookbook page was still retrieved every time, now labeled `cookbook`, and no answer followed it.
+- **The only miss is q27** (`maxParallelCalls`), the known retrieval failure. Both models are now at the ceiling of what retrieval delivers.
+- Input grew by ~100 tokens per question (3.1k); cost and latency are within v3's range.
+- Citations: no invented numbers. Mistral answered 3 questions without any citation in run 1 (q09, q10, q33), none in run 2.
+- Judged with the corrected q12 reference (below). Re-judging also flipped Mistral run 1 q26 from "acceptable" to "correct" without any change to that question: judge noise. In both runs Mistral's q26 answer omits `convertToModelMessages`, and the judge mostly accepts it, so it's arguably lenient there.
+
+### Lesson: labels beat instructions about content
+
+v3 already told the model to follow the sources, and it did: it followed the wrong source. It had no way to tell an outdated cookbook page from the current guide, because both looked like "a source". One attribute per source plus one sentence on how to rank them fixed it, at ~100 tokens. Metadata the pipeline already had (`kind` came from the URL path at chunking time) was worth putting in front of the model.
+
+### Lesson: the reference was wrong again, in the same way as q16
+
+Qwen's second q12 answer used `toolApproval` and then added "with `WorkflowAgent`, approval is set on the tool with `needsApproval`". That is exactly what the v7 guide says. The reference only said "`needsApproval` is deprecated in v7", so the judge graded it "outdated". The reference now says it is deprecated for `generateText` / `streamText` / `ToolLoopAgent` and still used with `WorkflowAgent`. Both v4 runs were re-judged with it. Two of the three reference fixes so far (q12, q16) were cases where the model knew a correct detail that the reference didn't list.
 
 ## Results v3: vector top 8 (35 questions, 2 runs)
 
@@ -212,7 +243,7 @@ The first deploy crashed with `ERR_MODULE_NOT_FOUND`: `server.ts` imported `'../
 - Qwen is now consistently one notch more reliable (27, 27 vs. 24, 28) at twice Mistral's cost. For the demo either works; Mistral stays the cost-efficient default, Qwen the reliable one.
 - Seen in the live demo too: an answer whose first example used an undefined `coreMessages` variable (a leftover of the AI SDK 3–4 `CoreMessage` name) next to a correct second example. 27/29 is not 29/29.
 
-### Lesson: the docs can contradict themselves
+### Lesson: the docs can contradict themselves (fixed in v4)
 
 The v7 guide `agents/tool-approvals` says: use `needsApproval` only with `WorkflowAgent`; for `generateText` / `streamText` use `toolApproval`. But the cookbook page **"Human-in-the-Loop with Next.js" still teaches `needsApproval: true` for `streamText`**. With 8 sources, both pages were retrieved for q12, and the models followed the stale one (Qwen cited it as `[7]`). RAG faithfully reproduces whatever the corpus says, including its outdated parts. Candidate fix: label each source with its `kind` (guide / reference / cookbook) and tell the model to prefer guides and reference when sources disagree, and to say there is a conflict.
 
@@ -291,19 +322,17 @@ Fix: score at chunk level instead. Each question got an `evidence` field: a list
 
 ## Known gaps
 
-- **Stale cookbook pages** contradict the v7 guides (e.g. `needsApproval` in "Human-in-the-Loop with Next.js"). Candidate fix: `kind` label per source + "prefer guides/reference when sources disagree" rule, measured on q12.
 - **q27** (`maxParallelCalls`) is unreachable by every retrieval config: the fact lives in a single chunk. Worth checking how that chunk was cut.
 - **No keyword-style questions** in the eval (bare identifiers like `isStepCount`). That is where full-text search should help; add a few and rerun the experiment before ruling hybrid out for good.
-- **Two citation parsers.** `web/src/lib/citations.ts` handles every format seen so far; `src/rag/prompt.ts` (evals) handles fewer. Merge them into one shared module so the eval counts what the UI shows.
 - **Citation format isn't enforced.** A "cite only in prose" rule in the prompt would reduce the variety, but needs a full eval rerun.
 - **Single-turn.** Follow-ups ("and for streamText?") are answered without the earlier question; multi-turn needs query rewriting before retrieval.
-- **No type check in the deploy.** The Docker build doesn't run `tsc`, so a bad import is found only when the server starts.
-- `tsconfig.json`: `"include"` is inside `compilerOptions`, where it's ignored. Move it to the top level.
+- **Mistral sometimes doesn't cite** (3 of 29 answers in v4 run 1). The UI then shows no markers and fades all sources.
+- **q26 grading is lenient:** Mistral's answers omit `convertToModelMessages` and are usually graded correct. Tighten the reference if it matters.
 - Free-tier cold start: ~1 minute after 15 idle minutes (Render), plus Neon waking up.
 - The judge flips on ~17% of borderline answers. Majority-of-3 judging would reduce it (~3× judge cost, ~$0.20 per run).
 - Single runs are noisy (OpenRouter routing). v3 has 2 runs; the runner should support N repetitions and report the range.
 - Heading anchors in chunk URLs are an approximation of the site's slugs. Spot-check before relying on them for citations.
-- Migration-guide chunks contain "before" (v6) code. If they start showing up as sources of wrong answers, use `kind` to down-rank them.
+- Migration-guide chunks contain "before" (v6) code. Now labeled `migration-guide` in the prompt; if they still mislead, down-rank them in retrieval.
 - Some page titles keep their YAML quotes (e.g. `"React error \"...\""`). The prompt strips them; fixing it at the source (`fetch-docs.ts`) means re-chunking and re-embedding.
 - Chunker: when a tiny section is merged at the end of a page, its heading can appear twice in the chunk. Harmless for answers; fix together with the title quotes.
 - The RAG prompt says "version 7"; the baseline prompt said "latest version". Telling the model the version is part of what RAG provides, but say so when presenting the comparison.
@@ -311,15 +340,10 @@ Fix: score at chunk level instead. Each question got an `evidence` field: a list
 
 ## Next steps
 
-Done since the last update: Fastify API with streaming, React chat with clickable citations, README, `.env` support, deployment (Render + Neon + production key + rate limit).
+Done: API, web chat, deployment, README, `.env` support; one shared citation parser; type check in the Docker build; v4 source kinds (q12 fixed, 28/29 for both models).
 
-1. **Small fixes:** `tsc --noEmit` in the Docker build; move `"include"` in `tsconfig.json`.
-2. **One citation parser** shared by the evals and the web app (move it to `src/rag/`, import it from `web/`).
-3. **Quality round v4**, measured with the eval as before:
-   - source `kind` labels + "prefer guides when sources disagree" (target: q12),
-   - "cite only in prose" in the prompt,
-   - look at how the q27 chunk was cut,
-   - add keyword-style questions and rerun the retrieval experiment.
-   Run each change 2–3 times and report the range.
+1. **q27:** look at how the `maxParallelCalls` chunk was cut, and why no configuration retrieves it. It's the last miss.
+2. **Keyword-style questions** (bare identifiers like `isStepCount`) in the eval, then rerun the retrieval experiment before ruling hybrid search out.
+3. "Cite only in prose, as [n]" in the prompt, if the citation formats or Mistral's uncited answers become a problem. Needs a full rerun.
 4. Multi-turn: rewrite follow-up questions into standalone ones before retrieval.
 5. Later: eval framework comparing models, prompts, embedding models, cost and speed (N repetitions, majority-of-3 judging).
