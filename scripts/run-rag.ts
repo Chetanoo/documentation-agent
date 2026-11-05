@@ -1,6 +1,6 @@
 /**
  * RAG eval: same questions, models and settings as run-baseline.ts, but each question
- * gets the retrieved chunks (see RETRIEVAL in src/rag/retrieve.ts) as numbered sources. Retrieval is the only change.
+ * gets the retrieved chunks (see RETRIEVAL in src/rag/retrieve.ts: vector search, then rerank) as numbered sources.
  *
  * Run (from your own terminal):
  *   withsecrets npm run eval:rag                 -> full run, writes evals/runs/rag-<stamp>.json
@@ -223,6 +223,18 @@ async function main() {
     return;
   }
 
+  // Reranking falls back to vector order on errors; a run with fallbacks doesn't measure the reranker.
+  const rerankRows = selected.flatMap((q, i) => (retrieved.rerank[i] ? [{ id: q.id, ...retrieved.rerank[i] }] : []));
+  const rerankStats = rerankRows.length
+    ? {
+        fallbacks: rerankRows.filter((r) => r.fallback).map((r) => `${r.id}: ${r.fallback}`),
+        avgMs: Math.round(rerankRows.reduce((s, r) => s + r.ms, 0) / rerankRows.length),
+        maxMs: Math.max(...rerankRows.map((r) => r.ms)),
+        costUsd: +rerankRows.reduce((s, r) => s + (r.cost ?? 0), 0).toFixed(5),
+      }
+    : null;
+  if (rerankStats?.fallbacks.length) console.warn(`WARNING rerank fell back to vector order for: ${rerankStats.fallbacks.join('; ')}`);
+
   const tasks = MODELS.flatMap((modelId) =>
     questions.map((q) => async () => {
       const r = await askOne(openrouter, modelId, q, hitsById.get(q.id)!);
@@ -247,7 +259,13 @@ async function main() {
         models: MODELS,
         instructions: RAG_INSTRUCTIONS,
         settings: { REASONING_MAX_TOKENS, MAX_OUTPUT_TOKENS, temperature: GENERATION.temperature },
-        retrieval: { ...RETRIEVAL, mode: RETRIEVAL.textWeight === 0 ? 'vector' : 'hybrid', embedding: EMBEDDING, embeddingTokens: retrieved.embeddingTokens },
+        retrieval: {
+          ...RETRIEVAL,
+          mode: RETRIEVAL.textWeight === 0 ? 'vector' : 'hybrid',
+          embedding: EMBEDDING,
+          embeddingTokens: retrieved.embeddingTokens,
+          rerank: rerankStats,
+        },
         results,
       },
       null,
@@ -256,6 +274,7 @@ async function main() {
   );
 
   const retrievalMisses = questions.filter((q) => q.evidence?.length && !sourcesFor(q, hitsById.get(q.id)!).some((s) => s.evidence));
+  if (rerankStats) console.log(`\nrerank: avg ${rerankStats.avgMs} ms, max ${rerankStats.maxMs} ms, $${rerankStats.costUsd}, fallbacks: ${rerankStats.fallbacks.length}`);
   console.log(`\nretrieval: evidence missing from sources for ${retrievalMisses.map((q) => q.id).join(', ') || 'none'}`);
   console.log('');
   console.table(summarize(results));

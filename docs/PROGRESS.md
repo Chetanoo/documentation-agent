@@ -17,11 +17,12 @@ Later: a mini eval framework that compares models, prompts, cost and speed.
 | Baseline | none | 2/29 | 2/29 | 3/6 | 3 per model |
 | RAG v2 | hybrid (RRF), top 5 | 24/29 | 23/29 | 6/6 | 0 |
 | RAG v3 | vector, top 8 | 27/29 (both runs) | 24–28/29 | 6/6 | 0 |
-| **RAG v4** | **vector, top 8 + source kinds** | **28/29** (both runs) | **28/29** (both runs) | **6/6** | **0** |
+| RAG v4 | vector, top 8 + source kinds | 28/29 (both runs) | 28/29 (both runs) | 6/6 | 0 |
+| **RAG v5** | **vector top 30 → rerank → top 8** | **29/29** (both runs) | **29/29** (both runs) | **6/6** | **0** |
 
 35 questions (29 answerable, 6 unanswerable), judged by a third model family against reference answers. Cost per full RAG run: Qwen ~$0.049, Mistral ~$0.024.
 
-v4 labels each source with its kind (guide / reference / cookbook / ...) and tells the model to prefer guides when sources disagree. The only miss left is q27, a retrieval failure.
+v4 labels each source with its kind (guide / reference / cookbook / ...) and tells the model to prefer guides when sources disagree. v5 reranks the vector top 30 with Cohere Rerank and keeps the top 8, which fixed the last miss (q27). At 29/29 the 35-question eval is saturated: it can no longer tell a better configuration from an equally good one.
 
 Around v3: the same pipeline behind a streaming API, a React chat with clickable citations, and a public deployment with cost limits. The demo runs exactly the configuration the evals measured (same retrieval, models and settings, from the same modules).
 
@@ -46,7 +47,7 @@ Around v3: the same pipeline behind a streaming API, a React chat with clickable
 - **Embeddings:** `openai/text-embedding-3-small` via OpenRouter (1536 dims, $0.02 / 1M tokens). Fallback candidate: Qwen3 Embedding 8B (check its dimensions first: pgvector HNSW indexes at most 2000).
 - **LLM client:** the AI SDK itself, with `@openrouter/ai-sdk-provider` (3.x line = AI SDK v7). Note: this provider still uses `textEmbeddingModel`, not the v6+ name `embeddingModel`.
 - **Database:** Postgres 17 + pgvector in Docker locally (port 5433, because 5432 is taken on this machine). Neon in production (same SQL, same scripts).
-- **Retrieval:** **vector-only (HNSW, cosine), top 8 chunks**, chosen by the retrieval experiment (see below). Full-text search and weighted RRF are still implemented: `RETRIEVAL.textWeight` in `src/rag/retrieve.ts` turns hybrid back on (0 = vector only).
+- **Retrieval:** **vector (HNSW, cosine) top 30 → `cohere/rerank-5-fast` via OpenRouter → top 8.** Vector-only was chosen by the retrieval experiment, the reranker by the rerank experiment (see below). Reranking uses 2 attempts of 3 s each and falls back to the vector order, so a reranker outage means v4-quality retrieval, not an error. Full-text search and weighted RRF are still implemented: `RETRIEVAL.textWeight` in `src/rag/retrieve.ts` turns hybrid back on (0 = vector only); `rerankModel: null` turns reranking off.
 - **Generation:** the retrieved chunks as numbered `<source>` blocks (kind + section path + URL + content). Instructions: answer only from the sources, cite `[n]` inline, never recommend migration-guide "Before" code, say "couldn't find it" instead of guessing, and (v4) when sources disagree, follow guides and reference over cookbook examples. Same models and settings as the baseline, so retrieval is the only variable. Settings live in `src/rag/models.ts` (temperature 0, max output 12k tokens, reasoning capped at 4k), shared by the eval runner and the API.
 - **Judge rules:** grades only against the reference, never its own SDK knowledge. For answerable questions, "the information isn't available" counts as **wrong**; partial answers are graded on the part they answer.
 - **Headline metric:** "correct". The judge's outdated / wrong split is noisy (see below), so the README reports those together as "not usable".
@@ -73,12 +74,14 @@ Around v3: the same pipeline behind a streaming API, a React chat with clickable
 ```
 npm run fetch-docs        llms.txt → data/corpus/ (375 pages, committed) + _manifest.json (sha256 per page)
 npm run check-coverage    every eval source exists in the corpus
-npm run chunk-docs        corpus → data/chunks.jsonl (1986 chunks, gitignored, deterministic)
+npm run chunk-docs        corpus → data/chunks.jsonl (1982 chunks, gitignored, deterministic)
 npm run db:up             Postgres + pgvector in Docker
 npm run db:migrate        schema (add -- --reset after changing embedding dims)
 withsecrets npm run embed                  embed new/changed chunks only, delete stale ones
 withsecrets npm run eval:retrieval         vector / text / hybrid scores at k = 1, 3, 5, 10 → evals/runs/
 withsecrets npm run experiment:retrieval   compare retrieval configs on the same candidates → evals/runs/
+withsecrets npm run experiment:rerank      vector top 30 vs reranked: evidence@k, MRR, latency, cost → evals/runs/
+withsecrets npm run rank '--' q27          where vector and full-text search rank a question's evidence (top 50)
 withsecrets npm run eval:baseline          both models, no retrieval → evals/runs/baseline-<stamp>.json
 withsecrets npm run eval:rag '--' --dry q04  print the prompt for one question, no LLM call
 withsecrets npm run eval:rag               both models answer with retrieved sources → evals/runs/rag-<stamp>.json
@@ -89,7 +92,7 @@ cd web; npm run dev                        web app on http://localhost:5173 (pro
 npm run ask -- "question" --model qwen     ask the running API from the terminal
 ```
 
-In PowerShell, quote the separator (`'--'`): a bare `--` is dropped and npm reads `--dry` as its own `--dry-run`.
+In PowerShell, quote the separator (`'--'`): a bare `--` is dropped and npm reads `--dry` as its own `--dry-run`. Free-text queries with spaces don't survive `withsecrets` + npm (each word arrives as a separate argument), so `rank` is reliable with question ids only.
 
 `evals/runs/` is gitignored. Runs worth keeping are copied ("frozen") into `evals/baselines/` and committed together with the code that produced them.
 
@@ -102,7 +105,7 @@ Loading Neon uses the same scripts with `DATABASE_URL` pointed at it: `db:migrat
 | `data/corpus/` | Snapshot of the v7 docs + cookbook as Markdown. `.gitattributes` marks it `-text` so line endings (and hashes) don't change on Windows. |
 | `scripts/fetch-docs.ts` | Splits `llms.txt` by frontmatter, filters by path, writes pages + manifest. Section index pages are stored as `_index.md`. |
 | `scripts/check-coverage.ts` | Checks that every eval `sources` URL exists in the corpus. |
-| `scripts/chunk-docs.ts` | Splits pages at `##`/`###` (never inside code fences). Merges sections < 120 tokens into the next; splits sections > 800 tokens at paragraphs, top-level list items, nested list items (parent line repeated) and table rows (header repeated). Each chunk has `content` and `embed_text` (= "Title > Section" + content), `kind`, `url` with anchor. |
+| `scripts/chunk-docs.ts` | Splits pages at `##`/`###` (never inside code fences). Groups sections < 120 tokens with the following ones (labeled by the first section, later headings kept inline); splits sections > 800 tokens at paragraphs, top-level list items, nested list items (parent line repeated) and table rows (header repeated). Each chunk has `content` and `embed_text` (= "Title > Section" + content), `kind`, `url` with anchor. |
 | `scripts/db-migrate.ts`, `src/db/schema.ts` | `chunks` table: metadata, `vector(1536)` with HNSW index, generated weighted `tsvector` with GIN index. |
 | `scripts/embed-chunks.ts` | Batches of 200, hash per chunk (model + chunk) so reruns only embed what changed, each batch committed separately. |
 | `src/env.ts`, `.env.example` | Optional `.env` loading (imported by every script via `tsx --import`). |
@@ -115,9 +118,12 @@ Loading Neon uses the same scripts with `DATABASE_URL` pointed at it: `db:migrat
 | `scripts/run-baseline.ts`, `scripts/judge.ts` | No-retrieval baseline + LLM judge. The judge picks the newest `baseline-*` or `rag-*` run, or takes a path. |
 | `src/rag/prompt.ts` | RAG instructions and source formatting (with `kind`). Shared by the eval runner and the API. |
 | `src/rag/citations.ts` | The one citation parser, used by the eval runner (`parseCitations`) and the web app (re-exported from `web/src/lib/citations.ts`). No imports, so it compiles under both tsconfigs. |
-| `src/rag/retrieve.ts` | `RETRIEVAL` config (top 8, vector only) and `retrieveMany()`: embeds all questions in one request. |
+| `src/rag/retrieve.ts` | `RETRIEVAL` config (vector top 30 → rerank → top 8) and `retrieveMany()`: embeds all questions in one request, reranks 5 at a time, reports rerank latency/cost/fallbacks per question. Used by the eval runner and the API. |
+| `src/retrieval/rerank.ts` | `rerankHits()`: OpenRouter Rerank API (the OpenRouter AI SDK provider has no reranking models). Never throws: retries timeouts, 429 and 5xx once, then falls back to the vector order and says why. |
+| `scripts/experiment-rerank.ts` | Reranks each answerable question's vector top 30 and compares evidence@5/8/10, MRR, first-evidence rank, latency and cost. |
+| `scripts/rank-of.ts` | Debug tool: rank of a question's evidence in vector and full-text top 50, plus the vector top 8. |
 | `src/rag/models.ts` | The two models, `DEFAULT_MODEL` (Mistral), generation settings and provider options. |
-| `scripts/run-rag.ts` | Same as `../../../Downloads/run-baseline.ts` plus retrieval. Extra fields per answer: sources (with kind and ✓ for evidence), `evidenceInSources`, citations, invalid citations, `citesEvidence`. Records the retrieval config in the run file. `--dry <id>` prints the prompt. |
+| `scripts/run-rag.ts` | Same as `run-baseline.ts` plus retrieval. Extra fields per answer: sources (with kind and ✓ for evidence), `evidenceInSources`, citations, invalid citations, `citesEvidence`. Records the retrieval config in the run file. `--dry <id>` prints the prompt. |
 | `src/lib/pool.ts` | Shared helper for running requests in parallel. |
 | `src/api/server.ts` | Entry point: checks the key, creates the pg pool, builds the app, shuts down cleanly on SIGINT/SIGTERM. |
 | `src/api/app.ts` | `buildApp()`: rate limiting, `/api/health`, `/api/ready`, static web app with SPA fallback, JSON 404 for unknown `/api/*`. |
@@ -127,9 +133,9 @@ Loading Neon uses the same scripts with `DATABASE_URL` pointed at it: `db:migrat
 | `Dockerfile`, `.dockerignore` | Two stages: build the web app (copies `src/rag/citations.ts` in for it), then type-check and run the server with `tsx`. |
 | `docker-compose.yml` | Local Postgres + pgvector on port 5433. |
 | `README.md`, `docs/screenshot.png` | Public write-up with results, lessons and the live link. |
-| `evals/baselines/` | **v4 (current):** `rag-v4-run1`, `rag-v4-run2` (+ judged). **v3:** `rag-v3-run1`, `rag-v3-run2` (+ judged), `experiment-retrieval-v1`. **v2:** `baseline-v2`, `rag-v2` (+ judged), `retrieval-v2`. **v1 (first 20 questions):** `baseline-v1`, `rag-v1` (+ judged), `retrieval-v1`. |
+| `evals/baselines/` | **v5 (current):** `rag-v5-run1`, `rag-v5-run2` (+ judged), `experiment-rerank-v1`. **v4:** `rag-v4-run1`, `rag-v4-run2` (+ judged). **v3:** `rag-v3-run1`, `rag-v3-run2` (+ judged), `experiment-retrieval-v1`. **v2:** `baseline-v2`, `rag-v2` (+ judged), `retrieval-v2`. **v1 (first 20 questions):** `baseline-v1`, `rag-v1` (+ judged), `retrieval-v1`. |
 
-Corpus stats: 375 pages → 1,986 chunks, ~644k tokens (estimated), median chunk 254 tokens, p90 667. Embedding the whole corpus: 618k tokens, 51 s, ~$0.012.
+Corpus stats: 375 pages → 1,982 chunks, ~645k tokens (estimated), median chunk 256 tokens, p90 669. Embedding the whole corpus: 618k tokens, 51 s, ~$0.012.
 
 ## API
 
@@ -201,6 +207,48 @@ Each format only showed up when someone asked the live demo a new kind of questi
 
 The first deploy crashed with `ERR_MODULE_NOT_FOUND`: `server.ts` imported `'../../../../Downloads/app.js'`. WebStorm had written that path when the file was copied in from the Downloads folder. Locally it worked, because the file existed in Downloads; in the container it didn't. The Docker build runs `tsx` without a type check, so nothing caught it before startup. Fix: `import { buildApp } from './app.js'`. Prevention, now in place: the Docker build runs `tsc` on the server before it ships (`npm run typecheck` does the same locally for server + web). Inside the image only the repo's files exist, so an import like this fails the build instead of the live server. One catch: the image has `src/` but not `scripts/`, so TypeScript inferred a different source root than locally and newer versions require it to be explicit (TS5011). Fixed with `"rootDir": "."` in `tsconfig.json`, which also replaced a `"declaration": true` that did nothing under `noEmit`. (`"include"` had been inside `compilerOptions`, where it was ignored; moved to the top level.)
 
+## Results v5: reranking (35 questions, 2 runs)
+
+Changes from v4: (1) the chunker fix below, (2) retrieval takes the vector top 30 and reranks them with `cohere/rerank-5-fast`, keeping the top 8. Prompt, models and settings unchanged.
+
+| Model | Run | Correct | Declined (/6) | Hallucinated | Cost | Avg latency |
+|---|---|---|---|---|---|---|
+| Qwen | 1 | **29/29** | 6 | 0 | $0.051 | 6.2 s |
+| Qwen | 2 | **29/29** | 6 | 0 | $0.050 | 7.1 s |
+| Mistral | 1 | **29/29** | 6 | 0 | $0.029 | 4.0 s |
+| Mistral | 2 | **29/29** | 6 | 0 | $0.028 | 3.8 s |
+
+- **q27 correct in 4 of 4 answers** (v1–v4: never). Both models now answer `embedMany` + `maxParallelCalls`.
+- Evidence reached the sources for 28 of 29 questions; the exception, q01, is answered correctly anyway.
+- Reranking: $0.007 per run, avg 0.8–1.3 s per question, 0 fallbacks in both frozen runs. Input grew from ~3.1k to ~3.5k tokens per question (the reranker prefers somewhat longer chunks); answer cost is unchanged.
+- Citations: no invented numbers; the cited source contains the evidence for 27–28 of 29 answers. Mistral left 1–2 answers uncited per run.
+- **A third run was discarded:** with a single 10 s timeout, 10 of 35 rerank calls stalled and fell back to vector order. It still scored 29/29 (q27 wasn't among the fallbacks), but it didn't measure the reranker. That led to 2 attempts × 3 s (below); the replacement run had 0 fallbacks, with one call needing the retry (3.9 s).
+
+### Rerank experiment (experiment-rerank-v1, 29 answerable questions)
+
+Each question's vector top 30, reranked by `cohere/rerank-5-fast` (after the chunker fix):
+
+| Order | @5 | @8 | @10 | MRR |
+|---|---|---|---|---|
+| vector | 0.78 | 0.91 | 0.93 | 0.71 |
+| **reranked** | **0.97** | **0.97** | **0.97** | **0.97** |
+
+- The first evidence chunk moved to rank 1 for 28 of 29 questions (q27: #12 → #1; q05, q13, q15, q30: #7–8 → #1). No question got worse. q01's evidence isn't in the top 30 either way.
+- Cost ~$0.0002 per question. Latency usually 0.6–1.2 s, but 4 of 29 calls took 3.8–7.5 s.
+- @5 = @8 after reranking, so top 5 would likely give the same answers with ~40% less context. Not tested end to end yet.
+
+### Lesson: the miss was in the question, not the chunk
+
+`rank-of` showed q27's answer at vector rank #12. The question, "I need to embed thousands of document chunks **for RAG**…", pulled seven "RAG Agent" cookbook chunks into the top 8: the embedding matched the topic of the question, not what it asked for. The single word "many" put the right chunk at #3. Embedding similarity measures topical overlap; a reranker reads the question and the passage together and judges whether the passage answers it. That fixed q27 and moved the evidence to rank 1 almost everywhere, for $0.0002 and ~1 s per question.
+
+### Lesson: the chunker mislabeled every merged section
+
+The first hypothesis for q27 was the chunk itself: "### Parallel Requests" was too short to stand alone, so the chunker merged it into the next section and labeled the chunk with that section's heading, "Settings > Retries", while the "Retries" heading was missing from the text. Fixed in `chunk-docs.ts` (a merged chunk is labeled by its first section, later headings stay inline): 703 of 1,982 chunks got new embedded text, 87 chunks lost a duplicated heading, and citation links now point to where a chunk starts. It didn't fix q27 and barely moved retrieval (vector @8 0.91 → 0.91, @5 0.81 → 0.78, MRR 0.72 → 0.71). It was kept because labels and links are now right. Measuring the hypothesis before building on it saved a wrong conclusion.
+
+### Lesson: an external API in the request path needs a fallback and a short timeout
+
+The reranker answered in ~1 s in one run and stalled for 10 s+ on a third of the calls six minutes later. `rerankHits` never throws: it retries timeouts, 429 and 5xx once with a 3 s limit each, then keeps the vector order. The eval runner records every fallback and warns at the start of the output, because a run with fallbacks doesn't measure the reranker.
+
 ## Results v4: source kinds (35 questions, 2 runs)
 
 The one change from v3: every source carries `kind="guide|reference|cookbook|migration-guide|troubleshooting"`, and the instructions say guides and reference describe the current API, cookbook examples can lag behind, and when sources disagree the model should follow the guide or reference and mention the conflict. Retrieval, models and settings are unchanged.
@@ -213,7 +261,7 @@ The one change from v3: every source carries `kind="guide|reference|cookbook|mig
 | Mistral | 2 | **28/29** | q27 (wrong) | 6 | 0 | $0.027 | 4.1 s |
 
 - **q12 fixed in 4 of 4 answers** (v3: 3 of 4 recommended the deprecated `needsApproval`). The stale cookbook page was still retrieved every time, now labeled `cookbook`, and no answer followed it.
-- **The only miss is q27** (`maxParallelCalls`), the known retrieval failure. Both models are now at the ceiling of what retrieval delivers.
+- **The only miss is q27** (`maxParallelCalls`), the known retrieval failure (fixed in v5). Both models are now at the ceiling of what retrieval delivers.
 - Input grew by ~100 tokens per question (3.1k); cost and latency are within v3's range.
 - Citations: no invented numbers. Mistral answered 3 questions without any citation in run 1 (q09, q10, q33), none in run 2.
 - Judged with the corrected q12 reference (below). Re-judging also flipped Mistral run 1 q26 from "acceptable" to "correct" without any change to that question: judge noise. In both runs Mistral's q26 answer omits `convertToModelMessages`, and the judge mostly accepts it, so it's arguably lenient there.
@@ -322,11 +370,12 @@ Fix: score at chunk level instead. Each question got an `evidence` field: a list
 
 ## Known gaps
 
-- **q27** (`maxParallelCalls`) is unreachable by every retrieval config: the fact lives in a single chunk. Worth checking how that chunk was cut.
+- **The eval is saturated** at 29/29: it can't rank configurations any more. Harder questions are needed: keyword-style, multi-page, follow-ups, and questions whose wording pulls toward the wrong topic (like q27).
+- **Reranker latency** varies: ~1 s typically, occasional stalls. Worst case adds ~6 s before falling back. Watch the API logs.
 - **No keyword-style questions** in the eval (bare identifiers like `isStepCount`). That is where full-text search should help; add a few and rerun the experiment before ruling hybrid out for good.
 - **Citation format isn't enforced.** A "cite only in prose" rule in the prompt would reduce the variety, but needs a full eval rerun.
 - **Single-turn.** Follow-ups ("and for streamText?") are answered without the earlier question; multi-turn needs query rewriting before retrieval.
-- **Mistral sometimes doesn't cite** (3 of 29 answers in v4 run 1). The UI then shows no markers and fades all sources.
+- **Mistral sometimes doesn't cite** (3 of 29 answers in v4 run 1, 1–2 in v5). The UI then shows no markers and fades all sources.
 - **q26 grading is lenient:** Mistral's answers omit `convertToModelMessages` and are usually graded correct. Tighten the reference if it matters.
 - Free-tier cold start: ~1 minute after 15 idle minutes (Render), plus Neon waking up.
 - The judge flips on ~17% of borderline answers. Majority-of-3 judging would reduce it (~3× judge cost, ~$0.20 per run).
@@ -334,16 +383,15 @@ Fix: score at chunk level instead. Each question got an `evidence` field: a list
 - Heading anchors in chunk URLs are an approximation of the site's slugs. Spot-check before relying on them for citations.
 - Migration-guide chunks contain "before" (v6) code. Now labeled `migration-guide` in the prompt; if they still mislead, down-rank them in retrieval.
 - Some page titles keep their YAML quotes (e.g. `"React error \"...\""`). The prompt strips them; fixing it at the source (`fetch-docs.ts`) means re-chunking and re-embedding.
-- Chunker: when a tiny section is merged at the end of a page, its heading can appear twice in the chunk. Harmless for answers; fix together with the title quotes.
 - The RAG prompt says "version 7"; the baseline prompt said "latest version". Telling the model the version is part of what RAG provides, but say so when presenting the comparison.
 - TODO in `judge.ts`: set `MIN_INTERVAL_MS` to 0 once the OpenRouter account is no longer "new".
 
 ## Next steps
 
-Done: API, web chat, deployment, README, `.env` support; one shared citation parser; type check in the Docker build; v4 source kinds (q12 fixed, 28/29 for both models).
+Done: API, web chat, deployment, README, `.env` support; one shared citation parser; type check in the Docker build; v4 source kinds (q12); chunker labels fixed; v5 reranking (q27; 29/29 for both models).
 
-1. **q27:** look at how the `maxParallelCalls` chunk was cut, and why no configuration retrieves it. It's the last miss.
-2. **Keyword-style questions** (bare identifiers like `isStepCount`) in the eval, then rerun the retrieval experiment before ruling hybrid search out.
-3. "Cite only in prose, as [n]" in the prompt, if the citation formats or Mistral's uncited answers become a problem. Needs a full rerun.
-4. Multi-turn: rewrite follow-up questions into standalone ones before retrieval.
+1. **A harder eval set:** keyword-style questions (bare identifiers like `isStepCount`), questions that need two pages, follow-ups, and misleading wording like q27. Then rerun the retrieval and rerank experiments, including hybrid + rerank (full-text candidates may matter for keywords).
+2. **Top 5 instead of 8** after reranking: same evidence coverage in the experiment, ~40% less context. Measure answers before switching.
+3. Multi-turn: rewrite follow-up questions into standalone ones before retrieval.
+4. "Cite only in prose, as [n]" in the prompt, if citation formats or Mistral's uncited answers become a problem. Needs a full rerun.
 5. Later: eval framework comparing models, prompts, embedding models, cost and speed (N repetitions, majority-of-3 judging).

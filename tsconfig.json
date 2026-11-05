@@ -46,6 +46,7 @@
     "scripts/run-rag.ts",
     "scripts/experiment-retrieval.ts",
     "scripts/eval-retrieval.ts",
-    "scripts/ask-api.ts"
+    "scripts/ask-api.ts",
+    "scripts/experiment-rerank.ts"
   ]
 }

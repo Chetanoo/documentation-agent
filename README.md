@@ -4,7 +4,7 @@ A question-answering bot over the [Vercel AI SDK 7](https://ai-sdk.dev) document
 
 **Live demo: [ask-ai-docs-agent.onrender.com](https://ask-ai-docs-agent.onrender.com)**. It runs on a free instance that sleeps when idle, so the first visit can take about a minute to wake up.
 
-**Built it, measured it, improved it:** small open models answer 2 of 29 questions correctly on their own. With this pipeline they answer 28 of 29 correctly and stop inventing answers to questions the docs don't cover.
+**Built it, measured it, improved it:** small open models answer 2 of 29 questions correctly on their own. With this pipeline they answer all 29 correctly and stop inventing answers to questions the docs don't cover.
 
 ![The chat answering a question, with cited sources in the margin](docs/screenshot.png)
 
@@ -17,12 +17,13 @@ A question-answering bot over the [Vercel AI SDK 7](https://ai-sdk.dev) document
 | Model alone | none | 2 / 29 | 2 / 29 | 3 / 6 | 3 per model |
 | RAG v2 | hybrid search, 5 chunks | 24 / 29 | 23 / 29 | 6 / 6 | 0 |
 | RAG v3 | vector search, 8 chunks | 27 / 29 (both runs) | 24–28 / 29 | 6 / 6 | 0 |
-| **RAG v4** | **+ source type labels** | **28 / 29** (both runs) | **28 / 29** (both runs) | **6 / 6** | **0** |
+| RAG v4 | + source type labels | 28 / 29 (both runs) | 28 / 29 (both runs) | 6 / 6 | 0 |
+| **RAG v5** | **+ reranking** | **29 / 29** (both runs) | **29 / 29** (both runs) | **6 / 6** | **0** |
 
 - **Outdated answers went from 6–10 per model to zero.** Without the docs, both models write AI SDK 4–6 code: `maxSteps`, `fullStream`, `generateObject`, `system`.
 - **Hallucinations went to zero.** Without retrieval the models invented a "128 tools" limit, a "30 seconds" MCP timeout and npm download counts. With it, they say the docs don't cover it.
 - **It doesn't cost more.** The sources add ~3k input tokens per question, but the models reason less when the answer is in front of them. A full run of 35 questions costs about $0.05 with Qwen and $0.02 with Mistral.
-- **The one remaining failure** is a fact that retrieval never finds. The judge is still noisy on borderline answers (see [what I learned](#what-i-learned)).
+- **The last miss was a retrieval problem, fixed by reranking.** At 29 / 29 this eval is saturated: it shows the pipeline works, but it can no longer rank improvements. The next step is harder questions.
 
 ## Why this is hard
 
@@ -46,13 +47,13 @@ A model's training data is full of the old names, so a correct answer has to com
 flowchart LR
   subgraph Ingestion
     A[ai-sdk.dev/llms.txt] --> B[375 pages<br/>docs + cookbook]
-    B --> C[1,986 chunks<br/>split by headings]
+    B --> C[1,982 chunks<br/>split by headings]
     C --> D[(Postgres + pgvector)]
   end
   subgraph Answering
-    Q[Question] --> E[Embed] --> F[Top 8 chunks]
+    Q[Question] --> E[Embed] --> F[Top 30 by vector] --> R[Rerank<br/>keep top 8]
     D --> F
-    F --> G[Numbered sources<br/>+ instructions]
+    R --> G[Numbered sources<br/>+ instructions]
     G --> H[streamText]
     H --> I[SSE stream:<br/>sources, then answer]
     I --> J[React chat]
@@ -60,7 +61,7 @@ flowchart LR
 ```
 
 - **Ingestion.** `llms.txt` turned out to be the entire docs in one file, so it is split locally into pages and committed as a snapshot (with a SHA-256 per page), which makes every eval reproducible. Pages are chunked at headings, never inside code blocks; long parameter lists and tables are split with their parent line or header repeated.
-- **Retrieval.** `text-embedding-3-small` vectors in pgvector with an HNSW index, top 8 chunks. Full-text search and weighted reciprocal rank fusion are implemented too; an experiment chose vector-only (see below).
+- **Retrieval.** `text-embedding-3-small` vectors in pgvector with an HNSW index. The top 30 chunks are reranked by Cohere Rerank (via OpenRouter) and the best 8 kept. If the reranker is slow or down, retrieval falls back to the vector order instead of failing. Full-text search and weighted reciprocal rank fusion are implemented too; an experiment chose vector-only (see below).
 - **Generation.** The chunks go into the prompt as numbered `<source>` blocks, each labeled with its type (guide, reference, cookbook, ...). The instructions: answer only from the sources, cite them as `[n]`, prefer guides and reference over cookbook examples when they disagree, never recommend code from the migration guides' "Before" blocks, and say "I couldn't find it in the docs" instead of guessing.
 - **API.** Fastify, `POST /api/chat`. It speaks the AI SDK's UI message stream protocol, so the frontend uses `useChat` directly. The sources are sent as `source-url` parts before the answer starts. If the client disconnects, the model call is aborted.
 - **UI.** React + Vite. Each `[n]` in the answer is a footnote marker linked to its source in the margin; pointing at a marker highlights the source, and sources the answer didn't cite are faded.
@@ -72,6 +73,8 @@ The project uses the AI SDK itself as its LLM client, through OpenRouter.
 **The first retrieval eval measured the labels, not retrieval.** It scored whether the top results came from the page each question was written from, and reported recall@5 = 0.41. But the answers are spread across many pages (`isStepCount` appears on 8). Retrieval kept finding correct pages that weren't the labeled one. Scoring instead on whether a retrieved chunk actually contains the answer's key identifiers ("evidence") gave 0.94, later corrected to 0.88 when one evidence term turned out to be too loose.
 
 **Hybrid search looked best until the questions changed.** On the first 16 questions, which name exact APIs, hybrid (full-text + vector) won. On 13 new questions in plain language, full-text found almost nothing and pushed good vector results out of the merged list. An experiment scoring six configurations on the same candidates picked vector-only with 8 chunks: 0.91 of the evidence retrieved vs 0.78 for the original hybrid, at the same context size. That one change took Qwen from 24 to 27 correct.
+
+**Similarity isn't relevance.** The last failing question asked how to embed "document chunks for RAG" while limiting parallel requests. Vector search returned seven chunks about RAG; the answer was at rank 12. A reranker, which reads the question and each passage together, put it at rank 1, and lifted the evidence to rank 1 for 28 of 29 questions (evidence in the top 8: 0.91 → 0.97). It costs $0.0002 and about a second per question. Before that, a chunker bug looked like the cause and was fixed, but measuring showed it wasn't the reason.
 
 **Near-miss sources are where hallucination comes back.** When retrieval returns chunks that are related but don't contain the answer, a small model is tempted to fill the gap from memory, even when told not to. Better retrieval fixed that more reliably than prompt wording.
 
@@ -139,7 +142,7 @@ docs/PROGRESS.md    Full lab notebook: decisions, every run, lessons
 - **Single-turn.** Each question is answered on its own; follow-ups like "and for streamText?" would need query rewriting first.
 - **A snapshot,** taken on November 1, 2026. Provider pages and migration guides older than 5→6 are not included.
 - **Full-sentence questions only** in the eval. Bare identifiers ("isStepCount") are where full-text search should help, and they aren't tested yet.
-- 35 questions is enough to separate 2/29 from 27/29, not to rank configurations that differ by one question.
+- 35 questions is enough to separate 2/29 from 29/29, not to rank configurations that differ by one question. At 29 / 29 the eval is saturated.
 
 ---
 

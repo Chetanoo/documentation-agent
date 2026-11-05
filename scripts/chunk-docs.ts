@@ -179,29 +179,40 @@ function pack(text: string): string[] {
 
 const heading = (s: Section) => s.headings.at(-1);
 
+// A section's body with its own heading line in front, at its original level (### for ['A', 'B']).
+const withHeading = (s: Section) => {
+  const h = heading(s);
+  return h ? `${'#'.repeat(s.headings.length + 1)} ${h}\n\n${s.body}` : s.body;
+};
+
 function chunkPage(p: { path: string; url: string; title: string }, md: string): Chunk[] {
   const sections = splitSections(stripBoilerplate(md));
 
-  // Merge tiny sections forward (e.g. a "## Import" with a one-line code block),
-  // keeping the heading of each merged part inline so nothing is lost.
-  const merged: Section[] = [];
-  let carry: Section | null = null;
+  // Tiny sections (e.g. a "## Import" with a one-line code block) are grouped with the sections after
+  // them until the group reaches MIN_TOKENS. A group is labeled by its FIRST section, where the chunk
+  // starts (crumb, embed_text and URL anchor); every later section keeps its heading inline. A tiny
+  // section at the end of a page joins the previous group, also with its heading inline.
+  // (Before: a group took the LAST section's label, and that section's heading was missing from the
+  // content, so "Parallel Requests" + "Retries" was labeled "Retries" with no "Retries" heading.)
+  const groups: Section[][] = [];
+  let open: Section[] = [];
   for (const s of sections) {
-    const cur: Section = carry
-      ? { headings: s.headings, body: `${carry.body}\n\n${s.body}` }
-      : s;
-    carry = null;
-    if (estTokens(cur.body) < MIN_TOKENS) {
-      const h = heading(cur);
-      carry = { headings: cur.headings, body: h && cur === s ? `${'#'.repeat(cur.headings.length + 1)} ${h}\n\n${cur.body}` : cur.body };
+    open.push(s);
+    if (estTokens(open.map((x) => x.body).join('\n\n')) >= MIN_TOKENS) {
+      groups.push(open);
+      open = [];
     }
-    else merged.push(cur);
   }
-  if (carry) {
-    const last = merged.at(-1);
-    if (last) last.body += `\n\n${'#'.repeat(carry.headings.length + 1)} ${heading(carry) ?? ''}\n\n${carry.body}`;
-    else merged.push(carry);
+  if (open.length) {
+    const last = groups.at(-1);
+    if (last) last.push(...open);
+    else groups.push(open);
   }
+
+  const merged: Section[] = groups.map(([first, ...rest]) => ({
+    headings: first!.headings,
+    body: [first!.body, ...rest.map(withHeading)].join('\n\n'),
+  }));
 
   const chunks: Chunk[] = [];
   for (const s of merged) {

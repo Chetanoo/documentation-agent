@@ -18,7 +18,9 @@
     "dev:api": "tsx watch --import ./src/env.ts src/api/server.ts",
     "start:api": "tsx --import ./src/env.ts src/api/server.ts",
     "ask": "tsx --import ./src/env.ts scripts/ask-api.ts",
-    "typecheck": "tsc && npm --prefix web run typecheck"
+    "typecheck": "tsc && npm --prefix web run typecheck",
+    "rank": "tsx --import ./src/env.ts scripts/rank-of.ts",
+    "experiment:rerank": "tsx --import ./src/env.ts scripts/experiment-rerank.ts"
   },
   "keywords": [],
   "author": "",
