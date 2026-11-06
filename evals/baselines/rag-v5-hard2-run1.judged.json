@@ -1,0 +1,1494 @@
+{
+  "runFile": "rag-2026-11-06T21-37-19-514Z.json",
+  "judgeModel": "google/gemini-3.6-flash",
+  "judgments": [
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "err-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that streamText errors occur during stream consumption and covers handling errors via the onError callback on streamText and when handling the stream for the client.",
+      "judgeCostUsd": 0.0012825
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "err-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `streamRetries` for mid-stream failures, explains how it functions, and correctly describes returning `{ retry: true }` from `onError` to retry failures.",
+      "judgeCostUsd": 0.0011775
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "err-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that this is expected behavior, noting that text emitted before an error cannot be retracted and resulting in duplicated output in the stream while being excluded from the final step result.",
+      "judgeCostUsd": 0.0010305
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "err-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that onEnd does not run when aborted and recommends using the onAbort callback on streamText, which receives the completed steps before the abort.",
+      "judgeCostUsd": 0.00111975
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "err-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies using `StreamProviderError.isInstance(error)` and inspecting the `isRetryable` property to determine if a mid-stream error is worth retrying.",
+      "judgeCostUsd": 0.00096075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "set-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `generateText` defaults to 2 retries and that setting `maxRetries: 0` disables retries.",
+      "judgeCostUsd": 0.0006555
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "set-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends passing an object to the `timeout` option with `totalMs: 300000` for the entire call duration and `chunkMs: 10000` for stalling after output starts.",
+      "judgeCostUsd": 0.00091275
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "set-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates setting `timeout` with `toolMs: 10_000` for default tool execution timeout and `tools: { slowApiMs: 60_000 }` to override it for a specific tool.",
+      "judgeCostUsd": 0.000906
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "set-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that temperature is no longer set to 0 by default since AI SDK 5.0 and that the provider's default applies, recommending explicit configuration for deterministic output.",
+      "judgeCostUsd": 0.0007665
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "set-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately lists all accepted values for the top-level reasoning option and correctly identifies 'provider-default' as the default value.",
+      "judgeCostUsd": 0.00072075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "set-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that a warning is generated and points to checking the `warnings` property on the result object.",
+      "judgeCostUsd": 0.00067125
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly lists and defines all four possible status values ('submitted', 'streaming', 'ready', and 'error') exactly as described in the reference.",
+      "judgeCostUsd": 0.00083175
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that input state is no longer managed by useChat in v7 and demonstrates using useState alongside sendMessage({ text: input }).",
+      "judgeCostUsd": 0.000981
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends rendering `message.parts` instead of `message.content` and switching on `part.type` to display tool calls and reasoning.",
+      "judgeCostUsd": 0.00101625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the `throttle` option in `useChat` to limit re-render frequency while noting that stream processing and callbacks remain immediate.",
+      "judgeCostUsd": 0.0008055
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that error messages are masked by default and demonstrates using the `onError` option inside `toUIMessageStream` to pass a custom message to the client, matching the reference key points.",
+      "judgeCostUsd": 0.001224
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that provider-executed tool errors (providerExecuted: true) bypass the onError callback in toUIMessageStream by design.",
+      "judgeCostUsd": 0.00087525
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates passing `transport: new DefaultChatTransport({ api: '/api/assistant' })` to `useChat` as specified in the reference.",
+      "judgeCostUsd": 0.000759
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately uses `prepareSendMessagesRequest` on `DefaultChatTransport` to send only the chat ID and the latest message, matching the reference instructions.",
+      "judgeCostUsd": 0.001164
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `TextStreamChatTransport` and lists the specific features given up (tool calls, usage information, and finish reasons) as stated in the reference.",
+      "judgeCostUsd": 0.00084675
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-10",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies DirectChatTransport({ agent }) as the way to connect useChat directly to an agent in the same process.",
+      "judgeCostUsd": 0.0007575
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `sendReasoning: true` must be passed to `toUIMessageStream` on the server to forward reasoning parts to the chat UI.",
+      "judgeCostUsd": 0.00094425
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-12",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates using the `messageMetadata` callback of `toUIMessageStream` on the server and accessing `message.metadata` on the client as specified in the reference.",
+      "judgeCostUsd": 0.001197
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `useChat` only converts `image/*` and `text/*` content types automatically to multimodal parts, and explains how to handle PDFs manually.",
+      "judgeCostUsd": 0.000936
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-14",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies the `isAbort`, `isDisconnect`, and `isError` flags available in the `onFinish` callback of `useChat` as described in the reference.",
+      "judgeCostUsd": 0.0008775
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-15",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains not to await addToolOutput inside onToolCall to avoid deadlocks, matching the main reference key point.",
+      "judgeCostUsd": 0.0008475
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ui-16",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `addToolOutput` with `state: 'output-error'` and `errorText` instead of `output`, matching the reference instructions.",
+      "judgeCostUsd": 0.000945
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "data-01",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The reference explicitly states that sending a custom data part with the same ID updates the existing part in place using reconciliation, whereas the answer incorrectly claims data parts create separate parts and instead recommends tool parts.",
+      "judgeCostUsd": 0.00096225
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "data-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that the data part was sent with `transient: true`, which delivers parts only to `onData` and excludes them from message history and `message.parts`.",
+      "judgeCostUsd": 0.000786
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "data-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly instructs passing `sendStart: false` to `toUIMessageStream` when merging the `streamText` stream using `writer.merge()`, matching the reference exactly.",
+      "judgeCostUsd": 0.00091875
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "data-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies both options, including the UI Message Stream protocol required for full feature support and the header/formatting context via the protocol docs, as well as the alternative TextStreamChatTransport.",
+      "judgeCostUsd": 0.00092775
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "res-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that client-side aborts are treated as disconnects when resumable streams are enabled, and correctly recommends creating a dedicated stop endpoint to cancel the active server work and clear activeStreamId.",
+      "judgeCostUsd": 0.00154575
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "res-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately lists all server-side requirements mentioned in the reference, including the use of `resumable-stream`, Redis, tracking `activeStreamId`, and setting up the POST and GET endpoints at `/api/chat/[id]/stream`.",
+      "judgeCostUsd": 0.00107175
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "out-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that structured output generation takes an additional step, causes a NoOutputGeneratedError when step limits are hit, and correctly recommends increasing the stopWhen limit.",
+      "judgeCostUsd": 0.00124575
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "out-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `generateText` with `Output.choice({ options: ['bug', 'feature', 'question'] })` to classify the ticket.",
+      "judgeCostUsd": 0.0010455
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "out-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that setting both minItems and maxItems to 5 enforces an exact count of 5 elements in Output.array, matching the reference guidance.",
+      "judgeCostUsd": 0.00075825
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "out-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `streamText` with `output: Output.array(...)` and iterating over `elementStream` to receive each complete and validated item.",
+      "judgeCostUsd": 0.000846
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "out-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately states all key points from the reference: elementStream errors before emitting the excess element, the final output promise rejects, and provider generation is not automatically aborted.",
+      "judgeCostUsd": 0.000891
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "out-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends Output.json() and accurately states that it only checks for valid JSON without validating structure or value types.",
+      "judgeCostUsd": 0.0007155
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "out-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `NoObjectGeneratedError`, checking it with `NoObjectGeneratedError.isInstance(error)`, and accessing the raw text via `error.text` as described in the reference.",
+      "judgeCostUsd": 0.00082875
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "out-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `wrapLanguageModel` with `extractJsonMiddleware()` to strip code fences, matching the reference implementation.",
+      "judgeCostUsd": 0.00079125
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "mw-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies 'a' as the outermost middleware, matching the reference explanation that middleware is applied in array order as a(b(model)).",
+      "judgeCostUsd": 0.0006945
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "mw-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using wrapLanguageModel with extractReasoningMiddleware({ tagName: 'think' }) to separate reasoning from the response text.",
+      "judgeCostUsd": 0.00091575
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "mw-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes using wrapLanguageModel with defaultSettingsMiddleware and registering the wrapped model inside customProvider's languageModels.",
+      "judgeCostUsd": 0.00137025
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "mw-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `defaultInstructionsMiddleware` with `wrapLanguageModel` to apply default system instructions when none are provided in the call.",
+      "judgeCostUsd": 0.0008175
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "prov-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly describes how to reference models using registry methods (e.g., `registry.languageModel('provider:model')`) and accurately explains how to change the separator by passing `{ separator: ' > ' }` as the second argument to `createProviderRegistry`.",
+      "judgeCostUsd": 0.0009765
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "prov-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that passing a string routes through the Vercel AI Gateway requiring AI_GATEWAY_API_KEY, and offers the option to use the @ai-sdk/anthropic provider instance to use the direct Anthropic key.",
+      "judgeCostUsd": 0.0012465
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "prov-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends setting `globalThis.AI_SDK_DEFAULT_PROVIDER = openai` at application startup so that plain model IDs resolve through OpenAI.",
+      "judgeCostUsd": 0.0007425
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "prov-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `customProvider` with only the allowed models listed in `languageModels` and omitting `fallbackProvider` to ensure unknown model IDs fail.",
+      "judgeCostUsd": 0.00083175
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "test-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `MockLanguageModelV4` from `ai/test` and demonstrates implementing `doGenerate` with the expected return properties.",
+      "judgeCostUsd": 0.00112575
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "test-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `mockValues` continues to return the last value once the array is exhausted.",
+      "judgeCostUsd": 0.00056025
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "test-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `simulateReadableStream` from `ai` with `initialDelayInMs` and `chunkDelayInMs` to simulate delays in streaming model tests.",
+      "judgeCostUsd": 0.0010065
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "test-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses MockLanguageModelV4 from 'ai/test' and simulateReadableStream from 'ai' with appropriate stream chunks matching the reference.",
+      "judgeCostUsd": 0.0010635
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "agent-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses `callOptionsSchema` with Zod to define the per-request options and `prepareCall` to dynamically switch the model based on the tier.",
+      "judgeCostUsd": 0.0009465
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "agent-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that `prepareCall` replaces the settings for the call and recommends spreading the incoming settings to retain tools and instructions.",
+      "judgeCostUsd": 0.0007695
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "agent-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that subagents do not inherit context by default and explains how to explicitly pass the messages array from the tool's execute options if needed, matching the reference.",
+      "judgeCostUsd": 0.00078225
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "agent-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `toModelOutput` on the subagent tool to map the tool result for the model (e.g., extracting the last text part) and instructing the subagent to end with a summary.",
+      "judgeCostUsd": 0.00108375
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "agent-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes both passing the execute abortSignal to the subagent and using convertToModelMessages with ignoreIncompleteToolCalls set to true.",
+      "judgeCostUsd": 0.0008535
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "agent-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that each yield replaces the previous output, recommends using `readUIMessageStream` to yield cumulative messages, and correctly mentions the `preliminary` flag on output-available tool parts.",
+      "judgeCostUsd": 0.00097425
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "agent-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `stream()` has no default step limit when `stopWhen` is omitted, notes that `generate()` defaults to 20 steps, and mentions using `isStepCount(n)` to bound execution.",
+      "judgeCostUsd": 0.00081675
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "agent-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that marking the tool's execute function with the 'use step' directive makes it a durable workflow step with automatic retries and persistence.",
+      "judgeCostUsd": 0.000825
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "agent-09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that database clients cannot be put into runtimeContext for a WorkflowAgent because context must be serializable, and recommends passing identifiers/configs and recreating the client inside steps.",
+      "judgeCostUsd": 0.000918
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "agent-10",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that there is no hard maximum, notes the default of isStepCount(20), and explains how to raise or remove the limit using isStepCount(n) and isLoopFinished().",
+      "judgeCostUsd": 0.0008505
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tool-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `generateText` throws a `ToolChoiceViolationError` when `toolChoice` is set to 'none' and the model returns a tool call.",
+      "judgeCostUsd": 0.00074325
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tool-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that a tool's description can be a function receiving context (and experimental_sandbox) resolved before each step.",
+      "judgeCostUsd": 0.0008235
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tool-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies setting `strict: true` on the specific `tool()` definition, matching the reference key points.",
+      "judgeCostUsd": 0.000735
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tool-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that only Anthropic supports inputExamples natively and recommends using addToolInputExamplesMiddleware to append examples to tool descriptions.",
+      "judgeCostUsd": 0.00117525
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tool-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains using an async generator for the execute function where preliminary progress is yielded and the final yield acts as the final result, matching the reference exactly.",
+      "judgeCostUsd": 0.0009225
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tool-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that onInputDelta only fires when using streamText, whereas generateText only triggers onInputStart and onInputAvailable.",
+      "judgeCostUsd": 0.0008535
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tool-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `dynamicTool` for runtime-loaded tool schemas with `unknown` input typing, and explains checking `toolCall.dynamic` or the UI `'dynamic-tool'` part type to differentiate dynamic calls from static ones.",
+      "judgeCostUsd": 0.000975
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ctx-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that tool context is immutable inside tools and demonstrates how to update `toolsContext` inside `prepareStep` by inspecting previous steps.",
+      "judgeCostUsd": 0.00102525
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ctx-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `runtimeContext` is not automatically added to the model prompt and explains that it must be included in prompt messages if the model needs to see it.",
+      "judgeCostUsd": 0.0011865
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tel-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that toolsContext is not included in telemetry by default unless explicitly configured via telemetry.includeToolsContext, matching all key points in the reference.",
+      "judgeCostUsd": 0.0008595
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tel-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends setting `recordInputs: false` and `recordOutputs: false` in the telemetry configuration to omit prompts and outputs while retaining span timing and trace data.",
+      "judgeCostUsd": 0.00137625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tel-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that the span name `ai.generateText` belongs to the `LegacyOpenTelemetry` integration, while the new `OpenTelemetry` integration uses GenAI semantic convention span names like `invoke_agent {modelId}`.",
+      "judgeCostUsd": 0.0009615
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tel-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that per-call integrations replace globally registered integrations instead of merging with them, and correctly shows how to include both integrations in the per-call array.",
+      "judgeCostUsd": 0.0007785
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tel-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains how to open the DevTools viewer, where the data is stored (.devtools/generations.json), and how to register DevToolsTelemetry using registerTelemetry.",
+      "judgeCostUsd": 0.00091275
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tel-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately states that response bodies cannot be retained for streamText calls in AI SDK 7, shows how to enable requestBody for streamText, and correctly explains that generateText supports responseBody via include.",
+      "judgeCostUsd": 0.0008715
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "tel-07",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer states that the AI SDK does not emit this metric and only emits spans, whereas the docs explicitly state that the OpenTelemetry integration records `gen_ai.client.inference.duration` when a MeterProvider is configured.",
+      "judgeCostUsd": 0.000798
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "img-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately states that generateImage executes parallel calls up to n, and that maxImagesPerCall can be used to override the batch size, matching the reference context perfectly.",
+      "judgeCostUsd": 0.001002
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "img-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that generated images are returned in `result.files` and lists the file properties (`uint8Array`, `base64`, `mediaType`) along with filtering by `file.mediaType.startsWith('image/')` as stated in the reference.",
+      "judgeCostUsd": 0.00084675
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "img-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that moderation blocks marked with isRetryable: false skip retries, contrast this with unclassified empty responses, and mention NoImageGeneratedError.",
+      "judgeCostUsd": 0.0008985
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "rr-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately states that rerank supports JSON objects and correctly explains how to get the top matching object using `rerankedDocuments[0]` or `ranking[0].document` alongside score and originalIndex details.",
+      "judgeCostUsd": 0.00095925
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "sm-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that the default word chunking relies on spaces, which fails for Japanese, and accurately provides the fix using `chunking: new Intl.Segmenter('ja', { granularity: 'word' })` as specified in the reference.",
+      "judgeCostUsd": 0.00090975
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "sm-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies the default delay of 10 ms and explains how to disable it by setting `delayInMs: null` as documented.",
+      "judgeCostUsd": 0.0006735
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "code-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly implements the streamText and createUIMessageStreamResponse pattern with toUIMessageStream, sendReasoning, and onError matching the reference recommendation.",
+      "judgeCostUsd": 0.001944
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "anc-01",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer misses the core v7 breaking change that response bodies are excluded by default and must be explicitly opted into using the `include: { responseBody: true }` option.",
+      "judgeCostUsd": 0.00089475
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "anc-02",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer failed to rename `onStepFinish` to `onStepEnd`, leaving the outdated `onStepFinish` callback in the code.",
+      "judgeCostUsd": 0.00137625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "un-01",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly identifies that the specific expiration duration is not provided in the documentation and refers to the resumable-stream package without hallucinating numbers.",
+      "judgeCostUsd": 0.000612
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "un-02",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the maximum file size limit is not specified in the documentation and provides relevant general context.",
+      "judgeCostUsd": 0.00095625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "un-03",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the retention period or automatic deletion policy is not mentioned in the documentation, while accurately noting that data is stored in `.devtools/generations.json`.",
+      "judgeCostUsd": 0.0006615
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "un-04",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not contain pricing or cost comparison information between providers.",
+      "judgeCostUsd": 0.0006225
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "un-05",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not specify the AI Gateway's rate limits and points to the Vercel documentation.",
+      "judgeCostUsd": 0.000681
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "err-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that errors are streamed as parts rather than thrown at call time, and demonstrates using both the `onError` callback and iterating over `result.stream` checking for `part.type === 'error'` as described in the reference.",
+      "judgeCostUsd": 0.00098325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "err-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains the use of streamRetries for mid-stream provider errors and accurately reflects all key points from the reference.",
+      "judgeCostUsd": 0.0008805
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "err-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that this is expected documented behavior caused by non-tool output emitted before an error being unretractable upon retry.",
+      "judgeCostUsd": 0.00065925
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "err-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `onAbort` should be used for direct `streamText` calls when aborted, as `onEnd` does not run when the stream is aborted.",
+      "judgeCostUsd": 0.00094725
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "err-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies using `StreamProviderError.isInstance(error)` to check for `StreamProviderError` and evaluating its `isRetryable` property.",
+      "judgeCostUsd": 0.00078825
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "set-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that generateText defaults to 2 retries and that setting maxRetries: 0 disables retries.",
+      "judgeCostUsd": 0.0006
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "set-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses the `timeout` object option with `chunkMs: 10000` for stall timeout after output starts and `totalMs: 300000` for total call timeout.",
+      "judgeCostUsd": 0.00079725
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "set-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses the `timeout` configuration with `toolMs: 10000` for default tool execution timeout and `tools: { slowApiMs: 60000 }` to override it for a specific tool, matching the reference key points.",
+      "judgeCostUsd": 0.0008445
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "set-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that the AI SDK no longer defaults temperature to 0 since version 5.0, matching the reference key points.",
+      "judgeCostUsd": 0.00064425
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "set-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately lists all accepted values for the top-level reasoning option and correctly identifies 'provider-default' as the default value.",
+      "judgeCostUsd": 0.000663
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "set-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that unsupported settings generate a warning and shows how to check the `warnings` property on the result object.",
+      "judgeCostUsd": 0.000639
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately lists all four possible `status` values (`submitted`, `streaming`, `ready`, `error`) and correctly describes their meanings according to the reference.",
+      "judgeCostUsd": 0.00071025
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-02",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer recommends using `input`, `setInput`, and `handleSubmit` from `useChat`, which are outdated APIs that are no longer part of the `useChat` hook state management in Vercel AI SDK v7.",
+      "judgeCostUsd": 0.0007575
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends rendering message.parts and iterating/switching over part.type instead of relying on message.content.",
+      "judgeCostUsd": 0.000753
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the `throttle` option in `useChat` to set an update interval in milliseconds without relying on deprecated APIs.",
+      "judgeCostUsd": 0.00067275
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends passing an `onError` function to `toUIMessageStream` on the server to return customized text to send to the client.",
+      "judgeCostUsd": 0.001026
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that provider-executed tool errors bypass the onError callback in toUIMessageStream entirely, which matches the reference.",
+      "judgeCostUsd": 0.0006405
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates passing `DefaultChatTransport` with `api: '/api/assistant'` to `useChat`, matching the reference exactly.",
+      "judgeCostUsd": 0.00067275
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates using `prepareSendMessagesRequest` on `DefaultChatTransport` to extract the chat ID and the last message from `messages` to send to the server.",
+      "judgeCostUsd": 0.00096075
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that useChat can consume plain text streams using TextStreamChatTransport and accurately lists what is lost (tool calls, usage information, and finish reasons).",
+      "judgeCostUsd": 0.0007485
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-10",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `DirectChatTransport({ agent })` allows `useChat` to communicate directly with a `ToolLoopAgent` in the same process.",
+      "judgeCostUsd": 0.00071475
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `sendReasoning: true` must be passed to `toUIMessageStream` in the server route handler.",
+      "judgeCostUsd": 0.0006225
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-12",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates using `messageMetadata` within `toUIMessageStream` on the server to attach model ID and token usage, and accessing `message.metadata` on the client.",
+      "judgeCostUsd": 0.0010845
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that only image/* and text/* files are automatically converted, while PDFs must be handled manually.",
+      "judgeCostUsd": 0.00075375
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-14",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately identifies the `onFinish` callback of `useChat` and its boolean flags (`isAbort`, `isDisconnect`, `isError`) as specified in the reference.",
+      "judgeCostUsd": 0.000738
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-15",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that awaiting `addToolOutput` inside `onToolCall` causes a deadlock and recommends calling it without `await`.",
+      "judgeCostUsd": 0.00091275
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ui-16",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `addToolOutput` with `state: 'output-error'` and `errorText`, matching the reference instructions.",
+      "judgeCostUsd": 0.00068625
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "data-01",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer recommends using tool invocations/tool parts state instead of using custom data parts with matching IDs via `createUIMessageStream` to reconcile and update parts in place.",
+      "judgeCostUsd": 0.00096075
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "data-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that the data part was sent with `transient: true`, which limits its delivery to the `onData` callback and prevents it from being added to the message history.",
+      "judgeCostUsd": 0.00069975
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "data-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `toUIMessageStream({ stream: result.stream, sendStart: false })` within `writer.merge()`, matching the reference exactly.",
+      "judgeCostUsd": 0.0007395
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "data-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that a Python/FastAPI backend can stream to useChat by implementing the UI Message Stream Protocol or plain text streams.",
+      "judgeCostUsd": 0.0007395
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "res-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that with resumable streams, stop() only closes the HTTP connection, and it provides the exact reference solution of needing a dedicated server endpoint to cancel active work and clear the active stream ID.",
+      "judgeCostUsd": 0.000936
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "res-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately summarizes all the core server-side requirements mentioned in the reference, including a Redis-backed resumable stream package, activeStreamId tracking, and POST/GET API handlers.",
+      "judgeCostUsd": 0.00082875
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "out-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that structured output generation counts as a step, causing step 2 to end on a tool call/result which throws NoOutputGeneratedError when reading result.output, and correctly recommends increasing the step count limit.",
+      "judgeCostUsd": 0.000786
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "out-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The server implementation correctly uses `streamText` with `output: Output.choice({ options: ['bug', 'feature', 'question'] })` which aligns directly with the reference instructions.",
+      "judgeCostUsd": 0.00089625
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "out-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly specifies setting `minItems: 5` and `maxItems: 5` on `Output.array()` to enforce an exact length of 5 items, matching the reference.",
+      "judgeCostUsd": 0.000726
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "out-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `streamText` with `Output.array({ element })` and iterating over `elementStream` to get each completed and validated item.",
+      "judgeCostUsd": 0.000768
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "out-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately reflects all key points from the reference: elementStream errors before emitting the 4th element, the final output promise rejects, and provider generation is not automatically aborted.",
+      "judgeCostUsd": 0.00071325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "out-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies Output.json() and accurately notes that it only checks for valid JSON, not the structure or value types.",
+      "judgeCostUsd": 0.00061725
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "out-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that NoObjectGeneratedError is thrown, demonstrates checking it with NoObjectGeneratedError.isInstance(error), and accesses the raw text via error.text.",
+      "judgeCostUsd": 0.00072
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "out-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using wrapLanguageModel with extractJsonMiddleware() to automatically strip markdown code fences from model outputs.",
+      "judgeCostUsd": 0.000666
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "mw-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that the first middleware (`a`) is the outermost layer when passed as `middleware: [a, b]` to `wrapLanguageModel`.",
+      "judgeCostUsd": 0.00063675
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "mw-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `wrapLanguageModel` with `extractReasoningMiddleware({ tagName: 'think' })`, matching the reference exactly.",
+      "judgeCostUsd": 0.00070125
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "mw-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes using `defaultSettingsMiddleware` wrapped via `wrapLanguageModel` inside `customProvider`'s `languageModels` map, matching the reference guidance.",
+      "judgeCostUsd": 0.000777
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "mw-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates wrapping a language model with `defaultInstructionsMiddleware` from the `ai` package and passing default `instructions`.",
+      "judgeCostUsd": 0.0006825
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "prov-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains how to reference a model with `createProviderRegistry` using the `providerId:modelId` format and correctly demonstrates passing the `{ separator: ' > ' }` option to customize the separator.",
+      "judgeCostUsd": 0.0007965
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "prov-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that passing a model string routes through the Vercel AI Gateway by default, which requires the `AI_GATEWAY_API_KEY` environment variable instead of `ANTHROPIC_API_KEY`.",
+      "judgeCostUsd": 0.0008295
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "prov-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly instructs setting `globalThis.AI_SDK_DEFAULT_PROVIDER = openai` at startup so that plain model IDs resolve through the OpenAI provider.",
+      "judgeCostUsd": 0.00069
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "prov-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses customProvider to specify only the allowed models and omits fallbackProvider so unlisted models fail.",
+      "judgeCostUsd": 0.0007785
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "test-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `MockLanguageModelV4` from `ai/test` and implementing `doGenerate` to return content, finishReason, usage, and warnings, matching the reference guidance.",
+      "judgeCostUsd": 0.000906
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "test-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that mockValues keeps returning the last value once the array is exhausted.",
+      "judgeCostUsd": 0.00051375
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "test-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `simulateReadableStream` imported from 'ai' along with the `initialDelayInMs` and `chunkDelayInMs` parameters as described in the reference.",
+      "judgeCostUsd": 0.0007665
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "test-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses `MockLanguageModelV4` from 'ai/test' and `simulateReadableStream` from 'ai' with the proper typed stream chunk events to test `streamText` using Vitest.",
+      "judgeCostUsd": 0.00103575
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "agent-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly defines `callOptionsSchema` with `z.object({ tier: z.enum(['free', 'pro']) })`, implements `prepareCall` to switch models based on `options.tier`, and calls `agent.generate` with `options` as specified in the reference.",
+      "judgeCostUsd": 0.0008835
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "agent-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that prepareCall's return value replaces the call settings and correctly recommends spreading the incoming settings to retain tools and instructions.",
+      "judgeCostUsd": 0.00078675
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "agent-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately states that subagents do not inherit conversation history by default, and correctly explains how to pass messages from the execute options into the subagent call while noting it should be used sparingly.",
+      "judgeCostUsd": 0.000756
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "agent-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the `toModelOutput` option on the tool wrapping the subagent to restrict what the parent model receives while streaming full content to the user, matching the reference key points.",
+      "judgeCostUsd": 0.00091275
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "agent-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies both key solutions from the reference: handling the abort signal behavior and using `convertToModelMessages` with `ignoreIncompleteToolCalls: true` to drop incomplete tool calls.",
+      "judgeCostUsd": 0.00078225
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "agent-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly confirms that each yield replaces the previous output and explains how to use readUIMessageStream to yield an accumulated UIMessage.",
+      "judgeCostUsd": 0.00109725
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "agent-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `stream()` has no default step limit when `stopWhen` is omitted.",
+      "judgeCostUsd": 0.000612
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "agent-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that you must add the `'use step'` directive inside the tool's execute function to make it a durable step.",
+      "judgeCostUsd": 0.00069225
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "agent-09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `runtimeContext` must only contain serializable data and advises passing identifiers to recreate clients inside step functions instead.",
+      "judgeCostUsd": 0.00058125
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "agent-10",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that there is no hard-coded maximum limit, mentions the default of 20 steps, and shows how to set custom limits using `isStepCount()`.",
+      "judgeCostUsd": 0.000711
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tool-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `generateText` throws a `ToolChoiceViolationError` when `toolChoice` is set to `'none'` and the model returns a tool call.",
+      "judgeCostUsd": 0.00066525
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tool-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that a tool's description can be a function that receives the tool's context and experimental_sandbox, matching the reference key points.",
+      "judgeCostUsd": 0.0005985
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tool-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies setting `strict: true` on the `tool()` configuration to enforce strict schema compliance for a specific tool.",
+      "judgeCostUsd": 0.00066675
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tool-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that OpenAI does not natively support `inputExamples` and recommends using `addToolInputExamplesMiddleware` to append examples to the tool descriptions.",
+      "judgeCostUsd": 0.0007725
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tool-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that the tool's execute function should be an async generator function (`async function*`) that yields preliminary results before yielding the final result.",
+      "judgeCostUsd": 0.00088575
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tool-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `onInputDelta` only fires when using `streamText` instead of `generateText`, matching the reference exactly.",
+      "judgeCostUsd": 0.000624
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tool-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `dynamicTool` for runtime-loaded tools and checking the `dynamic` flag on the `toolCall` object to distinguish them from static tool calls.",
+      "judgeCostUsd": 0.00087
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ctx-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that tool context is immutable inside tools and uses the `prepareStep` callback to return an updated `toolsContext` based on the previous step, matching the reference key points.",
+      "judgeCostUsd": 0.000942
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ctx-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that runtimeContext is not automatically added to the model prompt and explains its purpose for server-side state.",
+      "judgeCostUsd": 0.0006015
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tel-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `toolsContext` values are excluded from OpenTelemetry traces by default unless explicitly configured via `telemetry.includeToolsContext`.",
+      "judgeCostUsd": 0.00077775
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tel-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies setting `recordInputs: false` and `recordOutputs: false` inside the telemetry options to keep spans and timing while excluding prompts and model responses.",
+      "judgeCostUsd": 0.00078825
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tel-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that `@ai-sdk/otel` switches from legacy `ai.*` span names to OpenTelemetry GenAI Semantic Conventions such as `invoke_agent {modelId}` and `chat {modelId}`.",
+      "judgeCostUsd": 0.000768
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tel-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that per-call integrations replace globally registered integrations, and recommended passing both integrations to retain both.",
+      "judgeCostUsd": 0.00072525
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tel-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states how to start the viewer (`npx @ai-sdk/devtools@latest` at http://localhost:4983) and accurately identifies where the data is stored (`.devtools/generations.json`).",
+      "judgeCostUsd": 0.0007725
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tel-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that raw request/response bodies are excluded by default, that only `{ requestBody: true }` can be retained for `streamText`, and that the response body cannot be captured.",
+      "judgeCostUsd": 0.00075525
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "tel-07",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer incorrectly claims that the `gen_ai.client.inference.duration` metric is not mentioned in the documentation and isn't included in the `@ai-sdk/otel` integration, whereas the reference states that it is emitted by the OpenTelemetry integration when a MeterProvider is configured.",
+      "judgeCostUsd": 0.00083325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "img-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that the SDK will make 10 parallel calls automatically and that `maxImagesPerCall` can be used to control the batching behavior.",
+      "judgeCostUsd": 0.00075375
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "img-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that images are returned in `result.files` and explains how to filter them using `file.mediaType` and access properties like `uint8Array` and `base64` as stated in the reference.",
+      "judgeCostUsd": 0.00080325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "img-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `generateImage` does not retry when a provider marks a moderation block with `isRetryable: false`.",
+      "judgeCostUsd": 0.000648
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "rr-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that rerank supports JSON objects and accurately explains how to retrieve the top matching object using rerankedDocuments[0] or ranking[0].document.",
+      "judgeCostUsd": 0.000822
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "sm-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that default word chunking fails for Japanese and recommends passing `new Intl.Segmenter('ja', { granularity: 'word' })` to the `chunking` option of `smoothStream`.",
+      "judgeCostUsd": 0.000714
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "sm-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that the default delay is 10ms and that setting `delayInMs` to `null` turns the delay off.",
+      "judgeCostUsd": 0.00063525
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "code-01",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer fails to include `sendSources: true` inside `toUIMessageStream`, which was explicitly requested to enable sources.",
+      "judgeCostUsd": 0.00273075
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "anc-01",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer claims response.body was moved to finalStep.response.body instead of explaining that request and response bodies are excluded by default in v7 and must be enabled using `include: { requestBody: true, responseBody: true }`.",
+      "judgeCostUsd": 0.000762
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "anc-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly updates system to instructions, experimental_include to include, onFinish to onEnd, and fullStream to stream, but omitted the updated onStepEnd callback (formerly onStepFinish). Overall, it successfully adopts the primary AI SDK v7 updates.",
+      "judgeCostUsd": 0.000795
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "un-01",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly identifies that the documentation does not specify a duration without inventing numbers or hallucinating facts.",
+      "judgeCostUsd": 0.000546
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "un-02",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not specify a maximum file size limit for attachments in `sendMessage({ files })`.",
+      "judgeCostUsd": 0.000723
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "un-03",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the information is not available in the documentation.",
+      "judgeCostUsd": 0.00054375
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "un-04",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the documentation does not provide pricing information or specify which provider is cheapest for Claude models.",
+      "judgeCostUsd": 0.00056625
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "un-05",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the rate limit numbers are not available in the documentation without inventing any facts.",
+      "judgeCostUsd": 0.00056175
+    }
+  ]
+}

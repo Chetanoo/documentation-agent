@@ -4,7 +4,7 @@ A question-answering bot over the [Vercel AI SDK 7](https://ai-sdk.dev) document
 
 **Live demo: [ask-ai-docs-agent.onrender.com](https://ask-ai-docs-agent.onrender.com)**. It runs on a free instance that sleeps when idle, so the first visit can take about a minute to wake up.
 
-**Built it, measured it, improved it:** small open models answer 2 of 29 questions correctly on their own. With this pipeline they answer all 29 correctly and stop inventing answers to questions the docs don't cover.
+**Built it, measured it, improved it:** small open models answer 2 of 29 questions correctly on their own. With this pipeline they answer all 29 correctly and stop inventing answers to questions the docs don't cover. On 168 harder questions written afterwards, they answer about 97% correctly.
 
 ![The chat answering a question, with cited sources in the margin](docs/screenshot.png)
 
@@ -23,7 +23,27 @@ A question-answering bot over the [Vercel AI SDK 7](https://ai-sdk.dev) document
 - **Outdated answers went from 6–10 per model to zero.** Without the docs, both models write AI SDK 4–6 code: `maxSteps`, `fullStream`, `generateObject`, `system`.
 - **Hallucinations went to zero.** Without retrieval the models invented a "128 tools" limit, a "30 seconds" MCP timeout and npm download counts. With it, they say the docs don't cover it.
 - **It doesn't cost more.** The sources add ~3k input tokens per question, but the models reason less when the answer is in front of them. A full run of 35 questions costs about $0.05 with Qwen and $0.02 with Mistral.
-- **The last miss was a retrieval problem, fixed by reranking.** At 29 / 29 this eval is saturated: it shows the pipeline works, but it can no longer rank improvements. The next step is harder questions.
+- **The last miss was a retrieval problem, fixed by reranking.** At 29 / 29 this eval is saturated: it shows the pipeline works, but it can no longer rank improvements. So two harder sets followed.
+
+## Harder evals
+
+Two more question sets, written with Claude from the live docs on November 6 (the bot's snapshot is from November 1), with duplicates of the original set removed. Together with the original set, that makes 203 questions.
+
+| Set | Questions | What it tests | Qwen 3.8 27B | Mistral Small | Unanswerable declined |
+|---|---|---|---|---|---|
+| Original | 35 (29 + 6) | v7 renames, plain-language questions | 29 / 29 | 29 / 29 | 6 / 6 |
+| Hard 1 | 75 (72 + 3) | v6 → v7 version traps, changed defaults, agents and tool approvals, multi-hop, code rewrites, false premises | 70 / 72 | 71 / 72 | 3 / 3 |
+| Hard 2 | 93 (88 + 5) | ~25 doc pages: errors and retries, `useChat` transports, streaming data, resumable streams, middleware, providers, testing, agents, telemetry | 84 / 87 | 83 / 87 | 5 / 5 |
+
+RAG v5, one run per set. Hard 1 is graded after fixing three wrong references (see below). Hard 2 leaves out one question whose answer isn't in the November 1 snapshot.
+
+- **With the best configuration, the bot answers about 97% of realistic docs questions, however they're phrased.** The misses are retrieval, not wording. Two facts failed in both sets: in v7, response bodies are excluded by default, and `onStepFinish` was renamed `onStepEnd` (missed in a code rewrite). Hard 2 asks both again as "anchor" questions. Other sections of the same page outrank the chunk that holds the answer.
+- **Predicted difficulty didn't predict anything.** Each hard-2 question was labeled easy, medium or hard before the run. Leaving out the two anchors and the snapshot gap, "hard" questions scored 65 / 66, the same as "medium" (97 / 100).
+- **A string check and the judge reached opposite conclusions.** On hard 1, checking for required identifiers said Mistral was significantly worse than Qwen (63 vs 69 of 72, exact McNemar p = 0.03). The judge disagreed with 9 of those verdicts and found the models tied (they differ on 1 question, p = 1.0). String checks fail correct paraphrases, and they flag old names that an answer mentions only as deprecated.
+- **References were wrong again**, three times in hard 1. One error came from the docs themselves: the loop-control guide says `WorkflowAgent` has no default step limit, while its reference page says `generate()` defaults to 20.
+- **Cost:** a 93-question run costs $0.18 with Qwen and $0.08 with Mistral, plus $0.16 to judge both. Judging is about half of all eval spend.
+
+These sets are close to saturated too, so they won't rank small changes. They can still separate configurations that are clearly worse, such as no reranking, fewer chunks, or no retrieval at all. That comparison is the next step, in a separate eval framework.
 
 ## Why this is hard
 
@@ -93,6 +113,9 @@ More detail, including every intermediate number, is in [docs/PROGRESS.md](docs/
 | `experiment:retrieval` | Scores several retrieval configurations on the same candidates with one embedding request. |
 | `eval:rag` | Both models answer with retrieved sources; also checks that every cited `[n]` exists and that a cited source contains the evidence. |
 | `eval:judge` | Grades a run against the reference answers: correct / acceptable / outdated / wrong, or declined / hallucinated. |
+| `check-coverage` | Every page an eval question cites exists in the docs snapshot. |
+
+`eval:rag` and `eval:judge` take `--questions <file>` to use another question set (the default is `evals/ai-sdk-evals.json`, and the judge uses the set a run recorded).
 
 The judge (`google/gemini-3.6-flash`) is from a different model family than the two models it grades, and is told to ignore its own knowledge of the SDK, which is as outdated as theirs. Runs worth keeping are frozen in `evals/baselines/`.
 
@@ -140,9 +163,9 @@ docs/PROGRESS.md    Full lab notebook: decisions, every run, lessons
 ## Limitations
 
 - **Single-turn.** Each question is answered on its own; follow-ups like "and for streamText?" would need query rewriting first.
-- **A snapshot,** taken on November 1, 2026. Provider pages and migration guides older than 5→6 are not included.
+- **A snapshot,** taken on November 1, 2026. Provider pages and migration guides older than 5→6 are not included. Docs added after that date are missing; one hard-2 question already falls in that gap.
 - **Full-sentence questions only** in the eval. Bare identifiers ("isStepCount") are where full-text search should help, and they aren't tested yet.
-- 35 questions is enough to separate 2/29 from 29/29, not to rank configurations that differ by one question. At 29 / 29 the eval is saturated.
+- **All three question sets are close to saturated** for the best configuration, so they can't rank changes that differ by a question or two. Each result is a single run graded by a single judge, and the judge flips on about 17% of borderline answers.
 
 ---
 

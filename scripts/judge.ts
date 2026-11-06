@@ -5,6 +5,8 @@
  * Run (from your own terminal):
  *   withsecrets npm run eval:judge                      -> judges the latest run in evals/runs
  *   withsecrets npm run eval:judge -- path/to/run.json  -> judges a specific run file
+ *   ... --questions evals/questions-v7-hard.json        -> reference answers from another set
+ *                                                          (default: the set the run recorded, else ai-sdk-evals.json)
  *
  * Output: <run-file>.judged.json next to the run file, plus a summary table.
  */
@@ -96,8 +98,17 @@ if (!apiKey) {
 }
 const openrouter = createOpenRouter({ apiKey });
 
+function flag(name: string): string | undefined {
+  const i = process.argv.indexOf(name);
+  if (i === -1) return undefined;
+  const value = process.argv[i + 1];
+  if (!value) throw new Error(`${name} needs a value`);
+  return value;
+}
+
 async function findRunFile(): Promise<string> {
-  const arg = process.argv[2];
+  const args = process.argv.slice(2);
+  const arg = args.find((a, i) => !a.startsWith('--') && args[i - 1] !== '--questions');
   if (arg) return path.resolve(arg);
 
   const dir = path.resolve('evals/runs');
@@ -199,10 +210,14 @@ async function main() {
   console.log(`Judging ${runFile} with ${JUDGE_MODEL}\n`);
 
   const run = JSON.parse(await readFile(runFile, 'utf8')) as {
+    questionsFile?: string;
     models: string[];
     results: RunResult[];
   };
-  const { questions } = JSON.parse(await readFile(path.resolve('evals/ai-sdk-evals.json'), 'utf8')) as {
+  // --questions wins; otherwise the file the run recorded; runs older than that field used the original set.
+  const questionsFile = flag('--questions') ?? run.questionsFile ?? 'evals/ai-sdk-evals.json';
+  console.log(`References from ${questionsFile}\n`);
+  const { questions } = JSON.parse(await readFile(path.resolve(questionsFile), 'utf8')) as {
     questions: Question[];
   };
   const byId = new Map(questions.map((q) => [q.id, q]));
@@ -220,7 +235,7 @@ async function main() {
   const outFile = runFile.replace(/\.json$/, '.judged.json');
   await writeFile(
     outFile,
-    JSON.stringify({ runFile: path.basename(runFile), judgeModel: JUDGE_MODEL, judgments }, null, 2),
+    JSON.stringify({ runFile: path.basename(runFile), questionsFile, judgeModel: JUDGE_MODEL, judgments }, null, 2),
   );
 
   console.log('');

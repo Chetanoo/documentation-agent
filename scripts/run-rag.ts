@@ -5,6 +5,7 @@
  * Run (from your own terminal):
  *   withsecrets npm run eval:rag                 -> full run, writes evals/runs/rag-<stamp>.json
  *   withsecrets npm run eval:rag '--' --dry q04  -> print the prompt for one question, no LLM call
+ *   ... '--' --questions evals/questions-v7-hard.json  -> another question set (default: evals/ai-sdk-evals.json)
  *   (PowerShell drops a bare --, so quote it.)
  *
  * Then grade it with the same judge:
@@ -190,7 +191,10 @@ function summarize(results: RunResult[]) {
 }
 
 async function main() {
-  const { questions } = JSON.parse(await readFile(path.resolve('evals/ai-sdk-evals.json'), 'utf8')) as {
+  const qIdx = process.argv.indexOf('--questions');
+  const questionsFile = qIdx === -1 ? 'evals/ai-sdk-evals.json' : process.argv[qIdx + 1];
+  if (!questionsFile) throw new Error('--questions needs a path');
+  const { questions } = JSON.parse(await readFile(path.resolve(questionsFile), 'utf8')) as {
     questions: Question[];
   };
 
@@ -256,6 +260,7 @@ async function main() {
     outFile,
     JSON.stringify(
       {
+        questionsFile: path.relative(process.cwd(), path.resolve(questionsFile)).replaceAll('\\', '/'),
         models: MODELS,
         instructions: RAG_INSTRUCTIONS,
         settings: { REASONING_MAX_TOKENS, MAX_OUTPUT_TOKENS, temperature: GENERATION.temperature },

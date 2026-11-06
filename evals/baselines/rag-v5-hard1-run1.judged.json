@@ -1,0 +1,1207 @@
+{
+  "runFile": "rag-2026-11-06T21-01-23-193Z.json",
+  "questionsFile": "evals/questions-v7-hard.json",
+  "judgeModel": "google/gemini-3.6-flash",
+  "judgments": [
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `generateImage` imported from the 'ai' package, matching the reference key points.",
+      "judgeCostUsd": 0.000807
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `experimental_customProvider` was renamed to `customProvider` and that its options remain unchanged.",
+      "judgeCostUsd": 0.00068475
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `experimental_transcribe` still works as a deprecated alias for the stable `transcribe` function in v7.",
+      "judgeCostUsd": 0.000705
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `experimental_generateSpeech` was renamed to `generateSpeech` and its result type to `SpeechResult`.",
+      "judgeCostUsd": 0.00069
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that 'experimental_output' was removed and replaced with 'output' for both the call option and result field.",
+      "judgeCostUsd": 0.00069075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `experimental_prepareStep` and `experimental_activeTools` were removed in v7 and replaced with `prepareStep` and `activeTools`.",
+      "judgeCostUsd": 0.0007545
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that ToolExecutionOptions replaces ToolCallOptions in v7.",
+      "judgeCostUsd": 0.00057825
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `isToolUIPart` as the replacement for `isToolOrDynamicToolUIPart`.",
+      "judgeCostUsd": 0.000657
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `experimental_onStart` and `experimental_onStepStart` were renamed to `onStart` and `onStepStart` in v7.",
+      "judgeCostUsd": 0.00070125
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-12",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `onEnd` as the callback for when `streamText` finishes and accurately notes that `onFinish` is still accepted as a deprecated alias, with `onEnd` taking precedence if both are provided.",
+      "judgeCostUsd": 0.000846
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `onStepEnd` as the replacement for `onStepFinish` while noting that `onStepFinish` remains as a deprecated alias.",
+      "judgeCostUsd": 0.00073425
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-14",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies the `onEnd` callback option in v7 and notes that `experimental_onFinish` from v6 was renamed to `onEnd`.",
+      "judgeCostUsd": 0.00077625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-16",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that reasoning tokens are located at `usage.outputTokenDetails.reasoningTokens` and notes that the top-level `usage.reasoningTokens` was removed.",
+      "judgeCostUsd": 0.000729
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-18",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that the option was renamed from `experimental_telemetry` to `telemetry` in v7.",
+      "judgeCostUsd": 0.000678
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-19",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies the renaming of `onEmbedFinish` to `onEmbedEnd` and `onRerankFinish` to `onRerankEnd`, as well as the corresponding update to the `type` field on `AI_SDK_TELEMETRY_TRACING_CHANNEL`.",
+      "judgeCostUsd": 0.0008955
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-21",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends setting `include: { rawChunks: true }` and accurately notes that top-level `includeRawChunks` is deprecated.",
+      "judgeCostUsd": 0.00081825
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-22",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that experimental_include was renamed to include and that include takes precedence if both are provided.",
+      "judgeCostUsd": 0.0006735
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-23",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `onToolExecutionStart` and `onToolExecutionEnd` as the callbacks in v7 and notes that `experimental_onToolCallStart` and `experimental_onToolCallFinish` are deprecated aliases.",
+      "judgeCostUsd": 0.0010065
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-24",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `experimental_context` is replaced by the stable `context` passed via execute options, and properly explains using `contextSchema` and `toolsContext`.",
+      "judgeCostUsd": 0.00090525
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-25",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `createGoogleGenerativeAI` is deprecated in v7 and recommends using `createGoogle` as specified in the reference documentation.",
+      "judgeCostUsd": 0.00070275
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-27",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `{ type: 'image' }` is deprecated in v7 and recommends using `{ type: 'file', mediaType: 'image', data }` instead.",
+      "judgeCostUsd": 0.00120975
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "vt-28",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that the 'media' tool result content part was removed in AI SDK 7 and provides the correct replacement structure using the 'file' content part.",
+      "judgeCostUsd": 0.0009465
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes both automated migration methods mentioned in the reference: using `npx @ai-sdk/codemod v7` and using the migration skill via `npx skills add vercel/ai --skill migrate-ai-sdk-v6-to-v7`.",
+      "judgeCostUsd": 0.00135525
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that instructions from `prepareStep` carry forward to subsequent steps in v7, notes the change from v6, and correctly explains how to achieve single-step instructions using `initialInstructions`.",
+      "judgeCostUsd": 0.00082725
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes that returned messages from prepareStep become the base for later steps with new response messages appended, and correctly explains how to retain v6 behavior using initialMessages and responseMessages.",
+      "judgeCostUsd": 0.00078225
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `result.toolCalls` contains tool calls from all steps and accurately explains how to access step-specific tool calls.",
+      "judgeCostUsd": 0.0008025
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that top-level `reasoningText` and `providerMetadata` are deprecated in v7 and recommends reading them from `result.finalStep` instead.",
+      "judgeCostUsd": 0.00129075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `result.finalStep` must be awaited to access `.response` and provides an accurate code example matching the reference.",
+      "judgeCostUsd": 0.00077925
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends setting `telemetry: { isEnabled: false }` to disable telemetry for a single call as specified in the reference for v7.",
+      "judgeCostUsd": 0.00086625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-12",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `tracer` was removed from call options and is now passed directly to the `OpenTelemetry` constructor from `@ai-sdk/otel`.",
+      "judgeCostUsd": 0.00075525
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that in v7 `onChunk` receives all `TextStreamPart` types (including lifecycle/boundary parts) and correctly recommends guarding on `chunk.type`.",
+      "judgeCostUsd": 0.00096225
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-14",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer claims `response.body` is empty because of provider SDK limitations, whereas in v7 request and response bodies are excluded by default and must be opted into using `include: { requestBody: true, responseBody: true }`.",
+      "judgeCostUsd": 0.00094725
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-15",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that the `redirect` default on `MCPTransportConfig` changed from 'follow' to 'error' in v7 for security reasons and shows how to set `redirect: 'follow'` explicitly.",
+      "judgeCostUsd": 0.00081075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-16",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains the default behavior change in v7 and correctly instructs to set `providerOptions.openai.reasoningSummary` to `null` to disable it.",
+      "judgeCostUsd": 0.00080025
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-17",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that xai(modelId) uses the Responses API in v7 and recommends xai.chat(modelId) to keep using Chat Completions, matching the reference.",
+      "judgeCostUsd": 0.00070575
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-18",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly notes that `providerMetadata.anthropic.cacheCreationInputTokens` was removed and recommends using `usage.inputTokenDetails.cacheWriteTokens` (and `cacheReadTokens`), while also mentioning `finalStep.providerMetadata?.anthropic?.usage`.",
+      "judgeCostUsd": 0.00087
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-19",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that provider-specific settings in providerOptions take precedence over the top-level reasoning option, matching the key points in the reference.",
+      "judgeCostUsd": 0.001149
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-20",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes the new `reasoning-file` content part type, highlights updating exhaustive unions/switches/validators/renderers/serializers, and notes that reasoning files no longer duplicate into `result.files` or `step.files`.",
+      "judgeCostUsd": 0.001086
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-21",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that the Chat class is deprecated in v7 and recommends using the useChat composable instead.",
+      "judgeCostUsd": 0.00074325
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "bh-22",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `result.toTextStreamResponse()` is deprecated in v7 and recommends using `createTextStreamResponse` with `toTextStream` as shown in the reference.",
+      "judgeCostUsd": 0.00080325
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `generate()` defaults to 20 steps while `stream()` has no default limit, and mentions bounding execution with `isStepCount(n)`.",
+      "judgeCostUsd": 0.00072525
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates passing an array containing `isStepCount(20)` and `hasToolCall('done')` to `stopWhen`.",
+      "judgeCostUsd": 0.00077775
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly instructs using `stopWhen: isLoopFinished()` to remove the default step limit and let the ToolLoopAgent run until the model naturally finishes.",
+      "judgeCostUsd": 0.00084
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately lists all three conditions under which the tool loop ends apart from stop conditions: when the finish reason is not tool-calls, when a tool lacks an execute function, and when a tool call requires approval.",
+      "judgeCostUsd": 0.000759
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly details using `toolChoice: 'required'` alongside a `done` tool that has an `inputSchema` but no `execute` function, and reading the output from `result.staticToolCalls`.",
+      "judgeCostUsd": 0.001242
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies the core overrides allowed by prepareStep, including model, call settings (temperature, maxOutputTokens, reasoning), activeTools, toolChoice, messages, and instructions, as well as the fallback behavior for omitted fields.",
+      "judgeCostUsd": 0.00115875
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes using the `prepareStep` callback and returning a updated `messages` array using `pruneMessages` with options for reasoning, tool calls, and empty messages, which directly matches the reference.",
+      "judgeCostUsd": 0.00117
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes all possible values for toolApproval ('not-applicable', 'approved', 'denied', 'user-approval', undefined, and object forms with reasons) and correctly explains their behavior according to the reference.",
+      "judgeCostUsd": 0.0010575
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-10",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `toolApproval` does not apply to provider-executed tools and only applies to tools executed locally by the AI SDK.",
+      "judgeCostUsd": 0.00084075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends setting `experimental_toolApprovalSecret` on `streamText` to HMAC-sign tool approval requests and prevent forgery, matching the reference key points.",
+      "judgeCostUsd": 0.0010455
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-12",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately covers detecting the 'approval-requested' state, rendering approve/deny buttons using `addToolApprovalResponse`, using `sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithApprovalResponses`, and avoiding manually calling it for automatic approvals.",
+      "judgeCostUsd": 0.00139125
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes how to find the `tool-approval-request` parts, construct a `role: 'tool'` message with `tool-approval-response` objects (including `approvalId`, `approved`, and optional `reason`), and re-invoke the agent.",
+      "judgeCostUsd": 0.0012135
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-14",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately states that `needsApproval` is only used with `WorkflowAgent` and is deprecated in favor of `toolApproval` for `generateText`, `streamText`, and `ToolLoopAgent`.",
+      "judgeCostUsd": 0.00097725
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "ag-15",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates using a per-tool `toolApproval` function that returns `'user-approval'` when `amount > 100` and `undefined` otherwise, matching the reference instructions.",
+      "judgeCostUsd": 0.0009525
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "mh-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies all three changes required by v7: replacing stepCountIs with isStepCount, experimental_context with context/toolsContext/runtimeContext, and onFinish with onEnd.",
+      "judgeCostUsd": 0.00105
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "mh-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `event.usage` in `onEnd` aggregates tokens across all steps in v7 and demonstrates accessing `inputTokenDetails.cacheReadTokens` and `outputTokenDetails.reasoningTokens` as specified in the reference.",
+      "judgeCostUsd": 0.00092925
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "mh-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies all steps required for upgrading telemetry in AI SDK v7, including registering `@ai-sdk/otel` globally with the tracer, removing `isEnabled: true`, and renaming `experimental_telemetry` to `telemetry`.",
+      "judgeCostUsd": 0.00125925
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "mh-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that tool callbacks in v7 no longer read from `runtimeContext`, and demonstrates using `contextSchema` on the tool alongside `toolsContext` on the call, exactly matching the reference key points.",
+      "judgeCostUsd": 0.0010395
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "mh-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly points out that returned instructions carry forward in v7 and demonstrates returning initialInstructions on subsequent steps to preserve the v6 behavior.",
+      "judgeCostUsd": 0.000837
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "mh-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies the `include` option with `rawChunks: true` and `requestBody: true` as specified in the reference.",
+      "judgeCostUsd": 0.000723
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "mh-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends awaiting `result.finalStep` and accessing its `.usage` property to get token usage for only the last step.",
+      "judgeCostUsd": 0.00095175
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "cd-01",
+      "answerable": true,
+      "verdict": "outdated",
+      "reason": "The answer failed to rename `onStepFinish` to `onStepEnd`, leaving an outdated v6 parameter in the code snippet.",
+      "judgeCostUsd": 0.0009315
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "cd-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly migrates all APIs to AI SDK v7 according to the reference, removing `needsApproval` and `experimental_context` in favor of `toolApproval`, `contextSchema`/`context`, and `toolsContext`.",
+      "judgeCostUsd": 0.00110625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "cd-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly applies all the breaking changes for v7: renaming `stepCountIs` to `isStepCount`, replacing `totalUsage.cachedInputTokens` with `usage.inputTokenDetails.cacheReadTokens`, moving `reasoningTokens` into `outputTokenDetails`, and accessing `reasoningText` on `finalStep`.",
+      "judgeCostUsd": 0.0010845
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "cd-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly implements the ToolLoopAgent with `isStepCount(10)`, `hasToolCall('done')`, a non-executing `done` tool, and a `prepareStep` function enforcing `search` and `toolChoice: 'required'` on stepNumber 0.",
+      "judgeCostUsd": 0.00120525
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "cd-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly updates the tool result content part to the new `file` type structure with a `URL` instance in the `data` object as specified in the reference.",
+      "judgeCostUsd": 0.0007725
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "cd-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly updates the code using `createTextStreamResponse` and `toTextStream` imported from 'ai' as recommended in v7.",
+      "judgeCostUsd": 0.0007035
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "cd-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `createGoogleGenerativeAI` was renamed to `createGoogle` in AI SDK v7 and provides the updated import syntax.",
+      "judgeCostUsd": 0.00067125
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "fp-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that telemetry is opt-out in v7, `isEnabled: true` is no longer needed, registering an integration enables telemetry globally, and `isEnabled: false` is used to disable it for specific calls.",
+      "judgeCostUsd": 0.001038
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "fp-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that Node 20 is not supported and Node 22 or later is required.",
+      "judgeCostUsd": 0.00063075
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "fp-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that tool callbacks no longer read runtimeContext and recommends using contextSchema + toolsContext to read context in execute.",
+      "judgeCostUsd": 0.00107625
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "fp-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that subagent tools cannot use `toolApproval` and that approval can only be configured on main agent tools.",
+      "judgeCostUsd": 0.000624
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "un-02",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly identifies that pricing information is not available in the provided documentation and points to the provider's documentation.",
+      "judgeCostUsd": 0.000594
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "un-03",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the information is not in the documentation and points to the GitHub repository.",
+      "judgeCostUsd": 0.000573
+    },
+    {
+      "model": "qwen/qwen3.8-27b",
+      "id": "un-04",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the AI SDK does not have a built-in vector database and points to embedding functions and external stores instead.",
+      "judgeCostUsd": 0.00138525
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using `generateImage` imported from 'ai', matching the reference.",
+      "judgeCostUsd": 0.00059325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `experimental_customProvider` was renamed to `customProvider` in v7 and that its options remain unchanged.",
+      "judgeCostUsd": 0.00062325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly notes that `experimental_transcribe` works as a deprecated alias in v7 and recommends using `transcribe`.",
+      "judgeCostUsd": 0.0006315
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `generateSpeech` as the new name and `SpeechResult` as the result type.",
+      "judgeCostUsd": 0.00059775
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `experimental_output` was replaced by `output` in both the options and the result object (`result.output`).",
+      "judgeCostUsd": 0.00066975
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `experimental_prepareStep` and `experimental_activeTools` were removed in v7 and directs to use `prepareStep` and `activeTools` instead.",
+      "judgeCostUsd": 0.000678
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `ToolExecutionOptions` replaces `ToolCallOptions` in v7.",
+      "judgeCostUsd": 0.0005655
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `isToolUIPart` as the replacement for `isToolOrDynamicToolUIPart`.",
+      "judgeCostUsd": 0.00059775
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `experimental_onStart` was renamed to `onStart` and `experimental_onStepStart` was renamed to `onStepStart` in v7.",
+      "judgeCostUsd": 0.0006705
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-12",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `onEnd` is the callback for when `streamText` finishes and that `onFinish` is still accepted as a deprecated alias.",
+      "judgeCostUsd": 0.0006735
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `onStepFinish` is replaced by `onStepEnd` in v7.",
+      "judgeCostUsd": 0.00056475
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-14",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends using the `onEnd` callback option on `embedMany` as specified in the v7 documentation.",
+      "judgeCostUsd": 0.0007005
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-16",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that reasoning token counts are located at `usage.outputTokenDetails.reasoningTokens` in accordance with the v7 reference.",
+      "judgeCostUsd": 0.00062775
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-18",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `telemetry` as the v7 name for `experimental_telemetry`.",
+      "judgeCostUsd": 0.00058575
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-19",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `onEmbedFinish` was renamed to `onEmbedEnd` and `onRerankFinish` was renamed to `onRerankEnd` in v7.",
+      "judgeCostUsd": 0.000774
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-21",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly instructs setting `include: { rawChunks: true }` in `streamText` options, matching the reference.",
+      "judgeCostUsd": 0.00070275
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-22",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `experimental_include` was renamed to `include` and that `include` takes precedence if both are set.",
+      "judgeCostUsd": 0.000588
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-23",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The response correctly identifies `onToolExecutionStart` and `onToolExecutionEnd` as the callbacks in v7 and notes that the `experimental_onToolCallStart` and `experimental_onToolCallFinish` names are deprecated aliases.",
+      "judgeCostUsd": 0.00078975
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-24",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that 'experimental_context' has been replaced by 'context', which is destructured from the second parameter of the execute function.",
+      "judgeCostUsd": 0.0006855
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-25",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `createGoogleGenerativeAI` is no longer the recommended way and that `createGoogle` should be used instead.",
+      "judgeCostUsd": 0.00065775
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-27",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly notes that `{ type: 'image' }` is deprecated in v7 and recommends using `{ type: 'file', mediaType: 'image', data }` as specified in the reference.",
+      "judgeCostUsd": 0.00081075
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "vt-28",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that the `media` tool result part was replaced by `{ type: 'file', mediaType, data: { type: 'data', data } }` in v7.",
+      "judgeCostUsd": 0.00068325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies both automated migration methods mentioned in the reference: running `npx @ai-sdk/codemod v7` and using the migration skill via `npx skills add vercel/ai --skill migrate-ai-sdk-v6-to-v7`.",
+      "judgeCostUsd": 0.000885
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that instructions carry forward to subsequent steps in v7 until overridden, matching the reference key points.",
+      "judgeCostUsd": 0.000597
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that messages returned from prepareStep become the base for later steps, with subsequent response messages appended to them.",
+      "judgeCostUsd": 0.00058125
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `result.toolCalls` contains tool calls from all steps in a multi-step generation, matching the reference.",
+      "judgeCostUsd": 0.00060225
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `reasoningText` and `providerMetadata` are read from `finalStep` (or `result.finalStep`) in v7.",
+      "judgeCostUsd": 0.00076575
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly instructs to await `result.finalStep` and then access the `.response` property, matching the reference key points.",
+      "judgeCostUsd": 0.00072675
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains how to disable telemetry per call using `telemetry: { isEnabled: false }` and notes that telemetry is enabled by default once an integration is registered.",
+      "judgeCostUsd": 0.00084975
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-12",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that the custom tracer must be passed to the OpenTelemetry constructor `new OpenTelemetry({ tracer })` from `@ai-sdk/otel` instead of the telemetry call option.",
+      "judgeCostUsd": 0.0006825
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately explains that in v7 `onChunk` receives all stream part types and correctly recommends using a guard on `chunk.type` to handle specific chunks.",
+      "judgeCostUsd": 0.00074925
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-14",
+      "answerable": true,
+      "verdict": "wrong",
+      "reason": "The answer claims `response.body` is empty because top-level `response` is deprecated and tells the user to use `finalStep.response.body`, whereas the documentation states that request and response bodies are excluded by default in v7 and must be opted into via `experimental_telemetry` / `include: { responseBody: true }` (or telemetry/logging settings).",
+      "judgeCostUsd": 0.000906
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-15",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that the default redirect behavior changed from 'follow' to 'error' in v7 for SSRF protection and accurately shows how to set redirect: 'follow' explicitly.",
+      "judgeCostUsd": 0.00075825
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-16",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that in v7 setting reasoning options defaults reasoningSummary to 'detailed', and accurately instructs setting providerOptions.openai.reasoningSummary to null to turn it off.",
+      "judgeCostUsd": 0.00069675
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-17",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `xai(modelId)` uses the Responses API in v7 and recommends `xai.chat(modelId)` to continue using the Chat Completions API.",
+      "judgeCostUsd": 0.00073125
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-18",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly points to `usage.inputTokenDetails.cacheWriteTokens` for cache creation tokens in v7, matching the reference recommendation.",
+      "judgeCostUsd": 0.00093525
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-19",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that provider-specific settings in providerOptions take precedence over the top-level reasoning option.",
+      "judgeCostUsd": 0.00059325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-20",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes the `reasoning-file` part type, notes that it must be handled in exhaustive unions, switches, validators, and renderers, and correctly mentions that files referenced in reasoning no longer duplicate into `result.files` or `step.files`.",
+      "judgeCostUsd": 0.00092925
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-21",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that the Chat class is deprecated in favor of the useChat composable, matching the reference recommendation.",
+      "judgeCostUsd": 0.00060375
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "bh-22",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies that `toTextStreamResponse()` is deprecated on streamText results in v7.",
+      "judgeCostUsd": 0.00061125
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer aligns with the loop-control guide reference, which states that WorkflowAgent has no default step limit unless configured via stopWhen.",
+      "judgeCostUsd": 0.00061125
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends passing an array containing `isStepCount(20)` and `hasToolCall('done')` to the `stopWhen` option of `ToolLoopAgent`.",
+      "judgeCostUsd": 0.00068925
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies setting `stopWhen: isLoopFinished()` to allow the `ToolLoopAgent` to run until the model finishes naturally, matching the reference key points.",
+      "judgeCostUsd": 0.00071475
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately lists all the conditions specified in the reference: when the finish reason is not tool calls, when a tool lacks an execute function, and when a tool call requires approval.",
+      "judgeCostUsd": 0.0006525
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly describes setting `toolChoice: 'required'`, defining a `done` tool with no `execute` function, and extracting the answer from `result.staticToolCalls`.",
+      "judgeCostUsd": 0.00099225
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately lists the fields and settings that `prepareStep` can override or modify for an individual step, matching the reference key points.",
+      "judgeCostUsd": 0.00082125
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies using `prepareStep` and returning pruned messages using `pruneMessages({ messages, reasoning, toolCalls, emptyMessages })`.",
+      "judgeCostUsd": 0.00086925
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-09",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately lists all possible return values for toolApproval ('not-applicable', 'approved', 'denied', 'user-approval', undefined) and correctly explains the behavior and object forms for each.",
+      "judgeCostUsd": 0.00087
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-10",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that toolApproval does not apply to provider-executed tools and only applies to tools executed locally by the AI SDK, matching the reference.",
+      "judgeCostUsd": 0.0005745
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-11",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies `experimental_toolApprovalSecret` as the mechanism to prevent forged tool approvals by HMAC-signing approval requests and verifying them server-side.",
+      "judgeCostUsd": 0.0008115
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-12",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately describes how to detect approval requests using `part.state === 'approval-requested'`, respond using `addToolApprovalResponse`, and auto-submit using `sendAutomaticallyWhen: lastAssistantMessageIsCompleteWithApprovalResponses`.",
+      "judgeCostUsd": 0.00102525
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-13",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly details finding `tool-approval-request` parts, pushing a message with `role: 'tool'` containing `tool-approval-response` parts (including `approvalId`, `approved`, and optional `reason`), and re-calling the agent.",
+      "judgeCostUsd": 0.001074
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-14",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately states that needsApproval is only used with WorkflowAgent and is deprecated in favor of toolApproval for generateText, streamText, and ToolLoopAgent.",
+      "judgeCostUsd": 0.000645
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "ag-15",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly demonstrates using a per-tool approval function in `toolApproval` that returns `'user-approval'` when the amount exceeds 100, matching the reference recommendation.",
+      "judgeCostUsd": 0.00102375
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "mh-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly identifies all three API renames mentioned in the reference: stepCountIs to isStepCount, experimental_context to context, and onFinish to onEnd.",
+      "judgeCostUsd": 0.00086475
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "mh-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly uses `event.usage.inputTokenDetails.cacheReadTokens` and `event.usage.outputTokenDetails.reasoningTokens` inside `onEnd` to get the aggregated token counts.",
+      "judgeCostUsd": 0.00078375
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "mh-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately details all required upgrade steps, including installing `@ai-sdk/otel`, initializing `registerTelemetry(new OpenTelemetry({ tracer }))` in `instrumentation.ts`, renaming `experimental_telemetry` to `telemetry`, and removing `isEnabled: true`.",
+      "judgeCostUsd": 0.0010755
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "mh-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly explains that in AI SDK v7 tool callbacks cannot access `runtimeContext` directly and must instead use `contextSchema` along with `toolsContext`.",
+      "judgeCostUsd": 0.0009705
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "mh-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly notes that `instructions` carry forward to future steps in v7 and provides the correct pattern returning `initialInstructions` on subsequent steps to replicate v6 behavior.",
+      "judgeCostUsd": 0.0007665
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "mh-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly sets `include: { requestBody: true, rawChunks: true }` in `streamText` as documented.",
+      "judgeCostUsd": 0.0005985
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "mh-08",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly recommends awaiting `result.finalStep` and accessing its `usage` property to get token usage for only the last step.",
+      "judgeCostUsd": 0.00071925
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "cd-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly updates system to instructions, experimental_include to include, onFinish to onEnd, and fullStream to stream according to the AI SDK v7 updates.",
+      "judgeCostUsd": 0.00110625
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "cd-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly updates the tool definition and agent config to use contextSchema, toolApproval, toolsContext, and runtimeContext instead of the outdated needsApproval and experimental_context options.",
+      "judgeCostUsd": 0.00083325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "cd-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly updates `stepCountIs` to `isStepCount`, maps usage properties to `inputTokenDetails` and `outputTokenDetails`, and uses `r.finalStep.reasoningText` according to the AI SDK v7 updates.",
+      "judgeCostUsd": 0.00085575
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "cd-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The code correctly configures `stopWhen` using `isStepCount(10)` and `hasToolCall('done')`, creates a `done` tool without an execute function, and implements `prepareStep` to restrict the first step to `search` with `toolChoice: 'required'`.",
+      "judgeCostUsd": 0.000987
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "cd-05",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer accurately uses the v7 tool result content part syntax with type 'file', mediaType 'image', and a URL instance.",
+      "judgeCostUsd": 0.00063
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "cd-06",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly replaces the deprecated `toTextStreamResponse()` method with `createTextStreamResponse({ stream: toTextStream({ stream: ... }) })` imported from 'ai'.",
+      "judgeCostUsd": 0.000684
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "cd-07",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly rewrites `createGoogleGenerativeAI` to `createGoogle` as specified in the reference documentation for v7.",
+      "judgeCostUsd": 0.000615
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "fp-01",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that telemetry is enabled by default in v7 and that `isEnabled: false` is used to opt out.",
+      "judgeCostUsd": 0.000714
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "fp-02",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that Node 20 is not supported in AI SDK v7 and that Node.js 22 or later is required.",
+      "judgeCostUsd": 0.0006315
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "fp-03",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that tool callbacks no longer read `runtimeContext` and explains how to use `contextSchema` along with `toolsContext` to access context inside the execute function.",
+      "judgeCostUsd": 0.0008355
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "fp-04",
+      "answerable": true,
+      "verdict": "correct",
+      "reason": "The answer correctly states that `toolApproval` cannot be configured for subagent tools in v7, matching the reference context.",
+      "judgeCostUsd": 0.00058575
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "un-02",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that pricing information for Mistral Small is not available in the documentation.",
+      "judgeCostUsd": 0.00053325
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "un-03",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly declines to answer the question because the information is not present in the documentation.",
+      "judgeCostUsd": 0.0005115
+    },
+    {
+      "model": "mistralai/mistral-small-2603",
+      "id": "un-04",
+      "answerable": false,
+      "verdict": "declined",
+      "reason": "The answer correctly states that the AI SDK does not include a built-in vector database and explains how to use embedding functions alongside an external vector database.",
+      "judgeCostUsd": 0.00099975
+    }
+  ]
+}

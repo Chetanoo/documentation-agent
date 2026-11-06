@@ -1,6 +1,6 @@
 # Progress
 
-_Last updated: 2026-11-05_
+_Last updated: 2026-11-06_
 
 ## Goal
 
@@ -8,7 +8,7 @@ A RAG bot over the Vercel AI SDK docs, with citations and evals. The story: **bu
 
 **Live:** [ask-ai-docs-agent.onrender.com](https://ask-ai-docs-agent.onrender.com) (free instance, ~1 min to wake up after 15 idle minutes).
 
-Later: a mini eval framework that compares models, prompts, cost and speed.
+**Status (2026-11-06):** the doc bot is done and only gets maintenance. Next comes a mini eval framework in its own repo, with this bot as its first user (see Next steps).
 
 ## The story so far
 
@@ -23,6 +23,8 @@ Later: a mini eval framework that compares models, prompts, cost and speed.
 35 questions (29 answerable, 6 unanswerable), judged by a third model family against reference answers. Cost per full RAG run: Qwen ~$0.049, Mistral ~$0.024.
 
 v4 labels each source with its kind (guide / reference / cookbook / ...) and tells the model to prefer guides when sources disagree. v5 reranks the vector top 30 with Cohere Rerank and keeps the top 8, which fixed the last miss (q27). At 29/29 the 35-question eval is saturated: it can no longer tell a better configuration from an equally good one.
+
+Two harder sets followed (168 questions, 203 in total). v5 scores 70/72 (Qwen) and 71/72 (Mistral) for hard 1, and 84/87 (Qwen) and 83/87 (Mistral) for hard 2. Unanswerable questions: 8/8 declined. See "Results v5 on harder sets".
 
 Around v3: the same pipeline behind a streaming API, a React chat with clickable citations, and a public deployment with cost limits. The demo runs exactly the configuration the evals measured (same retrieval, models and settings, from the same modules).
 
@@ -73,7 +75,7 @@ Around v3: the same pipeline behind a streaming API, a React chat with clickable
 
 ```
 npm run fetch-docs        llms.txt → data/corpus/ (375 pages, committed) + _manifest.json (sha256 per page)
-npm run check-coverage    every eval source exists in the corpus
+npm run check-coverage    every eval source exists in the corpus (pass question files after '--'; default ai-sdk-evals.json)
 npm run chunk-docs        corpus → data/chunks.jsonl (1982 chunks, gitignored, deterministic)
 npm run db:up             Postgres + pgvector in Docker
 npm run db:migrate        schema (add -- --reset after changing embedding dims)
@@ -86,6 +88,8 @@ withsecrets npm run eval:baseline          both models, no retrieval → evals/r
 withsecrets npm run eval:rag '--' --dry q04  print the prompt for one question, no LLM call
 withsecrets npm run eval:rag               both models answer with retrieved sources → evals/runs/rag-<stamp>.json
 withsecrets npm run eval:judge             grade the latest run (baseline or rag), or pass a path → <run>.judged.json
+withsecrets npm run eval:rag '--' --questions evals/questions-v7-hard.json      another question set (recorded in the run)
+withsecrets npm run eval:judge '--' <run> --questions evals/questions-v7-hard.json  needed for runs made before the field existed
 
 withsecrets npm run dev:api                API with reload on http://127.0.0.1:3000
 cd web; npm run dev                        web app on http://localhost:5173 (proxies /api to :3000)
@@ -115,6 +119,8 @@ Loading Neon uses the same scripts with `DATABASE_URL` pointed at it: `db:migrat
 | `scripts/eval-retrieval.ts` | Scores vector / text / equal-weight hybrid on evidence@k and MRR, prints misses, saves the run. |
 | `scripts/experiment-retrieval.ts` | Fetches each question's top-50 vector and full-text candidates once, then scores every configuration in memory (vector only, text only, RRF with text weight 1 / 0.5 / 0.25 / 0.1) at k = 5, 8, 10, split by old/new questions, with context size and per-config misses. |
 | `evals/ai-sdk-evals.json` | 35 questions (29 answerable, 6 unanswerable). q01–q20 written mostly from the v6/v7 migration guides; q21–q35 from the regular docs (MCP, chat persistence, embeddings, tools). Each has `expected_answer`, `must_include`, `stale_signals`, `sources`; answerable ones also have `evidence`. |
+| `evals/questions-v7-hard.json` | Hard 1: 75 questions (72 + 3 unanswerable). Same schema. Categories: version-trap, behavior, agents, multi-hop, code, false-premise, unanswerable. |
+| `evals/questions-v7-hard-2.json` | Hard 2: 93 questions (88 + 5 unanswerable) across ~25 doc pages. Extra fields: `topic`, `difficulty_predicted` (easy / medium / hard), and `snapshot_gap` on tel-07. `anc-01` and `anc-02` are anchors re-asking two facts that failed in hard 1. |
 | `scripts/run-baseline.ts`, `scripts/judge.ts` | No-retrieval baseline + LLM judge. The judge picks the newest `baseline-*` or `rag-*` run, or takes a path. |
 | `src/rag/prompt.ts` | RAG instructions and source formatting (with `kind`). Shared by the eval runner and the API. |
 | `src/rag/citations.ts` | The one citation parser, used by the eval runner (`parseCitations`) and the web app (re-exported from `web/src/lib/citations.ts`). No imports, so it compiles under both tsconfigs. |
@@ -123,7 +129,7 @@ Loading Neon uses the same scripts with `DATABASE_URL` pointed at it: `db:migrat
 | `scripts/experiment-rerank.ts` | Reranks each answerable question's vector top 30 and compares evidence@5/8/10, MRR, first-evidence rank, latency and cost. |
 | `scripts/rank-of.ts` | Debug tool: rank of a question's evidence in vector and full-text top 50, plus the vector top 8. |
 | `src/rag/models.ts` | The two models, `DEFAULT_MODEL` (Mistral), generation settings and provider options. |
-| `scripts/run-rag.ts` | Same as `run-baseline.ts` plus retrieval. Extra fields per answer: sources (with kind and ✓ for evidence), `evidenceInSources`, citations, invalid citations, `citesEvidence`. Records the retrieval config in the run file. `--dry <id>` prints the prompt. |
+| `scripts/run-rag.ts` | Same as `run-baseline.ts` plus retrieval. Extra fields per answer: sources (with kind and ✓ for evidence), `evidenceInSources`, citations, invalid citations, `citesEvidence`. Records the retrieval config and the question file in the run file. `--dry <id>` prints the prompt; `--questions <file>` picks the question set. |
 | `src/lib/pool.ts` | Shared helper for running requests in parallel. |
 | `src/api/server.ts` | Entry point: checks the key, creates the pg pool, builds the app, shuts down cleanly on SIGINT/SIGTERM. |
 | `src/api/app.ts` | `buildApp()`: rate limiting, `/api/health`, `/api/ready`, static web app with SPA fallback, JSON 404 for unknown `/api/*`. |
@@ -133,7 +139,7 @@ Loading Neon uses the same scripts with `DATABASE_URL` pointed at it: `db:migrat
 | `Dockerfile`, `.dockerignore` | Two stages: build the web app (copies `src/rag/citations.ts` in for it), then type-check and run the server with `tsx`. |
 | `docker-compose.yml` | Local Postgres + pgvector on port 5433. |
 | `README.md`, `docs/screenshot.png` | Public write-up with results, lessons and the live link. |
-| `evals/baselines/` | **v5 (current):** `rag-v5-run1`, `rag-v5-run2` (+ judged), `experiment-rerank-v1`. **v4:** `rag-v4-run1`, `rag-v4-run2` (+ judged). **v3:** `rag-v3-run1`, `rag-v3-run2` (+ judged), `experiment-retrieval-v1`. **v2:** `baseline-v2`, `rag-v2` (+ judged), `retrieval-v2`. **v1 (first 20 questions):** `baseline-v1`, `rag-v1` (+ judged), `retrieval-v1`. |
+| `evals/baselines/` | **v5 (current):** `rag-v5-run1`, `rag-v5-run2` (+ judged), `experiment-rerank-v1`; harder sets: `rag-v5-hard1-run1` (+ judged), `rag-v5-hard2-run1` (+ judged). **v4:** `rag-v4-run1`, `rag-v4-run2` (+ judged). **v3:** `rag-v3-run1`, `rag-v3-run2` (+ judged), `experiment-retrieval-v1`. **v2:** `baseline-v2`, `rag-v2` (+ judged), `retrieval-v2`. **v1 (first 20 questions):** `baseline-v1`, `rag-v1` (+ judged), `retrieval-v1`. |
 
 Corpus stats: 375 pages → 1,982 chunks, ~645k tokens (estimated), median chunk 256 tokens, p90 669. Embedding the whole corpus: 618k tokens, 51 s, ~$0.012.
 
@@ -206,6 +212,46 @@ Each format only showed up when someone asked the live demo a new kind of questi
 ### Lesson: a broken import only showed up at runtime
 
 The first deploy crashed with `ERR_MODULE_NOT_FOUND`: `server.ts` imported `'../../../../Downloads/app.js'`. WebStorm had written that path when the file was copied in from the Downloads folder. Locally it worked, because the file existed in Downloads; in the container it didn't. The Docker build runs `tsx` without a type check, so nothing caught it before startup. Fix: `import { buildApp } from './app.js'`. Prevention, now in place: the Docker build runs `tsc` on the server before it ships (`npm run typecheck` does the same locally for server + web). Inside the image only the repo's files exist, so an import like this fails the build instead of the live server. One catch: the image has `src/` but not `scripts/`, so TypeScript inferred a different source root than locally and newer versions require it to be explicit (TS5011). Fixed with `"rootDir": "."` in `tsconfig.json`, which also replaced a `"declaration": true` that did nothing under `noEmit`. (`"include"` had been inside `compilerOptions`, where it was ignored; moved to the top level.)
+
+## Results v5 on harder sets (168 questions, 1 run each)
+
+The v5 config is unchanged. Both sets were written with Claude from the live docs on 2026-11-06 (the snapshot is from 2026-11-01), and questions duplicating `ai-sdk-evals.json` were removed. Judge: `google/gemini-3.6-flash`.
+
+| Set | Model | Correct | Not correct | Declined | Hallucinated | Cost | Avg latency |
+|---|---|---|---|---|---|---|---|
+| Hard 1 | Qwen | **70/72** | bh-14 (wrong), cd-01 (outdated) | 3/3 | 0 | $0.143 | 5.2 s |
+| Hard 1 | Mistral | **71/72** | bh-14 (wrong) | 3/3 | 0 | $0.067 | 4.1 s |
+| Hard 2 | Qwen | **84/87** | data-01, anc-01 (wrong), anc-02 (outdated) | 5/5 | 0 | $0.181 | 6.8 s |
+| Hard 2 | Mistral | **83/87** | ui-02 (outdated), data-01, code-01, anc-01 (wrong) | 5/5 | 0 | $0.077 | 4.5 s |
+
+- **Hard 1 is graded with the fixed references.** As first judged: Qwen 68/72, Mistral 69/72. The ag-02, ag-07 and ag-15 verdicts were reference errors (see the lesson below). After the fixes, all three are correct for both models.
+- **Mistral's cd-01 is graded leniently.** Its v7 rewrite renames everything else but silently drops the `onStepFinish` callback. The judge graded that "acceptable" in the first pass and "correct" in the re-judge, the same leniency as q26 in v4. Counting it as a miss gives Mistral 70/72.
+- **Hard 2 leaves out tel-07, a snapshot gap.** Its answer (the `gen_ai.client.inference.duration` metric and `MeterProvider`) is in the live docs but appears nowhere in `data/corpus`. Both models said the docs don't mention it, which is the faithful answer for this snapshot. With tel-07 counted: Qwen 84/88, Mistral 83/88. The question carries a `snapshot_gap` note.
+- **data-01 was ambiguous.** A tool-part answer solves it too. It has since been rewritten to ask about custom data parts from `createUIMessageStream`, and the frozen run used the old wording.
+- **The real misses are the same two facts in both sets.** First, v7 excludes request and response bodies by default (bh-14 / anc-01): the evidence wasn't retrieved in either set. Second, the `onStepFinish` → `onStepEnd` rename in a code rewrite (cd-01 / anc-02). For hard 1 the evidence was retrieved, and still Qwen kept `onStepFinish` and Mistral dropped the callback. For hard 2 the evidence wasn't retrieved. Mistral only: ui-02 recommended the removed `handleSubmit` / `input` / `setInput`, and code-01 forgot `sendSources: true`.
+- **Evidence reached the sources** for 71/72 answerable questions in hard 1 (all but bh-14) and 83/88 in hard 2 (all but err-01, data-04, tel-07, anc-01, anc-02). Both models still answered err-01 and data-04 correctly, and Mistral answered anc-02 correctly. Rerank: 0 fallbacks, ~0.85 s average.
+- **Models tie.** Under the judge they differ on 1 question in hard 1 and 3 in hard 2 (exact McNemar p = 1.0 both times).
+- By category, hard 1: version-trap 44/44, multi-hop 14/14, false-premise 8/8, behavior 34/36, agents 28/28, code 13/14 (answers from both models).
+- **Cost:** judging was $0.12 for hard 1 and $0.16 for hard 2, about half of each run's total. Unit costs from the OpenRouter log: judge ~$0.00086 per answer, Qwen ~$0.0014 (median 5.1 s), Mistral ~$0.00065 (median 3.1 s), rerank ~$0.0002 per question.
+
+**Takeaway:** with the best config the bot answers about 97% of realistic docs questions, however they're phrased. The remaining misses come from retrieval competition between sections of the same page, not from question wording. Pushing accuracy lower would take contrived or ambiguous questions. So these sets are for comparing configurations through ablations (see Next steps), not for chasing the last few questions.
+
+### Lesson: predicted difficulty didn't predict actual difficulty
+
+Every hard-2 question was labeled easy / medium / hard before the run. Raw: hard 66/72 answers, medium 97/100, easy 14/14. But the "hard" failures are the two anchors (picked because they had already failed) and the snapshot gap. Without those three questions, "hard" scored 65/66, the same as medium. Tricky phrasing, false premises and version traps didn't hurt. What fails is a fact sitting in a chunk that loses to other sections of its own page. Difficulty here comes from competing chunks, not from phrasing.
+
+### Lesson: the string check and the judge reached opposite conclusions
+
+On hard 1 the `must_include` check passed Qwen on 69/72 and Mistral on 63/72. Mistral alone failed 6 questions and Qwen alone failed none: exact McNemar p = 0.03, a "significant" difference. The judge disagreed with the string check on 9 of the 144 answers and found the models tied (they differ only on cd-01, p = 1.0). Reading the 9 disagreements, the string check was mostly wrong. It failed correct paraphrases, and it flagged stale names that an answer mentions only to say they're deprecated. On hard 2 the two methods disagreed on 9 answers. A string check works as a cheap pre-filter and a pointer to cases worth a human look. It isn't a score to compare models on. That disagreement report goes into the eval framework.
+
+### Lesson: the references were wrong again, once because the docs contradict themselves
+
+Hard 1 had three bad references, all found by reading verdicts that looked wrong:
+- **ag-07** (what `prepareStep` can return): the list was incomplete. The v7 migration guide also lists `instructions` and `runtimeContext`. Now marked as not exhaustive.
+- **ag-15** (conditional tool approval): `needsApproval` was listed as stale, but it's correct for `WorkflowAgent`. Same mistake as q12 in v4.
+- **ag-02** (`WorkflowAgent` default step limit): the docs disagree. The loop-control guide says there's no default limit; the `WorkflowAgent` reference says `generate()` defaults to 20 and `stream()` is unbounded. Qwen followed the reference page and was graded wrong. The reference now accepts either page.
+
+Also: bh-07 dropped `finalStep` from `must_include`, because correct answers don't need it. This makes five reference fixes in total (q12, q16, ag-02, ag-07, ag-15), and in four of them the model knew a correct detail the reference didn't list. Hand-labeling the disputed verdicts and measuring agreement with the judge belongs in the framework.
 
 ## Results v5: reranking (35 questions, 2 runs)
 
@@ -370,16 +416,17 @@ Fix: score at chunk level instead. Each question got an `evidence` field: a list
 
 ## Known gaps
 
-- **The eval is saturated** at 29/29: it can't rank configurations any more. Harder questions are needed: keyword-style, multi-page, follow-ups, and questions whose wording pulls toward the wrong topic (like q27).
-- **Reranker latency** varies: ~1 s typically, occasional stalls. Worst case adds ~6 s before falling back. Watch the API logs.
-- **No keyword-style questions** in the eval (bare identifiers like `isStepCount`). That is where full-text search should help; add a few and rerun the experiment before ruling hybrid out for good.
+- **All three sets are close to saturated** for v5 (100%, 97–99%, 95–97%). They can separate clearly worse configurations (ablations), not ones that differ by a question or two.
+- **Two known retrieval misses:** the default exclusion of response bodies (bh-14 / anc-01) and `onStepFinish` → `onStepEnd` (cd-01 / anc-02). In both, other sections of the same page outrank the chunk with the answer.
+- **Snapshot drift:** the live docs already have sections the 2026-11-01 snapshot lacks (tel-07, the telemetry Metrics section). Refreshing the snapshot means re-chunking, re-embedding and rerunning the evals.- **Reranker latency** varies: ~1 s typically, occasional stalls. Worst case adds ~6 s before falling back. Watch the API logs.
+- **No keyword-style questions** in the evals (bare identifiers like `isStepCount`). That is where full-text search should help; add a few and rerun the experiment before ruling hybrid out for good.
 - **Citation format isn't enforced.** A "cite only in prose" rule in the prompt would reduce the variety, but needs a full eval rerun.
 - **Single-turn.** Follow-ups ("and for streamText?") are answered without the earlier question; multi-turn needs query rewriting before retrieval.
 - **Mistral sometimes doesn't cite** (3 of 29 answers in v4 run 1, 1–2 in v5). The UI then shows no markers and fades all sources.
 - **q26 grading is lenient:** Mistral's answers omit `convertToModelMessages` and are usually graded correct. Tighten the reference if it matters.
 - Free-tier cold start: ~1 minute after 15 idle minutes (Render), plus Neon waking up.
 - The judge flips on ~17% of borderline answers. Majority-of-3 judging would reduce it (~3× judge cost, ~$0.20 per run).
-- Single runs are noisy (OpenRouter routing). v3 has 2 runs; the runner should support N repetitions and report the range.
+- Single runs are noisy (OpenRouter routing). v3–v5 have 2 runs each on the original set, the hard sets 1 run each. The eval framework will run N repetitions and report the range.
 - Heading anchors in chunk URLs are an approximation of the site's slugs. Spot-check before relying on them for citations.
 - Migration-guide chunks contain "before" (v6) code. Now labeled `migration-guide` in the prompt; if they still mislead, down-rank them in retrieval.
 - Some page titles keep their YAML quotes (e.g. `"React error \"...\""`). The prompt strips them; fixing it at the source (`fetch-docs.ts`) means re-chunking and re-embedding.
@@ -388,10 +435,23 @@ Fix: score at chunk level instead. Each question got an `evidence` field: a list
 
 ## Next steps
 
-Done: API, web chat, deployment, README, `.env` support; one shared citation parser; type check in the Docker build; v4 source kinds (q12); chunker labels fixed; v5 reranking (q27; 29/29 for both models).
+Done: API, web chat, deployment, README, `.env` support; one shared citation parser; type check in the Docker build; v4 source kinds (q12); chunker labels fixed; v5 reranking (q27; 29/29 for both models); two harder eval sets (168 questions, ~97% for v5).
 
-1. **A harder eval set:** keyword-style questions (bare identifiers like `isStepCount`), questions that need two pages, follow-ups, and misleading wording like q27. Then rerun the retrieval and rerank experiments, including hybrid + rerank (full-text candidates may matter for keywords).
-2. **Top 5 instead of 8** after reranking: same evidence coverage in the experiment, ~40% less context. Measure answers before switching.
-3. Multi-turn: rewrite follow-up questions into standalone ones before retrieval.
-4. "Cite only in prose, as [n]" in the prompt, if citation formats or Mistral's uncited answers become a problem. Needs a full rerun.
-5. Later: eval framework comparing models, prompts, embedding models, cost and speed (N repetitions, majority-of-3 judging).
+**Decision (2026-11-06):** stop improving the doc bot. It gets maintenance only. Next is the eval framework, then a GitHub PR code-review agent.
+
+1. **Mini eval framework, in its own repo** (TypeScript), so it reads as a reusable tool. This bot is its first user.
+   - **Boundary:** a target is a plain async function `(case) => { output, usage?, latencyMs?, context? }`. The framework knows nothing about RAG; the bot supplies an adapter like `makeRagTarget({ model, topK, rerank })`.
+   - **Pieces:** datasets (id, question, reference, tags); scorers (LLM judge, `must_include`, citation check, retrieval evidence); a runner (targets × cases × N repetitions, concurrency, cache); reporters (CLI table, JSON, later HTML). Config is a TS file.
+   - **Statistics:** pass rates with Wilson confidence intervals; paired comparison on the same cases (exact McNemar or bootstrap) that prints "significant" or "no detectable difference".
+   - **Cost control:** cache target outputs and judge verdicts by hash; a dry-run cost estimate and `--max-cost`; an early-stop majority judge (2 calls, a 3rd only on disagreement, ~2.1 calls per answer).
+   - **Reports:** cost split into generation vs judging, cost per correct answer, latency, per-tag breakdowns, and a string-check vs judge disagreement report.
+   - **Judge calibration:** hand-label ~30 verdicts and report agreement. The disputed hard-1 verdicts (ag-02, ag-07, ag-15, cd-01) are the first labeled examples.
+   - **First comparison:** the v5 config vs ablations on all 203 questions: no rerank, top 3 and top 5, hybrid vs vector-only, no retrieval, and the prompt without the "your knowledge is outdated" line. Optionally, a frontier model as a ceiling.
+   - Budget: ~$20 on OpenRouter. A full 93-question run for both models plus judging costs ~$0.40.
+2. **GitHub PR code-review agent.**
+
+Doc bot maintenance, when needed:
+- Refresh the snapshot (covers tel-07), then rerun all three sets.
+- Top 5 instead of 8 after reranking (it's one of the ablations above).
+- Multi-turn: rewrite follow-up questions into standalone ones before retrieval.
+- "Cite only in prose, as [n]" in the prompt, if citation formats or Mistral's uncited answers become a problem. Needs a full rerun.
