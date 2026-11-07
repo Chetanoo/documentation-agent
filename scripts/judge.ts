@@ -16,6 +16,7 @@ import { generateText, Output } from 'ai';
 import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 import { z } from 'zod';
 import { runPool } from '../src/lib/pool.js';
+import { DEFAULT_QUESTIONS, argValue, loadQuestions, type EvalQuestion } from '../src/lib/questions.js';
 
 // Judge comes from a third model family so it isn't grading its own family's answers.
 const JUDGE_MODEL = 'google/gemini-3.6-flash';
@@ -66,13 +67,7 @@ For unanswerable questions (the docs do not contain the answer), pick exactly on
 
 Keep the reason to one or two sentences and name the specific API or claim that decided the verdict.`;
 
-type Question = {
-  id: string;
-  answerable: boolean;
-  question: string;
-  expected_answer: string[];
-  stale_signals: string[];
-};
+type Question = EvalQuestion;
 
 type RunResult = {
   model: string;
@@ -97,14 +92,6 @@ if (!apiKey) {
   process.exit(1);
 }
 const openrouter = createOpenRouter({ apiKey });
-
-function flag(name: string): string | undefined {
-  const i = process.argv.indexOf(name);
-  if (i === -1) return undefined;
-  const value = process.argv[i + 1];
-  if (!value) throw new Error(`${name} needs a value`);
-  return value;
-}
 
 async function findRunFile(): Promise<string> {
   const args = process.argv.slice(2);
@@ -183,9 +170,10 @@ async function judgeOne(q: Question, r: RunResult): Promise<Judgment> {
   }
 }
 
-function summarize(models: string[], judgments: Judgment[]) {
+// Questions marked snapshot_gap are judged and saved, but left out of the scores (see EvalQuestion).
+function summarize(models: string[], judgments: Judgment[], excluded: Set<string>) {
   return models.map((model) => {
-    const rows = judgments.filter((j) => j.model === model);
+    const rows = judgments.filter((j) => j.model === model && !excluded.has(j.id));
     const count = (v: Verdict) => rows.filter((j) => j.verdict === v).length;
     const answerable = rows.filter((j) => j.answerable).length;
     const unanswerable = rows.length - answerable;
@@ -215,16 +203,22 @@ async function main() {
     results: RunResult[];
   };
   // --questions wins; otherwise the file the run recorded; runs older than that field used the original set.
-  const questionsFile = flag('--questions') ?? run.questionsFile ?? 'evals/ai-sdk-evals.json';
+  const questionsFile = argValue('--questions') ?? run.questionsFile ?? DEFAULT_QUESTIONS;
   console.log(`References from ${questionsFile}\n`);
-  const { questions } = JSON.parse(await readFile(path.resolve(questionsFile), 'utf8')) as {
-    questions: Question[];
-  };
-  const byId = new Map(questions.map((q) => [q.id, q]));
+  const byId = new Map((await loadQuestions(questionsFile)).map((q) => [q.id, q]));
+
+  // Check every id before the first paid call: failing inside the pool would leave other calls running.
+  const unknown = [...new Set(run.results.map((r) => r.id).filter((id) => !byId.has(id)))];
+  if (unknown.length) {
+    throw new Error(
+      `${unknown.length} question ids not in ${questionsFile} (${unknown.slice(0, 5).join(', ')}${unknown.length > 5 ? ', ...' : ''}). ` +
+        'Pass the set the run used with --questions <file>.',
+    );
+  }
+  const excluded = new Set([...byId.values()].filter((q) => q.snapshot_gap).map((q) => q.id));
 
   const tasks = run.results.map((r) => async () => {
-    const q = byId.get(r.id);
-    if (!q) throw new Error(`Question ${r.id} not found in eval set`);
+    const q = byId.get(r.id)!;
     const j = await judgeOne(q, r);
     console.log(`${j.model}  ${j.id}  ${j.verdict}  - ${j.reason}`);
     return j;
@@ -239,7 +233,9 @@ async function main() {
   );
 
   console.log('');
-  console.table(summarize(run.models, judgments));
+  console.table(summarize(run.models, judgments, excluded));
+  const skippedGaps = [...excluded].filter((id) => run.results.some((r) => r.id === id));
+  if (skippedGaps.length) console.log(`Not scored (snapshot_gap: answer not in the docs snapshot): ${skippedGaps.join(', ')}`);
   console.log(`\nJudgments saved to ${outFile}`);
 }
 

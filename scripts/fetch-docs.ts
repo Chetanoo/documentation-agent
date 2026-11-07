@@ -29,16 +29,24 @@ function splitPages(llms: string): { path: string; md: string }[] {
 
 async function main() {
   const src = process.argv[2]; // optional: local llms.txt instead of fetching
-  const llms = src ? await readFile(src, 'utf8') : await (await fetch(`${BASE}/llms.txt`)).text();
+  let llms: string;
+  if (src) llms = await readFile(src, 'utf8');
+  else {
+    const res = await fetch(`${BASE}/llms.txt`);
+    if (!res.ok) throw new Error(`GET ${BASE}/llms.txt: HTTP ${res.status}`);
+    llms = await res.text();
+  }
 
-  await rm(OUT, { recursive: true, force: true });
-  await mkdir(OUT, { recursive: true });
-  await writeFile(path.join(OUT, '_llms.txt'), llms);
-
+  // Parse before deleting anything: an error page or a format change must not wipe the committed corpus.
   const all = splitPages(llms);
   const keep = all.filter(
     (p) => INCLUDE.some((r) => r.test(p.path)) && !EXCLUDE.some((r) => r.test(p.path)),
   );
+  if (keep.length === 0) throw new Error(`no docs pages found in llms.txt (${all.length} pages in total)`);
+
+  await rm(OUT, { recursive: true, force: true });
+  await mkdir(OUT, { recursive: true });
+  await writeFile(path.join(OUT, '_llms.txt'), llms);
 
   const pages: PageMeta[] = [];
   for (const { path: p, md } of keep) {

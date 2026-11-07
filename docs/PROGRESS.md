@@ -48,7 +48,7 @@ Around v3: the same pipeline behind a streaming API, a React chat with clickable
   - In the demo: Mistral is the default ("Faster"), Qwen the alternative ("Slower, more thorough").
 - **Embeddings:** `openai/text-embedding-3-small` via OpenRouter (1536 dims, $0.02 / 1M tokens). Fallback candidate: Qwen3 Embedding 8B (check its dimensions first: pgvector HNSW indexes at most 2000).
 - **LLM client:** the AI SDK itself, with `@openrouter/ai-sdk-provider` (3.x line = AI SDK v7). Note: this provider still uses `textEmbeddingModel`, not the v6+ name `embeddingModel`.
-- **Database:** Postgres 17 + pgvector in Docker locally (port 5433, because 5432 is taken on this machine). Neon in production (same SQL, same scripts).
+- **Database:** Postgres 17 + pgvector in Docker locally (port 5432, see `docker-compose.yml`; set `DATABASE_URL` to use another). Neon in production (same SQL, same scripts).
 - **Retrieval:** **vector (HNSW, cosine) top 30 → `cohere/rerank-5-fast` via OpenRouter → top 8.** Vector-only was chosen by the retrieval experiment, the reranker by the rerank experiment (see below). Reranking uses 2 attempts of 3 s each and falls back to the vector order, so a reranker outage means v4-quality retrieval, not an error. Full-text search and weighted RRF are still implemented: `RETRIEVAL.textWeight` in `src/rag/retrieve.ts` turns hybrid back on (0 = vector only); `rerankModel: null` turns reranking off.
 - **Generation:** the retrieved chunks as numbered `<source>` blocks (kind + section path + URL + content). Instructions: answer only from the sources, cite `[n]` inline, never recommend migration-guide "Before" code, say "couldn't find it" instead of guessing, and (v4) when sources disagree, follow guides and reference over cookbook examples. Same models and settings as the baseline, so retrieval is the only variable. Settings live in `src/rag/models.ts` (temperature 0, max output 12k tokens, reasoning capped at 4k), shared by the eval runner and the API.
 - **Judge rules:** grades only against the reference, never its own SDK knowledge. For answerable questions, "the information isn't available" counts as **wrong**; partial answers are graded on the part they answer.
@@ -137,7 +137,7 @@ Loading Neon uses the same scripts with `DATABASE_URL` pointed at it: `db:migrat
 | `scripts/ask-api.ts` | CLI client for the API: prints the sources, the streamed answer and the metadata. |
 | `web/` | React chat (own `package.json` and `tsconfig`). `src/lib/citations.ts` (re-exports the shared parser), `src/lib/highlight.ts` (code highlighting), `src/components/` (Answer, Sources, Composer, EmptyState). |
 | `Dockerfile`, `.dockerignore` | Two stages: build the web app (copies `src/rag/citations.ts` in for it), then type-check and run the server with `tsx`. |
-| `docker-compose.yml` | Local Postgres + pgvector on port 5433. |
+| `docker-compose.yml` | Local Postgres + pgvector on port 5432. |
 | `README.md`, `docs/screenshot.png` | Public write-up with results, lessons and the live link. |
 | `evals/baselines/` | **v5 (current):** `rag-v5-run1`, `rag-v5-run2` (+ judged), `experiment-rerank-v1`; harder sets: `rag-v5-hard1-run1` (+ judged), `rag-v5-hard2-run1` (+ judged). **v4:** `rag-v4-run1`, `rag-v4-run2` (+ judged). **v3:** `rag-v3-run1`, `rag-v3-run2` (+ judged), `experiment-retrieval-v1`. **v2:** `baseline-v2`, `rag-v2` (+ judged), `retrieval-v2`. **v1 (first 20 questions):** `baseline-v1`, `rag-v1` (+ judged), `retrieval-v1`. |
 

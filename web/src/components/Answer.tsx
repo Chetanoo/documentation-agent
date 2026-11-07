@@ -57,7 +57,8 @@ export function Answer({ message, streaming }: Props) {
   const components: Components = {
     a: ({ href, children }) => {
       const nums = citationHref(href);
-      if (nums) return <span className="cite-group">{nums.map((n) => cite(n, n))}</span>;
+      // Index keys: a model can repeat a number in one run ("[2][2]").
+      if (nums) return <span className="cite-group">{nums.map((n, i) => cite(n, i))}</span>;
       return (
         <a href={href} target="_blank" rel="noreferrer">
           {children}
@@ -78,9 +79,9 @@ export function Answer({ message, streaming }: Props) {
         <p className="cite-line">
           Sources:{' '}
           {nums.map((n, i) => (
-            <span key={n}>
+            <span key={i}>
               {i > 0 && ', '}
-              {cite(n, n)}
+              {cite(n)}
             </span>
           ))}
         </p>

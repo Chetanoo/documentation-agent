@@ -126,7 +126,7 @@ Requirements: Node 22+, Docker, an [OpenRouter](https://openrouter.ai) API key.
 ```bash
 cp .env.example .env     # then put your OpenRouter key in .env
 npm install
-npm run db:up            # Postgres + pgvector in Docker (port 5433)
+npm run db:up            # Postgres + pgvector in Docker (port 5432)
 npm run db:migrate
 npm run chunk-docs       # corpus snapshot → data/chunks.jsonl
 npm run embed            # ~620k tokens, about $0.01

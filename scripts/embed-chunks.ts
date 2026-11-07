@@ -42,6 +42,9 @@ async function main() {
     .split('\n')
     .filter(Boolean)
     .map((l) => JSON.parse(l));
+  // The cleanup below deletes every row whose id isn't in this file, so an empty file would empty the
+  // database (including production when DATABASE_URL points at Neon).
+  if (chunks.length === 0) throw new Error(`${CHUNKS} has no chunks: run chunk-docs first`);
 
   const db = new pg.Client({ connectionString: DATABASE_URL });
   await db.connect();

@@ -6,23 +6,20 @@
  *   withsecrets npm run rank '--' q27
  *   withsecrets npm run rank '--' q27 "How do I limit parallel requests in embedMany?"
  *   withsecrets npm run rank '--' "any question" --term embedMany,maxParallelCalls
+ *   withsecrets npm run rank '--' anc-01 --questions evals/questions-v7-hard-2.json
  *
  * Ids (q27) use the question text and its evidence from the eval set. Free-text queries use the evidence
  * of the first id given, or --term (comma-separated terms that must all appear in one chunk).
  * One embedding request for all queries, no LLM calls.
  */
-import { readFile } from 'node:fs/promises';
-import path from 'node:path';
 import pg from 'pg';
 import { DATABASE_URL } from '../src/config.js';
 import { embedTexts } from '../src/embedding.js';
+import { DEFAULT_QUESTIONS, argValue, loadQuestions, type Fact } from '../src/lib/questions.js';
 import { textSearch, vectorSearch, type Hit } from '../src/retrieval/search.js';
 
 const DEPTH = 50;
 const SHOW_TOP = 8;
-
-type Fact = string[];
-type Question = { id: string; question: string; evidence?: Fact[] };
 
 // Same rule as eval-retrieval.ts: a fact's terms must all appear in one chunk; "a|b" = either.
 const supports = (content: string, fact: Fact) =>
@@ -37,18 +34,18 @@ function evidenceRanks(hits: Hit[], facts: Fact[]): string {
 
 async function main() {
   const args = process.argv.slice(2);
-  const termIdx = args.indexOf('--term');
-  const termFact: Fact | null = termIdx === -1 ? null : (args[termIdx + 1] ?? '').split(',').filter(Boolean);
-  const rest = termIdx === -1 ? args : args.filter((_, i) => i !== termIdx && i !== termIdx + 1);
+  const term = argValue('--term', args);
+  const termFact: Fact | null = term === undefined ? null : term.split(',').filter(Boolean);
+  const questionsFile = argValue('--questions', args) ?? DEFAULT_QUESTIONS;
+  // Everything that isn't a flag or a flag's value is a question id or a free-text query.
+  const flagged = new Set(['--term', '--questions']);
+  const rest = args.filter((a, i) => !flagged.has(a) && !flagged.has(args[i - 1] ?? ''));
   if (rest.length === 0) {
-    console.error('Usage: npm run rank -- <q-id | "question"> ... [--term a,b]');
+    console.error('Usage: npm run rank -- <q-id | "question"> ... [--term a,b] [--questions file.json]');
     process.exit(1);
   }
 
-  const { questions } = JSON.parse(await readFile(path.resolve('evals/ai-sdk-evals.json'), 'utf8')) as {
-    questions: Question[];
-  };
-  const byId = new Map(questions.map((q) => [q.id, q]));
+  const byId = new Map((await loadQuestions(questionsFile)).map((q) => [q.id, q]));
 
   const firstId = rest.find((a) => byId.has(a));
   const defaultFacts: Fact[] = termFact ? [termFact] : (firstId ? byId.get(firstId)?.evidence : undefined) ?? [];

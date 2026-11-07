@@ -11,12 +11,13 @@
  * Then grade it with the same judge:
  *   withsecrets npm run eval:judge -- evals/runs/rag-<stamp>.json
  */
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import pg from 'pg';
 import { generateText } from 'ai';
 import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 import { runPool } from '../src/lib/pool.js';
+import { DEFAULT_QUESTIONS, argValue, loadQuestions, type EvalQuestion, type Fact } from '../src/lib/questions.js';
 import { DATABASE_URL, EMBEDDING } from '../src/config.js';
 import { RETRIEVAL, retrieveMany } from '../src/rag/retrieve.js';
 import { RAG_INSTRUCTIONS, buildPrompt, parseCitations } from '../src/rag/prompt.js';
@@ -29,17 +30,7 @@ const REASONING_MAX_TOKENS = GENERATION.reasoningMaxTokens;
 const MAX_OUTPUT_TOKENS = GENERATION.maxOutputTokens;
 const CONCURRENCY = 5;
 
-type Fact = string[];
-type Question = {
-  id: string;
-  category: string;
-  answerable: boolean;
-  question: string;
-  expected_answer: string[];
-  must_include: string[];
-  stale_signals: string[];
-  evidence?: Fact[];
-};
+type Question = EvalQuestion;
 
 type Status = 'pass' | 'fail' | 'truncated' | 'empty' | 'error' | 'unanswerable';
 
@@ -191,15 +182,10 @@ function summarize(results: RunResult[]) {
 }
 
 async function main() {
-  const qIdx = process.argv.indexOf('--questions');
-  const questionsFile = qIdx === -1 ? 'evals/ai-sdk-evals.json' : process.argv[qIdx + 1];
-  if (!questionsFile) throw new Error('--questions needs a path');
-  const { questions } = JSON.parse(await readFile(path.resolve(questionsFile), 'utf8')) as {
-    questions: Question[];
-  };
+  const questionsFile = argValue('--questions') ?? DEFAULT_QUESTIONS;
+  const questions = await loadQuestions(questionsFile);
 
-  const dryIdx = process.argv.indexOf('--dry');
-  const dryId = dryIdx === -1 ? null : process.argv[dryIdx + 1];
+  const dryId = argValue('--dry') ?? null;
   const selected = dryId ? questions.filter((q) => q.id === dryId) : questions;
   if (dryId && selected.length === 0) throw new Error(`No question with id ${dryId}`);
 

@@ -99,14 +99,15 @@ export function chatRoutes(deps: ChatDeps, { rateLimit }: ChatRouteOptions) {
             // Errors reach toUIMessageStream's onError (which logs them); skip streamText's default console log.
             onError: () => {},
             onEnd: (event) => {
-              const meta = event.providerMetadata as { openrouter?: { usage?: { cost?: number } } } | undefined;
+              // v7: event.usage covers all steps; provider metadata lives on finalStep.
+              const meta = event.finalStep.providerMetadata as { openrouter?: { usage?: { cost?: number } } } | undefined;
               request.log.info(
                 {
                   model: MODELS[modelKey],
                   retrievalMs,
                   durationMs: Date.now() - started,
-                  inputTokens: event.totalUsage.inputTokens,
-                  outputTokens: event.totalUsage.outputTokens,
+                  inputTokens: event.usage.inputTokens,
+                  outputTokens: event.usage.outputTokens,
                   costUsd: meta?.openrouter?.usage?.cost,
                   finishReason: event.finishReason,
                 },
